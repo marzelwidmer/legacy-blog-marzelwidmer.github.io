@@ -20,12 +20,13 @@ tags:
 We are going to use the CLI to create some projects. 
 You can, of course, use the web-ui or your IDE if you prefer. 
 Let’s create our projects first:
-~~~bash
+
+~~~ 
 oc login  
 oc new-project jenkins --display-name="Jenkins CI/CD"  
-oc new-project dev  --display-name="Development Environemnt"
-oc new-project test  --display-name="Testing Environemnt"    
-oc new-project prod  --display-name="Production Environemnt"    
+oc new-project dev --display-name="Development Environemnt"
+oc new-project test --display-name="Testing Environemnt"    
+oc new-project prod --display-name="Production Environemnt"    
 ~~~
 
 ## Install ImageStream
@@ -75,11 +76,11 @@ items:
 
 
 ## Create new Jenkins App with Persistent
-```bash
+``` 
 oc new-app jenkins-persistent --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi
 ```
 
 ## Print out Route
-```bash
+``` 
 oc get routes
 ```
