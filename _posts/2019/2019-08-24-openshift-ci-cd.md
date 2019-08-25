@@ -13,6 +13,9 @@ tags:
 ---
 
 
+![Pipeline-Multiproject-Example](/images/posts/2019/openshift-ci-cd/Pipeline-Multiproject-Example.png)
+
+
 ## Create Project
 We are going to use the CLI to create some projects. 
 You can, of course, use the web-ui or your IDE if you prefer. 
