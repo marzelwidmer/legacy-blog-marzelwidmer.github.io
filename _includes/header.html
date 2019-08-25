@@ -1,0 +1,22 @@
+<header class="row">
+  <div class="col-lg-8 col-lg-offset-2">
+    <h1 class="">Marcel Widmer</h1>
+    <p>
+      <span class="reserved">val</span> nickname = <span class="string">"{{ site.nick }}"</span>
+    </p>
+    <p>
+      println(<a href="https://{{ site.source_code.server }}/{{ site.source_code.nick }}" target="_blank"><span class="string">"https://{{ site.source_code.server }}/$nickname"</span></a>)
+    </p>
+    <p>
+      <span class="reserved">val</span> organisation = <span class="string">"{{ site.organisation }}"</span>
+    </p>
+    <p>
+      println(<a href="https://{{ site.source_code.server }}/{{ site.source_code.organisation }}" target="_blank"><span class="string">"https://{{ site.source_code.server }}/$organisation"</span></a>)
+    </p>
+    <p>
+      println(<a href="https://{{ site.blog.server }}" target="_self"><span class="string">"https://{{ site.blog.server }}"</span></a>)
+    </p>
+  </div>
+</header>
+
+{% include menu.html %}

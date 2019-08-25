@@ -1,0 +1,24 @@
+# Site settings
+title: "Marcel Widmer"
+bye_message: "Thx!"
+baseurl: "/"
+url: "https://marzelwidmer.github.io"
+disqus: marzelwidmer
+
+# Header settings
+nick: "marzelwidmer"
+organisation: "c3smonkey"
+mail:
+    domain: "marzelwidmer"
+    ext: "ch"
+source_code:
+    server: "github.com"
+    nick: "marzelwidmer"
+    organisation: "c3smonkey"
+blog:
+    server: "docs.marcelwidmer.org/blog/"
+fingerprint_key: "5E12 9ABC C2A9 564B C048  2DF9 D327 0D10 BC71 CF75"
+
+# Build settings
+markdown: kramdown
+permalink: /:categories/:title/
