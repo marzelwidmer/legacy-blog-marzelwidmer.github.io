@@ -20,14 +20,17 @@ tags:
 We are going to use the CLI to create some projects. 
 You can, of course, use the web-ui or your IDE if you prefer. 
 Let’s create our projects first:
-~~~ bash
+~~~bash
 oc login  
-oc new-project jenkins --display-name="Jenkins CI/CD"   
+oc new-project jenkins --display-name="Jenkins CI/CD"  
+oc new-project dev  --display-name="Development Environemnt"
+oc new-project test  --display-name="Testing Environemnt"    
+oc new-project prod  --display-name="Production Environemnt"    
 ~~~
 
 ## Install ImageStream
-Install Jenkins [ImageStream](https://docs.okd.io/latest/architecture/core_concepts/builds_and_image_streams.html) with [skopeo](https://github.com/containers/skopeo)
-and Maven slave.
+Install Jenkins [ImageStream](https://docs.okd.io/latest/architecture/core_concepts/builds_and_image_streams.html)
+with [skopeo](https://github.com/containers/skopeo) and Maven slave.
 
 ~~~ yml
 echo "apiVersion: v1
@@ -70,3 +73,13 @@ items:
     - type: ConfigChange" | oc create -f -
 ~~~
 
+
+## Create new Jenkins App with Persistent
+```bash
+oc new-app jenkins-persistent --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi
+```
+
+## Print out Route
+```bash
+oc get routes
+```
