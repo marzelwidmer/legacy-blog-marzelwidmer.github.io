@@ -8,6 +8,7 @@ disqus: marzelwidmer
 # Header settings
 nick: "marzelwidmer"
 organisation: "c3smonkey"
+twitterAccount: "marzelwidmer"
 mail:
     domain: "marzelwidmer"
     ext: "ch"
