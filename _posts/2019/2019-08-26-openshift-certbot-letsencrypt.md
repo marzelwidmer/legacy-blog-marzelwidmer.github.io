@@ -17,7 +17,7 @@ Let`s check first if there a certificate already for our domain [https://crt.sh/
 ![ImageStreams](/images/posts/2019/openshift-certbot-certificate/crt.png)
 
     
-## Check EPEL Reposittory
+## Check EPEL Repository
 Check if the ``epel.repo`` is enabled.
 ```bash
 vi /etc/yum.repos.d/epel.repo
