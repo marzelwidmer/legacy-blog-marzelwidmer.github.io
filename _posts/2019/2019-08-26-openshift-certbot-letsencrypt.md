@@ -116,3 +116,27 @@ After this command you see something like this
 
 ![certbot-result](/images/posts/2019/openshift-certbot-certificate/certbot-result.png)
 
+The certificate are located under ```/etc/letsencrypt/live/console.c3smonkey.ch/```
+``` 
+root@c3smonkey installcentos]# ls -lisa /etc/letsencrypt/live/console.c3smonkey.ch/
+total 12
+1258906 4 drwxr-xr-x. 2 root root 4096 Aug 26 21:06 .
+1258902 4 drwx------. 3 root root 4096 Aug 26 21:06 ..
+1258915 4 -rw-r--r--. 1 root root  692 Aug 26 21:06 README
+1258907 0 lrwxrwxrwx. 1 root root   44 Aug 26 21:06 cert.pem -> ../../archive/console.c3smonkey.ch/cert1.pem
+1258909 0 lrwxrwxrwx. 1 root root   45 Aug 26 21:06 chain.pem -> ../../archive/console.c3smonkey.ch/chain1.pem
+1258910 0 lrwxrwxrwx. 1 root root   49 Aug 26 21:06 fullchain.pem -> ../../archive/console.c3smonkey.ch/fullchain1.pem
+1258908 0 lrwxrwxrwx. 1 root root   47 Aug 26 21:06 privkey.pem -> ../../archive/console.c3smonkey.ch/privkey1.pem
+```
+
+Now we can scale up our route with `oc scale --replicas=1 dc router` and verify it with `oc get dc`
+``` 
+[root@c3smonkey]# oc scale --replicas=1 dc router
+deploymentconfig.apps.openshift.io/router scaled
+[root@c3smonkey]# oc get dc
+NAME               REVISION   DESIRED   CURRENT   TRIGGERED BY
+docker-registry    1          1         1         config
+registry-console   1          1         1         config
+router             1          1         1         config
+[root@c3smonkey installcentos]#
+```
