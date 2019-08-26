@@ -93,7 +93,7 @@ Lets install the `certbot` now with the `yum install certbot` command.
 Check if the DNS server is setup is correct. Important `*` ``CNAME`` is pointing to `apps.console` 
 We need this because whne we deploy new application this will create a URL under apps and the namespace.
    
-```composer log
+```bash
 *                420    IN      CNAME   apps.console
 @               1800    IN      A       95.216.193.150
 apps.console     300    IN      A       95.216.193.150
