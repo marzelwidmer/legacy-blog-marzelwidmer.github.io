@@ -252,6 +252,11 @@ Lets play the second playbook who will replace the certificate we just created.
 ```
 
 When it stuck and the API server don`t come back up just rerun the script.
+or run `playbooks/openshift-master/config.yml`
+
+``` 
+[root@c3smonkey installcentos]# ansible-playbook -i inventory.ini openshift-ansible/playbooks/openshift-master/config.yml
+```
 
 ![deploy_cluster-failed](/images/posts/2019/openshift-certbot-certificate/deploy_cluster-failed.png)
 
