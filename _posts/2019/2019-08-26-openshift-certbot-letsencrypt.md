@@ -253,7 +253,6 @@ Lets play the second playbook who will replace the certificate we just created.
 
 When it stuck and the API server don`t come back up just rerun the script.
 
-![deploy_cluster](/images/posts/2019/openshift-certbot-certificate/deploy_cluster.png)
 
 This will take a time dependence of your host.
 ![htop](/images/posts/2019/openshift-certbot-certificate/htop.png)
@@ -266,4 +265,8 @@ Now reboot the cluster with `shutdown -r now`
 
 Let us check the certificate [https://crt.sh/?q=c3smonkey.ch](https://crt.sh/?q=c3smonkey.ch)
 ![crt](/images/posts/2019/openshift-certbot-certificate/crt-lets-encrypt.png)
+
+Open a new tab and open the [https://console.c3smonkey.ch:8443/](https://console.c3smonkey.ch:8443/) to check if the certificate are installed successfully.
+
+
 
