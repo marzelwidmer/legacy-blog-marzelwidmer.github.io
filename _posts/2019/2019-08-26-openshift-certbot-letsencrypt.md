@@ -264,5 +264,6 @@ Now reboot the cluster with `shutdown -r now`
 [root@c3smonkey installcentos]# shutdown -r now
 ```
 
+Let us check the certificate [https://crt.sh/?q=c3smonkey.ch](https://crt.sh/?q=c3smonkey.ch)
 ![crt](/images/posts/2019/openshift-certbot-certificate/crt-lets-encrypt.png)
 
