@@ -165,7 +165,7 @@ and add all named certificates we created with the `certbot` command from before
 - apps.c3smonkey.ch
 - hawkular-metrics.apps.c3smonkey.ch
     
-``` 
+```play
 [root@c3smonkey ~]# vi installcentos/inventory.ini
 
 [OSEv3:children]
