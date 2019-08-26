@@ -17,13 +17,13 @@ Let`s check first if there a certificate already for our domain [https://crt.sh/
 ![ImageStreams](/images/posts/2019/openshift-certbot-certificate/crt.png)
 
     
-## Check EPEL Repository
+## Check EPEL Reposittory
 Check if the ``epel.repo`` is enabled.
 ```bash
 vi /etc/yum.repos.d/epel.repo
 ```
 
-```bash
+```yaml
 [epel]
 name=Extra Packages for Enterprise Linux 7 - $basearch
 #baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch
@@ -84,3 +84,31 @@ docker-registry    1          1         1         config
 registry-console   1          1         1         config
 router             1          0         0         config
 ```
+
+Lets install the `certbot` now with the `yum install certbot` command.
+```bash
+[root@c3smonkey ~]# yum install certbot
+```
+
+Check if the DNS server is setup is correct. Important `*` ``CNAME`` is pointing to `apps.console` 
+We need this because whne we deploy new application this will create a URL under apps and the namespace.
+   
+```composer log
+*                420    IN      CNAME   apps.console
+@               1800    IN      A       95.216.193.150
+apps.console     300    IN      A       95.216.193.150
+console          300    IN      A       95.216.193.150
+```
+
+Here you can verify the domain names [dnschecker.org](https://dnschecker.org/#A/c3smonkey.ch)
+
+```bash
+[root@c3smonkey ~]# certbot certonly  --server https://acme-v02.api.letsencrypt.org/directory --standalone \
+    -d jenkins-jenkins.apps.c3smonkey.ch \
+    -d console.c3smonkey.ch \
+    -d c3smonkey.ch \
+    -d grafana-openshift-monitoring.apps.c3smonkey.ch \
+    -d apps.c3smonkey.ch \
+    -d hawkular-metrics.apps.c3smonkey.ch
+```
+
