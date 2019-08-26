@@ -14,7 +14,7 @@ tags:
 ## Check Certificate
 Let`s check first if there a certificate already for our domain [https://crt.sh/?q=c3smonkey.ch](https://crt.sh/?q=c3smonkey.ch) 
 
-![ImageStreams](/images/posts/2019/openshift-certbot-certificate/crt.png)
+![crt](/images/posts/2019/openshift-certbot-certificate/crt.png)
 
     
 ## Check EPEL Reposittory
@@ -105,11 +105,14 @@ Here you can verify the domain names [dnschecker.org](https://dnschecker.org/#A/
 ```
 [root@c3smonkey ~]# certbot certonly --server https://acme-v02.api.letsencrypt.org/directory \
     --standalone \
-    -d jenkins-jenkins.apps.c3smonkey.ch \
     -d console.c3smonkey.ch \
+    -d jenkins-jenkins.apps.c3smonkey.ch \
     -d c3smonkey.ch \
     -d grafana-openshift-monitoring.apps.c3smonkey.ch \
     -d apps.c3smonkey.ch \
     -d hawkular-metrics.apps.c3smonkey.ch
 ```
+After this command you see something like this
+
+![certbot-result](/images/posts/2019/openshift-certbot-certificate/certbot-result.png)
 
