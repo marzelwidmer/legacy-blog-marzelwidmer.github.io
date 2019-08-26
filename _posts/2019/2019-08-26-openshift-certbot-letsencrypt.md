@@ -23,7 +23,7 @@ Check if the ``epel.repo`` is enabled.
 vi /etc/yum.repos.d/epel.repo
 ```
 
-```yaml
+```bash
 [epel]
 name=Extra Packages for Enterprise Linux 7 - $basearch
 #baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch
@@ -53,7 +53,7 @@ You have access to the following projects and can switch between them with 'oc p
     jenkins
 ```
 Verify if you are in the ``default`` project namespace.
-```
+```bash
 [root@c3smonkey ~]# oc project
 Using project "default" on server "https://console.c3smonkey.ch:8443".
 ```
@@ -63,7 +63,7 @@ who are running already on the port ``80``.
 ### Search Router and scale it down.
 
 With the `oc get dc` we can check if the router is running.
-```
+```bash
 [root@c3smonkey ~]# oc get dc
 NAME               REVISION   DESIRED   CURRENT   TRIGGERED BY
 docker-registry    1          1         1         config
@@ -71,13 +71,13 @@ registry-console   1          1         1         config
 router             1          1         1         config
 ```
 Now we can scale it down with `oc scale --replicas=0 dc router`
-```
+```bash
 oc scale --replicas=0 dc router
 deploymentconfig.apps.openshift.io/router scaled
 ```
 Lets verify if the router not running before we install and run the ``certbot`` with the `oc get dc` command like before.
 
-```
+```bash
 [root@c3smonkey ~]# oc get dc
 NAME               REVISION   DESIRED   CURRENT   TRIGGERED BY
 docker-registry    1          1         1         config
