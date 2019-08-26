@@ -225,7 +225,7 @@ let us change the directory first and jump in the installation directory `cd ins
 [root@c3smonkey ~]# cd installcentos/
 ```
 
-Now let`s apply two ansible script but for this lets search the ansible scripts we need with `cat install-openshift.sh | grep ansible`
+Now let\`s apply two ansible script but for this lets search the ansible scripts we need with `cat install-openshift.sh | grep ansible`
 ``` 
 [root@c3smonkey installcentos]# cat install-openshift.sh | grep ansible
 curl -o ansible.rpm https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.6.5-1.el7.ans.noarch.rpm
