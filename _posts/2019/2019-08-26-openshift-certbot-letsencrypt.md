@@ -251,6 +251,12 @@ Lets play the second playbook who will replace the certificate we just created.
 [root@c3smonkey installcentos]# ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
 ```
 
+![deploy_cluster](/images/posts/2019/openshift-certbot-certificate/deploy_cluster.png)
+
+This will take a time dependence of your host.
+![htop](/images/posts/2019/openshift-certbot-certificate/htop.png)
+
+
 Now reboot the cluster with `shutdown -r now`
 ```
 [root@c3smonkey installcentos]# shutdown -r now
