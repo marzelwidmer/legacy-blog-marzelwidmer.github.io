@@ -1,7 +1,7 @@
 ---
 layout: post
 title:	"Openshift Certbot Let`s Encrypt"
-date:	2019-08-24 12:00:00
+date:	2019-08-26 12:00:00
 categories:
     - blog
 tags:
