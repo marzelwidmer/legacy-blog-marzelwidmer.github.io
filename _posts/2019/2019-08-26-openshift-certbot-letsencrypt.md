@@ -103,7 +103,8 @@ console          300    IN      A       95.216.193.150
 Here you can verify the domain names [dnschecker.org](https://dnschecker.org/#A/c3smonkey.ch)
 
 ```bash
-[root@c3smonkey ~]# certbot certonly  --server https://acme-v02.api.letsencrypt.org/directory --standalone \
+[root@c3smonkey ~]# certbot certonly --server https://acme-v02.api.letsencrypt.org/directory \
+    --standalone \
     -d jenkins-jenkins.apps.c3smonkey.ch \
     -d console.c3smonkey.ch \
     -d c3smonkey.ch \
