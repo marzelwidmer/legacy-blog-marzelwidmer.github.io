@@ -38,7 +38,7 @@ You will need to create a file called config in this directory. You may use the 
 
 ```
 marzel > ~  hcloud server create --name master.keepcalm.ch --type cx31 --image centos-7 --ssh-key k8s-monkey --datacenter hel1-dc2
-hcloud server create --name node1.keepcalm.ch --type cx11 --image centos-7 --ssh-key k8s-monkey --datacenter hel1-dc2
+hcloud server create --name node1.keepcalm.ch --type cx31 --image centos-7 --ssh-key k8s-monkey --datacenter hel1-dc2
 hcloud server create --name node2.keepcalm.ch --type cx11 --image centos-7 --ssh-key k8s-monkey --datacenter hel1-dc2
 ```
 
@@ -162,7 +162,7 @@ Host node2
 [origin@master ~]$ chmod 600 ~/.ssh/config
 ```
 
-transfer public-key to other nodes
+### Transfer public-key to other nodes
 ```
 [origin@master ~]$ ssh-copy-id node1
 /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/origin/.ssh/id_rsa.pub"
@@ -231,9 +231,50 @@ node1.keepcalm.ch openshift_node_group_name='node-config-compute'
 # node1.keepcalm.ch openshift_node_group_name='node-config-compute'
 # node2.keepcalm.ch openshift_node_group_name='node-config-infra'
 ```
-run Prerequisites Playbook
+
+
+Let``s update and upgrade first all tools we installed already because this can happen in errors sometimes.
+```bash
+[origin@master ~]$ sudo yum update & upgrade
+[origin@master ~]$ ssh node1
+[origin@node1 ~]$ sudo yum update & upgrade
+[origin@node1 ~]$ ssh node2
+[origin@node2 ~]$ sudo yum update & upgrade
+[origin@node2 ~]$ ssh master
+```
+
+### Prerequisites Playbook
 ``` 
 [origin@master ~]$ ansible-playbook /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml 
 ```
 
 ![prerequisites](/images/posts/2019/openshift-install/prerequisites.png)
+
+### Deploy Cluster Playbook
+``` 
+[origin@master ~]$ ansible-playbook /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml 
+```
+
+#### Troubleshooting
+
+![deploy-NetworkManager-problems](/images/posts/2019/openshift-install/deploy-NetworkManager-problems.png)
+
+Check NetworkManager on all notes.
+
+[NetworkManager](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-installing_networkmanager)
+
+```
+[origin@master ~]$ sudo yum install NetworkManager
+[origin@nod1 ~]$ sudo yum install NetworkManager
+[origin@nod2 ~]$ sudo yum install NetworkManager
+... 
+[root@node2 ~]# systemctl status NetworkManager
+● NetworkManager.service - Network Manager
+   Loaded: loaded (/usr/lib/systemd/system/NetworkManager.service; enabled; vendor preset: enabled)
+   Active: inactive (dead)
+     Docs: man:NetworkManager(8)
+...
+[root@node2 ~]# systemctl start NetworkManager
+[root@node2 ~]# systemctl enable NetworkManager
+```
+
