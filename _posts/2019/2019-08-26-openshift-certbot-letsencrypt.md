@@ -151,10 +151,11 @@ router             1          1         1         config
 Now we have to patch the installation `inventory.ini` file for this we will take the `vi`
 We will add the following section on the bottom of the file. 
 
-``` 
-openshift_master_overwrite_named_certificates=true
-openshift_master_named_certificates=[{"certfile": "/etc/letsencrypt/live/console.c3smonkey.ch/fullchain.pem", "keyfile": "/etc/letsencrypt/live/console.c3smonkey.ch/privkey.pem","names": ["c3smonkey.ch", "console.c3smonkey.ch", "jenkins-jenkins.apps.c3smonkey.ch", "grafana-openshift-monitoring.apps.c3smonkey.ch", "apps.c3smonkey.ch", "hawkular-metrics.apps.c3smonkey.ch"] }]
 ```
+openshift_master_overwrite_named_certificates=true
+openshift_master_named_certificates=[{"certfile": "/etc/letsencrypt/live/console.c3smonkey.ch/cert.pem", "keyfile": "/etc/letsencrypt/live/console.c3smonkey.ch/privkey.pem","names": ["c3smonkey.ch", "console.c3smonkey.ch", "jenkins-jenkins.apps.c3smonkey.ch", "grafana-openshift-monitoring.apps.c3smonkey.ch", "apps.c3smonkey.ch", "hawkular-metrics.apps.c3smonkey.ch"] }]
+```
+
 The meaning of this configuration is basically that we override the master cluster certificate with the flag `true` in `openshift_master_overwrite_named_certificates=true`
 and add all named certificates we created with the `certbot` command from before. 
 
@@ -164,62 +165,7 @@ and add all named certificates we created with the `certbot` command from before
 - grafana-openshift-monitoring.apps.c3smonkey.ch
 - apps.c3smonkey.ch
 - hawkular-metrics.apps.c3smonkey.ch
-    
-```play
-[root@c3smonkey ~]# vi installcentos/inventory.ini
-
-[OSEv3:children]
-masters
-nodes
-etcd
-
-[masters]
-95.216.193.150 openshift_ip=95.216.193.150 openshift_schedulable=true
-
-[etcd]
-95.216.193.150 openshift_ip=95.216.193.150
-
-[nodes]
-95.216.193.150 openshift_ip=95.216.193.150 openshift_schedulable=true openshift_node_group_name="node-config-all-in-one"
-
-[OSEv3:vars]
-openshift_additional_repos=[{'id': 'centos-paas', 'name': 'centos-paas', 'baseurl' :'https://buildlogs.centos.org/centos/7/paas/x86_64/openshift-origin311', 'gpgcheck' :'0', 'enabled' :'1'}]
-
-ansible_ssh_user=root
-enable_excluders=False
-enable_docker_excluder=False
-ansible_service_broker_install=False
-
-containerized=True
-os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant'
-openshift_disable_check=disk_availability,docker_storage,memory_availability,docker_image_availability
-
-deployment_type=origin
-openshift_deployment_type=origin
-
-template_service_broker_selector={"region":"infra"}
-openshift_metrics_image_version="v3.11"
-openshift_logging_image_version="v3.11"
-openshift_logging_elasticsearch_proxy_image_version="v1.0.0"
-openshift_logging_es_nodeselector={"node-role.kubernetes.io/infra":"true"}
-logging_elasticsearch_rollout_override=false
-osm_use_cockpit=true
-
-openshift_metrics_install_metrics=True
-openshift_logging_install_logging=False
-
-openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
-openshift_master_htpasswd_file='/etc/origin/master/htpasswd'
-
-openshift_public_hostname=console.c3smonkey.ch
-openshift_master_default_subdomain=apps.c3smonkey.ch
-openshift_master_api_port=8443
-openshift_master_console_port=8443
-
-openshift_master_overwrite_named_certificates=true
-openshift_master_named_certificates=[{"certfile": "/etc/letsencrypt/live/console.c3smonkey.ch/fullchain.pem", "keyfile": "/etc/letsencrypt/live/console.c3smonkey.ch/privkey.pem","names": ["c3smonkey.ch", "console.c3smonkey.ch", "jenkins-jenkins.apps.c3smonkey.ch", "grafana-openshift-monitoring.apps.c3smonkey.ch", "apps.c3smonkey.ch", "hawkular-metrics.apps.c3smonkey.ch"] }]
-```
-
+   
 let us change the directory first and jump in the installation directory `cd installcentos`
 ```
 [root@c3smonkey ~]# cd installcentos/
@@ -274,6 +220,29 @@ Let us check the certificate [https://crt.sh/?q=c3smonkey.ch](https://crt.sh/?q=
 ![crt](/images/posts/2019/openshift-certbot-certificate/crt-lets-encrypt.png)
 
 Open a new tab and open the [https://console.c3smonkey.ch:8443/](https://console.c3smonkey.ch:8443/) to check if the certificate are installed successfully.
+
+
+## Backup Certificates
+```bash
+scp root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/\*.pem ~/dev/c3smonkey/hetzner-okd-ansible/cert/
+```
+
+## Restore Certificates
+First create the following folder structure `/etc/letsencrypt/live/console.c3smonkey.ch/` on the remote host.
+```bash
+[root@c3smonkey ~]# mkdir -p /etc/letsencrypt/live/console.c3smonkey.ch/
+```
+
+Lets copy the files `cert.pem` `chain.pem` `fullchain.pem` `privkey.pem`to the folder from your local backup.
+```bash
+scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/cert.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
+scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/chain.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
+scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/fullchain.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
+scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/privkey.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
+```
+
+
+
 
 
 
