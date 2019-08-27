@@ -16,6 +16,9 @@ see: https://www.server-world.info/en/note?os=CentOS_7&p=openshift311&f=1
 Install OpenShift Origin which is the Open Source implementation of Red Hat OpenShift.
 This example is based on the environment like follows.
 
+```php
+
+
 -----------+-----------------------------+-----------------------------+------------
            |10.0.0.25                    |10.0.0.51                    |10.0.0.52
 +----------+---------------+      +----------+------------+      +----------+------------+
@@ -25,6 +28,7 @@ This example is based on the environment like follows.
 |     (Compute Node)       |      |                       |      |                       |
 +--------------------------+      +-----------------------+      +-----------------------+
 
+```
 
 ## Hetzner Cloud
 You will need an account at: [https://console.hetzner.cloud](https://console.hetzner.cloud)
