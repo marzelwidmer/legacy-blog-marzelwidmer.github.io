@@ -228,7 +228,7 @@ master.keepcalm.ch
 # [/usr/share/ansible/openshift-ansible/roles/openshift_facts/defaults/main.yml]
 master.keepcalm.ch openshift_node_group_name='node-config-master-infra'
 node1.keepcalm.ch openshift_node_group_name='node-config-compute'
-node1.keepcalm.ch openshift_node_group_name='node-config-compute'
+node2.keepcalm.ch openshift_node_group_name='node-config-compute'
 
 # if you'd like to separate Master node feature and Infra node feature, set like follows
 # master.keepcalm.ch openshift_node_group_name='node-config-master'
