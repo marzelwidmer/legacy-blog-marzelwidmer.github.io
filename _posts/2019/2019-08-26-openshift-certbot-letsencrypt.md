@@ -9,6 +9,7 @@ tags:
     - okd
     - letsencrypt
     - ssl
+    - hetzner
 ---
 
 ## Check Certificate

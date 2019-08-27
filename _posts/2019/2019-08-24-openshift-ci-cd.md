@@ -10,6 +10,7 @@ tags:
     - jenkins
     - pipeline
     - ci/cd
+    - hetzner
 ---
 
 
