@@ -23,10 +23,11 @@ github: marzelwidmer # Add your Github handle
 #pinterest: # Add your Pinterest handle
 
 # Newsletter
-mailchimp: # Add your MailChimp form identifier.
+#mailchimp: # Add your MailChimp form identifier.
+
 
 # Disqus
-discus_identifier: mr-brown # Add your discus identifier
+#discus_identifier: mr-brown # Add your discus identifier
 
 # Tracker
 analytics: # Google Analytics
