@@ -243,6 +243,7 @@ oc project production
 oc create dc myapp --image=docker-registry.default.svc:5000/development/myapp:promotePRD
 oc patch dc/myapp -p \
     '{"spec":{"template":{"spec":{"containers":[{"name":"default-container","imagePullPolicy":"Always"}]}}}}'
+oc expose service myapp --name=myapp
 ```
 
 
