@@ -1,28 +1,20 @@
-<header class="row">
-  <div class="col-lg-8 col-lg-offset-2">
-    <h1 class="">Marcel Widmer</h1>
-    <p><span class="reserved">fun</span> contact<span class="string">(){
-    </span></p>
-    <p>
-      <span class="reserved">&nbsp; val</span> nickname = <span class="string">"{{ site.nick }}"</span>
-    </p>
-    <p>
-      &nbsp; println(<a href="https://{{ site.source_code.server }}/{{ site.source_code.nick }}" target="_blank"><span class="string">"https://{{ site.source_code.server }}/$nickname"</span></a>)
-    </p>
-    <p>
-      <span class="reserved">&nbsp; val</span> organisation = <span class="string">"{{ site.organisation }}"</span>
-    </p>
-    <p>
-      &nbsp; println(<a href="https://{{ site.source_code.server }}/{{ site.source_code.organisation }}" target="_blank"><span class="string">"https://{{ site.source_code.server }}/$organisation"</span></a>)
-    </p>
-    <!--     <p>
-          <span class="reserved">&nbsp; val</span> twitterAccount = <span class="string">"{{ site.twitterAccount }}"</span>
-        </p>
-       <p>
-          &nbsp; println(<a href="https://twitter.com/{{site.twitterAccount}}" target="_blank"><span class="string">"https://twitter.com/$twitterAccount"</span></a>)
-        </p>-->
-    <p><span class="string">}</span></p>
+<header class="main-header">
+  <div class="wrapper">
+    <div class="header-flex">
+      <div class="menu-icon-container">
+        <span class="menu-icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+      </div>
+      <nav class="main-nav">
+        <span class="menu-icon-close"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <ul>
+          <li><a href="{{site.baseurl}}/">Blog</a></li>
+          <li><a href="{{site.baseurl}}/about">About</a></li>
+        </ul>
+      </nav>
+      <p class="logo"><a href="{{site.baseurl}}/">{{ site.author }}</a></p>
+      <div class="search-icon-container">
+        <span class="search-icon"><a><i class="fa fa-search" aria-hidden="true"></i></a></span>
+      </div>
+    </div>
   </div>
-</header>
-
-{% include menu.html %}
+</header> <!-- End Header -->
