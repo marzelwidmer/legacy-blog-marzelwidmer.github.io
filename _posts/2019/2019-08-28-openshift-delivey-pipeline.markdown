@@ -10,7 +10,7 @@ author: # Add name author (optional)
 
 
 
-![Pipeline-Multiproject-Example](/assets/img/2019/openshift/Pipeline-Multiproject-Example.png)
+![Pipeline-Multiproject-Example](/assets/img/2019/openshift/promotion_pipeline.png)
 
 
 ## Create Project
