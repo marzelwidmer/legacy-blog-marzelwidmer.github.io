@@ -79,7 +79,7 @@ items:
 ## Create new Jenkins App with Persistent
 Creating an Application From Source Code. `jenkins` is already available in the templates of `OKD`
 
-```bash
+``` 
 oc new-app jenkins-persistent --name jenkins --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi -n jenkins
 ```
 
