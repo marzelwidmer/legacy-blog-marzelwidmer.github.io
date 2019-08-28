@@ -24,10 +24,10 @@ Let’s create our projects first:
 
 ```
 oc login  
-oc new-project jenkins --display-name="Jenkins CI/CD"  
 oc new-project development --display-name="Development Environment"
 oc new-project testing --display-name="Testing Environment"    
 oc new-project production --display-name="Production Environment"    
+oc new-project jenkins --display-name="Jenkins CI/CD"  
 ```
 
 ## Install ImageStream
@@ -73,13 +73,14 @@ items:
     strategy:
       type: Docker
     triggers:
-    - type: ConfigChange" | oc create -f -
+    - type: ConfigChange" | oc create -f - -n jenkins
 ```
 
 ## Create new Jenkins App with Persistent
-Creating an Application From Source Code. `jenkins-persistent` is already available in the templates of `OKD`
+Creating an Application From Source Code. `jenkins` is already available in the templates of `OKD`
+
 ```bash
-oc new-app jenkins-persistent --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi
+oc new-app jenkins-persistent --name jenkins --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi -n jenkins
 ```
 
 ## Print out Route
@@ -87,3 +88,24 @@ With the following command we can get the URL for our Jenkins.
 ```bash 
 oc get routes
 ```
+
+### Clean Up Jenkins 
+#### Search all with selector `--selector app=jenkins`
+```
+oc get all --selector app=jenkins
+oc get all --selector app=jenkins-maven-slave
+```
+#### Delete jenkins with `--selector app=jenkins`
+```
+oc delete all --selector app=jenkins
+```
+#### Search jenkins ImageStream
+``` 
+oc get is -n jenkins
+```
+#### Delete jenkins ImageStream
+``` 
+oc delete is/jenkins -n jenkins
+```
+
+
