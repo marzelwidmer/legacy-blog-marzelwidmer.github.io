@@ -185,6 +185,8 @@ First we will allow the cicd project’s Jenkins service account edit access to 
 oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins  -n development
 oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins  -n testing
 oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins  -n production
+oc policy add-role-to-group system:image-puller system:serviceaccounts:testing -n development
+oc policy add-role-to-group system:image-puller system:serviceaccounts:production -n development
 ```
 
 
@@ -249,5 +251,7 @@ oc patch dc/myapp -p \
 oc start-build jenkins-pipeline -n jenkins
 ```
 
+![Pipeline-Prod-Deploy-Approval](/images/posts/2019/openshift-ci-cd/pipeline-prod-deploy-approval.png)
+![Pipeline-Prod-Deploy](/images/posts/2019/openshift-ci-cd/pipeline-prod-deploy.png)
 
 
