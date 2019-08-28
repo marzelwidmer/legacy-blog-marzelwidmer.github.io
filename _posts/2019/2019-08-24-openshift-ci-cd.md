@@ -95,7 +95,7 @@ oc create -n jenkins -f \
   https://raw.githubusercontent.com/devops-with-openshift/pipeline-configs/master/pipeline.yaml
 ```
 
-[jenkins-pipeline](/images/posts/2019/openshift-ci-cd/pipeline.yaml)
+[jenkins-pipeline](/images/posts/2019/openshift-ci-cd/pipeline.yaml){:target="_blank"}
  
 
 
