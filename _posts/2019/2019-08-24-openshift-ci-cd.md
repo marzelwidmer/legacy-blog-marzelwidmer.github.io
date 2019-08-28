@@ -83,72 +83,20 @@ Creating an Application From Source Code. `jenkins` is already available in the 
 oc new-app jenkins-persistent --name jenkins --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi -n jenkins
 ```
 
-## Print out Route
+## Get the Route (URL)
 With the following command we can get the URL for our Jenkins.
 ```bash 
 oc get routes
 ```
 
-```bash
-echo apiVersion: v1
-kind: BuildConfig
-metadata:
-  creationTimestamp: null
-  labels:
-    app: pipeline
-    name: pipeline
-  name: pipeline
-spec:
-  output: {}
-  postCommit: {}
-  resources: {}
-  runPolicy: Serial
-  source:
-    type: None
-  strategy:
-    jenkinsPipelineStrategy:
-      jenkinsfile: "node('maven') {\n  stage 'build & deploy in dev'\n  openshiftBuild(namespace:
-        'development',\n  \t\t\t    buildConfig: 'myapp',\n\t\t\t    showBuildLogs:
-        'true',\n\t\t\t    waitTime: '3000000')\n  \n  stage 'verify deploy in dev'\n
-        \ openshiftVerifyDeployment(namespace: 'development',\n\t\t\t\t       depCfg:
-        'myapp',\n\t\t\t\t       replicaCount:'1',\n\t\t\t\t       verifyReplicaCount:
-        'true',\n\t\t\t\t       waitTime: '300000')\n  \n  stage 'deploy in test'\n
-        \ openshiftTag(namespace: 'development',\n  \t\t\t  sourceStream: 'myapp',\n\t\t\t
-        \ sourceTag: 'latest',\n\t\t\t  destinationStream: 'myapp',\n\t\t\t  destinationTag:
-        'promoteQA')\n  \n  openshiftDeploy(namespace: 'testing',\n  \t\t\t     deploymentConfig:
-        'myapp',\n\t\t\t     waitTime: '300000')\n\n  openshiftScale(namespace: 'testing',\n
-        \ \t\t\t     deploymentConfig: 'myapp',\n\t\t\t     waitTime: '300000',\n\t\t\t
-        \    replicaCount: '2')\n  \n  stage 'verify deploy in test'\n  openshiftVerifyDeployment(namespace:
-        'testing',\n\t\t\t\t       depCfg: 'myapp',\n\t\t\t\t       replicaCount:'2',\n\t\t\t\t
-        \      verifyReplicaCount: 'true',\n\t\t\t\t       waitTime: '300000')\n  \n
-        \ stage 'Deploy to production'\n  timeout(time: 2, unit: 'DAYS') {\n      input
-        message: 'Approve to production?'\n }\n\n  openshiftTag(namespace:
-        'development',\n  \t\t\t  sourceStream: 'myapp',\n\t\t\t  sourceTag: 'promoteQA',\n\t\t\t
-        \ destinationStream: 'myapp',\n\t\t\t  destinationTag: 'promotePRD')\n\n  \n
-        \ openshiftDeploy(namespace: 'production',\n  \t\t\t     deploymentConfig:
-        'myapp',\n\t\t\t     waitTime: '300000')\n  \n  openshiftScale(namespace:
-        'production',\n  \t\t\t     deploymentConfig: 'myapp',\n\t\t\t     waitTime:
-        '300000',\n\t\t\t     replicaCount: '2')\n  \n  stage 'verify deploy in production'\n
-        \ openshiftVerifyDeployment(namespace: 'production',\n\t\t\t\t       depCfg:
-        'myapp',\n\t\t\t\t       replicaCount:'2',\n\t\t\t\t       verifyReplicaCount:
-        'true',\n\t\t\t\t       waitTime: '300000')\n}"
-    type: JenkinsPipeline
-  triggers:
-  - github:
-      secret: secret101
-    type: GitHub
-  - generic:
-      secret: secret101
-    type: Generic
-status:
-  lastVersion: 0 |  oc create -f - -n jenkins
+## Create Jenkins Pipeline
+``` 
+oc create -n jenkins -f \
+  https://raw.githubusercontent.com/devops-with-openshift/pipeline-configs/master/pipeline.yaml
 ```
 
-
-
-
-
-
+[jenkins-pipeline](/images/posts/2019/openshift-ci-cd/pipeline.yaml)
+ 
 
 
 ## Clean Up Jenkins 
