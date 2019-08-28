@@ -22,7 +22,7 @@ We are going to use the CLI to create some projects.
 You can, of course, use the web-ui or your IDE if you prefer. 
 Let’s create our projects first:
 
-```bash
+```
 oc login  
 oc new-project jenkins --display-name="Jenkins CI/CD"  
 oc new-project development --display-name="Development Environment"
