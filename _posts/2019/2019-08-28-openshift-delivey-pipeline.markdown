@@ -31,7 +31,7 @@ oc new-project jenkins \
 ```
 
 ## Install Jenkins 
-Let``s create a Jenkins in thje `Jenkins CI/CD` project with some storage. Take the Jenkins form the catalog and set some more memory and volume capacity on it.
+Create a Jenkins in thje `Jenkins CI/CD` project with some storage. Take the Jenkins form the catalog and set some more memory and volume capacity on it.
 Everything else we let the default values. 
 
 ![Jenkins-From-Catalog-1](/assets/img/2019/openshift/Jenkins-from-catalog-1.png)
@@ -149,7 +149,7 @@ oc policy add-role-to-group system:image-puller system:serviceaccounts:productio
 
 # Deploy
 ## Development
-Let``s deploy a sample application in the development project. 
+Deploy a sample application in the development project. 
 For this we change back to the development project with `oc project development`
 
 ```
@@ -167,7 +167,7 @@ Expose the application with the command `oc expose`
 oc expose service myapp --name=myapp
 ```
 
-Let``s see how the ImageStream look like with `oc get is -n development`
+Take a look at the ImageStream with `oc get is -n development`
 ```
 oc get is -n development
 
@@ -177,7 +177,7 @@ myapp   docker-registry.default.svc:5000/development/myapp   latest   3 minutes 
 
 ## Testing
 Change first to the testing project with `oc project testing`.
-Then let``s create a deployment configuration with `oc create dc myapp --image=docker-registry.default.svc:5000/development/myapp:promoteQA`
+Then create a deployment configuration with `oc create dc myapp --image=docker-registry.default.svc:5000/development/myapp:promoteQA`
 The registry URL we get from the step before. on this deployment configuration we will add the promote preprod tag. This is configured in out Jenkins pipeline.
 One change we need to make in testing is to update the imagePullPolicy for our container. 
 By default, it is set to IfNotPresent, but we wish to always trigger a deployment when we tag a new image:
@@ -188,7 +188,7 @@ oc patch dc/myapp -p \
     '{"spec":{"template":{"spec":{"containers":[{"name":"default-container","imagePullPolicy":"Always"}]}}}}'
 ```
 
-Let``s also create our service and route while we’re at it (be sure to change the host‐name to suit your environment):
+Create our service and route while we’re at it (be sure to change the host‐name to suit your environment):
 ``` 
 oc expose dc myapp --port=8080
 oc expose service myapp --name=myapp
