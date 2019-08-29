@@ -15,7 +15,7 @@ author: # Add name author (optional)
 
 ## Create Project
 We are going to use the CLI to create some projects. 
-You can, of course, use [console](https://console.c3smonkey.ch:8443/console/catalog){:target="_blank"} if you prefer. 
+You can, of course, use the [console](https://console.c3smonkey.ch:8443/console/catalog){:target="_blank"} if you prefer. 
 Let's create our projects first:
 
 ```
