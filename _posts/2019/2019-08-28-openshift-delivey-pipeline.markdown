@@ -31,7 +31,8 @@ oc new-project jenkins \
 ```
 
 ## Install Jenkins 
-You can create a Jenkins via Openshift Catalog in configure some more memory and volume capacity.
+Let``s create a Jenkins in thje `Jenkins CI/CD` project with some storage. Take the Jenkins form the catalog and set some more memory and volume capacity on it.
+Everything else we let the default values. 
 
 ![Jenkins-From-Catalog-1](/assets/img/2019/openshift/Jenkins-from-catalog-1.png)
 ![Jenkins-From-Catalog-2](/assets/img/2019/openshift/Jenkins-from-catalog-2.png)
@@ -53,7 +54,8 @@ oc get bc jenkins-pipeline -o yaml -n jenkins > jenkins-pipeline.yaml
 ```
 
 Here you see how the Jenkins pipeline is configured.
-
+There is also a other approach that you can configure a pipeline with a pipeline definition in you project.  
+This I will cover later.
 
 {% highlight groovy %}
 node('maven') {
@@ -135,12 +137,15 @@ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins \
     -n testing
 oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins \
     -n production
+```
+
+This are needed for pulling the Images across the projects.
+```
 oc policy add-role-to-group system:image-puller system:serviceaccounts:testing \
     -n development
 oc policy add-role-to-group system:image-puller system:serviceaccounts:production \
     -n development
 ```
-
 
 # Deploy
 ## Development
