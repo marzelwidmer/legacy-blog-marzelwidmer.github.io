@@ -3,20 +3,20 @@ layout: post
 title: Openshift Delivery Pipeline - Promoting Applications Across Environments
 date: 2019-08-27 22:52:20
 description: # Add post description (optional)
-img: 2019/openshift/delivey-pipeline.jpeg  # Add image post (optional)
+img: 2019/openshift-pipeline/delivey-pipeline.jpeg  # Add image post (optional)
 tags: [Blog, Jenkins, Openshift, OKD, CI/CD]
 author: # Add name author (optional)
 ---
 
 
 
-![Pipeline-Multiproject-Example](/assets/img/2019/openshift/promotion_pipeline.png)
+![Pipeline-Multiproject-Example](/assets/img/2019/openshift-pipeline/promotion_pipeline.png)
 
 
 ## Create Project
 We are going to use the CLI to create some projects. 
 You can, of course, use [console](https://console.c3smonkey.ch:8443/console/catalog){:target="_blank"} if you prefer. 
-Let’s create our projects first:
+Let's create our projects first:
 
 ```
 oc login  
@@ -34,9 +34,9 @@ oc new-project jenkins \
 Create a Jenkins in thje `Jenkins CI/CD` project with some storage. Take the Jenkins form the catalog and set some more memory and volume capacity on it.
 Everything else we let the default values. 
 
-![Jenkins-From-Catalog-1](/assets/img/2019/openshift/Jenkins-from-catalog-1.png)
-![Jenkins-From-Catalog-2](/assets/img/2019/openshift/Jenkins-from-catalog-2.png)
-![Jenkins-From-Catalog-3](/assets/img/2019/openshift/Jenkins-from-catalog-3.png)
+![Jenkins-From-Catalog-1](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-1.png)
+![Jenkins-From-Catalog-2](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-2.png)
+![Jenkins-From-Catalog-3](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-3.png)
 
  
  
@@ -46,7 +46,7 @@ oc create -n jenkins -f \
     https://docs.marcelwidmer.org/assets/img/2019/openshift/pipeline.yaml
 ```
 
-[jenkins-pipeline](/assets/img/2019/openshift/pipeline.yaml){:target="_blank"}
+[jenkins-pipeline](/assets/img/2019/openshift-pipeline/pipeline.yaml){:target="_blank"}
 
 With the following command you can extract the BuildConfig `bc`   
 ``` 
@@ -210,8 +210,8 @@ oc expose service myapp --name=myapp
 oc start-build jenkins-pipeline -n jenkins
 ```
 
-![Pipeline-Prod-Deploy-Approval](/assets/img/2019/openshift/pipeline-prod-deploy-approval.png)
-![Pipeline-Prod-Deploy](/assets/img/2019/openshift/pipeline-prod-deploy.png)
+![Pipeline-Prod-Deploy-Approval](/assets/img/2019/openshift-pipeline/pipeline-prod-deploy-approval.png)
+![Pipeline-Prod-Deploy](/assets/img/2019/openshift-pipeline/pipeline-prod-deploy.png)
 
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
