@@ -55,14 +55,35 @@ oc create \
 After the role is granted, switch back to a non-privileged user.
 
 
+# All-In-One
+The simplest possible way to create a Jaeger instance is by creating a YAML file like the following example. 
+This will install the default AllInOne strategy, which deploys the “all-in-one” image 
+(agent, collector, query, ingestor, Jaeger UI) in a single pod, using in-memory storage by default.
 
+Login in with privileged user `oc login -u <privileged user>`
+```
+echo "apiVersion: jaegertracing.io/v1                                                                                                                                      120ms  Sun Sep  1 10:19:08 2019
+  kind: Jaeger
+  metadata:
+    name: simplest" | oc create -f -
+```
+To get the pod name, query for the pods belonging to the `simplest` Jaeger instance:
+``` 
+oc get jaegers                                                                                                                                                             326ms  Sun Sep  1 10:19:21 2019
+NAME       AGE
+simplest   10s
+```
+To get the routes:
+```
+oc get routes                                                                                                                                                              357ms  Sun Sep  1 10:22:40 2019
 
-https://www.jaegertracing.io/docs/1.13/
-https://github.com/jaegertracing/jaeger-openshift 
-https://github.com/jaegertracing/jaeger-operator
+NAME       HOST/PORT                               PATH   SERVICES         PORT    TERMINATION   WILDCARD
+simplest   simplest-monitoring.apps.c3smonkey.ch          simplest-query   <all>   reencrypt     None
+```
 
+Open the Browser and login with your Openshift credentials.
 
-
+![Simples Jaeger Monitoring](/assets/img/2019/openshift-distributed-tracing-system/simplest-monitoring.png)
 
 
 
