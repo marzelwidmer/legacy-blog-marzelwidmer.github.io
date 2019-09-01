@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Openshift Certbot Let`s Encrypt
+title: Openshift - Certbot Let`s Encrypt
 date: 2019-08-20 22:52:20
 description: # Add post description (optional)
 img: 2019/openshift-certbot/security.jpg # Add image post (optional)

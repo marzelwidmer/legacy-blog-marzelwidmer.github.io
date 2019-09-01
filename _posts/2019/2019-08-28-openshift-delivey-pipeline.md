@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Openshift Delivery Pipeline - Promoting Applications Across Environments
+title: Openshift - Delivery Pipeline - Promoting Applications Across Environments
 date: 2019-08-27 22:52:20
 description: # Add post description (optional)
 img: 2019/openshift-pipeline/delivey-pipeline.jpeg  # Add image post (optional)
@@ -43,7 +43,7 @@ Everything else we let the default values.
 ## Create Jenkins Pipeline
 ``` 
 oc create -n jenkins -f \
-    https://docs.marcelwidmer.org/assets/img/2019/openshift/pipeline.yaml
+    https://blog.marcelwidmer.org/assets/img/2019/openshift-pipeline/pipeline.yaml
 ```
 
 [jenkins-pipeline](/assets/img/2019/openshift-pipeline/pipeline.yaml){:target="_blank"}
