@@ -20,11 +20,13 @@ Based on : [jaegertracing.io](https://www.jaegertracing.io/docs/1.13/operator/#i
 
 ## Installing the Operator on OKD/OpenShift
 Login in with privileged user `oc login -u <privileged user>` and create a `monitoring` project to install the operator.
+This creates the namespace used by default in the deployment files. If you want to install the Jaeger operator in a different namespace, 
+you must edit the deployment files to change `monitoring` to the desired namespace value.
 ``` 
 oc new-project monitoring
 ```
 
-Deploy [CustomResourceDefinition](/assets/img/2019/openshift-distributed-tracing-system/deploy/jaegertracing_v1_jaeger_crd.yaml){:target="_blank"}
+Deploy [CustomResourceDefinition](/assets/img/2019/openshift-distributed-tracing-system/deploy/jaegertracing_v1_jaeger_crd.yaml){:target="_blank"} for the `apiVersion: jaegertracing.io/v1`
 [ServiceAccount](/assets/img/2019/openshift-distributed-tracing-system/deploy/service_account.yaml){:target="_blank"} [ClusterRole](/assets/img/2019/openshift-distributed-tracing-system/deploy/role.yaml){:target="_blank"} 
 [ClusterRoleBinding](/assets/img/2019/openshift-distributed-tracing-system/deploy/role_binding.yaml){:target="_blank"} [Operator](/assets/img/2019/openshift-distributed-tracing-system/deploy/operator.yaml){:target="_blank"}
 
@@ -42,15 +44,23 @@ oc create -f \
 
 ```
 
+Grant the role `jaeger-operator` to users who should be able to install individual Jaeger instances. 
+The following example creates a role binding allowing the user `developer` to create Jaeger instances:
+``` 
+oc create \
+    rolebinding developer-jaeger-operator \
+    --role=jaeger-operator \
+    --user=developer
+```
+After the role is granted, switch back to a non-privileged user.
+
+
 
 
 https://www.jaegertracing.io/docs/1.13/
-
 https://github.com/jaegertracing/jaeger-openshift 
-
 https://github.com/jaegertracing/jaeger-operator
 
-https://www.cncf.io/wp-content/uploads/2018/01/CNCF_Webinar_Intro_Jaeger_v1.0_-_2018-01-16.pdf
 
 
 
