@@ -16,7 +16,8 @@ It is simply an orders of magnitude larger problem to network and debug a set of
 Jaeger is a open source, end-to-end distributed tracing Monitor and troubleshoot transactions in complex distributed systems.
 [CNCF Webinar Intro Jaeger](https://www.cncf.io/wp-content/uploads/2018/01/CNCF_Webinar_Intro_Jaeger_v1.0_-_2018-01-16.pdf){:target="_blank"}
 
-Based on : [jaegertracing.io](https://www.jaegertracing.io/docs/1.13/operator/#installing-the-operator-on-okd-openshift){:target="_blank"}
+> **_NOTE:_**  Installing the operator on OKD Openshift [jaegertracing.io](https://www.jaegertracing.io/docs/1.13/operator/#installing-the-operator-on-okd-openshift){:target="_blank"}
+
 
 ## Installing the Operator on OKD/OpenShift
 Login in with privileged user `oc login -u <privileged user>` and create a `monitoring` project to install the operator.
@@ -55,10 +56,16 @@ oc create \
 After the role is granted, switch back to a non-privileged user.
 
 
-# All-In-One
+# Quick Start - Deploying the AllInOne image
 The simplest possible way to create a Jaeger instance is by creating a YAML file like the following example. 
 This will install the default AllInOne strategy, which deploys the “all-in-one” image 
 (agent, collector, query, ingestor, Jaeger UI) in a single pod, using in-memory storage by default.
+
+
+> **_NOTE:_**  For Production installation take a look at the official [production-strategy](https://www.jaegertracing.io/docs/1.13/operator/#production-strategy) documentation.
+
+
+
 
 Login in with privileged user `oc login -u <privileged user>`
 ```
