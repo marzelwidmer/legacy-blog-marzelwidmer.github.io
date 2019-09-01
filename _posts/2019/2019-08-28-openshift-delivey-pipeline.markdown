@@ -163,13 +163,6 @@ oc new-app --name=myapp \
   openshift/php:5.6~https://github.com/c3smonkey/cotd.git#master
 ```
 
-Spring Boot Sample Application
-``` 
-oc new-app fabric8/s2i-java~https://github.com/marzelwidmer/spring-openshift.git#master; oc expose svc/spring-openshift; oc get route spring-openshift
-oc new-app fabric8/s2i-java~https://github.com/marzelwidmer/kotlin-reactive-demo.git; oc expose svc/kotlin-reactive-demo, oc get routes kotlin-reactive-demo
-```
-
-
 Expose the application with the command `oc expose`
 ```
 oc expose service myapp --name=myapp
