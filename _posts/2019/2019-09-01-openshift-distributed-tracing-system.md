@@ -61,10 +61,7 @@ The simplest possible way to create a Jaeger instance is by creating a YAML file
 This will install the default AllInOne strategy, which deploys the “all-in-one” image 
 (agent, collector, query, ingestor, Jaeger UI) in a single pod, using in-memory storage by default.
 
-
-> **_NOTE:_**  For Production installation take a look at the official [production-strategy](https://www.jaegertracing.io/docs/1.13/operator/#production-strategy) documentation.
-
-
+> ⚠️ **Production installation**: For Production installation take a look at the official [production-strategy](https://www.jaegertracing.io/docs/1.13/operator/#production-strategy) documentation.
 
 
 Login in with privileged user `oc login -u <privileged user>`
