@@ -54,7 +54,7 @@ oc get bc jenkins-pipeline -o yaml -n jenkins > jenkins-pipeline.yaml
 ```
 
 Here you see how the Jenkins pipeline is configured.
-There is also a other approach that you provide the [Jenkins](jenkins) file in your Git-Repository.  
+There is also a other approach that you provide the [Jenkins Pipeline](#jenkins-pipeline-in-git) file in your Git-Repository.  
 This I will cover later.
 
 {% highlight groovy %}
@@ -215,8 +215,49 @@ oc start-build jenkins-pipeline -n jenkins
 ![Pipeline-Prod-Deploy](/assets/img/2019/openshift-pipeline/pipeline-prod-deploy.png)
 
 
-## Jenkins File <a name"jenkins">
-Provide a Jenkins pipeline file in your Git repository.
+## Jenkins File <a name="jenkins-pipeline-in-git"></a>
+Provide a Jenkins pipeline file in your Git repository. For this you can create in our root directory a file named `Jenkinsfile` something like
+{% highlight groovy %}
+pipeline {
+  agent {
+    node {
+      label 'maven'
+    }
+  }
+  stages {
+    stage('Build') {
+      steps {
+        sh './mvnw clean install'
+      }
+    }
+    stage('DeployDev') {
+      steps {
+        echo 'Deploy to Dev'
+      }
+    }
+    stage('PromoteTest') {
+      steps {
+        echo 'Deploy to Test'
+      }
+    }
+    stage('PromoteProd') {
+      steps {
+        echo 'Deploy to Prod'
+      }
+    }
+  }
+}
+{% endhighlight %}
+
+So now let's create a `BuildConfig` for our `catalaog-service` with the following [catalog-service-jenkins-pipeline](/assets/img/2019/openshift-pipeline/catalog-service-pipeline.yaml){:target="_blank"} configuration.
+
+``` 
+oc create -n jenkins -f \
+    https://blog.marcelwidmer.org/assets/img/2019/openshift-pipeline/catalog-service-pipeline.yaml
+```
+
+
+
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
