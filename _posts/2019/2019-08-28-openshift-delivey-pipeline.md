@@ -256,7 +256,7 @@ oc create -n jenkins -f \
     https://blog.marcelwidmer.org/assets/img/2019/openshift-pipeline/catalog-service-pipeline.yaml
 ```
 
-When you go now in the OpenShift project you will something like this. You can start the pipeline on the UI or just with the `oc start`
+When you go now in the OpenShift project you will something like this. You can start the pipeline on the UI or just with the `oc start-build catalog-service-pipeline -n jenkins` command.
 
 ![Catalog Service Pipeline](/assets/img/2019/openshift-pipeline/catalog-service-pipeline-created.png)
 
