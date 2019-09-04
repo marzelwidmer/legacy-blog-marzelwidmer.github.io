@@ -262,6 +262,7 @@ When you go now in the OpenShift project you will something like this.
 
 You can start the pipeline on the UI or just with the `oc start-build catalog-service-pipeline -n jenkins` command.
 
+![Catalog Service Pipeline Success](/assets/img/2019/openshift-pipeline/catalog-service-pipeline-success.png)
 
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
