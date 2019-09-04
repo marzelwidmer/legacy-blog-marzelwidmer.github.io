@@ -3,9 +3,9 @@ kind: BuildConfig
 metadata:
   creationTimestamp: null
   labels:
-    app: catalaog-service-pipeline
-    name: catalaog-service-pipeline
-  name: catalaog-service-pipeline
+    app: catalog-service-pipeline
+    name: catalog-service-pipeline
+  name: catalog-service-pipeline
 spec:
   output: {}
   postCommit: {}
