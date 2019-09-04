@@ -53,9 +53,9 @@ With the following command you can extract the BuildConfig `bc`
 oc get bc jenkins-pipeline -o yaml -n jenkins > jenkins-pipeline.yaml
 ```
 
-Here you see how the Jenkins pipeline is configured.
-There is also a other approach that you provide the [Jenkins Pipeline](#jenkins-pipeline-in-git) file in your Git-Repository.  
-This I will cover later.
+Here you see how the Jenkins pipeline is configured. This is the Inline Jenkis File.
+There is also a other approach that you provide the [Jenkins File](#jenkins-pipeline-in-git) From Source Repository.  
+
 
 {% highlight groovy %}
 node('maven') {
@@ -215,7 +215,7 @@ oc start-build jenkins-pipeline -n jenkins
 ![Pipeline-Prod-Deploy](/assets/img/2019/openshift-pipeline/pipeline-prod-deploy.png)
 
 
-## Jenkins File <a name="jenkins-pipeline-in-git"></a>
+## Jenkins File From Source Repository <a name="jenkins-pipeline-in-git"></a>
 Provide a Jenkins pipeline file in your Git repository. For this you can create in our root directory a file named `Jenkinsfile` something like
 {% highlight groovy %}
 pipeline {
