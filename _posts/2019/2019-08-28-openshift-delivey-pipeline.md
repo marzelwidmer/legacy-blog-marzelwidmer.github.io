@@ -38,7 +38,7 @@ Everything else we let the default values.
 ![Jenkins-From-Catalog-2](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-2.png)
 ![Jenkins-From-Catalog-3](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-3.png)
 
- 
+[Jenkins BlueOcean](https://jenkins-jenkins.apps.c3smonkey.ch/blue/organizations/jenkins/)
  
 ## Create Jenkins Pipeline
 ``` 
