@@ -54,7 +54,7 @@ oc get bc jenkins-pipeline -o yaml -n jenkins > jenkins-pipeline.yaml
 ```
 
 Here you see how the Jenkins pipeline is configured.
-There is also a other approach that you can configure a pipeline with a pipeline definition in you project.  
+There is also a other approach that you provide the [Jenkins](jenkins) file in your Git-Repository.  
 This I will cover later.
 
 {% highlight groovy %}
@@ -214,6 +214,9 @@ oc start-build jenkins-pipeline -n jenkins
 ![Pipeline-Prod-Deploy-Approval](/assets/img/2019/openshift-pipeline/pipeline-prod-deploy-approval.png)
 ![Pipeline-Prod-Deploy](/assets/img/2019/openshift-pipeline/pipeline-prod-deploy.png)
 
+
+## Jenkins File <a name"jenkins">
+Provide a Jenkins pipeline file in your Git repository.
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
