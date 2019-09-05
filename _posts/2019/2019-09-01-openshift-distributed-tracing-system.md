@@ -31,16 +31,16 @@ Deploy [CustomResourceDefinition](/assets/img/2019/openshift-distributed-tracing
 [ServiceAccount](/assets/img/2019/openshift-distributed-tracing-system/deploy/service_account.yaml){:target="_blank"} [ClusterRole](/assets/img/2019/openshift-distributed-tracing-system/deploy/role.yaml){:target="_blank"} 
 [ClusterRoleBinding](/assets/img/2019/openshift-distributed-tracing-system/deploy/role_binding.yaml){:target="_blank"} [Operator](/assets/img/2019/openshift-distributed-tracing-system/deploy/operator.yaml){:target="_blank"}
 
-``` 
-oc create -f \
+```bash
+$ oc create -f \
     https://blog.marcelwidmer.org/assets/img/2019/openshift-distributed-tracing-system/deploy/jaegertracing_v1_jaeger_crd.yaml
-oc create -f \
+$ oc create -f \
     https://blog.marcelwidmer.org/assets/img/2019/openshift-distributed-tracing-system/deploy/service_account.yaml    
-oc create -f \
+$ oc create -f \
     https://blog.marcelwidmer.org/assets/img/2019/openshift-distributed-tracing-system/deploy/role.yaml    
-oc create -f \
+$ oc create -f \
     https://blog.marcelwidmer.org/assets/img/2019/openshift-distributed-tracing-system/deploy/role_binding.yaml    
-oc create -f \
+$ oc create -f \
     https://blog.marcelwidmer.org/assets/img/2019/openshift-distributed-tracing-system/deploy/operator.yaml    
 
 ```
@@ -65,21 +65,23 @@ This will install the default AllInOne strategy, which deploys the “all-in-one
 
 
 Login in with privileged user `oc login -u <privileged user>`
-```
+```yaml
 echo "apiVersion: jaegertracing.io/v1                                                                                                                                      120ms  Sun Sep  1 10:19:08 2019
   kind: Jaeger
   metadata:
     name: simplest" | oc create -f -
 ```
 To get the pod name, query for the pods belonging to the `simplest` Jaeger instance:
-``` 
-oc get jaegers                                                                                                                                                             326ms  Sun Sep  1 10:19:21 2019
+
+```bash
+$ oc get jaegers                                                                                                                                                             326ms  Sun Sep  1 10:19:21 2019
 NAME       AGE
 simplest   10s
 ```
+
 To get the routes:
-```
-oc get routes                                                                                                                                                              357ms  Sun Sep  1 10:22:40 2019
+```bash
+$ oc get routes                                                                                                                                                              357ms  Sun Sep  1 10:22:40 2019
 
 NAME       HOST/PORT                               PATH   SERVICES         PORT    TERMINATION   WILDCARD
 simplest   simplest-monitoring.apps.c3smonkey.ch          simplest-query   <all>   reencrypt     None
