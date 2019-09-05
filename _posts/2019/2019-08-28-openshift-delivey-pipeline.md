@@ -322,11 +322,10 @@ Events:	<none>
 At the moment we don't have any GitHub Hooks configured.
 
 
-## Reset GitHub WebHooks
-With the reset GitHub WebHooks and the WebHook this create a secret for us and configured a WebHook in our BuildConfig.
+## BuildConfig Triggers
+With the following command you can set GitHub WebHook trigger. This will create a secret for us and configured a WebHook in our BuildConfig.
 ```
 oc set triggers bc/catalog-service-pipeline --from-github 
-oc set triggers bc/catalog-service-pipeline --from-webhook 
 ```
 
 When we run again the `oc describe bc/catalog-service-pipeline` command we will see that we have a `bc` like below. 
@@ -349,9 +348,6 @@ Build Run Policy:	Serial
 Triggered by:		<none>
 Webhook GitHub:
 	URL:	https://console.c3smonkey.ch:8443/apis/build.openshift.io/v1/namespaces/jenkins/buildconfigs/catalog-service-pipeline/webhooks/<secret>/github
-Webhook Generic:
-	URL:		https://console.c3smonkey.ch:8443/apis/build.openshift.io/v1/namespaces/jenkins/buildconfigs/catalog-service-pipeline/webhooks/<secret>/generic
-	AllowEnv:	false
 Builds History Limit:
 	Successful:	5
 	Failed:		5
