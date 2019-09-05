@@ -30,8 +30,8 @@ author: # Add name author (optional)
 We are going to use the CLI to create some projects. 
 You can, of course, use the [console](https://console.c3smonkey.ch:8443/console/catalog){:target="_blank"} if you prefer. 
 Let's create our projects first:
-```
-oc login  
+```bash
+$ oc login  
 oc new-project development --display-name="Development Environment"
 oc new-project testing --display-name="Testing Environment"    
 oc new-project production --display-name="Production Environment"    
@@ -53,16 +53,16 @@ The pipeline [Jenkinsfile](https://raw.githubusercontent.com/marzelwidmer/catalo
 ## Add Edit Role To ServiceAccount Jenkins  <a name="AddEditRoleToServiceAccountJenkins"></a>
 Let’s add in RBAC to our projects to allow the different service accounts to build, pro‐ mote, and tag images.
 First we will allow the cicd project’s Jenkins service account edit access to all of our projects:
-```
-oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n development
+```bash
+$ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n development
 oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n testing
 oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n production
 ```
 
 ## Add Role To Group <a name="AddRoleToGroup"></a>
 That we can pull our image from `testing` and `production` environment from the `development` registry. This are needed for pulling the Images across the projects.
-```
-oc policy add-role-to-group system:image-puller system:serviceaccounts:testing  \
+```bash
+$ oc policy add-role-to-group system:image-puller system:serviceaccounts:testing  \
         -n development
 oc policy add-role-to-group system:image-puller system:serviceaccounts:production \
         -n development
@@ -73,19 +73,20 @@ Let's deploy first the application with the [S2i strategy](https://docs.openshif
 before we will create the delivery pipeline.
 ## Development Environment Deployment  <a name="DevelopmentEnvironmentDeployment"></a> 
 Let's change first the project to to development with the `oc project development` command.
-```
-oc project development
+
+```bash
+$ oc project development
 
 Now using project "development" on server "https://console.c3smonkey.ch:8443".```
 
-Creat a new app with `oc new-app`.
+Creat a new app with `oc new-app`
 ```
 
 We will use here the [fabric8/s2i-java](https://hub.docker.com/r/fabric8/s2i-java){:target="_blank"} to deploy our application and will point it to the master branch with the commant `oc new-app`
 We also want expose the service `oc expose svc/catalog-service` to get a URL with the command `oc get route catalog-service` we will see the URL on the terminal. 
 
-``` 
-oc new-app fabric8/s2i-java:latest-java11~https://github.com/marzelwidmer/catalog-service.git#master; oc expose svc/catalog-service; oc get route catalog-service
+```bash
+$ oc new-app fabric8/s2i-java:latest-java11~https://github.com/marzelwidmer/catalog-service.git#master; oc expose svc/catalog-service; oc get route catalog-service
 
 --> Found Docker image 6414174 (7 weeks old) from Docker Hub for "fabric8/s2i-java:latest-java11"
 
@@ -126,8 +127,9 @@ Now take a look in the OpenShift [console](https://console.c3smonkey.ch:8443/){:
 Let's take a look what the S2i crated for us. 
 This can be done with the following command `oc get all -n development --selector app=catalog-service`.
 
-``` 
-oc get all -n development --selector app=catalog-service                                  
+```bash
+$ oc get all -n development --selector app=catalog-service                                  
+
 NAME                          READY   STATUS    RESTARTS   AGE
 pod/catalog-service-1-2rv5r   1/1     Running   0          56m
 
@@ -160,7 +162,7 @@ route.route.openshift.io/catalog-service   catalog-service-development.apps.c3sm
 Now let's test the amazing `/api/v1/animals/rando` API from `catalog-service` by hitting the following Rest endpoint 50 times. 
 in a bash shell with the following command `for x in (seq 50); http "http://catalog-service-development.apps.c3smonkey.ch/api/v1/animals/random"; end`
 ```bash
-for x in (seq 50); \
+$ for x in (seq 50); \
      http "http://catalog-service-development.apps.c3smonkey.ch/api/v1/animals/random"; \
 end                                                                               
 
@@ -186,10 +188,6 @@ Content-Length: 7
 Content-Type: text/plain;charset=UTF-8
 Set-Cookie: 1e5e1500c4996e7978ef9efb67d863a1=1e12d12873c24c5c17782f3da537ed6a; path=/; HttpOnly
 ```
-
-
-
-
  
 ## Testing Environment Deployment <a name="TestingEnvironmentTesting"></a>
 Let's change first to the testing project with `oc project testing`. 
@@ -197,8 +195,9 @@ We remember tha we have in our setup only one docker registry from this registry
 The access is now available because we dit the [Add Role To Group](#AddRoleToGroup). Now let's take a look at the ImageStream in the project `development` with the
 following command `oc get is -n development` we will get the docker registry we need to create the a deployment configuration in the project `testing`. we are searching for the 
 `catalog-service` docker registry.
-``` 
-oc get is -n development
+
+```bash
+$ oc get is -n development
 NAME              DOCKER REPO                                                    TAGS            UPDATED
 catalog-service   docker-registry.default.svc:5000/development/catalog-service   latest          About an hour ago
 s2i-java          docker-registry.default.svc:5000/development/s2i-java          latest-java11   About an hour ago
@@ -206,29 +205,29 @@ s2i-java          docker-registry.default.svc:5000/development/s2i-java         
  
 Now let's create a deployment configuration for the `promoteQA` tag with `oc create dc catalog-service --image=docker-registry.default.svc:5000/development/catalog-service:promoteQA` 
 Our Jenkins pipeline is configured to interact with this tag to promote between the environments. 
-``` 
-oc create dc catalog-service --image=docker-registry.default.svc:5000/development/catalog-service:promoteQA
+```bash
+$ oc create dc catalog-service --image=docker-registry.default.svc:5000/development/catalog-service:promoteQA
 deploymentconfig.apps.openshift.io/catalog-service created
 ```
 
 Now we have to expose the 'dc/catalog-service' with the port `8080` who our Spring Boot App is running on.  
 This easy done with the `oc expose dc catalog-service --port=8080` command.
-``` 
-oc expose dc catalog-service --port=8080
+```bash
+$ oc expose dc catalog-service --port=8080
 service/catalog-service exposed
 ```
 
 Now also expose the service and get the route `oc expose service catalog-service --name=catalog-service; oc get route`
-``` 
-oc expose service catalog-service --name=catalog-service; oc get route
+```bash
+$ oc expose service catalog-service --name=catalog-service; oc get route
 route.route.openshift.io/catalog-service exposed
 NAME              HOST/PORT                                   PATH   SERVICES          PORT   TERMINATION   WILDCARD
 catalog-service   catalog-service-testing.apps.c3smonkey.ch          catalog-service   8080                 None
 ```
 
 We have to patch the `dc` `imagePullPolicy` form `IfNotPresent` to `Always` with `oc patch` command. The default is set to `IfNotPresent`, but we wish to always trigger a deployment when we tag a new image
-``` 
- oc patch dc/catalog-service  -p \
+```bash
+$ oc patch dc/catalog-service  -p \
       '{"spec":{"template":{"spec":{"containers":[{"name":"default-container","imagePullPolicy":"Always"}]}}}}'
 ```
 
@@ -237,8 +236,8 @@ We have to patch the `dc` `imagePullPolicy` form `IfNotPresent` to `Always` with
 The same we did on the [Testing Environment Deployment ](#TestingEnvironmentDeployment) we will make now on the production environment. 
 But we configure the promotion tag `promotePRD` in the deployment configuration.
 
-``` 
-oc project production
+```bash
+$ oc project production
 oc create dc catalog-service --image=docker-registry.default.svc:5000/development/catalog-service:promotePRD
 oc patch dc/catalog-service  -p \
      '{"spec":{"template":{"spec":{"containers":[{"name":"default-container","imagePullPolicy":"Always"}]}}}}'
@@ -253,8 +252,8 @@ oc expose svc/catalog-service
 So now let's create a `BuildConfig` for the `catalaog-service` with the following [catalog-service-jenkins-pipeline](/assets/img/2019/openshift-pipeline/catalog-service-pipeline.yaml){:target="_blank"} configuration
 in the Jenkins namespace (project) let's do it with `oc create -n jenkins -f https://blog.marcelwidmer.org/assets/img/2019/openshift-pipeline/catalog-service-pipeline.yaml`
 
-``` 
-oc create -n jenkins -f \
+```bash
+$ oc create -n jenkins -f \
     https://blog.marcelwidmer.org/assets/img/2019/openshift-pipeline/catalog-service-pipeline.yaml
 buildconfig.build.openshift.io/catalog-service-pipeline created
 ```
@@ -267,8 +266,8 @@ When you go now in the OpenShift [console](https://console.c3smonkey.ch:8443/con
 ### Run Jenkins Pipeline 
 Now is time to run the pipeline with the command `oc start-build catalog-service-pipeline -n jenkins` 
 
-```
-oc start-build catalog-service-pipeline -n jenkins
+```bash
+$ oc start-build catalog-service-pipeline -n jenkins
 build.build.openshift.io/catalog-service-pipeline-1 started
 ```
 
@@ -282,18 +281,17 @@ After the approve button in the pipeline to deploy to the production namespace.
 ![Catalog Service Pipeline success](/assets/img/2019/openshift-pipeline/catalog-service-pipeline-success.png)
 
 
-
 ## WebHooks <a name="WebHooks"></a>
 Now let's creat a WebHook. So when we push something in our `catalog-service` the pipeline start run. 
 Change first to the `jenkins` project again with `oc project jenkins`
-```
-oc project jenkins
+```bash
+$ oc project jenkins
 Now using project "jenkins" on server "https://console.c3smonkey.ch:8443"
 ```
 
 Now check the `Buildconfig` with `oc describe bc/catalog-service-pipeline`
-``` 
-oc describe bc/catalog-service-pipeline                                                                                                                                               
+```bash
+$ oc describe bc/catalog-service-pipeline                                                                                                                                               
 Name:		catalog-service-pipeline
 Namespace:	jenkins
 Created:	2 hours ago
@@ -324,13 +322,13 @@ At the moment we don't have any GitHub Hooks configured.
 
 ## BuildConfig Triggers
 With the following command you can set GitHub WebHook trigger. This will create a secret for us and configured a WebHook in our BuildConfig.
-```
-oc set triggers bc/catalog-service-pipeline --from-github 
+```bash
+$ oc set triggers bc/catalog-service-pipeline --from-github 
 ```
 
 When we run again the `oc describe bc/catalog-service-pipeline` command we will see that we have a `bc` like below. 
-``` 
-oc describe bc/catalog-service-pipeline                                                                                                                                             
+```bash
+$ oc describe bc/catalog-service-pipeline                                                                                                                                             
 Name:		catalog-service-pipeline
 Namespace:	jenkins
 Created:	2 hours ago
@@ -364,8 +362,8 @@ https://console.c3smonkey.ch:8443/apis/build.openshift.io/v1/namespaces/jenkins/
 ```
 
 To grab the `<secret>` we have to replace in the URL you can call the following command.   
-```
-oc get bc/catalog-service-pipeline -o json | jq '.spec.triggers[].github.secret'
+```bash
+$ oc get bc/catalog-service-pipeline -o json | jq '.spec.triggers[].github.secret'
 ```
 
 In your GitHub repository, select Add Webhook from Settings → Webhooks.

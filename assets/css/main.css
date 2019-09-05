@@ -1,6 +1,11 @@
-.highlight {background-color: #1e1c3f;padding: 7px 7px 7px 10px;overflow: auto;font-size: 90%;}
+.highlight {
+    background-color: #000000;
+    padding: 7px 7px 7px 10px;
+    overflow: auto;
+    font-size: 90%;
+}
+.highlighter-rouge {background-color: #FAFAFA;color: #FF554A;}
 
-/*.highlighter-rouge {background-color: #FAFAFA;color: #FF554A;}*/
 /*.highlight .hll {background-color: #ffc;}*/
 /*.highlight .c {color: #999;}  !* Comment *!*/
 /*.highlight .err {color: #a00;background-color: #faa;}  !* Error *!*/
