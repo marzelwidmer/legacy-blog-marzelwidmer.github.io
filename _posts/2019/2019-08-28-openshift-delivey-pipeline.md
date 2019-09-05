@@ -23,6 +23,7 @@ author: # Add name author (optional)
 * [Testing Environment Deployment](#TestingEnvironmentDeployment)
 * [Production Environment Deployment](#ProductionEnvironmentDeployment)
 * [Jenkins Pipeline](#Jenkins Pipeline)
+* [WebHooks](#Webhooks)
 
 
 ## Create Project  <a name="CreateProject"></a>
@@ -279,6 +280,113 @@ Now is time to approve the application and hit the
 After the approve button in the pipeline to deploy to the production namespace.
 
 ![Catalog Service Pipeline success](/assets/img/2019/openshift-pipeline/catalog-service-pipeline-success.png)
+
+
+
+## WebHooks <a name="WebHooks"></a>
+Now let's creat a WebHook. So when we push something in our `catalog-service` the pipeline start run. 
+Change first to the `jenkins` project again with `oc project jenkins`
+```
+oc project jenkins
+Now using project "jenkins" on server "https://console.c3smonkey.ch:8443"
+```
+
+Now check the `Buildconfig` with `oc describe bc/catalog-service-pipeline`
+``` 
+oc describe bc/catalog-service-pipeline                                                                                                                                               
+Name:		catalog-service-pipeline
+Namespace:	jenkins
+Created:	2 hours ago
+Labels:		app=catalog-service-pipeline
+		name=catalog-service-pipeline
+Annotations:	<none>
+Latest Version:	1
+
+Strategy:		JenkinsPipeline
+URL:			https://github.com/marzelwidmer/catalog-service.git
+Ref:			master
+Jenkinsfile path:	Jenkinsfile
+
+Build Run Policy:	Serial
+Triggered by:		<none>
+Builds History Limit:
+	Successful:	5
+	Failed:		5
+
+Build				Status		Duration	Creation Time
+catalog-service-pipeline-1 	complete 	8m12s 		2019-09-05 13:54:18 +0200 CEST
+
+Events:	<none>
+```
+
+At the moment we don't have any GitHub Hooks configured.
+
+
+## Reset GitHub WebHooks
+With the reset GitHub WebHooks and the WebHook this create a secret for us and configured a WebHook in our BuildConfig.
+```
+oc set triggers bc/catalog-service-pipeline --from-github 
+oc set triggers bc/catalog-service-pipeline --from-webhook 
+```
+
+When we runn again the `oc describe bc/catalog-service-pipeline` command we will see that we have a `bc` like below. 
+``` 
+oc describe bc/catalog-service-pipeline                                                                                                                                             
+Name:		catalog-service-pipeline
+Namespace:	jenkins
+Created:	2 hours ago
+Labels:		app=catalog-service-pipeline
+		name=catalog-service-pipeline
+Annotations:	<none>
+Latest Version:	1
+
+Strategy:		JenkinsPipeline
+URL:			https://github.com/marzelwidmer/catalog-service.git
+Ref:			master
+Jenkinsfile path:	Jenkinsfile
+
+Build Run Policy:	Serial
+Triggered by:		<none>
+Webhook GitHub:
+	URL:	https://console.c3smonkey.ch:8443/apis/build.openshift.io/v1/namespaces/jenkins/buildconfigs/catalog-service-pipeline/webhooks/<secret>/github
+Webhook Generic:
+	URL:		https://console.c3smonkey.ch:8443/apis/build.openshift.io/v1/namespaces/jenkins/buildconfigs/catalog-service-pipeline/webhooks/<secret>/generic
+	AllowEnv:	false
+Builds History Limit:
+	Successful:	5
+	Failed:		5
+
+Build				Status		Duration	Creation Time
+catalog-service-pipeline-1 	complete 	8m12s 		2019-09-05 13:54:18 +0200 CEST
+
+Events:	<none>
+```
+
+> **_Note:_** The URL <secret> we will replace with a secret. This is just an place holder in the URL.
+``` 
+https://console.c3smonkey.ch:8443/apis/build.openshift.io/v1/namespaces/jenkins/buildconfigs/catalog-service-pipeline/webhooks/<secret>/github
+```
+
+To grab the `<secret>` we have to replace in the URL you can call the following command.   
+```
+oc get bc/catalog-service-pipeline -o json | jq '.spec.triggers[].github.secret'
+```
+
+In your GitHub repository, select Add Webhook from Settings → Webhooks.
+Paste the URL output (similar to above) into the Payload URL field.
+
+> **_Hint:_** `SSL Disable (not recommended)` if your cluster don't have a valid SSL certificate.
+```
+SSL verification
+ By default, we verify SSL certificates when delivering payloads.
+```
+
+![Add GitHub WebHook](/assets/img/2019/openshift-pipeline/Add-GitHub-WebHook.png)
+
+> **_Note:_**  This is a cheap Delivery  Pipeline . We have a multi Maven project so we create for every service a WebHook.
+
+ 
+![GitHub WebHooks](/assets/img/2019/openshift-pipeline/GitHub-WebHooks.png)
 
 
 
