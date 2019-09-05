@@ -329,7 +329,7 @@ oc set triggers bc/catalog-service-pipeline --from-github
 oc set triggers bc/catalog-service-pipeline --from-webhook 
 ```
 
-When we runn again the `oc describe bc/catalog-service-pipeline` command we will see that we have a `bc` like below. 
+When we run again the `oc describe bc/catalog-service-pipeline` command we will see that we have a `bc` like below. 
 ``` 
 oc describe bc/catalog-service-pipeline                                                                                                                                             
 Name:		catalog-service-pipeline
@@ -382,8 +382,6 @@ SSL verification
 ```
 
 ![Add GitHub WebHook](/assets/img/2019/openshift-pipeline/Add-GitHub-WebHook.png)
-
-> **_Note:_**  This is a cheap Delivery  Pipeline . We have a multi Maven project so we create for every service a WebHook.
 
  
 ![GitHub WebHooks](/assets/img/2019/openshift-pipeline/GitHub-WebHooks.png)
