@@ -23,8 +23,8 @@ Jaeger is a open source, end-to-end distributed tracing Monitor and troubleshoot
 Login in with privileged user `oc login -u <privileged user>` and create a `monitoring` project to install the operator.
 This creates the namespace used by default in the deployment files. If you want to install the Jaeger operator in a different namespace, 
 you must edit the deployment files to change `monitoring` to the desired namespace value.
-``` 
-oc new-project monitoring
+```bash
+$ oc new-project monitoring
 ```
 
 Deploy [CustomResourceDefinition](/assets/img/2019/openshift-distributed-tracing-system/deploy/jaegertracing_v1_jaeger_crd.yaml){:target="_blank"} for the `apiVersion: jaegertracing.io/v1`
@@ -47,8 +47,8 @@ $ oc create -f \
 
 Grant the role `jaeger-operator` to users who should be able to install individual Jaeger instances. 
 The following example creates a role binding allowing the user `developer` to create Jaeger instances:
-``` 
-oc create \
+```bash 
+$ oc create \
     rolebinding developer-jaeger-operator \
     --role=jaeger-operator \
     --user=developer
