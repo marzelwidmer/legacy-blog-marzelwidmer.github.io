@@ -1,17 +1,33 @@
+
+
+
+/*.highlight {*/
+/*  background-color: #faf9f9;*/
+/*  -webkit-border-radius: 3px;*/
+/*          border-radius: 3px;*/
+/*  margin: 0;*/
+/*}*/
+
+/*.highlighter-rouge {*/
+/*  color: #23864D;*/
+/*  !*color: #87314e;*!*/
+/*  font-weight: 400;*/
+/*  border: 1px solid #607D8B;*/
+/*  -webkit-border-radius: 3px;*/
+/*          border-radius: 3px;*/
+/*  padding: 0.1rem 0.5rem;*/
+/*}*/
+
 .highlight {
-  background-color: #faf9f9;
-  -webkit-border-radius: 3px;
-          border-radius: 3px;
-  margin: 0;
+  background-color: #1e1c3f;
+  padding: 7px 7px 7px 10px;
+  overflow: auto;
+  font-size: 90%;
 }
 
 .highlighter-rouge {
-  color: #87314e;
-  font-weight: 400;
-  border: 1px solid #607D8B;
-  -webkit-border-radius: 3px;
-          border-radius: 3px;
-  padding: 0.1rem 0.5rem;
+  background-color: #FAFAFA;
+  color: #FF554A;
 }
 
 .highlight .hll {
@@ -463,13 +479,19 @@ strong {
  * 1. Correct the inheritance and scaling of font size in all browsers.
  * 2. Correct the odd `em` font sizing in all browsers.
  */
+/*code,*/
+/*kbd,*/
+/*samp {*/
+/*  font-family: monospace, monospace;*/
+/*  !* 1 *!*/
+/*  font-size: 1em;*/
+/*  !* 2 *!*/
+/*}*/
 code,
 kbd,
 samp {
-  font-family: monospace, monospace;
-  /* 1 */
-  font-size: 1em;
-  /* 2 */
+  font-family:'Bitstream Vera Sans Mono','Courier', monospace;
+  color: #d8d8d8;
 }
 
 /**
