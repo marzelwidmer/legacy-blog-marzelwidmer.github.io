@@ -32,10 +32,10 @@ You can, of course, use the [console](https://console.c3smonkey.ch:8443/console/
 Let's create our projects first:
 ```bash
 $ oc login  
-oc new-project development --display-name="Development Environment"
-oc new-project testing --display-name="Testing Environment"    
-oc new-project production --display-name="Production Environment"    
-oc new-project jenkins --display-name="Jenkins CI/CD"  
+$ oc new-project development --display-name="Development Environment"
+$ oc new-project testing --display-name="Testing Environment"    
+$ oc new-project production --display-name="Production Environment"    
+$ oc new-project jenkins --display-name="Jenkins CI/CD"  
 ```
 
 ## Install Jenkins   <a name="InstallJenkins"></a>
@@ -55,8 +55,8 @@ Let’s add in RBAC to our projects to allow the different service accounts to b
 First we will allow the cicd project’s Jenkins service account edit access to all of our projects:
 ```bash
 $ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n development
-oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n testing
-oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n production
+$ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n testing
+$ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n production
 ```
 
 ## Add Role To Group <a name="AddRoleToGroup"></a>
@@ -64,7 +64,7 @@ That we can pull our image from `testing` and `production` environment from the 
 ```bash
 $ oc policy add-role-to-group system:image-puller system:serviceaccounts:testing  \
         -n development
-oc policy add-role-to-group system:image-puller system:serviceaccounts:production \
+$ oc policy add-role-to-group system:image-puller system:serviceaccounts:production \
         -n development
 ```
 
@@ -154,7 +154,6 @@ imagestream.image.openshift.io/s2i-java          docker-registry.default.svc:500
 
 NAME                                       HOST/PORT                                       PATH   SERVICES          PORT       TERMINATION   WILDCARD
 route.route.openshift.io/catalog-service   catalog-service-development.apps.c3smonkey.ch          catalog-service   8080-tcp                 None
-~ 🐠
 ```
 
 
@@ -162,7 +161,8 @@ route.route.openshift.io/catalog-service   catalog-service-development.apps.c3sm
 Now let's test the amazing `/api/v1/animals/rando` API from `catalog-service` by hitting the following Rest endpoint 50 times. 
 in a bash shell with the following command `for x in (seq 50); http "http://catalog-service-development.apps.c3smonkey.ch/api/v1/animals/random"; end`
 ```bash
-$ for x in (seq 50); \
+$ ~ 🐠 
+for x in (seq 50); \
      http "http://catalog-service-development.apps.c3smonkey.ch/api/v1/animals/random"; \
 end                                                                               
 
@@ -238,14 +238,12 @@ But we configure the promotion tag `promotePRD` in the deployment configuration.
 
 ```bash
 $ oc project production
-oc create dc catalog-service --image=docker-registry.default.svc:5000/development/catalog-service:promotePRD
-oc patch dc/catalog-service  -p \
+$ oc create dc catalog-service --image=docker-registry.default.svc:5000/development/catalog-service:promotePRD
+$ oc patch dc/catalog-service  -p \
      '{"spec":{"template":{"spec":{"containers":[{"name":"default-container","imagePullPolicy":"Always"}]}}}}'
-oc expose dc catalog-service --port=8080
-oc expose svc/catalog-service
+$ oc expose dc catalog-service --port=8080
+$ oc expose svc/catalog-service
 ```
-
-
 
 ## Jenkins Pipeline  <a name="Jenkins Pipeline"></a>
 
