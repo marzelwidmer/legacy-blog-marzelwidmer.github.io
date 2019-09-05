@@ -355,9 +355,8 @@ Events:	<none>
 ```
 
 > **_Note:_** The URL <secret> we will replace with a secret. This is just an place holder in the URL.
-``` 
 https://console.c3smonkey.ch:8443/apis/build.openshift.io/v1/namespaces/jenkins/buildconfigs/catalog-service-pipeline/webhooks/<secret>/github
-```
+
 
 To grab the `<secret>` we have to replace in the URL you can call the following command.   
 ```bash
@@ -368,14 +367,11 @@ In your GitHub repository, select Add Webhook from Settings → Webhooks.
 Paste the URL output (similar to above) into the Payload URL field.
 
 > **_Hint:_** `SSL Disable (not recommended)` if your cluster don't have a valid SSL certificate.
-```
 SSL verification
  By default, we verify SSL certificates when delivering payloads.
-```
+
 
 ![Add GitHub WebHook](/assets/img/2019/openshift-pipeline/Add-GitHub-WebHook.png)
-
- 
 ![GitHub WebHooks](/assets/img/2019/openshift-pipeline/GitHub-WebHooks.png)
 
 
