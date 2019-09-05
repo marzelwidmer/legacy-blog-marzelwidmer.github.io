@@ -22,7 +22,7 @@ author: # Add name author (optional)
 * [Test API](#TestAPI)
 * [Testing Environment Deployment](#TestingEnvironmentDeployment)
 * [Production Environment Deployment](#ProductionEnvironmentDeployment)
-* [Jenkins Pipeline](#Jenkins Pipeline)
+* [Jenkins Pipeline](#JenkinsPipeline)
 * [WebHooks](#WebHooks)
 
 
@@ -189,7 +189,7 @@ Content-Type: text/plain;charset=UTF-8
 Set-Cookie: 1e5e1500c4996e7978ef9efb67d863a1=1e12d12873c24c5c17782f3da537ed6a; path=/; HttpOnly
 ```
  
-## Testing Environment Deployment <a name="TestingEnvironmentTesting"></a>
+## Testing Environment Deployment <a name="TestingEnvironmentDeployment"></a>
 Let's change first to the testing project with `oc project testing`. 
 We remember tha we have in our setup only one docker registry from this registry we want promote our Docker images to other projects in our OpenShift Cluster setup.
 The access is now available because we dit the [Add Role To Group](#AddRoleToGroup). Now let's take a look at the ImageStream in the project `development` with the
@@ -232,7 +232,7 @@ $ oc patch dc/catalog-service  -p \
 ```
 
 
-## Production Environment Deployment <a name="ProductionEnvironmentTesting"></a>
+## Production Environment Deployment <a name="ProductionEnvironmentDeployment"></a>
 The same we did on the [Testing Environment Deployment ](#TestingEnvironmentDeployment) we will make now on the production environment. 
 But we configure the promotion tag `promotePRD` in the deployment configuration.
 
@@ -245,7 +245,7 @@ $ oc expose dc catalog-service --port=8080
 $ oc expose svc/catalog-service
 ```
 
-## Jenkins Pipeline  <a name="Jenkins Pipeline"></a>
+## Jenkins Pipeline  <a name="JenkinsPipeline"></a>
 
 So now let's create a `BuildConfig` for the `catalaog-service` with the following [catalog-service-jenkins-pipeline](/assets/img/2019/openshift-pipeline/catalog-service-pipeline.yaml){:target="_blank"} configuration
 in the Jenkins namespace (project) let's do it with `oc create -n jenkins -f https://blog.marcelwidmer.org/assets/img/2019/openshift-pipeline/catalog-service-pipeline.yaml`
