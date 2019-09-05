@@ -65,8 +65,8 @@ This will install the default AllInOne strategy, which deploys the “all-in-one
 
 
 Login in with privileged user `oc login -u <privileged user>`
-```yaml
-echo "apiVersion: jaegertracing.io/v1                                                                                                                                      120ms  Sun Sep  1 10:19:08 2019
+```bash 
+$ echo "apiVersion: jaegertracing.io/v1                                                                                                                                      120ms  Sun Sep  1 10:19:08 2019
   kind: Jaeger
   metadata:
     name: simplest" | oc create -f -
