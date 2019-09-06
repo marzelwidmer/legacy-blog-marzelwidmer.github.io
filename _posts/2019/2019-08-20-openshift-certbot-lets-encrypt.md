@@ -62,7 +62,7 @@ who are running already on the port `80`.
 
 With the `oc get dc` we can check if the router is running.
 ```bash
-[root@c3smonkey ~]# oc get dc
+$ [root@c3smonkey ~]# oc get dc
 NAME               REVISION   DESIRED   CURRENT   TRIGGERED BY
 docker-registry    1          1         1         config
 registry-console   1          1         1         config
@@ -228,7 +228,7 @@ $ scp root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/\*.pem ~/dev/
 ## Restore Certificates
 First create the following folder structure `/etc/letsencrypt/live/console.c3smonkey.ch/` on the remote host.
 ```bash
-[root@c3smonkey ~]# mkdir -p /etc/letsencrypt/live/console.c3smonkey.ch/
+$ [root@c3smonkey ~]# mkdir -p /etc/letsencrypt/live/console.c3smonkey.ch/
 ```
 
 Lets copy the files `cert.pem` `chain.pem` `fullchain.pem` `privkey.pem`to the folder from your local backup.
