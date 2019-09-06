@@ -8,7 +8,6 @@ tags: [Blog, Jenkins, Openshift, OKD, CI/CD, Docker, Images, Container, Release,
 author: # Add name author (optional)
 ---
 
-![Docker](/assets/img/2019/openshift-pipeline-versioning/docker.jpg)
 
 
 
