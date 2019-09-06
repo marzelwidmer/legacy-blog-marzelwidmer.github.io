@@ -9,3 +9,11 @@ author: # Add name author (optional)
 ---
 
 ![Docker](/assets/img/2019/openshift-pipeline-versioning/docker.jpg)
+
+
+
+
+
+
+> **_References:_**  
+>   [Best Practices for Managing Docker Versions](https://www.youtube.com/watch?v=MqsG9-HEcTw) 
