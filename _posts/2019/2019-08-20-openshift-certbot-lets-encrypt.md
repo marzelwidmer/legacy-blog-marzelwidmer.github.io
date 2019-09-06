@@ -16,8 +16,8 @@ Let`s check first if there a certificate already for our domain [https://crt.sh/
     
 ## Check EPEL Reposittory
 Check if the `epel.repo` is enabled.
-```
-vi /etc/yum.repos.d/epel.repo
+```bash
+$vi /etc/yum.repos.d/epel.repo
 ```
 
 ```yaml
@@ -36,8 +36,8 @@ change `enabled=0` to `enabled=1` and quite and save the file with `:qw`
 
 ## Login to the Cluster 
 Login to the Cluster with the `oc login` command. Check if you are in the project `default` other wise change to the `default` project with `oc project default`
-```
-[root@c3smonkey ~]# oc login
+```bash
+$ [root@c3smonkey ~]# oc login
 Authentication required for https://console.c3smonkey.ch:8443 (openshift)
 Username: monkey
 Password: 
@@ -50,8 +50,9 @@ You have access to the following projects and can switch between them with 'oc p
     jenkins
 ```
 Verify if you are in the `default` project namespace.
-```
-[root@c3smonkey ~]# oc project
+
+```bash
+$ [root@c3smonkey ~]# oc project
 Using project "default" on server "https://console.c3smonkey.ch:8443".
 ```
 To create our certificate with `certbot` we take the temporary webserver approach. For this we have to scale done one `pod` on the cluster 
@@ -68,14 +69,14 @@ registry-console   1          1         1         config
 router             1          1         1         config
 ```
 Now we can scale it down with `oc scale --replicas=0 dc router`
-``` 
-oc scale --replicas=0 dc router
+```bash
+$ oc scale --replicas=0 dc router
 deploymentconfig.apps.openshift.io/router scaled
 ```
 Lets verify if the router not running before we install and run the `certbot` with the `oc get dc` command like before.
 
-``` 
-[root@c3smonkey ~]# oc get dc
+```bash
+$ [root@c3smonkey ~]# oc get dc
 NAME               REVISION   DESIRED   CURRENT   TRIGGERED BY
 docker-registry    1          1         1         config
 registry-console   1          1         1         config
@@ -83,14 +84,14 @@ router             1          0         0         config
 ```
 
 Lets install the `certbot` now with the `yum install certbot` command.
-``` 
-[root@c3smonkey ~]# yum install certbot
+```bash
+$ [root@c3smonkey ~]# yum install certbot
 ```
 
 Check if the DNS server is setup is correct. Important `*` `CNAME` is pointing to `apps.console` 
 We need this because whne we deploy new application this will create a URL under apps and the namespace.
    
-``` 
+```haml
 *                420    IN      CNAME   apps.console
 @               1800    IN      A       95.216.193.150
 apps.console     300    IN      A       95.216.193.150
@@ -106,8 +107,8 @@ Ok let`s create some certificate for the following domain names
 - apps.c3smonkey.ch
 - hawkular-metrics.apps.c3smonkey.ch
 
-```
-[root@c3smonkey ~]# certbot certonly --server https://acme-v02.api.letsencrypt.org/directory \
+```bash
+$ [root@c3smonkey ~]# certbot certonly --server https://acme-v02.api.letsencrypt.org/directory \
     --standalone \
     -d console.c3smonkey.ch \
     -d jenkins-jenkins.apps.c3smonkey.ch \
@@ -121,8 +122,8 @@ After this command you see something like this
 ![certbot-result](/assets/img/2019/openshift-certbot/certbot-result.png)
 
 The certificate are located under `/etc/letsencrypt/live/console.c3smonkey.ch/`
-``` 
-root@c3smonkey installcentos]# ls -lisa /etc/letsencrypt/live/console.c3smonkey.ch/
+```bash
+$ root@c3smonkey installcentos]# ls -lisa /etc/letsencrypt/live/console.c3smonkey.ch/
 total 12
 1258906 4 drwxr-xr-x. 2 root root 4096 Aug 26 21:06 .
 1258902 4 drwx------. 3 root root 4096 Aug 26 21:06 ..
@@ -134,8 +135,8 @@ total 12
 ```
 
 Now we can scale up our route with `oc scale --replicas=1 dc router` and verify it with `oc get dc`
-``` 
-[root@c3smonkey]# oc scale --replicas=1 dc router
+```bash
+$ [root@c3smonkey]# oc scale --replicas=1 dc router
 deploymentconfig.apps.openshift.io/router scaled
 [root@c3smonkey]# oc get dc
 NAME               REVISION   DESIRED   CURRENT   TRIGGERED BY
@@ -148,7 +149,7 @@ router             1          1         1         config
 Now we have to patch the installation `inventory.ini` file for this we will take the `vi`
 We will add the following section on the bottom of the file. 
 
-```
+```yaml
 openshift_master_overwrite_named_certificates=true
 openshift_master_named_certificates=[{"certfile": "/etc/letsencrypt/live/console.c3smonkey.ch/cert.pem", "keyfile": "/etc/letsencrypt/live/console.c3smonkey.ch/privkey.pem","names": ["c3smonkey.ch", "console.c3smonkey.ch", "jenkins-jenkins.apps.c3smonkey.ch", "grafana-openshift-monitoring.apps.c3smonkey.ch", "apps.c3smonkey.ch", "hawkular-metrics.apps.c3smonkey.ch"] }]
 ```
@@ -164,13 +165,13 @@ and add all named certificates we created with the `certbot` command from before
 - hawkular-metrics.apps.c3smonkey.ch
    
 let us change the directory first and jump in the installation directory `cd installcentos`
-```
-[root@c3smonkey ~]# cd installcentos/
+```bash
+$ [root@c3smonkey ~]# cd installcentos/
 ```
 
 Now let's apply two ansible script but for this lets search the ansible scripts we need with `cat install-openshift.sh | grep ansible`
-``` 
-[root@c3smonkey installcentos]# cat install-openshift.sh | grep ansible
+```bash
+$ [root@c3smonkey installcentos]# cat install-openshift.sh | grep ansible
 curl -o ansible.rpm https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.6.5-1.el7.ans.noarch.rpm
 yum -y --enablerepo=epel install ansible.rpm
 [ ! -d openshift-ansible ] && git clone https://github.com/openshift/openshift-ansible.git
@@ -182,23 +183,23 @@ ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
 ```
 
 The first one we will apply is the `prerequisites` playbook to check if everything is still good.
-``` 
-[root@c3smonkey installcentos]# ansible-playbook -i inventory.ini openshift-ansible/playbooks/prerequisites.yml
+```bash
+$ [root@c3smonkey installcentos]# ansible-playbook -i inventory.ini openshift-ansible/playbooks/prerequisites.yml
 ```
 
 ![prerequisites](/assets/img/2019/openshift-certbot/prerequisites.png)
 
 
 Lets play the second playbook who will replace the certificate we just created.
-``` 
-[root@c3smonkey installcentos]# ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
+```bash
+$ [root@c3smonkey installcentos]# ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
 ```
 
 When it stuck and the API server don't come back up just rerun the script.
 or run `playbooks/openshift-master/config.yml`
 
-``` 
-[root@c3smonkey installcentos]# ansible-playbook -i inventory.ini openshift-ansible/playbooks/openshift-master/config.yml
+```bash
+$ [root@c3smonkey installcentos]# ansible-playbook -i inventory.ini openshift-ansible/playbooks/openshift-master/config.yml
 ```
 
 ![deploy_cluster-failed](/assets/img/2019/openshift-certbot/deploy_cluster-failed.png)
@@ -209,8 +210,8 @@ This will take a time dependence of your host.
 
 
 Now reboot the cluster with `shutdown -r now`
-```
-[root@c3smonkey installcentos]# shutdown -r now
+```bash
+$ [root@c3smonkey installcentos]# shutdown -r now
 ```
 
 Let us check the certificate [https://crt.sh/?q=c3smonkey.ch](https://crt.sh/?q=c3smonkey.ch)
@@ -220,8 +221,8 @@ Open a new tab and open the [https://console.c3smonkey.ch:8443/](https://console
 
 
 ## Backup Certificates
-```
-scp root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/\*.pem ~/dev/c3smonkey/hetzner-okd-ansible/cert/
+```bash
+$ scp root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/\*.pem ~/dev/c3smonkey/hetzner-okd-ansible/cert/
 ```
 
 ## Restore Certificates
@@ -231,11 +232,11 @@ First create the following folder structure `/etc/letsencrypt/live/console.c3smo
 ```
 
 Lets copy the files `cert.pem` `chain.pem` `fullchain.pem` `privkey.pem`to the folder from your local backup.
-``` 
-scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/cert.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
-scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/chain.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
-scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/fullchain.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
-scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/privkey.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
+```bash
+$ scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/cert.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
+$ scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/chain.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
+$ scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/fullchain.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
+$ scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/privkey.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
 ```
 
 
