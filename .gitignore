@@ -48,3 +48,4 @@ _site
 # webstorm
 .idea
 .jekyll-cache
+/.jekyll-metadata
