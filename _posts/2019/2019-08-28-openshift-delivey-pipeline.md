@@ -77,7 +77,7 @@ Let's change first the project to to development with the `oc project developmen
 ```bash
 $ oc project development
 
-Now using project "development" on server "https://console.c3smonkey.ch:8443".```
+Now using project "development" on server "https://console.c3smonkey.ch:8443".
 
 Creat a new app with `oc new-app`
 ```
@@ -191,9 +191,9 @@ Set-Cookie: 1e5e1500c4996e7978ef9efb67d863a1=1e12d12873c24c5c17782f3da537ed6a; p
  
 ## Testing Environment Deployment <a name="TestingEnvironmentDeployment"></a>
 Let's change first to the testing project with `oc project testing`. 
-We remember tha we have in our setup only one docker registry from this registry we want promote our Docker images to other projects in our OpenShift Cluster setup.
-The access is now available because we dit the [Add Role To Group](#AddRoleToGroup). Now let's take a look at the ImageStream in the project `development` with the
-following command `oc get is -n development` we will get the docker registry we need to create the a deployment configuration in the project `testing`. we are searching for the 
+We remember that we have in our setup only one docker registry from this registry we want promote our Docker images to other projects in our OpenShift Cluster setup.
+The access is now available because we did the [Add Role To Group](#AddRoleToGroup). Now let's take a look at the ImageStream in the project `development` with the
+following command `oc get is -n development` we will get the docker registry we need to create the a deployment configuration in the project `testing`. We are searching for the 
 `catalog-service` docker registry.
 
 ```bash
@@ -210,7 +210,7 @@ $ oc create dc catalog-service --image=docker-registry.default.svc:5000/developm
 deploymentconfig.apps.openshift.io/catalog-service created
 ```
 
-Now we have to expose the 'dc/catalog-service' with the port `8080` who our Spring Boot App is running on.  
+Now we have to expose the `dc/catalog-service` with the port `8080` who our Spring Boot App is running on.  
 This easy done with the `oc expose dc catalog-service --port=8080` command.
 ```bash
 $ oc expose dc catalog-service --port=8080
@@ -225,7 +225,7 @@ NAME              HOST/PORT                                   PATH   SERVICES   
 catalog-service   catalog-service-testing.apps.c3smonkey.ch          catalog-service   8080                 None
 ```
 
-We have to patch the `dc` `imagePullPolicy` form `IfNotPresent` to `Always` with `oc patch` command. The default is set to `IfNotPresent`, but we wish to always trigger a deployment when we tag a new image
+We have to patch the `dc` `imagePullPolicy` from `IfNotPresent` to `Always` with `oc patch` command. The default is set to `IfNotPresent`, but we wish to always trigger a deployment when we tag a new image
 ```bash
 $ oc patch dc/catalog-service  -p \
       '{"spec":{"template":{"spec":{"containers":[{"name":"default-container","imagePullPolicy":"Always"}]}}}}'
@@ -233,7 +233,7 @@ $ oc patch dc/catalog-service  -p \
 
 
 ## Production Environment Deployment <a name="ProductionEnvironmentDeployment"></a>
-The same we did on the [Testing Environment Deployment ](#TestingEnvironmentDeployment) we will make now on the production environment. 
+The same what we did on the [Testing Environment Deployment ](#TestingEnvironmentDeployment) we also do now on the production environment. 
 But we configure the promotion tag `promotePRD` in the deployment configuration.
 
 ```bash
