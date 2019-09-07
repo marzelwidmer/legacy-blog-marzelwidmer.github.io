@@ -17,8 +17,7 @@ author: # Add name author (optional)
 
 
 ## Jenkins Pipeline  <a name="JenkinsPipeline"></a>
-Let's creat a Jenkins Pipeline for the `customer-service`.
-
+Let's creat a Jenkins Pipeline for the `customer-service` in the project `jenkins`.
 ```bash
 $ oc create -n jenkins -f \
     https://blog.marcelwidmer.org/assets/img/2019/openshift-pipeline-versioning/customer-service-pipeline.yaml
@@ -26,7 +25,21 @@ $ oc create -n jenkins -f \
 
 
 ## WebHooks <a name="WebHooks"></a>
-Here you can find how you creat a [WebHook](http://blog.marcelwidmer.org/openshift-delivey-pipeline/#WebHooks) to a public GitRepo. 
+How we can create a GitHub WebHook for a public Git repository take a look at the following post there we created already a  
+[WebHook](http://blog.marcelwidmer.org/openshift-delivey-pipeline/#WebHooks) for the `catalog-service` but here some `oc` commands
+for the `customer-service`.
+```bash
+$ oc set triggers bc/customer-service-pipeline --from-github  -n jenkins 
+  buildconfig.build.openshift.io/customer-service-pipeline triggers updated
+```
+Grab the `Secret`.
+```bash
+$ oc get bc/customer-service-pipeline -n jenkins -o json | jq '.spec.triggers[].github.secret'
+```
+Grab `Webhook GitHub URL`. 
+```bash
+$ oc describe bc/customer-service-pipeline -n jenkins
+```
 
 
 
