@@ -23,6 +23,31 @@ $ oc create -n jenkins -f \
     https://blog.marcelwidmer.org/assets/img/2019/openshift-pipeline-versioning/customer-service-pipeline.yaml
 ```
 
+Deploy application with the `maven.fabric8.io` plugin in  `development` stage.
+```bash
+$ mvn fabric8:deploy -Dfabric8.namespace=development
+```
+
+
+Create `DeploymentConfiguration` in `testing` stage.
+```bash
+$ oc create dc customer-service --image=docker-registry.default.svc:5000/development/customer-service:promoteQA -n testing
+$ oc patch dc/customer-service  -p \
+     '{"spec":{"template":{"spec":{"containers":[{"name":"default-container","imagePullPolicy":"Always"}]}}}}' -n testing
+$ oc expose dc customer-service -n testing --port=8080 
+$ oc expose svc/customer-service -n testing
+```
+
+Create `DeploymentConfiguration` in `production` stage.
+```bash
+$ oc create dc customer-service --image=docker-registry.default.svc:5000/development/customer-service:promotePRD -n production
+$ oc patch dc/customer-service  -p \
+     '{"spec":{"template":{"spec":{"containers":[{"name":"default-container","imagePullPolicy":"Always"}]}}}}' -n production
+$ oc expose dc customer-service -n production --port=8080
+$ oc expose svc/customer-service -n production
+```
+
+
 
 ## WebHooks <a name="WebHooks"></a>
 How we can create a GitHub WebHook for a public Git repository take a look at the following post there we created already a  
