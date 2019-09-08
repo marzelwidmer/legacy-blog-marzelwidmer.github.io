@@ -3,7 +3,7 @@ layout: post
 title: Openshift - Jenkins Maven Fabric8 Delivery Pipeline
 date: 2019-09-30
 description: # Add post description (optional)
-img: 2019/openshift-pipeline-versioning/docker2.jpg  # Add image post (optional)
+img: 2019/openshift-pipeline-versioning/docker2.png  # Add image post (optional)
 tags: [Blog, Jenkins, OpenShift, OKD, CI/CD, Docker, Images, Container, Release, Versioning, Tagging]
 author: # Add name author (optional)
 ---
