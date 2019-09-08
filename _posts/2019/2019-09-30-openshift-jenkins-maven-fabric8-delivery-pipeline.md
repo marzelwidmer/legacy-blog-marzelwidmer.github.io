@@ -1,33 +1,38 @@
 ---
 layout: post
-title: Openshift - Delivery Pipeline - Versioning - Tagging - Images
-date: 2019-09-07
+title: Openshift - Jenkins Maven Fabric8 Delivery Pipeline
+date: 2019-09-30
 description: # Add post description (optional)
-img: 2019/openshift-pipeline-versioning/docker.jpg  # Add image post (optional)
-tags: [Blog, Jenkins, Openshift, OKD, CI/CD, Docker, Images, Container, Release, Versioning, Tagging]
+img: 2019/openshift-pipeline-versioning/docker2.jpg  # Add image post (optional)
+tags: [Blog, Jenkins, OpenShift, OKD, CI/CD, Docker, Images, Container, Release, Versioning, Tagging]
 author: # Add name author (optional)
 ---
 
 
 # Table of contents
+* [Setup Deployment](#SetupDeployment)
 * [Jenkins Pipeline](#JenkinsPipeline)
 * [WebHooks](#WebHooks)
 
 
 
-
-## Jenkins Pipeline  <a name="JenkinsPipeline"></a>
-Let's creat a Jenkins Pipeline for the `customer-service` in the project `jenkins`.
+## Setup Deployment <a name="SetupDeployment"></a>
 ```bash
-$ oc create -n jenkins -f \
-    https://blog.marcelwidmer.org/assets/img/2019/openshift-pipeline-versioning/customer-service-pipeline.yaml
+$ oc new-project development --display-name="Development Environment"
 ```
 
-Deploy application with the `maven.fabric8.io` plugin in  `development` stage.
+Deploy application with the `maven.fabric8.io` plugin in  `development` stage from local machine.
 ```bash
 $ mvn fabric8:deploy -Dfabric8.namespace=development
 ```
 
+Create `testing` project and setup the roles.
+```bash
+$ oc new-project testing --display-name="Testing Environment" 
+$ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n testing
+$ oc policy add-role-to-group system:image-puller system:serviceaccounts:testing  \
+          -n development
+```
 
 Create `DeploymentConfiguration` in `testing` stage.
 ```bash
@@ -38,6 +43,13 @@ $ oc expose dc customer-service -n testing --port=8080
 $ oc expose svc/customer-service -n testing
 ```
 
+Create `production` project and setup the roles.
+```bash
+$ oc new-project production --display-name="Production Environment" 
+$ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n production
+$ oc policy add-role-to-group system:image-puller system:serviceaccounts:production  \
+          -n development
+```
 Create `DeploymentConfiguration` in `production` stage.
 ```bash
 $ oc create dc customer-service --image=docker-registry.default.svc:5000/development/customer-service:promotePRD -n production
@@ -48,6 +60,12 @@ $ oc expose svc/customer-service -n production
 ```
 
 
+## Jenkins Pipeline  <a name="JenkinsPipeline"></a>
+Let's creat a Jenkins Pipeline for the `customer-service` in the project `jenkins`.
+```bash
+$ oc create -n jenkins -f \
+    https://blog.marcelwidmer.org/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/customer-service-pipeline.yaml
+```
 
 ## WebHooks <a name="WebHooks"></a>
 How we can create a GitHub WebHook for a public Git repository take a look at the following post there we created already a  
