@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Openshift - Jenkins Maven Fabric8 Delivery Pipeline
+title: OpenShift - Jenkins Maven Fabric8 Delivery Pipeline
 date: 2019-09-08
 description: # Add post description (optional)
 img: 2019/openshift-jenkins-maven-fabric8-delivery-pipeline/Cargoship-Science-886357052.jpg  # Add image post (optional)

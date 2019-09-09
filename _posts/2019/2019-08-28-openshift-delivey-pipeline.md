@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Openshift - Delivery Pipeline - Promoting Applications Across Environments
+title: OpenShift - Delivery Pipeline - Promoting Applications Across Environments
 date: 2019-08-27
 description: # Add post description (optional)
 img: 2019/openshift-pipeline/delivey-pipeline.jpeg  # Add image post (optional)

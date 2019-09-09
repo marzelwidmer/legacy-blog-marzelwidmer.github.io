@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Openshift - Distributed Tracing System
+title: OpenShift - Distributed Tracing System
 date: 2019-09-01
 description: Distributed Tracing System # Add post description (optional)
 img: 2019/openshift-distributed-tracing-system/101010.jpg  # Add image post (optional)
