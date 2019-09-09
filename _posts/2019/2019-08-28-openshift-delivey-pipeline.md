@@ -10,11 +10,9 @@ author: # Add name author (optional)
 
 ![Pipeline-Multiproject-Example](/assets/img/2019/openshift-pipeline/promotion_pipeline.png)
 
-
 # Table of contents
-
 * [Create Project](#CreateProject)
-* [Install Jenkins](#InstallJenkins)
+* [Install Jenkins](#InstallJenkins) / [Install Jenkins With CLI](#InstallJenkinsWithCLID)
 * [Add Edit Role To ServiceAccount Jenkins](#AddEditRoleToServiceAccountJenkins)
 * [Add Role To Group](#AddRoleToGroup)
 * [Deploy Application](#DeployApplication)
@@ -46,7 +44,11 @@ After installation you can login with your Openshift account to the [Jenkins Blu
 ![Jenkins-From-Catalog-2](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-2.png)
 ![Jenkins-From-Catalog-3](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-3.png)
 
-  
+## Install Jenkins with CLI <a name="InstallJenkinsWithCLID"></a> 
+```bash
+$ oc new-app jenkins-persistent --name jenkins --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi -n jenkins
+``` 
+
 ### Jenkins File From Source Repository
 The pipeline [Jenkinsfile](https://raw.githubusercontent.com/marzelwidmer/catalog-service/master/Jenkinsfile){:target="_blank"} is provided in the source repository. 
 
