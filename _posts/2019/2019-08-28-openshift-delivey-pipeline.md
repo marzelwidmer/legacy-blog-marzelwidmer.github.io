@@ -8,8 +8,6 @@ tags: [Blog, Jenkins, OpenShift, OKD, CI/CD]
 author: # Add name author (optional)
 ---
 
-![Pipeline-Multiproject-Example](/assets/img/2019/openshift-pipeline/promotion_pipeline.png)
-
 # Table of contents
 * [Create Project](#CreateProject)
 * [Install Jenkins](#InstallJenkins) / [Install Jenkins With CLI](#InstallJenkinsWithCLID)
