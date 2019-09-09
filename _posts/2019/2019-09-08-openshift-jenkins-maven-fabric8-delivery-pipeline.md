@@ -16,7 +16,7 @@ author: # Add name author (optional)
 
 ## Setup Deployment <a name="SetupDeployment"></a>
 ```bash
-$ oc new-project development --display-name="Development Environment"
+$ oc new-project development --display-nam  e="Development Environment"
 ```
 
 Deploy application with the `maven.fabric8.io` plugin in  `development` stage from local machine.
@@ -71,7 +71,6 @@ How we can create a GitHub WebHook for a public Git repository take a look at th
 for the `customer-service`.
 ```bash
 $ oc set triggers bc/customer-service-pipeline --from-github  -n jenkins 
-  buildconfig.build.openshift.io/customer-service-pipeline triggers updated
 ```
 Grab the `Secret`.
 ```bash
