@@ -98,10 +98,6 @@ $ oc label secret user-at-github credential.sync.jenkins.openshift.io=true \
     -n jenkins
 $ oc set build-secret bc/customer-service-pipeline user-at-github --source
 ```
-set GITHUB_TOKEN <accesstoken>
-git remote add origin https://jenkins:$GITHUB_TOKEN@github.com/marzelwidmer/customer-service.git
-
-
 
 
 ![sync.jenkins](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/sync.jenkins.openshift.io.png)
@@ -115,20 +111,16 @@ git remote add origin https://jenkins:$GITHUB_TOKEN@github.com/marzelwidmer/cust
 >   [CI/CD - A/B - OpenShift - Jenkins](https://dzone.com/articles/continuous-delivery-with-openshift-and-jenkins-ab)
 >https://cookbook.openshift.org/building-and-deploying-from-source/how-can-i-build-from-a-private-repository-on-gitlab.html
 >https://blog.openshift.com/private-git-repositories-part-3-personal-access-tokens/
->
 >https://jenkins.io/blog/2018/05/16/pipelines-with-git-tags/
->
 >https://jgitver.github.io/#_goal
 >https://github.com/jgitver/jgitver-maven-plugin
 >https://codito.in/semantic-commits-for-git
 >https://github.com/fteem/git-semantic-commits
->
->
-> https://wiki.jenkins.io/display/JENKINS/semantic-versioning-plugin
->   https://wiki.jenkins.io/display/JENKINS/Git+Parameter+Plugin
->   https://gist.github.com/arehmandev/736daba40a3e1ef1fbe939c6674d7da8
->   https://wilsonmar.github.io/jenkins2-pipeline/
->   https://jenkins-jenkins.apps.c3smonkey.ch/job/jenkins/job/jenkins-customer-service-pipeline/pipeline-syntax/gdsl
+>https://wiki.jenkins.io/display/JENKINS/semantic-versioning-plugin
+>https://wiki.jenkins.io/display/JENKINS/Git+Parameter+Plugin
+>https://gist.github.com/arehmandev/736daba40a3e1ef1fbe939c6674d7da8
+>https://wilsonmar.github.io/jenkins2-pipeline/
+>https://jenkins-jenkins.apps.c3smonkey.ch/job/jenkins/job/jenkins-customer-service-pipeline/pipeline-syntax/gdsl
 
 
 
