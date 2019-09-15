@@ -192,7 +192,8 @@ _ci-semver.sh_ script.
 
 > 💡 ** jgitver **: [https://www.youtube.com/watch?v=mQmH_Ws9GFI](https://www.youtube.com/watch?v=mQmH_Ws9GFI){:target="_blank"}
 
-(4) This section will store our Junit test results in the Jenkins.
+(4) This section will store our _JUnit_ test results in the Jenkins.
+
 (5) Tag Git repository if needed.
 
 ```groovy
