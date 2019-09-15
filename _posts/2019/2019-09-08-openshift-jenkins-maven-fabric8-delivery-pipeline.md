@@ -83,6 +83,8 @@ $ oc describe bc/customer-service-pipeline -n jenkins
 ```
 
 ## Private Repository access with secrets
+Create a 'generic secret' link this secret with the 'builder'.
+Annotate and label it for the Jenkins sync PlugIn. And finally update the 'bc/customer-service-pipeline' with this secret.
 ```bash
 $ oc create secret generic user-at-github \
       --from-literal=username=machineuser \
@@ -98,7 +100,6 @@ $ oc label secret user-at-github credential.sync.jenkins.openshift.io=true \
     -n jenkins
 $ oc set build-secret bc/customer-service-pipeline user-at-github --source
 ```
-
 ![sync.jenkins](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/sync.jenkins.openshift.io.png)
 ![secret-at-github](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/secret-user-at-github.png)
 
