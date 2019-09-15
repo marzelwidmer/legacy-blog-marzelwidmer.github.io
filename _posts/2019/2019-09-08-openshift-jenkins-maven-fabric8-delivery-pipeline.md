@@ -105,9 +105,9 @@ $ oc set build-secret bc/customer-service-pipeline user-at-github --source
 
 ### Add Global Credentials for Semantic Release
 Used for tagging with semantic release pipeline. 
-Navigate in Jenkins to 'https://<jenkins-url>/credentials/store/system/domain/_/newCredentials' and add  a 'Global' Jenkins with your 'GITHUB-TOKEN'
+Navigate in Jenkins to `https://<jenkins-url>/credentials/store/system/domain/_/newCredentials` and add  a `Global` Jenkins with your `GITHUB-TOKEN`
 
-> ⚠️ **GitHub Token**: Create a AccesToken with 'repo,user' rights under your [GitHub Tokens Settings](https://github.com/settings/tokens) documentation.
+> ⚠️ **GitHub Token**: Create a AccessToken with `repo,user` rights under your [GitHub Tokens Settings](https://github.com/settings/tokens) documentation.
 
 
 ![jenkins-global-credentials](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/jenkinsGlobalCredentials.png)
