@@ -83,8 +83,8 @@ $ oc describe bc/customer-service-pipeline -n jenkins
 ```
 
 ## Private Repository access with secrets <a name="privateRepo"></a>
-Create a 'generic secret' link this secret with the 'builder'.
-Annotate and label it for the Jenkins sync PlugIn. And finally update the 'bc/customer-service-pipeline' with this secret.
+Create a `generic secret` link this secret with the `builder`.
+Annotate and label it for the Jenkins sync PlugIn. And finally update the `bc/customer-service-pipeline` with this secret.
 ```bash
 $ oc create secret generic user-at-github \
       --from-literal=username=machineuser \
