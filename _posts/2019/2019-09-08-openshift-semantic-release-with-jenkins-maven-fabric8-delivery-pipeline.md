@@ -151,7 +151,97 @@ Or at the deployed _customer-service_.
 [Customer Service Swagger](http://customer-service-production.apps.c3smonkey.ch/swagger-ui.html){:target="_blank"}
 ![customer-service-swagger.png](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/customer-service-swagger.png)
 
-  
+I know the above pipeline is a bit chatty because of this I explain my steps here a bit compromised in some pipeline steps. 
+Ok let's create a  _Jenkinsfile_ in your project repository I prefer to put the _Jenkinsfile_ in a folder _jenkins_.
+
+First we configure a _Maven Slave_ for this we configure the _agent node_ with the laben `maven` because our porject is a Maven project.
+```groovy
+pipeline {
+    // Agent Maven
+    agent {
+        node {
+            label 'maven'
+        }
+    }
+}
+```
+
+Now lets define some _environment_ variables we can parameterize the pipeline also for other projects later.
+```groovy
+    // Environment
+    environment {
+        REPOSITORY = "github.com/marzelwidmer/customer-service.git"
+        GIT_TAG_MESSAGE = 'ci-release-bot'
+        GIT_TAG_USER_EMAIL =  "jenkins@c3smonkey.ch"
+        GIT_TAG_USER_NAME = "Jenkins"
+        NEXT_VERSION = '0.0.0'
+        DEV_ENVIRONMENT = 'development'
+        TEST_ENVIRONMENT = 'testing'
+        PROD_ENVIRONMENT = 'production'
+        APP_NAME = 'customer-service'
+    }
+```
+
+
+```groovy
+    // Stages
+    stages {
+        // Setup
+        stage('build and test application') {
+            steps {
+                script {
+                    // Last Git commit
+                    LAST_GIT_COMMIT = sh(
+                            script: 'git --no-pager show -s --format=\'%Cblue %h %Creset %s %Cgreen %an %Creset (%ae)\'',
+                            returnStdout: true
+                    ).trim()
+                    echo "Last Git commit: ${LAST_GIT_COMMIT}"
+                    sh '''
+                        echo download ci-semver.sh script from remote repository
+                        curl https://raw.githubusercontent.com/marzelwidmer/git-semantic-commits/master/ci-semver.sh  --output ./jenkins/ci-semver.sh
+                        chmod +x ./jenkins/ci-semver.sh
+                    '''
+                    // Compute next version
+                    NEXT_VERSION = sh(
+                            script: "./jenkins/ci-semver.sh",
+                            returnStdout: true
+                    ).trim()
+                    echo "NEXT_VERSION : ${NEXT_VERSION}"
+                    withCredentials([usernamePassword(credentialsId: 'jenkins-ci-user-at-github', usernameVariable: 'USERNAME', passwordVariable: 'TOKEN')]) {
+                        git(branches: [[name: '*/**']], changelog: true, url: "https://$TOKEN:x-oauth-basic@$REPOSITORY")
+                    }
+                    sh("""
+                        echo next version will be $NEXT_VERSION
+                        git fetch --all
+                        ./mvnw validate
+                        ./mvnw validate -Djgitver.use-version=$NEXT_VERSION
+                        ./mvnw package -DskipTests -Djgitver.use-version=$NEXT_VERSION
+                        echo "run tests"
+                        sh './mvnw test'
+                    """)
+                    post {
+                        always {
+                            junit 'target/surefire-reports/*.xml'
+                        }
+                    }
+                    echo "Create tag with version: ${NEXT_VERSION}"
+                    sh("""
+                        echo set git config for tagging
+                        git config --global user.email '${GIT_TAG_USER_EMAIL}'
+                        git config --global user.name '${GIT_TAG_USER_NAME}'
+
+                        if [ \$(git tag -l $NEXT_VERSION) ]; then
+                            echo tag exist already
+                        else    
+                            git tag -a -m '${GIT_TAG_MESSAGE}' ${NEXT_VERSION}
+                            git push --follow-tags
+                        fi
+                    """)
+                }
+            }
+        }
+}
+```
 
 
 > **_References:_**  
