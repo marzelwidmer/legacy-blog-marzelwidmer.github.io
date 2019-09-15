@@ -126,7 +126,7 @@ release workflow including: determining the next version number, generating the 
 > 😎 This removes the immediate connection between human emotions and version numbers, strictly following the Semantic Versioning specification.
 
 ### Jenkins Pipeline Definition
-In the case I don't found any Maven PlugIn who works in my setup out-of-the-box and I am running here in a `Maven Slave` and don't want create a` Maven-Node Slave`
+In the case I don't found any Maven PlugIn who works in my setup _out-of-the-box_ and I am running here in a `Maven Slave` and don't want create a` Maven-Node Slave`
 I chose to follow a setup with just Git commands and a combination with the [jgitver-maven-plugin](https://github.com/jgitver/jgitver-maven-plugin){:target="_blank"}.
 
 
