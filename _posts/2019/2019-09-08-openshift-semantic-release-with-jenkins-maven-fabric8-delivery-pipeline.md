@@ -13,6 +13,7 @@ author: # Add name author (optional)
 * [Jenkins Pipeline](#JenkinsPipeline)
 * [WebHooks](#WebHooks)
 * [Private Repository](#privateRepo)
+* [Semantic Release Jenkins Pipeline](#SemanticReleaseJenkinsPipeline)
  
 
 ## Setup Deployment <a name="SetupDeployment"></a>
@@ -106,12 +107,30 @@ $ oc label secret ci-user-at-github credential.sync.jenkins.openshift.io=true \
     -n jenkins
 $ oc set build-secret bc/customer-service-pipeline ci-user-at-github --source
 ```
+
 When you check now the Jenkins you will see the `ci-user-at-github` under credentials `https://<jenkins-url>/credentials/` 
+
 ![sync.jenkins](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/sync.jenkins.openshift.io.png)
 
+
 You will also find the a secret `ci-user-at-github` in the `jenkins` project in the OpenShift console.
+
 ![secret-ci-user-at-github](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/secret-ci-user-at-github.png)
 
+
+
+## Semantic Release Jenkins Pipeline <a name="SemanticReleaseJenkinsPipeline"></a>
+First I want say the inspiration I get from the [semantic-release](https://github.com/semantic-release/semantic-release){:target="_blank"} automates the whole package 
+release workflow including: determining the next version number, generating the release notes and publishing the package.
+
+> 😎 This removes the immediate connection between human emotions and version numbers, strictly following the Semantic Versioning specification.
+
+### Jenkins Pipeline Definition
+In the case I don't found any Maven PlugIn who works in my setup out-of-the-box and I am running here in a `Maven Slave` and don't want create a` Maven-Node Slave`
+I chose to follow a setup with just Git commands and a combination with the [jgitver-maven-plugin](https://github.com/jgitver/jgitver-maven-plugin){:target="_blank"}.
+
+
+### Jenkins Pipeline Result
 After pushing some code in the `customer-service` repository the Jenkins pipeline start run and you will see in the OpenShift pipeline the pipeline result:
 ![okd-customer-service-pipeline](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/okd-customer-service-pipeline.png)
 
