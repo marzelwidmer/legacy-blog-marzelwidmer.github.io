@@ -141,7 +141,12 @@ It will also create the image tags if needed.
 
 ![okd-customer-service-image-tags](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/okd-customer-service-image-tags.png)
 
+Take also a look at the [Jenkins BlueOcean](https://jenkins.io/projects/blueocean/){:target="_blank"} pipeline. 
+![blueocean-customer-service-pipeline](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/blueocean-customer-service-pipeline.png)
 
+Or at the deployed _customer-service_.
+[Customer Service Swagger](http://customer-service-production.apps.c3smonkey.ch/swagger-ui.html){:target="_blank"}
+![customer-service-swagger.png](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/customer-service-swagger.png)
 
   
 
