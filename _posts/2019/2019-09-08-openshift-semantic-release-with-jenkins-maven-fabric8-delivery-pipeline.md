@@ -112,6 +112,11 @@ When you check now the Jenkins you will see the `ci-user-at-github` under creden
 You will also find the a secret `ci-user-at-github` in the `jenkins` project in the OpenShift console.
 ![secret-ci-user-at-github](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/secret-ci-user-at-github.png)
 
+After Pushing some code in the `customer-service` repository the Jenkins Pipeline start run and you will see in the OpenShift Pipeline the Pipeline result:
+![okd-customer-service-pipeline](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/okd-customer-service-pipeline.png)
+
+  
+
 
 > **_References:_**  
 >[Jenkins Client Plugin](https://github.com/openshift/jenkins-client-plugin)
