@@ -99,14 +99,18 @@ $ oc label secret user-at-github credential.sync.jenkins.openshift.io=true \
 $ oc set build-secret bc/customer-service-pipeline user-at-github --source
 ```
 
-
 ![sync.jenkins](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/sync.jenkins.openshift.io.png)
 ![secret-at-github](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/secret-user-at-github.png)
 
+### Add Global Credentials for Semantic Release
+Used for tagging with semantic release pipeline. 
+Navigate in Jenkins to 'https://<jenkins-url>/credentials/store/system/domain/_/newCredentials' and add  a 'Global' Jenkins with your 'GITHUB-TOKEN'
+
+> ⚠️ **GitHub Token**: Create a AccesToken with 'repo,user' rights under your [GitHub Tokens Settings](https://github.com/settings/tokens) documentation.
 
 
-
-oc get -o yaml --export all > <yaml_filename>
+![jenkins-global-credentials](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/jenkinsGlobalCredentials.png)
+![jenkins-credentials](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/jenkinsCredentials.png)
 
 
 
@@ -114,18 +118,21 @@ oc get -o yaml --export all > <yaml_filename>
 >   [Jenkins Client Plugin](https://github.com/openshift/jenkins-client-plugin)
 >   [Best Practices for Managing Docker Versions](https://www.youtube.com/watch?v=MqsG9-HEcTw) 
 >   [CI/CD - A/B - OpenShift - Jenkins](https://dzone.com/articles/continuous-delivery-with-openshift-and-jenkins-ab)
->https://cookbook.openshift.org/building-and-deploying-from-source/how-can-i-build-from-a-private-repository-on-gitlab.html
->https://blog.openshift.com/private-git-repositories-part-3-personal-access-tokens/
->https://jenkins.io/blog/2018/05/16/pipelines-with-git-tags/
->https://jgitver.github.io/#_goal
->https://github.com/jgitver/jgitver-maven-plugin
->https://codito.in/semantic-commits-for-git
->https://github.com/fteem/git-semantic-commits
->https://wiki.jenkins.io/display/JENKINS/semantic-versioning-plugin
->https://wiki.jenkins.io/display/JENKINS/Git+Parameter+Plugin
->https://gist.github.com/arehmandev/736daba40a3e1ef1fbe939c6674d7da8
->https://wilsonmar.github.io/jenkins2-pipeline/
->https://jenkins-jenkins.apps.c3smonkey.ch/job/jenkins/job/jenkins-customer-service-pipeline/pipeline-syntax/gdsl
+
+
+>   https://cookbook.openshift.org/building-and-deploying-from-source/how-can-i-build-from-a-private-repository-on-gitlab.html
+>   https://blog.openshift.com/private-git-repositories-part-3-personal-access-tokens/
+>   https://jenkins.io/blog/2018/05/16/pipelines-with-git-tags/
+>   https://jgitver.github.io/#_goal
+>   https://github.com/jgitver/jgitver-maven-plugin
+>   https://codito.in/semantic-commits-for-git
+>   https://github.com/fteem/git-semantic-commits
+>   https://github.com/marzelwidmer/git-semantic-commits
+>   https://wiki.jenkins.io/display/JENKINS/semantic-versioning-plugin
+>   https://wiki.jenkins.io/display/JENKINS/Git+Parameter+Plugin
+>   https://gist.github.com/arehmandev/736daba40a3e1ef1fbe939c6674d7da8
+>   https://wilsonmar.github.io/jenkins2-pipeline/
+>   https://jenkins-jenkins.apps.c3smonkey.ch/job/jenkins/job/jenkins-customer-service-pipeline/pipeline-syntax/gdsl
 
 
 
