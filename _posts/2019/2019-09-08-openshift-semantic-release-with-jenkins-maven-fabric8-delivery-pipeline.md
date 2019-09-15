@@ -85,28 +85,32 @@ $ oc describe bc/customer-service-pipeline -n jenkins
 ## Private Repository access with secrets <a name="privateRepo"></a>
 Create a `generic secret` link this secret with the `builder`.
 Annotate and label it for the Jenkins sync PlugIn. And finally update the `bc/customer-service-pipeline` with this secret.
+First you have to create an `AccessToken` in your [GitHub Tokens Settings](https://github.com/settings/tokens){:target="_blank"} let it named like `openshift-source-builder`
+add 'repo' and 'user' access because this token will be used for our semantic versioning / release.
+ ![openshift-source-builder-github-token](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/openshift-source-builder-github-token.png)
+
+ 
 ```bash
-$ oc create secret generic user-at-github \
+$ oc create secret generic ci-user-at-github \
       --from-literal=username=machineuser \
       --from-literal=password=<accesstoken> \
       --type=kubernetes.io/basic-auth \
       -n jenkins
-$ oc secrets link builder user-at-github \
+$ oc secrets link builder ci-user-at-github \
     -n jenkins
-$ oc annotate secret/user-at-github \
+$ oc annotate secret/ci-user-at-github \
       'build.openshift.io/source-secret-match-uri-1=https://github.com/marzelwidmer/*' \
     -n jenkins
-$ oc label secret user-at-github credential.sync.jenkins.openshift.io=true \
+$ oc label secret ci-user-at-github credential.sync.jenkins.openshift.io=true \
     -n jenkins
-$ oc set build-secret bc/customer-service-pipeline user-at-github --source
+$ oc set build-secret bc/customer-service-pipeline ci-user-at-github --source
 ```
-When you check now the Jenkins you will see the `jenkins-user-at-github` under credentials `https://<jenkins-url>/credentials/` 
+When you check now the Jenkins you will see the `ci-user-at-github` under credentials `https://<jenkins-url>/credentials/` 
 
 ![sync.jenkins](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/sync.jenkins.openshift.io.png)
 
-And also in the OpenShift console you can find the secret `jenkins-user-at-github` in the 'jenkins' project.  
-
-![secret-at-github](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/secret-user-at-github.png)
+You will also find the a secret `ci-user-at-github` in the `jenkins`  project in the OpenShift console.
+![secret-ci-user-at-github](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/secret-ci-user-at-github.png)
 
 
 ### Add Global Credentials for Semantic Release
