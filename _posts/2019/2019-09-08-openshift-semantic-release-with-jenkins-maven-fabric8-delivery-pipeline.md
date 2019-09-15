@@ -67,8 +67,8 @@ $ oc create -n jenkins -f \
 ```
 
 ## WebHooks <a name="WebHooks"></a>
-How we can create a GitHub WebHook for a public Git repository take a look at the following post there we created already a  
-[WebHook](http://blog.marcelwidmer.org/openshift-delivey-pipeline/#WebHooks) for the `catalog-service` but here some `oc` commands
+How we can create a [GitHub WebHook](https://github.com/marzelwidmer/customer-service/settings/hooks){:target="_blank"} for a public Git repository take a look at the following post there we created already a  
+[WebHook](http://blog.marcelwidmer.org/openshift-delivey-pipeline/#WebHooks){:target="_blank"} for the `catalog-service` but here some `oc` commands
 for the `customer-service`.
 ```bash
 $ oc set triggers bc/customer-service-pipeline --from-github  -n jenkins 
