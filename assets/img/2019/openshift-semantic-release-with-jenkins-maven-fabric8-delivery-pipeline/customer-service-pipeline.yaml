@@ -12,6 +12,7 @@ spec:
       ref: master
       uri: https://github.com/marzelwidmer/customer-service.git
     type: Git
+  Source Secret: ci-user-at-github
   strategy:
     type: JenkinsPipeline
     jenkinsPipelineStrategy:
