@@ -112,11 +112,9 @@ When you check now the Jenkins you will see the `ci-user-at-github` under creden
 
 ![sync.jenkins](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/sync.jenkins.openshift.io.png)
 
-
 You will also find the a secret `ci-user-at-github` in the `jenkins` project in the OpenShift console.
 
 ![secret-ci-user-at-github](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/secret-ci-user-at-github.png)
-
 
 
 ## Semantic Release Jenkins Pipeline <a name="SemanticReleaseJenkinsPipeline"></a>
@@ -125,14 +123,24 @@ release workflow including: determining the next version number, generating the 
 
 > 😎 This removes the immediate connection between human emotions and version numbers, strictly following the Semantic Versioning specification.
 
-### Jenkins Pipeline Definition
 In the case I don't found any Maven PlugIn who works in my setup _out-of-the-box_ and I am running here in a `Maven Slave` and don't want create a` Maven-Node Slave`
 I chose to follow a setup with just Git commands and a combination with the [jgitver-maven-plugin](https://github.com/jgitver/jgitver-maven-plugin){:target="_blank"}.
+ ![okd-customer-service-pipeline](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/okd-customer-service-pipeline.png)
+
+After pushing some code in the `customer-service` repository the Jenkins pipeline start run. 
+It will be tag the source repository if needed based on the commit message inspired on the follow [commit message format](https://github.com/semantic-release/semantic-release#commit-message-format).
+> ⚠️ **Commit Message Format**: Current version 1.0.0 will change the version like:
+>
+>Major version (2.0.0) 👉🏼 breaking:|major:|BREAKING CHANGE:
+>
+>Minor version (1.1.0) 👉🏼 feature:|minor:|feat:
+>
+>Patch version (1.0.1) 👉🏼 fix:|patch:|docs:|style:|refactor:|perf:|test:|chore:
 
 
-### Jenkins Pipeline Result
-After pushing some code in the `customer-service` repository the Jenkins pipeline start run and you will see in the OpenShift pipeline the pipeline result:
-![okd-customer-service-pipeline](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/okd-customer-service-pipeline.png)
+![okd-customer-service-image-tags](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/okd-customer-service-image-tags.png)
+
+
 
   
 
