@@ -86,10 +86,11 @@ $ oc describe bc/customer-service-pipeline -n jenkins
 Create a `generic secret` link this secret with the `builder`.
 Annotate and label it for the Jenkins sync PlugIn. And finally update the `bc/customer-service-pipeline` with this secret.
 First you have to create an `AccessToken` in your [GitHub Tokens Settings](https://github.com/settings/tokens){:target="_blank"} let it named like `openshift-source-builder`
-add `repo` and `user` access because this token will be used for our semantic versioning / release.
- ![openshift-source-builder-github-token](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/openshift-source-builder-github-token.png)
-
+add `repo` and `user` access because this token will be used for `Semantic Release`
+> ⚠️ **GitHub Token**: Create a AccessToken with `repo,user` rights under your [GitHub Tokens Settings](https://github.com/settings/tokens) documentation.
  
+![openshift-source-builder-github-token](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/openshift-source-builder-github-token.png)
+
 ```bash
 $ oc create secret generic ci-user-at-github \
       --from-literal=username=machineuser \
@@ -106,23 +107,10 @@ $ oc label secret ci-user-at-github credential.sync.jenkins.openshift.io=true \
 $ oc set build-secret bc/customer-service-pipeline ci-user-at-github --source
 ```
 When you check now the Jenkins you will see the `ci-user-at-github` under credentials `https://<jenkins-url>/credentials/` 
-
 ![sync.jenkins](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/sync.jenkins.openshift.io.png)
 
-You will also find the a secret `ci-user-at-github` in the `jenkins`  project in the OpenShift console.
+You will also find the a secret `ci-user-at-github` in the `jenkins` project in the OpenShift console.
 ![secret-ci-user-at-github](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/secret-ci-user-at-github.png)
-
-
-### Add Global Credentials for Semantic Release
-Used for tagging with semantic release pipeline. We will use the same `openshift-source-builder` token.
-Navigate in Jenkins to `https://<jenkins-url>/credentials/store/system/domain/_/newCredentials` and add  a `Global` Jenkins `Secret text` with your `GITHUB-TOKEN`
-
-> ⚠️ **GitHub Token**: Create a AccessToken with `repo,user` rights under your [GitHub Tokens Settings](https://github.com/settings/tokens) documentation.
-
-
-![jenkins-global-credentials](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/jenkinsGlobalCredentials.png)
-![jenkins-credentials](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/jenkinsCredentials.png)
-
 
 
 > **_References:_**  
