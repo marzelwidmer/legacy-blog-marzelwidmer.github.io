@@ -182,6 +182,18 @@ Now lets define some _environment_ variables we can parameterize the pipeline al
     }
 ```
 
+(1) The following step will first check the last _GIT_COMMIT ID_ and download a _ci-semver.sh_ script who is hosted in a other central repository who can used for central `CI/CD` scripts across different 
+project Git repositories. 
+
+(2) This shell script will then check the Git history if there a commit message who match our Semantic Version naming convention to compute the next version.
+
+(3) The next command will then call the _Maven_ build and test lifecycle and use the [jgitver](https://github.com/jgitver/jgitver){:target="_blank"} plugin to pass the version we get before from the 
+_ci-semver.sh_ script.  
+
+> 💡 ** jgitver **: [https://www.youtube.com/watch?v=mQmH_Ws9GFI](https://www.youtube.com/watch?v=mQmH_Ws9GFI){:target="_blank"}
+
+(4) This section will store our Junit test results in the Jenkins.
+(5) Tag Git repository if needed.
 
 ```groovy
     // Stages
@@ -196,12 +208,13 @@ Now lets define some _environment_ variables we can parameterize the pipeline al
                             returnStdout: true
                     ).trim()
                     echo "Last Git commit: ${LAST_GIT_COMMIT}"
+                    // Download script  (1)
                     sh '''
                         echo download ci-semver.sh script from remote repository
                         curl https://raw.githubusercontent.com/marzelwidmer/git-semantic-commits/master/ci-semver.sh  --output ./jenkins/ci-semver.sh
                         chmod +x ./jenkins/ci-semver.sh
                     '''
-                    // Compute next version
+                    // Compute next version (2)
                     NEXT_VERSION = sh(
                             script: "./jenkins/ci-semver.sh",
                             returnStdout: true
@@ -210,6 +223,7 @@ Now lets define some _environment_ variables we can parameterize the pipeline al
                     withCredentials([usernamePassword(credentialsId: 'jenkins-ci-user-at-github', usernameVariable: 'USERNAME', passwordVariable: 'TOKEN')]) {
                         git(branches: [[name: '*/**']], changelog: true, url: "https://$TOKEN:x-oauth-basic@$REPOSITORY")
                     }
+                    // Maven build and test (3)
                     sh("""
                         echo next version will be $NEXT_VERSION
                         git fetch --all
@@ -219,11 +233,13 @@ Now lets define some _environment_ variables we can parameterize the pipeline al
                         echo "run tests"
                         sh './mvnw test'
                     """)
+                    // Store Junit results (4)
                     post {
                         always {
                             junit 'target/surefire-reports/*.xml'
                         }
                     }
+                    // Tag Git Repository (5)
                     echo "Create tag with version: ${NEXT_VERSION}"
                     sh("""
                         echo set git config for tagging
