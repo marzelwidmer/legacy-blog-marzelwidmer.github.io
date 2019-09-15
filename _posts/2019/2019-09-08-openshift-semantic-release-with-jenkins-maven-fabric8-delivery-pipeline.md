@@ -125,6 +125,7 @@ release workflow including: determining the next version number, generating the 
 
 In the case I don't found any Maven PlugIn who works in my setup _out-of-the-box_ and I am running here in a `Maven Slave` and don't want create a` Maven-Node Slave`
 I chose to follow a setup with just Git commands and a combination with the [jgitver-maven-plugin](https://github.com/jgitver/jgitver-maven-plugin){:target="_blank"}.
+
  ![okd-customer-service-pipeline](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/okd-customer-service-pipeline.png)
 
 After pushing some code in the `customer-service` repository the Jenkins pipeline start run. 
@@ -142,9 +143,11 @@ It will also create the image tags if needed.
 ![okd-customer-service-image-tags](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/okd-customer-service-image-tags.png)
 
 Take also a look at the [Jenkins BlueOcean](https://jenkins.io/projects/blueocean/){:target="_blank"} pipeline. 
+
 ![blueocean-customer-service-pipeline](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/blueocean-customer-service-pipeline.png)
 
 Or at the deployed _customer-service_.
+
 [Customer Service Swagger](http://customer-service-production.apps.c3smonkey.ch/swagger-ui.html){:target="_blank"}
 ![customer-service-swagger.png](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/customer-service-swagger.png)
 
