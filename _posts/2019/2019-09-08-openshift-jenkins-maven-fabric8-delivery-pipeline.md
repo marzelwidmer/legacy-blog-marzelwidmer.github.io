@@ -51,7 +51,7 @@ $ oc policy add-role-to-group system:image-puller system:serviceaccounts:product
 ```
 Create `DeploymentConfiguration` in `production` stage.
 ```bash
-$ oc create dc customer-service --image=docker-registry.default.svc:5000/development/customer-service:promotePRD -n production
+$ oc create dc customer-service --image=docker-registry.default.svc:5000/development/customer-service:promotePROD -n production
 $ oc patch dc/customer-service  -p \
      '{"spec":{"template":{"spec":{"containers":[{"name":"default-container","imagePullPolicy":"Always"}]}}}}' -n production
 $ oc expose dc customer-service -n production --port=8080
@@ -102,6 +102,11 @@ $ oc set build-secret bc/customer-service-pipeline user-at-github --source
 
 ![sync.jenkins](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/sync.jenkins.openshift.io.png)
 ![secret-at-github](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/secret-user-at-github.png)
+
+
+
+
+oc get -o yaml --export all > <yaml_filename>
 
 
 
