@@ -137,6 +137,7 @@ It will be tag the source repository if needed based on the commit message inspi
 >
 >Patch version (1.0.1) 👉🏼 fix:|patch:|docs:|style:|refactor:|perf:|test:|chore:
 
+It will also create the image tags if needed.
 
 ![okd-customer-service-image-tags](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/okd-customer-service-image-tags.png)
 
