@@ -3,7 +3,7 @@ layout: post
 title: OpenShift - Semantic Release with Jenkins Maven Fabric8 Delivery Pipeline
 date: 2019-09-08
 description: # Add post description (optional)
-img: 2019/openshift-jenkins-maven-fabric8-delivery-pipeline/Cargoship-Science-886357052.jpg  # Add image post (optional)
+img: 2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/Cargoship-Science-886357052.jpg  # Add image post (optional)
 tags: [Blog, Jenkins, OpenShift, OKD, CI/CD, Docker, Images, Container, Release, Versioning, Tagging, Semantic Release, Semantic Versioning, fabric8]
 author: # Add name author (optional)
 ---
