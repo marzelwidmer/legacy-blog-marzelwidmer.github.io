@@ -64,7 +64,7 @@ $ oc expose svc/customer-service -n production
 Let's creat a Jenkins Pipeline for the `customer-service` in the project `jenkins`.
 ```bash
 $ oc create -n jenkins -f \
-    https://blog.marcelwidmer.org/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/customer-service-pipeline.yaml
+    https://blog.marcelwidmer.org/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/customer-service-pipeline.yaml
 ```
 
 [Table of contents](#top)
@@ -105,11 +105,11 @@ $ oc set build-secret bc/customer-service-pipeline user-at-github --source
 ```
 When you check now the Jenkins you will see the `jenkins-user-at-github` under credentials `https://<jenkins-url>/credentials/` 
 
-![sync.jenkins](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/sync.jenkins.openshift.io.png)
+![sync.jenkins](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/sync.jenkins.openshift.io.png)
 
 And also in the OpenShift console you can find the secret `jenkins-user-at-github` in the 'jenkins' project.  
 
-![secret-at-github](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/secret-user-at-github.png)
+![secret-at-github](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/secret-user-at-github.png)
 
 
 [Table of contents](#top)
@@ -120,8 +120,8 @@ Navigate in Jenkins to `https://<jenkins-url>/credentials/store/system/domain/_/
 > ⚠️ **GitHub Token**: Create a AccessToken with `repo,user` rights under your [GitHub Tokens Settings](https://github.com/settings/tokens) documentation.
 
 
-![jenkins-global-credentials](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/jenkinsGlobalCredentials.png)
-![jenkins-credentials](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/jenkinsCredentials.png)
+![jenkins-global-credentials](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/jenkinsGlobalCredentials.png)
+![jenkins-credentials](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/jenkinsCredentials.png)
 
 
 
