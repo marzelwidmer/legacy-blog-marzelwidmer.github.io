@@ -86,7 +86,7 @@ $ oc describe bc/customer-service-pipeline -n jenkins
 Create a `generic secret` link this secret with the `builder`.
 Annotate and label it for the Jenkins sync PlugIn. And finally update the `bc/customer-service-pipeline` with this secret.
 First you have to create an `AccessToken` in your [GitHub Tokens Settings](https://github.com/settings/tokens){:target="_blank"} let it named like `openshift-source-builder`
-add 'repo' and 'user' access because this token will be used for our semantic versioning / release.
+add `repo` and `user` access because this token will be used for our semantic versioning / release.
  ![openshift-source-builder-github-token](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/openshift-source-builder-github-token.png)
 
  
@@ -114,8 +114,8 @@ You will also find the a secret `ci-user-at-github` in the `jenkins`  project in
 
 
 ### Add Global Credentials for Semantic Release
-Used for tagging with semantic release pipeline. 
-Navigate in Jenkins to `https://<jenkins-url>/credentials/store/system/domain/_/newCredentials` and add  a `Global` Jenkins with your `GITHUB-TOKEN`
+Used for tagging with semantic release pipeline. We will use the same `openshift-source-builder` token.
+Navigate in Jenkins to `https://<jenkins-url>/credentials/store/system/domain/_/newCredentials` and add  a `Global` Jenkins `Secret text` with your `GITHUB-TOKEN`
 
 > ⚠️ **GitHub Token**: Create a AccessToken with `repo,user` rights under your [GitHub Tokens Settings](https://github.com/settings/tokens) documentation.
 
