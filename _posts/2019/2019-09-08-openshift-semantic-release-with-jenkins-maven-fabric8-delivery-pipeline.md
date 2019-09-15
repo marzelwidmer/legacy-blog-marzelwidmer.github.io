@@ -125,8 +125,6 @@ Navigate in Jenkins to `https://<jenkins-url>/credentials/store/system/domain/_/
 >   [Jenkins Client Plugin](https://github.com/openshift/jenkins-client-plugin)
 >   [Best Practices for Managing Docker Versions](https://www.youtube.com/watch?v=MqsG9-HEcTw) 
 >   [CI/CD - A/B - OpenShift - Jenkins](https://dzone.com/articles/continuous-delivery-with-openshift-and-jenkins-ab)
-
-
 >   https://cookbook.openshift.org/building-and-deploying-from-source/how-can-i-build-from-a-private-repository-on-gitlab.html
 >   https://blog.openshift.com/private-git-repositories-part-3-personal-access-tokens/
 >   https://jenkins.io/blog/2018/05/16/pipelines-with-git-tags/
