@@ -12,7 +12,8 @@ author: # Add name author (optional)
 * [Setup Deployment](#SetupDeployment)
 * [Jenkins Pipeline](#JenkinsPipeline)
 * [WebHooks](#WebHooks)
-
+* [Private Repository](#privateRepo)
+ 
 
 ## Setup Deployment <a name="SetupDeployment"></a>
 ```bash
@@ -82,7 +83,7 @@ Grab `Webhook GitHub URL`.
 $ oc describe bc/customer-service-pipeline -n jenkins
 ```
 
-## Private Repository access with secrets
+## Private Repository access with secrets <a name="privateRepo"></a>
 Create a 'generic secret' link this secret with the 'builder'.
 Annotate and label it for the Jenkins sync PlugIn. And finally update the 'bc/customer-service-pipeline' with this secret.
 ```bash
@@ -100,8 +101,12 @@ $ oc label secret user-at-github credential.sync.jenkins.openshift.io=true \
     -n jenkins
 $ oc set build-secret bc/customer-service-pipeline user-at-github --source
 ```
+When you check now the Jenkins you will see the `jenkins-user-at-github` under credentials `https://<jenkins-url>/credentials/` 
 ![sync.jenkins](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/sync.jenkins.openshift.io.png)
+
+And also in the OpenShift console you can find the secret `jenkins-user-at-github` in the 'jenkins' project.  
 ![secret-at-github](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/secret-user-at-github.png)
+
 
 ### Add Global Credentials for Semantic Release
 Used for tagging with semantic release pipeline. 
