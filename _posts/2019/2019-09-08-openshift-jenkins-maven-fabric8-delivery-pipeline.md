@@ -102,9 +102,11 @@ $ oc label secret user-at-github credential.sync.jenkins.openshift.io=true \
 $ oc set build-secret bc/customer-service-pipeline user-at-github --source
 ```
 When you check now the Jenkins you will see the `jenkins-user-at-github` under credentials `https://<jenkins-url>/credentials/` 
+
 ![sync.jenkins](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/sync.jenkins.openshift.io.png)
 
 And also in the OpenShift console you can find the secret `jenkins-user-at-github` in the 'jenkins' project.  
+
 ![secret-at-github](/assets/img/2019/openshift-jenkins-maven-fabric8-delivery-pipeline/secret-user-at-github.png)
 
 
