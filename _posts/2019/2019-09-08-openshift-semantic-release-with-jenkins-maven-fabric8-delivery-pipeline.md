@@ -8,7 +8,7 @@ tags: [Blog, Jenkins, OpenShift, OKD, CI/CD, Docker, Images, Container, Release,
 author: # Add name author (optional)
 ---
 
-# Table of contents <a name="top"></a>
+# Table of contents
 * [Setup Deployment](#SetupDeployment)
 * [Jenkins Pipeline](#JenkinsPipeline)
 * [WebHooks](#WebHooks)
@@ -59,7 +59,6 @@ $ oc expose dc customer-service -n production --port=8080
 $ oc expose svc/customer-service -n production
 ```
 
-[Table of contents](#top)
 ## Jenkins Pipeline  <a name="JenkinsPipeline"></a>
 Let's creat a Jenkins Pipeline for the `customer-service` in the project `jenkins`.
 ```bash
@@ -67,7 +66,6 @@ $ oc create -n jenkins -f \
     https://blog.marcelwidmer.org/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/customer-service-pipeline.yaml
 ```
 
-[Table of contents](#top)
 ## WebHooks <a name="WebHooks"></a>
 How we can create a GitHub WebHook for a public Git repository take a look at the following post there we created already a  
 [WebHook](http://blog.marcelwidmer.org/openshift-delivey-pipeline/#WebHooks) for the `catalog-service` but here some `oc` commands
@@ -84,7 +82,6 @@ Grab `Webhook GitHub URL`.
 $ oc describe bc/customer-service-pipeline -n jenkins
 ```
 
-[Table of contents](#top)
 ## Private Repository access with secrets <a name="privateRepo"></a>
 Create a 'generic secret' link this secret with the 'builder'.
 Annotate and label it for the Jenkins sync PlugIn. And finally update the 'bc/customer-service-pipeline' with this secret.
@@ -112,7 +109,6 @@ And also in the OpenShift console you can find the secret `jenkins-user-at-githu
 ![secret-at-github](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/secret-user-at-github.png)
 
 
-[Table of contents](#top)
 ### Add Global Credentials for Semantic Release
 Used for tagging with semantic release pipeline. 
 Navigate in Jenkins to `https://<jenkins-url>/credentials/store/system/domain/_/newCredentials` and add  a `Global` Jenkins with your `GITHUB-TOKEN`
