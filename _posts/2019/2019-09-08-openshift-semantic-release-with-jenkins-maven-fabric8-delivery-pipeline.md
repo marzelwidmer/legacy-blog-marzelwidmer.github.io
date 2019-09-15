@@ -122,12 +122,19 @@ Navigate in Jenkins to `https://<jenkins-url>/credentials/store/system/domain/_/
 
 
 > **_References:_**  
->   [Jenkins Client Plugin](https://github.com/openshift/jenkins-client-plugin)
->   [Best Practices for Managing Docker Versions](https://www.youtube.com/watch?v=MqsG9-HEcTw) 
->   [CI/CD - A/B - OpenShift - Jenkins](https://dzone.com/articles/continuous-delivery-with-openshift-and-jenkins-ab)
->
-
-
-
+>[Jenkins Client Plugin](https://github.com/openshift/jenkins-client-plugin)
+>[Best Practices for Managing Docker Versions](https://www.youtube.com/watch?v=MqsG9-HEcTw) 
+>[CI/CD - A/B - OpenShift - Jenkins](https://dzone.com/articles/continuous-delivery-with-openshift-and-jenkins-ab)
+>[GitLab Private Repository](https://cookbook.openshift.org/building-and-deploying-from-source/how-can-i-build-from-a-private-repository-on-gitlab.html)
+>[Personal Access Tokens - Private Repository](https://blog.openshift.com/private-git-repositories-part-3-personal-access-tokens/)
+>[Pipelines with git tags](https://jenkins.io/blog/2018/05/16/pipelines-with-git-tags/)   
+>[jgitver - goal](https://jgitver.github.io/#_goal)   
+>[jgitver-maven-plugin](https://github.com/jgitver/jgitver-maven-plugin)   
+>[Semantic commits for git](https://codito.in/semantic-commits-for-git)
+>[git-semantic-commits](https://github.com/marzelwidmer/git-semantic-commits)
+>[Jenkins - semantic-versioning-plugin](https://wiki.jenkins.io/display/JENKINS/semantic-versioning-plugin)
+>[Jenkins - Git+Parameter+Plugin](https://wiki.jenkins.io/display/JENKINS/Git+Parameter+Plugin)
+>[wilsonmar - jenkins2-pipeline](https://wilsonmar.github.io/jenkins2-pipeline/)
+>[Get Jenkins GDSL working with IntelliJ IDEA](https://gist.github.com/arehmandev/736daba40a3e1ef1fbe939c6674d7da8)
 
 
