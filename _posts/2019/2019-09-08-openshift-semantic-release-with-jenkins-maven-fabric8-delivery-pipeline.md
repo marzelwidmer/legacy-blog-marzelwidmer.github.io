@@ -222,12 +222,11 @@ _ci-semver.sh_ script.
                     ).trim()
                     echo "NEXT_VERSION : ${NEXT_VERSION}"
                     withCredentials([usernamePassword(credentialsId: 'jenkins-ci-user-at-github', usernameVariable: 'USERNAME', passwordVariable: 'TOKEN')]) {
-                        git(branches: [[name: '*/**']], changelog: true, url: "https://$TOKEN:x-oauth-basic@$REPOSITORY")
+                        git(branches: [[name: '*/master']], changelog: true, url: "https://$TOKEN:x-oauth-basic@$REPOSITORY")
                     }
                     // Maven build and test (3)
                     sh("""
                         echo next version will be $NEXT_VERSION
-                        git fetch --all
                         ./mvnw validate
                         ./mvnw validate -Djgitver.use-version=$NEXT_VERSION
                         ./mvnw package -DskipTests -Djgitver.use-version=$NEXT_VERSION
