@@ -174,7 +174,6 @@ Now lets define some _environment_ variables we can parameterize the pipeline al
         GIT_TAG_MESSAGE = 'ci-release-bot'
         GIT_TAG_USER_EMAIL =  "jenkins@c3smonkey.ch"
         GIT_TAG_USER_NAME = "Jenkins"
-        NEXT_VERSION = '0.0.0'
         DEV_ENVIRONMENT = 'development'
         TEST_ENVIRONMENT = 'testing'
         PROD_ENVIRONMENT = 'production'
