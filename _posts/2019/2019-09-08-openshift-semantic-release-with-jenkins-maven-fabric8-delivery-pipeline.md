@@ -171,6 +171,7 @@ Now lets define some _environment_ variables we can parameterize the pipeline al
     // Environment
     environment {
         REPOSITORY = "github.com/marzelwidmer/customer-service.git"
+        BRANCHES = "[[name: '*/master']]"
         GIT_TAG_MESSAGE = 'ci-release-bot'
         GIT_TAG_USER_EMAIL =  "jenkins@c3smonkey.ch"
         GIT_TAG_USER_NAME = "Jenkins"
@@ -221,7 +222,7 @@ _ci-semver.sh_ script.
                     ).trim()
                     echo "NEXT_VERSION : ${NEXT_VERSION}"
                     withCredentials([usernamePassword(credentialsId: 'jenkins-ci-user-at-github', usernameVariable: 'USERNAME', passwordVariable: 'TOKEN')]) {
-                        git(branches: [[name: '*/master']], changelog: true, url: "https://$TOKEN:x-oauth-basic@$REPOSITORY")
+                        git(branches: "$BRANCHES", changelog: true, url: "https://$TOKEN:x-oauth-basic@$REPOSITORY")
                     }
                     // Maven build and test (3)
                     sh("""
