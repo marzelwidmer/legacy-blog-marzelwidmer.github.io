@@ -151,6 +151,10 @@ Or at the deployed _customer-service_.
 [Customer Service Swagger](http://customer-service-production.apps.c3smonkey.ch/swagger-ui.html){:target="_blank"}
 ![customer-service-swagger.png](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/customer-service-swagger.png)
 
+
+The _changelog_ you can find under [Changelog](https://jenkins-jenkins.apps.c3smonkey.ch/job/jenkins/job/jenkins-customer-service-pipeline/lastSuccessfulBuild/artifact/target/changelog.html){:target="_blank"}
+ 
+
 I know the above pipeline is a bit chatty because of this I explain my steps here a bit compromised in some pipeline steps. 
 Ok let's create a  _Jenkinsfile_ in your project repository I prefer to put the _Jenkinsfile_ in a folder _jenkins_.
 
@@ -258,6 +262,7 @@ _ci-semver.sh_ script.
         }
 }
 ```
+
 
 
 > **_References:_**  
