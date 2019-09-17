@@ -23,7 +23,7 @@ $ oc new-project development --display-nam  e="Development Environment"
 
 Deploy application with the `maven.fabric8.io` plugin in  `development` stage from local machine.
 ```bash
-$ mvn fabric8:deploy -Dfabric8.namespace=development
+$ ./mvnw fabric8:deploy -Dfabric8.namespace=development
 $ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n development
 ```
 
