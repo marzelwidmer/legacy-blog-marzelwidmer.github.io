@@ -66,7 +66,7 @@ This will install the default AllInOne strategy, which deploys the “all-in-one
 
 Login in with privileged user `oc login -u <privileged user>`
 ```bash 
-$ echo "apiVersion: jaegertracing.io/v1                                                                                                                                      120ms  Sun Sep  1 10:19:08 2019
+$ echo "apiVersion: jaegertracing.io/v1                                                                                                                                     
   kind: Jaeger
   metadata:
     name: simplest" | oc create -f -
@@ -74,14 +74,14 @@ $ echo "apiVersion: jaegertracing.io/v1                                         
 To get the pod name, query for the pods belonging to the `simplest` Jaeger instance:
 
 ```bash
-$ oc get jaegers                                                                                                                                                             326ms  Sun Sep  1 10:19:21 2019
+$ oc get jaegers                                                                                                                                                            
 NAME       AGE
 simplest   10s
 ```
 
 To get the routes:
 ```bash
-$ oc get routes                                                                                                                                                              357ms  Sun Sep  1 10:22:40 2019
+$ oc get route
 
 NAME       HOST/PORT                               PATH   SERVICES         PORT    TERMINATION   WILDCARD
 simplest   simplest-monitoring.apps.c3smonkey.ch          simplest-query   <all>   reencrypt     None
