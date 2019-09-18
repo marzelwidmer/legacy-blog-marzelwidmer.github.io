@@ -68,8 +68,8 @@ Login in with privileged user `oc login -u <privileged user>`
 ```bash 
 $ echo "apiVersion: jaegertracing.io/v1
 kind: Jaeger
-  metadata:
-    name: simplest" | oc create -f -
+metadata:
+ name: simplest" | oc create -f -
 ```
 To get the pod name, query for the pods belonging to the `simplest` Jaeger instance:
 
