@@ -42,13 +42,22 @@ After installation you can login with your Openshift account to the [Jenkins Blu
 ![Jenkins-From-Catalog-2](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-2.png)
 ![Jenkins-From-Catalog-3](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-3.png)
 
+## Configure Jenkins Maven Slave - Concurrency Limit
+Let's configure out `Maven-Slave` concurrency limit to `5` in order that we later want build more then one project.
+Please go to the Jenkins Configuration Page `https://<jenkins>/configure` in the section `Cloud/Kubernetes Pod Template` and search for the `Maven` Pod.
+
+![Maven-Pod-Concurrency-Limit](/assets/img/2019/openshift-pipeline/Maven-Pod-Concurrency-Limit)
+
+
 ## Install Jenkins with CLI <a name="InstallJenkinsWithCLID"></a> 
 ```bash
 $ oc new-app jenkins-persistent --name jenkins --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi -n jenkins
 ``` 
 
+
+
 ### Jenkins File From Source Repository
-The pipeline [Jenkinsfile](https://raw.githubusercontent.com/marzelwidmer/catalog-service/master/Jenkinsfile){:target="_blank"} is provided in the source repository. 
+The pipeline [Jenkinsfile](https://raw.githubusercontent.com/marzelwidmer/catalog-service/master/jenkins/Promotion-Jenkinsfile){:target="_blank"} is provided in the source repository. 
 
 ## Add Edit Role To ServiceAccount Jenkins  <a name="AddEditRoleToServiceAccountJenkins"></a>
 Let’s add in RBAC to our projects to allow the different service accounts to build, pro‐ mote, and tag images.
