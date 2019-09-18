@@ -38,6 +38,7 @@ $ oc new-project jenkins --display-name="Jenkins CI/CD"
 Create a Jenkins in the `Jenkins CI/CD` project with some storage. Take the Jenkins form the catalog and set some more memory and volume capacity on it.
 Everything else we let the default values. 
 After installation you can login with your Openshift account to the [Jenkins BlueOcean](https://jenkins-jenkins.apps.c3smonkey.ch/blue/organizations/jenkins/)  
+
 ![Jenkins-From-Catalog-1](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-1.png)
 ![Jenkins-From-Catalog-2](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-2.png)
 ![Jenkins-From-Catalog-3](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-3.png)
@@ -62,6 +63,7 @@ The pipeline [Jenkinsfile](https://raw.githubusercontent.com/marzelwidmer/catalo
 ## Add Edit Role To ServiceAccount Jenkins  <a name="AddEditRoleToServiceAccountJenkins"></a>
 Let’s add in RBAC to our projects to allow the different service accounts to build, pro‐ mote, and tag images.
 First we will allow the cicd project’s Jenkins service account edit access to all of our projects:
+
 ```bash
 $ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n development
 $ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n testing
@@ -70,6 +72,7 @@ $ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n produ
 
 ## Add Role To Group <a name="AddRoleToGroup"></a>
 That we can pull our image from `testing` and `production` environment from the `development` registry. This are needed for pulling the Images across the projects.
+
 ```bash
 $ oc policy add-role-to-group system:image-puller system:serviceaccounts:testing  \
         -n development
