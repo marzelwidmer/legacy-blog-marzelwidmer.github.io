@@ -4,7 +4,7 @@ title: OpenShift - Delivery Pipeline - Promoting Applications Across Environment
 date: 2019-08-27
 description: # Add post description (optional)
 img: 2019/openshift-pipeline/Pipeline-Commissioning.jpg  # Add image post (optional)
-tags: [Blog, Jenkins, OpenShift, OKD, CI/CD]
+tags: [Blog, Jenkins, OpenShift, OKD, k8s, CI/CD]
 author: # Add name author (optional)
 ---
 
