@@ -2,6 +2,7 @@
 layout: post
 title: Semantic Release Delivery Pipeline
 date: 2019-09-08
+last_modified: 2019-09-19
 description: Semantic Release with Jenkins Maven Fabric8 Delivery Pipeline # Add post description (optional)
 img: 2019/semantic-release-delivery-pipeline/out-0010.png  # Add image post (optional)
 tags: [Blog, Jenkins, OpenShift, k8s, OKD, CI/CD, Docker, Images, Container, Release, Versioning, Tagging, Semantic Release, Semantic Versioning, fabric8]

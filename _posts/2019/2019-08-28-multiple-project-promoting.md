@@ -2,6 +2,7 @@
 layout: post
 title: Promoting Applications Across Environments
 date: 2019-08-27
+last_modified: 2019-09-19
 description: # Add post description (optional)
 img: 2019/multiple-project-promoting/Pipeline-Commissioning.jpg  # Add image post (optional)
 tags: [Blog, Jenkins, OpenShift, OKD, k8s, CI/CD]
