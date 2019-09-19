@@ -19,21 +19,11 @@ opentracing:
       url: http://localhost:14268/api/traces
 ``` 
 
+The `opentracing.jaeger.http-sender.url` we are looking for we get form the section [Get Route Host in the Jaeger post](http://blog.marcelwidmer.org/jaeger/#GetRouteHost)
+We will use the `ConfigMap` approach with the [Spring Cloud Kubernetes](https://spring.io/projects/spring-cloud-kubernetes){:target="_blank"} starters.
 
- 
-
-
-
-
-`ConfigMap` in our kubernetes aka k8s / OpenShift environment to override the `Jaeger` 
-
-
-
-
-
-# Kubernetes ConfigMap Support
-
-## Add Maven `spring-cloud-dependencies` dependency management  
+## Update Maven Configuration
+### Dependency Management `spring-cloud-dependencies`
 ```xml
 <dependencyManagement>
 		<dependencies>
@@ -48,7 +38,7 @@ opentracing:
 	</dependencyManagement>
 ```
 
-## Add `spring-cloud.version` properties.
+### Spring Cloud Version `spring-cloud.version` 
 ```xml
 <properties>
 		...
@@ -56,7 +46,7 @@ opentracing:
 	</properties>
 ```
 
-## Add Maven dependency `spring-cloud-starter-kubernetes-config` 
+### Dependency `spring-cloud-starter-kubernetes-config` 
 ```xml
 		<!-- Kubernetes -->
 		<dependency>
@@ -65,12 +55,32 @@ opentracing:
 		</dependency>
 ```
 
+## application.yaml
+For reloading the Spring context after update the `ConfigMap` is important that there is the following  
+configuration `spring.cloud.kubernetes.reload.enabled=true` `spring.cloud.kubernetes.reload.strategy=restart_context` and 
+`management.endpoint.restart.enabled=true` in our `application.yaml` configured. 
+               
+```yaml
+spring:
+  cloud:
+    kubernetes:
+      reload:
+        enabled: true
+        strategy: restart_context
+
+management:
+  endpoint:
+    restart:
+      enabled: true
+```
+
 ## Update RBAC policy
+In OpenShift that we can read from the `ConfigMap` we have to update the RBAC policy
 ```bash
 $ oc policy add-role-to-user view system:serviceaccount:development:default
 ```
 
-To avoid the following exception.
+to avoid the following exception
 ```bash
 .fabric8.kubernetes.client.KubernetesClientException: 
 Failure executing: GET at: https://172.30.0.1/api/v1/namespaces/development/pods/order-service-35-wj25f. 
@@ -80,13 +90,31 @@ Failure executing: GET at: https://172.30.0.1/api/v1/namespaces/development/pods
 ```
 
 
-# ConfigMap
-Apply `ConfigMap`
+## Deploy ConfigMap
+With the following command you can deploy the `ConfigMap` in the `development` namespace.
+```bash
+echo "apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        #  matches the spring app name as defined in application.yml
+        name: order-service
+      data:
+        #  must be named 'application.yaml' or be the only key in this config
+        #  refer to Spring Cloud Kubernetes Config documentation or source code
+        application.yaml: |
+          opentracing:
+            jaeger:
+              http-sender:
+                url: http://jaeger-collector-jaeger.apps.c3smonkey.ch/api/traces" | oc apply -f -
+```
+
+Or you just use the _apply_ `ConfigMap` following command when you save the configuration in a file.
 ```bash
 $ oc apply -f deployments/configmap.yaml
 ```
 
-## Additional ConfigMap Commands
+This are also some useful commands
+
 Create `ConfigMap` from file.
 ```bash
 $ oc create configmap order-service --from-file=src/main/resources/application.yaml
@@ -112,12 +140,12 @@ Delete `ConfigMap`
 $ oc delete configmap order-service
 ```
 
-# Wat running POD
+Watch running POD
 ```bash
 $ watch oc get pods --field-selector=status.phase=Running                                                                         28.6m  Thu Sep 19 16:14:40 2019
 ```
 
-# Tail logfile
+Tail logfile
 ```bash
 $ oc logs -f order-service-37-hh2tb
 ```
