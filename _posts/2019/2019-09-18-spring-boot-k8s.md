@@ -26,33 +26,33 @@ We will use the `ConfigMap` approach with the [Spring Cloud Kubernetes](https://
 ### Dependency Management `spring-cloud-dependencies`
 ```xml
 <dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>${spring-cloud.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
 ```
 
 ### Spring Cloud Version `spring-cloud.version` 
 ```xml
 <properties>
-		...
-		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
-	</properties>
+    ...
+    <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
+</properties>
 ```
 
 ### Dependency `spring-cloud-starter-kubernetes-config` 
 ```xml
-		<!-- Kubernetes -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-kubernetes-config</artifactId>
-		</dependency>
+<!-- Kubernetes -->
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-kubernetes-config</artifactId>
+</dependency>
 ```
 
 ## application.yaml
