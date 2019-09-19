@@ -93,7 +93,7 @@ Failure executing: GET at: https://172.30.0.1/api/v1/namespaces/development/pods
 ## Deploy ConfigMap
 With the following command you can deploy the `ConfigMap` in the `development` namespace.
 ```bash
-echo "apiVersion: v1
+$ echo "apiVersion: v1
 kind: ConfigMap
 metadata:
     #  matches the spring app name as defined in application.yml
