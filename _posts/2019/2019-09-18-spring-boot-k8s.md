@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Spring Boot with k8s
+title: Spring Boot meets k8s
 date: 2019-09-08
 description: Integrate Spring Boot with Kubernetes # Add post description (optional)
 img: 2019/spring-boot-k8s/SpringBoot-k8s.png  # Add image post (optional)
