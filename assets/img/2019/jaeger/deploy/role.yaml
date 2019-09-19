@@ -3,7 +3,7 @@ kind: ClusterRole
 metadata:
   creationTimestamp: null
   name: jaeger-operator
-  namespace: monitoring
+  namespace: jaeger
 rules:
 - apiGroups:
   - ""
