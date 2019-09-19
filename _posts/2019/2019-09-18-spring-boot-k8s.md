@@ -94,18 +94,18 @@ Failure executing: GET at: https://172.30.0.1/api/v1/namespaces/development/pods
 With the following command you can deploy the `ConfigMap` in the `development` namespace.
 ```bash
 echo "apiVersion: v1
-      kind: ConfigMap
-      metadata:
-        #  matches the spring app name as defined in application.yml
-        name: order-service
-      data:
-        #  must be named 'application.yaml' or be the only key in this config
-        #  refer to Spring Cloud Kubernetes Config documentation or source code
-        application.yaml: |
-          opentracing:
+kind: ConfigMap
+metadata:
+    #  matches the spring app name as defined in application.yml
+    name: order-service
+data:
+    #  must be named 'application.yaml' or be the only key in this config
+    #  refer to Spring Cloud Kubernetes Config documentation or source code
+    application.yaml: |
+        opentracing:
             jaeger:
-              http-sender:
-                url: http://jaeger-collector-jaeger.apps.c3smonkey.ch/api/traces" | oc apply -f -
+                http-sender:
+                    url: http://jaeger-collector-jaeger.apps.c3smonkey.ch/api/traces" | oc apply -f -
 ```
 
 Or you just use the _apply_ `ConfigMap` following command when you save the configuration in a file.
