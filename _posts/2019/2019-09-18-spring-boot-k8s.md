@@ -108,7 +108,7 @@ data:
                     url: http://jaeger-collector-jaeger.apps.c3smonkey.ch/api/traces" | oc apply -f -
 ```
 
-Or you just use the _apply_ `ConfigMap` following command when you save the configuration in a file.
+If you have the configuration allready in a `ConfigMap` file you can also use the following command.
 ```bash
 $ oc apply -f deployments/configmap.yaml
 ```
