@@ -1,9 +1,9 @@
 ---
 layout: post
-title: OpenShift - Delivery Pipeline - Promoting Applications Across Environments
+title: Promoting Applications Across Environments
 date: 2019-08-27
 description: # Add post description (optional)
-img: 2019/openshift-pipeline/Pipeline-Commissioning.jpg  # Add image post (optional)
+img: 2019/multiple-project-promoting/Pipeline-Commissioning.jpg  # Add image post (optional)
 tags: [Blog, Jenkins, OpenShift, OKD, k8s, CI/CD]
 author: # Add name author (optional)
 ---
@@ -39,20 +39,21 @@ Create a Jenkins in the `Jenkins CI/CD` project with some storage. Take the Jenk
 Everything else we let the default values. 
 After installation you can login with your Openshift account to the [Jenkins BlueOcean](https://jenkins-jenkins.apps.c3smonkey.ch/blue/organizations/jenkins/)  
 
-![Jenkins-From-Catalog-1](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-1.png)
-![Jenkins-From-Catalog-2](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-2.png)
-![Jenkins-From-Catalog-3](/assets/img/2019/openshift-pipeline/Jenkins-from-catalog-3.png)
+![Jenkins-From-Catalog-1](/assets/img/2019/multiple-project-promoting/Jenkins-from-catalog-1.png)
+![Jenkins-From-Catalog-2](/assets/img/2019/multiple-project-promoting/Jenkins-from-catalog-2.png)
+![Jenkins-From-Catalog-3](/assets/img/2019/multiple-project-promoting/Jenkins-from-catalog-3.png)
 
 ## Configure Jenkins Maven Slave - Concurrency Limit
 Let's configure out `Maven-Slave` concurrency limit to `5` in order that we later want build more then one project.
 Please go to the Jenkins Configuration Page `https://<jenkins>/configure` in the section `Cloud/Kubernetes Pod Template` and search for the `Maven` Pod.
 
-![Maven-Pod-Concurrency-Limit](/assets/img/2019/openshift-pipeline/Maven-Pod-Concurrency-Limit.png)
+![Maven-Pod-Concurrency-Limit](/assets/img/2019/multiple-project-promoting/Maven-Pod-Concurrency-Limit.png)
 
 
 ## Install Jenkins with CLI <a name="InstallJenkinsWithCLID"></a> 
 ```bash
-$ oc new-app jenkins-persistent --name jenkins --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi -n jenkins
+$ oc new-app jenkins-persistent --name jenkins --param ENABLE_OAUTH=true \
+        --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi -n jenkins
 ``` 
 
 
@@ -97,23 +98,25 @@ We will use here the [fabric8/s2i-java](https://hub.docker.com/r/fabric8/s2i-jav
 We also want expose the service `oc expose svc/catalog-service` to get a URL with the command `oc get route catalog-service` we will see the URL on the terminal. 
 
 ```bash
-$ oc new-app fabric8/s2i-java:latest-java11~https://github.com/marzelwidmer/catalog-service.git#master; oc expose svc/catalog-service; oc get route catalog-service
+$ oc new-app fabric8/s2i-java:latest-java11~https://github.com/marzelwidmer/catalog-service.git#master; \
+    oc expose svc/catalog-service; \
+    oc get route catalog-service
 
 --> Found Docker image 6414174 (7 weeks old) from Docker Hub for "fabric8/s2i-java:latest-java11"
 
-    Java Applications
-    -----------------
-    Platform for building and running plain Java applications (fat-jar and flat classpath)
+  Java Applications
+  -----------------
+  Platform for building and running plain Java applications (fat-jar and flat classpath)
 
-    Tags: builder, java
+  Tags: builder, java
 
-    * An image stream tag will be created as "s2i-java:latest-java11" that will track the source image
-    * A source build using source code from https://github.com/marzelwidmer/catalog-service.git#master will be created
-      * The resulting image will be pushed to image stream tag "catalog-service:latest"
-      * Every time "s2i-java:latest-java11" changes a new build will be triggered
-    * This image will be deployed in deployment config "catalog-service"
-    * Ports 8080/tcp, 8778/tcp, 9779/tcp will be load balanced by service "catalog-service"
-      * Other containers can access this service through the hostname "catalog-service"
+  * An image stream tag will be created as "s2i-java:latest-java11" that will track the source image
+  * A source build using source code from https://github.com/marzelwidmer/catalog-service.git#master will be created
+    * The resulting image will be pushed to image stream tag "catalog-service:latest"
+    * Every time "s2i-java:latest-java11" changes a new build will be triggered
+  * This image will be deployed in deployment config "catalog-service"
+  * Ports 8080/tcp, 8778/tcp, 9779/tcp will be load balanced by service "catalog-service"
+    * Other containers can access this service through the hostname "catalog-service"
 
 --> Creating resources ...
     imagestream.image.openshift.io "s2i-java" created
@@ -127,13 +130,13 @@ $ oc new-app fabric8/s2i-java:latest-java11~https://github.com/marzelwidmer/cata
      'oc expose svc/catalog-service'
     Run 'oc status' to view your app.
 route.route.openshift.io/catalog-service exposed
-NAME              HOST/PORT                                       PATH   SERVICES          PORT       TERMINATION   WILDCARD
-catalog-service   catalog-service-development.apps.c3smonkey.ch          catalog-service   8080-tcp                 None
+NAME             HOST/PORT                                      PATH  SERVICES         PORT      TERMINATION  WILDCARD
+catalog-service  catalog-service-development.apps.c3smonkey.ch        catalog-service  8080-tcp               None
 ```
 
 Now take a look in the OpenShift [console](https://console.c3smonkey.ch:8443/){:target="_blank"} project `development`
 
-![catalog-service-dev-deployment](/assets/img/2019/openshift-pipeline/catalog-service-dev-deployment.png)
+![catalog-service-dev-deployment](/assets/img/2019/multiple-project-promoting/catalog-service-dev-deployment.png)
 
 Let's take a look what the S2i crated for us. 
 This can be done with the following command `oc get all -n development --selector app=catalog-service`.
@@ -159,12 +162,12 @@ buildconfig.build.openshift.io/catalog-service   Source   Git@master   1
 NAME                                         TYPE     FROM          STATUS     STARTED             DURATION
 build.build.openshift.io/catalog-service-1   Source   Git@b49dff4   Complete   About an hour ago   1m10s
 
-NAME                                             DOCKER REPO                                                    TAGS            UPDATED
-imagestream.image.openshift.io/catalog-service   docker-registry.default.svc:5000/development/catalog-service   latest          About an hour ago
-imagestream.image.openshift.io/s2i-java          docker-registry.default.svc:5000/development/s2i-java          latest-java11   About an hour ago
+NAME                                             DOCKER REPO                                                    TAGS            
+imagestream.image.openshift.io/catalog-service   docker-registry.default.svc:5000/development/catalog-service   latest           
+imagestream.image.openshift.io/s2i-java          docker-registry.default.svc:5000/development/s2i-java          latest-java11   
 
-NAME                                       HOST/PORT                                       PATH   SERVICES          PORT       TERMINATION   WILDCARD
-route.route.openshift.io/catalog-service   catalog-service-development.apps.c3smonkey.ch          catalog-service   8080-tcp                 None
+NAME                                       HOST/PORT                                       PATH   SERVICES          PORT        WILDCARD
+route.route.openshift.io/catalog-service   catalog-service-development.apps.c3smonkey.ch          catalog-service   8080-tcp    None
 ```
 
 
@@ -194,10 +197,6 @@ Set-Cookie: 1e5e1500c4996e7978ef9efb67d863a1=1e12d12873c24c5c17782f3da537ed6a; p
 Dogo Argentino
 
 HTTP/1.1 200 OK
-Cache-control: private
-Content-Length: 7
-Content-Type: text/plain;charset=UTF-8
-Set-Cookie: 1e5e1500c4996e7978ef9efb67d863a1=1e12d12873c24c5c17782f3da537ed6a; path=/; HttpOnly
 ```
  
 ## Testing Environment Deployment <a name="TestingEnvironmentDeployment"></a>
@@ -236,7 +235,8 @@ NAME              HOST/PORT                                   PATH   SERVICES   
 catalog-service   catalog-service-testing.apps.c3smonkey.ch          catalog-service   8080                 None
 ```
 
-We have to patch the `dc` `imagePullPolicy` from `IfNotPresent` to `Always` with `oc patch` command. The default is set to `IfNotPresent`, but we wish to always trigger a deployment when we tag a new image
+We have to patch the `dc` `imagePullPolicy` from `IfNotPresent` to `Always` with `oc patch` command. The default is set to `IfNotPresent`, 
+but we wish to always trigger a deployment when we tag a new image
 ```bash
 $ oc patch dc/catalog-service  -p \
       '{"spec":{"template":{"spec":{"containers":[{"name":"default-container","imagePullPolicy":"Always"}]}}}}'
@@ -258,7 +258,8 @@ $ oc expose svc/catalog-service
 
 ## Jenkins Pipeline  <a name="JenkinsPipeline"></a>
 
-So now let's create a `BuildConfig` for the `catalaog-service` with the following [catalog-service-jenkins-pipeline](/assets/img/2019/openshift-pipeline/catalog-service-pipeline.yaml){:target="_blank"} configuration
+So now let's create a `BuildConfig` for the `catalaog-service` with the 
+following [catalog-service-jenkins-pipeline](/assets/img/2019/multiple-project-promoting/catalog-service-pipeline.yaml){:target="_blank"} configuration
 in the Jenkins namespace (project) let's do it with `oc create -n jenkins -f https://blog.marcelwidmer.org/assets/img/2019/openshift-pipeline/catalog-service-pipeline.yaml`
 
 ```bash
@@ -269,7 +270,7 @@ buildconfig.build.openshift.io/catalog-service-pipeline created
 
 When you go now in the OpenShift [console](https://console.c3smonkey.ch:8443/console/project/jenkins/browse/pipelines){:target="_blank"} in the project `Jenkins` in the section.
 `Builds/Pipelines` you will something like this.
-![Catalog Service Pipeline](/assets/img/2019/openshift-pipeline/catalog-service-pipeline-created.png)
+![Catalog Service Pipeline](/assets/img/2019/multiple-project-promoting/catalog-service-pipeline-created.png)
 
 
 ### Run Jenkins Pipeline 
@@ -282,12 +283,12 @@ build.build.openshift.io/catalog-service-pipeline-1 started
 
 After a while you will see something like this. For production deployment we configured our pipeline with a approvable step.
 
-![Catalog Service Pipeline approvable](/assets/img/2019/openshift-pipeline/catalog-service-pipeline-approvable.png)
+![Catalog Service Pipeline approvable](/assets/img/2019/multiple-project-promoting/catalog-service-pipeline-approvable.png)
 
 Now is time to approve the application and hit the 
 After the approve button in the pipeline to deploy to the production namespace.
 
-![Catalog Service Pipeline success](/assets/img/2019/openshift-pipeline/catalog-service-pipeline-success.png)
+![Catalog Service Pipeline success](/assets/img/2019/multiple-project-promoting/catalog-service-pipeline-success.png)
 
 
 ## WebHooks <a name="WebHooks"></a>
@@ -354,7 +355,7 @@ Jenkinsfile path:	Jenkinsfile
 Build Run Policy:	Serial
 Triggered by:		<none>
 Webhook GitHub:
-	URL:	https://console.c3smonkey.ch:8443/apis/build.openshift.io/v1/namespaces/jenkins/buildconfigs/catalog-service-pipeline/webhooks/<secret>/github
+	URL:	https://okd.ch/apis/build.openshift.io/v1/namespaces/jenkins/buildconfigs/catalog-service-pipeline/webhooks/<secret>/github
 Builds History Limit:
 	Successful:	5
 	Failed:		5
@@ -367,7 +368,6 @@ Events:	<none>
 
 > **_Note:_** The URL <secret> we will replace with a secret. This is just an place holder in the URL.
 https://console.c3smonkey.ch:8443/apis/build.openshift.io/v1/namespaces/jenkins/buildconfigs/catalog-service-pipeline/webhooks/<secret>/github
-
 
 To grab the `<secret>` we have to replace in the URL you can call the following command.   
 ```bash
@@ -382,9 +382,8 @@ SSL verification
  By default, we verify SSL certificates when delivering payloads.
 
 
-![Add GitHub WebHook](/assets/img/2019/openshift-pipeline/Add-GitHub-WebHook.png)
-![GitHub WebHooks](/assets/img/2019/openshift-pipeline/GitHub-WebHooks.png)
-
+![Add GitHub WebHook](/assets/img/2019/multiple-project-promoting/Add-GitHub-WebHook.png)
+![GitHub WebHooks](/assets/img/2019/multiple-project-promoting/GitHub-WebHooks.png)
 
 
 > **_References:_**  

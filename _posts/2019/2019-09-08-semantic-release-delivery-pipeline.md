@@ -1,9 +1,9 @@
 ---
 layout: post
-title: OpenShift - Semantic Release with Jenkins Maven Fabric8 Delivery Pipeline
+title: Semantic Release Delivery Pipeline
 date: 2019-09-08
-description: # Add post description (optional)
-img: 2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/out-0010.png  # Add image post (optional)
+description: Semantic Release with Jenkins Maven Fabric8 Delivery Pipeline # Add post description (optional)
+img: 2019/semantic-release-delivery-pipeline/out-0010.png  # Add image post (optional)
 tags: [Blog, Jenkins, OpenShift, k8s, OKD, CI/CD, Docker, Images, Container, Release, Versioning, Tagging, Semantic Release, Semantic Versioning, fabric8]
 author: # Add name author (optional)
 ---
@@ -64,7 +64,7 @@ $ oc expose svc/customer-service -n production
 Let's creat a Jenkins Pipeline for the `customer-service` in the project `jenkins`.
 ```bash
 $ oc create -n jenkins -f \
-    https://blog.marcelwidmer.org/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/customer-service-pipeline.yaml
+    https://blog.marcelwidmer.org/assets/img/2019/semantic-release-delivery-pipeline/deploy/customer-service-pipeline.yaml
 ```
 
 ## WebHooks <a name="WebHooks"></a>
@@ -90,7 +90,7 @@ First you have to create an `AccessToken` in your [GitHub Tokens Settings](https
 add `repo` and `user` access because this token will be used for `Semantic Release`
 > ⚠️ **GitHub Token**: Create a AccessToken with `repo,user` rights under your [GitHub Tokens Settings](https://github.com/settings/tokens) documentation.
  
-![openshift-source-builder-github-token](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/openshift-source-builder-github-token.png)
+![openshift-source-builder-github-token](/assets/img/2019/semantic-release-delivery-pipeline/openshift-source-builder-github-token.png)
 
 ```bash
 $ oc create secret generic ci-user-at-github \
@@ -110,11 +110,11 @@ $ oc set build-secret bc/customer-service-pipeline ci-user-at-github --source
 
 When you check now the Jenkins you will see the `ci-user-at-github` under credentials `https://<jenkins-url>/credentials/` 
 
-![sync.jenkins](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/sync.jenkins.openshift.io.png)
+![sync.jenkins](/assets/img/2019/semantic-release-delivery-pipeline/sync.jenkins.openshift.io.png)
 
 You will also find the a secret `ci-user-at-github` in the `jenkins` project in the OpenShift console.
 
-![secret-ci-user-at-github](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/secret-ci-user-at-github.png)
+![secret-ci-user-at-github](/assets/img/2019/semantic-release-delivery-pipeline/secret-ci-user-at-github.png)
 
 
 ## Semantic Release Jenkins Pipeline <a name="SemanticReleaseJenkinsPipeline"></a>
@@ -126,7 +126,7 @@ release workflow including: determining the next version number, generating the 
 In the case I don't found any Maven PlugIn who works in my setup _out-of-the-box_ and I am running here in a `Maven Slave` and don't want create a` Maven-Node Slave`
 I chose to follow a setup with just Git commands and a combination with the [jgitver-maven-plugin](https://github.com/jgitver/jgitver-maven-plugin){:target="_blank"}.
 
- ![okd-customer-service-pipeline](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/okd-customer-service-pipeline.png)
+ ![okd-customer-service-pipeline](/assets/img/2019/semantic-release-delivery-pipeline/okd-customer-service-pipeline.png)
 
 After pushing some code in the `customer-service` repository the Jenkins pipeline start run. 
 It will be tag the source repository if needed based on the commit message inspired on the follow [commit message format](https://github.com/semantic-release/semantic-release#commit-message-format).
@@ -140,16 +140,16 @@ It will be tag the source repository if needed based on the commit message inspi
 
 It will also create the image tags if needed.
 
-![okd-customer-service-image-tags](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/okd-customer-service-image-tags.png)
+![okd-customer-service-image-tags](/assets/img/2019/semantic-release-delivery-pipeline/okd-customer-service-image-tags.png)
 
 Take also a look at the [Jenkins BlueOcean](https://jenkins.io/projects/blueocean/){:target="_blank"} pipeline. 
 
-![blueocean-customer-service-pipeline](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/blueocean-customer-service-pipeline.png)
+![blueocean-customer-service-pipeline](/assets/img/2019/semantic-release-delivery-pipeline/blueocean-customer-service-pipeline.png)
 
 Or at the deployed _customer-service_.
 
 [Customer Service Swagger](http://customer-service-production.apps.c3smonkey.ch/swagger-ui.html){:target="_blank"}
-![customer-service-swagger.png](/assets/img/2019/openshift-semantic-release-with-jenkins-maven-fabric8-delivery-pipeline/customer-service-swagger.png)
+![customer-service-swagger.png](/assets/img/2019/semantic-release-delivery-pipeline/customer-service-swagger.png)
 
 
 The _changelog_ you can find under [Changelog](https://jenkins-jenkins.apps.c3smonkey.ch/job/jenkins/job/jenkins-customer-service-pipeline/lastSuccessfulBuild/artifact/target/changelog.html){:target="_blank"}
@@ -263,9 +263,7 @@ _ci-semver.sh_ script.
 }
 ```
 
-
-
-> **_References:_**  
+> **_References and inspiration:_**  
 >[Jenkins Client Plugin](https://github.com/openshift/jenkins-client-plugin)
 >[Best Practices for Managing Docker Versions](https://www.youtube.com/watch?v=MqsG9-HEcTw) 
 >[CI/CD - A/B - OpenShift - Jenkins](https://dzone.com/articles/continuous-delivery-with-openshift-and-jenkins-ab)
@@ -282,3 +280,6 @@ _ci-semver.sh_ script.
 >[Get Jenkins GDSL working with IntelliJ IDEA](https://gist.github.com/arehmandev/736daba40a3e1ef1fbe939c6674d7da8)
 
 
+[jekyll-docs]: https://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/

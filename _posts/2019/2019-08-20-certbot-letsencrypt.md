@@ -1,6 +1,6 @@
 ---
 layout: post
-title: OpenShift - Certbot Let`s Encrypt
+title: Certbot Let`s Encrypt
 date: 2019-08-20 22:52:20
 description: # Add post description (optional)
 img: 2019/openshift-certbot/security.jpg # Add image post (optional)
@@ -239,8 +239,8 @@ $ scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/fullchain.pem  root@c3smonkey.ch:
 $ scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/privkey.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
 ```
 
-
-
-
+[jekyll-docs]: https://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/
 
 
