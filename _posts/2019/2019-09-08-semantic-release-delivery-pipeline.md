@@ -194,7 +194,7 @@ project Git repositories.
 (3) The next command will then call the _Maven_ build and test lifecycle and use the [jgitver](https://github.com/jgitver/jgitver){:target="_blank"} plugin to pass the version we get before from the 
 _ci-semver.sh_ script.  
 
-> 💡 ** jgitver **: [https://www.youtube.com/watch?v=mQmH_Ws9GFI](https://www.youtube.com/watch?v=mQmH_Ws9GFI){:target="_blank"}
+> 💡 **jgitver**: [https://www.youtube.com/watch?v=mQmH_Ws9GFI](https://www.youtube.com/watch?v=mQmH_Ws9GFI){:target="_blank"}
 
 (4) This section will store our _JUnit_ test results in the Jenkins.
 
