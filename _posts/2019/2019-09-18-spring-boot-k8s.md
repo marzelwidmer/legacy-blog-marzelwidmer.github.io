@@ -113,8 +113,8 @@ Or you just use the _apply_ `ConfigMap` following command when you save the conf
 $ oc apply -f deployments/configmap.yaml
 ```
 
-This are also some useful commands
 
+## Additional Commands
 Create `ConfigMap` from file.
 ```bash
 $ oc create configmap order-service --from-file=src/main/resources/application.yaml
