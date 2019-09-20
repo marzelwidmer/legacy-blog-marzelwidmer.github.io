@@ -120,7 +120,17 @@ If you have the configuration already in a `ConfigMap` file you can also use the
 $ oc apply -f deployments/configmap.yaml
 ```
 
-Creat `ConfigMap` from file is also a useful way to create a `ConfigMap`
+When you hit the service again you will see some traces in the Jaeger now.
+
+
+![Jaeger-Order-Service-Traces](/assets/img/2019/spring-boot-k8s/Jaeger-Order-Service-Traces.png)
+
+
+
+
+
+# Addition Commands
+Create `ConfigMap` from file is also a useful way to create a `ConfigMap`
 ```bash
 $ oc create configmap order-service --from-file=src/main/resources/application.yaml
 ```
