@@ -136,6 +136,39 @@ $ for x in (seq 50); http "http://order-service-development.apps.c3smonkey.ch/ap
 ![Jaeger-Order-Service-Traces](/assets/img/2019/spring-boot-k8s/Jaeger-Order-Service-Traces.png)
 
 
+
+# Separate ClusterRole
+Additional you can also add a separate `ClusterRole` for this create a file `service-account-for-spring-cloud-k8s-access.yaml` and `apply` it.  
+```yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: default
+  name: spring-roles
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods","configmaps"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: allow-spring-to-access-cluster
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: spring-roles
+  apiGroup: rbac.authorization.k8s.io
+```
+
+```yaml
+$ oc apply -f service-account-for-spring-cloud-k8s-access.yaml
+```
+
+
 # Addition Commands
 Create `ConfigMap` from file is also a useful way to create a `ConfigMap`
 ```bash
