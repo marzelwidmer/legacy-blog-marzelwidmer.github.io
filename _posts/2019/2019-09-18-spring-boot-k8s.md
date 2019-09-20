@@ -80,6 +80,13 @@ spring:
         enabled: true
         strategy: restart_context
 ```
+Configure als the `management.endpoint.restart.enabled=true`
+```bash
+management:
+  endpoint:
+    restart:
+      enabled: true
+```
 
 ## Update RBAC policy <a name="RBACpolicy"></a>
 In OpenShift that we can read from the `ConfigMap` we have to update the RBAC policy
@@ -124,9 +131,6 @@ When you hit the service again you will see some traces in the Jaeger now.
 
 
 ![Jaeger-Order-Service-Traces](/assets/img/2019/spring-boot-k8s/Jaeger-Order-Service-Traces.png)
-
-
-
 
 
 # Addition Commands
