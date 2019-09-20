@@ -128,6 +128,9 @@ $ oc apply -f deployments/configmap.yaml
 ```
 
 When you hit the service again you will see some traces in the Jaeger now.
+```bash
+$ for x in (seq 50); http "http://order-service-development.apps.c3smonkey.ch/api/v1/orders/random"; end
+```
 
 
 ![Jaeger-Order-Service-Traces](/assets/img/2019/spring-boot-k8s/Jaeger-Order-Service-Traces.png)
