@@ -80,7 +80,7 @@ spring:
         enabled: true
         strategy: restart_context
 ```
-Configure als the `management.endpoint.restart.enabled=true`
+Configure the `management.endpoint.restart.enabled=true`
 ```bash
 management:
   endpoint:
