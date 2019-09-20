@@ -98,7 +98,7 @@ to avoid the following exception
 ```bash
 .fabric8.kubernetes.client.KubernetesClientException: 
 Failure executing: GET at: https://172.30.0.1/api/v1/namespaces/development/pods/order-service-35-wj25f. 
-    Message: Forbidden!Configured service account doesn't have access. 
+    Message: Forbidden!Configured service account doesnt have access. 
     Service account may have been revoked. pods "order-service-35-wj25f" is 
         forbidden: User "system:serviceaccount:development:default" cannot get pods in the namespace "development": no RBAC policy matched.
 ```
