@@ -108,14 +108,12 @@ data:
                     url: http://jaeger-collector-jaeger.apps.c3smonkey.ch/api/traces" | oc apply -f -
 ```
 
-If you have the configuration allready in a `ConfigMap` file you can also use the following command.
+If you have the configuration already in a `ConfigMap` file you can also use the following command.
 ```bash
 $ oc apply -f deployments/configmap.yaml
 ```
 
-
-## Additional Commands
-Create `ConfigMap` from file.
+Creat `ConfigMap` from file is also a useful way to create a `ConfigMap`
 ```bash
 $ oc create configmap order-service --from-file=src/main/resources/application.yaml
 ```
@@ -139,19 +137,6 @@ Delete `ConfigMap`
 ```bash
 $ oc delete configmap order-service
 ```
-
-Watch running POD
-```bash
-$ watch oc get pods --field-selector=status.phase=Running                                                                         28.6m  Thu Sep 19 16:14:40 2019
-```
-
-Tail logfile
-```bash
-$ oc logs -f order-service-37-hh2tb
-```
- 
-
-
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
