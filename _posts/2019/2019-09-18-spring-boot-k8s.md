@@ -9,8 +9,14 @@ tags: [Blog, k8s, OpenShift, OKD, Spring Boot]
 author: # Add name author (optional)
 --- 
 
-Now is time to configure our [microservices](https://github.com/marzelwidmer/microservices-demo){:target="_blank"} to send the tracing logs to [Jaeger](http://blog.marcelwidmer.org/jaeger/).
-The configuration `opentracing.jaeger.http-sender.url` in configuration `application.yaml` file looks like below in the sources.
+# Table of contents
+* [Maven](#MavenConfiguration)
+* [Application Configuration](#ApplicationConfiguration)
+* [RBAC policy](#RBACpolicy)
+* [Deploy ConfigMap](#DeployConfigMap)
+ 
+Now is time to configure our [microservices](https://github.com/marzelwidmer/microservices-demo){:target="_blank"} to send the tracing 
+logs to [Jaeger](http://blog.marcelwidmer.org/jaeger/). The configuration `opentracing.jaeger.http-sender.url` in configuration `application.yaml` file looks like below in the sources.
 ```yaml
 opentracing:
   jaeger:
@@ -22,7 +28,9 @@ opentracing:
 The `opentracing.jaeger.http-sender.url` we are looking for we get form the section [Get Route Host in the Jaeger post](http://blog.marcelwidmer.org/jaeger/#GetRouteHost)
 We will use the `ConfigMap` approach with the [Spring Cloud Kubernetes](https://spring.io/projects/spring-cloud-kubernetes){:target="_blank"} starters.
 
-## Update Maven Configuration
+## Maven <a name="MavenConfiguration"></a>
+Update Maven Configuration with [Spring Cloud Kubernetes](https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.0.3.RELEASE/single/spring-cloud-kubernetes.html){:target="_blank"} library.
+
 ### Dependency Management `spring-cloud-dependencies`
 ```xml
 <dependencyManagement>
@@ -55,10 +63,14 @@ We will use the `ConfigMap` approach with the [Spring Cloud Kubernetes](https://
 </dependency>
 ```
 
-## application.yaml
-For reloading the Spring context after update the `ConfigMap` is important that there is the following  
-configuration `spring.cloud.kubernetes.reload.enabled=true` `spring.cloud.kubernetes.reload.strategy=restart_context` and 
-`management.endpoint.restart.enabled=true` in our `application.yaml` configured. 
+## Application Configuration <a name="ApplicationConfiguration"></a>
+The application may need to detect changes on external property sources and update their internal status to reflect the new configuration. 
+The reload feature of `Spring Cloud Kubernetes` is able to trigger an application reload when a related `ConfigMap` changes.
+
+This feature is disabled by default and can be enabled using the configuration property `spring.cloud.kubernetes.reload.enabled=true` 
+ in the `application.yaml` file.
+
+The configuration `spring.cloud.kubernetes.reload.strategy=restart_context` will restart the whole Spring ApplicationContext gracefully.
                
 ```yaml
 spring:
@@ -67,14 +79,9 @@ spring:
       reload:
         enabled: true
         strategy: restart_context
-
-management:
-  endpoint:
-    restart:
-      enabled: true
 ```
 
-## Update RBAC policy
+## Update RBAC policy <a name="RBACpolicy"></a>
 In OpenShift that we can read from the `ConfigMap` we have to update the RBAC policy
 ```bash
 $ oc policy add-role-to-user view system:serviceaccount:development:default
@@ -90,7 +97,7 @@ Failure executing: GET at: https://172.30.0.1/api/v1/namespaces/development/pods
 ```
 
 
-## Deploy ConfigMap
+## Deploy ConfigMap <a name="DeployConfigMap"></a>
 With the following command you can deploy the `ConfigMap` in the `development` namespace.
 ```bash
 $ echo "apiVersion: v1
