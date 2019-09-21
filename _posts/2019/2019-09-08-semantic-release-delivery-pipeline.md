@@ -89,7 +89,7 @@ Create a `generic secret` link this secret with the `builder`.
 Annotate and label it for the Jenkins sync PlugIn. And finally update the `bc/customer-service-pipeline` with this secret.
 First you have to create an `AccessToken` in your [GitHub Tokens Settings](https://github.com/settings/tokens){:target="_blank"} let it named like `openshift-source-builder`
 add `repo` and `user` access because this token will be used for `Semantic Release`
-> ⚠️ **GitHub Token**: Create a AccessToken with `repo,user` rights under your [GitHub Tokens Settings](https://github.com/settings/tokens) documentation.
+
  
 ![openshift-source-builder-github-token](/assets/img/2019/semantic-release-delivery-pipeline/openshift-source-builder-github-token.png)
 
