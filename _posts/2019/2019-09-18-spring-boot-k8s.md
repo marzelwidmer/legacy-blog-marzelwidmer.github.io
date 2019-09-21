@@ -137,8 +137,9 @@ $ for x in (seq 50); http "http://order-service-development.apps.c3smonkey.ch/ap
 
 
 
-# Separate ClusterRole
-Additional you can also add a separate `ClusterRole` for this create a file `service-account-for-spring-cloud-k8s-access.yaml` and `apply` it.  
+# Configure ClusterRole 
+Additional you can also create a `ClusterRole` for Spring components let it named `spring-roles`.
+Create a file `service-account-for-spring-cloud-k8s-access.yaml`
 ```yaml
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
@@ -164,9 +165,17 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
+Login in with privileged user `oc login -u <privileged user>`.
 ```yaml
 $ oc apply -f service-account-for-spring-cloud-k8s-access.yaml
 ```
+
+The role you see now in the see in the Cluster Console _Administration/Roles_ search for `spring` 
+![cluster-console-search-spring-roles.png](/assets/img/2019/spring-boot-k8s/cluster-console-search-spring-roles.png)
+
+Overview :
+![cluster-console-spring-roles.png](/assets/img/2019/spring-boot-k8s/cluster-console-spring-roles.png)
+
 
 
 # Addition Commands
