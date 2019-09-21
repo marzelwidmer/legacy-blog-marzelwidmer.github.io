@@ -94,13 +94,13 @@ To read the `ConfigMap` we have to give to the service account in the default na
  
 The better solution is [configure ClusterRole](#ConfigureClusterRole) 
 
-> ⚠️ **Avoid no RBAC policy match exception**: ```
+> ⚠️ **Avoid no RBAC policy match exception**:  
                                         .fabric8.kubernetes.client.KubernetesClientException: 
                                         Failure executing: GET at: https://172.30.0.1/api/v1/namespaces/development/pods/order-service-35-wj25f. 
                                             Message: Forbidden!Configured service account doesnt have access. 
                                             Service account may have been revoked. pods "order-service-35-wj25f" is 
                                                 forbidden: User "system:serviceaccount:development:default" cannot get pods in the namespace "development": no RBAC policy matched.
-                                        ```
+                                         
 
 # Create Spring-Roles ClusterRole <a name="ConfigureClusterRole"></a>
 Additional you can also create a `ClusterRole` for Spring components let it named `spring-roles`.
