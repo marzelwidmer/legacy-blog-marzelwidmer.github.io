@@ -90,12 +90,12 @@ management:
 ```
 
 ## Update RBAC policy <a name="RBACpolicy"></a>
-In OpenShift that we can read from the `ConfigMap` we have to update the RBAC policy
+In OpenShift that we can read from the `ConfigMap` we have to update the RBAC policy or [Configure ClusterRole](#ConfigureClusterRole) 
 ```bash
 $ oc policy add-role-to-user view system:serviceaccount:development:default
 ```
 
-> ⚠️ **Avoid the following exception**: ```
+> ⚠️ **Avoid no RBAC policy matchedexception**: ```
                                         .fabric8.kubernetes.client.KubernetesClientException: 
                                         Failure executing: GET at: https://172.30.0.1/api/v1/namespaces/development/pods/order-service-35-wj25f. 
                                             Message: Forbidden!Configured service account doesnt have access. 
