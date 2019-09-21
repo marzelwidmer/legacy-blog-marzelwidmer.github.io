@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Spring Boot meets k8s
+title: Spring Boot meets k8s ConfigMap
 date: 2019-09-18
 last_modified: 2019-09-21
 description: Integrate Spring Boot with Kubernetes ConfigMap # Add post description (optional)
-img: 2019/spring-boot-k8s/springBoot-k8s.png  # Add image post (optional)
+img: 2019/spring-boot-k8s-configmap/springBoot-k8s.png  # Add image post (optional)
 tags: [Blog, k8s, OpenShift, OKD, Spring Boot]
 author: # Add name author (optional)
 --- 
@@ -141,8 +141,6 @@ Now when you check che Cluster Console under _Administration/Roles_ and you sear
 ![cluster-console-spring-roles.png](/assets/img/2019/spring-boot-k8s/cluster-console-spring-roles.png)
 
 
-
-
 ## Deploy ConfigMap <a name="DeployConfigMap"></a>
 Now is time to create our `ConfigMap` and `apply` it in the `development` namespace for the `oder-service`
 You can do it directly in a shell.
@@ -173,10 +171,6 @@ $ for x in (seq 50); http "http://order-service-development.apps.c3smonkey.ch/ap
 ```
 
 ![Jaeger-Order-Service-Traces](/assets/img/2019/spring-boot-k8s/Jaeger-Order-Service-Traces.png)
-
-
-
-
 
 
 
