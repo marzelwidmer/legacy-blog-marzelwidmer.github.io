@@ -167,7 +167,7 @@ roleRef:
 ```
 
 Login in with privileged user `oc login -u <privileged user>`.
-```yaml
+```bash
 $ oc apply -f service-account-for-spring-cloud-k8s-access.yaml
 ```
 
