@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Spring Boot meets k8s ConfigMap
+title: Spring Boot Kubernetes ConfigMap
 date: 2019-09-18
 last_modified: 2019-09-21
 description: Integrate Spring Boot with Kubernetes ConfigMap # Add post description (optional)
 img: 2019/spring-boot-k8s-configmap/springBoot-k8s-configmap.png  # Add image post (optional)
-tags: [Blog, k8s, ConfigMap, OpenShift, OKD, Spring Boot]
+tags: [Blog, Kubernetes, ConfigMap, OpenShift, Spring Boot]
 author: # Add name author (optional)
 --- 
 
@@ -160,7 +160,7 @@ data:
                     url: http://jaeger-collector-jaeger.apps.c3smonkey.ch/api/traces" | oc apply -f -
 ```
 
-Better is you create a `ConfigMap` file and the you use the `apply` command.  
+Better is you create a `ConfigMap` file and then you use the `apply` command.  
 ```bash
 $ oc apply -f deployments/configmap.yaml
 ```
