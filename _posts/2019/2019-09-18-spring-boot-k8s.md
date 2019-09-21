@@ -12,8 +12,7 @@ author: # Add name author (optional)
 # Table of contents
 * [Maven](#MavenConfiguration)
 * [Application Configuration](#ApplicationConfiguration)
-* [RBAC policy](#RBACpolicy)
-    - [Configure ClusterRole](#ConfigureClusterRole) 
+* [Configured Service Account - RBAC policy](#RBACpolicy)
 * [Deploy ConfigMap](#DeployConfigMap)
  
 Now is time to configure our [microservices](https://github.com/marzelwidmer/microservices-demo){:target="_blank"} to send the tracing 
@@ -89,11 +88,11 @@ management:
       enabled: true
 ```
 
-## Update RBAC policy <a name="RBACpolicy"></a>
-In OpenShift that we can read from the `ConfigMap` we have to update the RBAC policy or [Configure ClusterRole](#ConfigureClusterRole) 
-```bash
-$ oc policy add-role-to-user view system:serviceaccount:development:default
-```
+## Configured Service Account - RBAC policy <a name="RBACpolicy"></a>
+To read the `ConfigMap` we have to give to the service account in the default namespace access right. This can be done to give just 
+`view` access `oc policy add-role-to-user view system:serviceaccount:development:default` 
+ 
+The better solution is [configure ClusterRole](#ConfigureClusterRole) 
 
 > ⚠️ **Avoid no RBAC policy match exception**: ```
                                         .fabric8.kubernetes.client.KubernetesClientException: 
@@ -103,45 +102,7 @@ $ oc policy add-role-to-user view system:serviceaccount:development:default
                                                 forbidden: User "system:serviceaccount:development:default" cannot get pods in the namespace "development": no RBAC policy matched.
                                         ```
 
-
-
-
-
-
-## Deploy ConfigMap <a name="DeployConfigMap"></a>
-With the following command you can deploy the `ConfigMap` in the `development` namespace.
-```bash
-$ echo "apiVersion: v1
-kind: ConfigMap
-metadata:
-    #  matches the spring app name as defined in application.yml
-    name: order-service
-data:
-    #  must be named 'application.yaml' or be the only key in this config
-    #  refer to Spring Cloud Kubernetes Config documentation or source code
-    application.yaml: |
-        opentracing:
-            jaeger:
-                http-sender:
-                    url: http://jaeger-collector-jaeger.apps.c3smonkey.ch/api/traces" | oc apply -f -
-```
-
-If you have the configuration already in a `ConfigMap` file you can also use the following command.
-```bash
-$ oc apply -f deployments/configmap.yaml
-```
-
-When you hit the service again you will see some traces in the Jaeger now.
-```bash
-$ for x in (seq 50); http "http://order-service-development.apps.c3smonkey.ch/api/v1/orders/random"; end
-```
-
-
-![Jaeger-Order-Service-Traces](/assets/img/2019/spring-boot-k8s/Jaeger-Order-Service-Traces.png)
-
-
-
-# Configure ClusterRole <a name="ConfigureClusterRole"></a>
+# Create Spring-Roles ClusterRole <a name="ConfigureClusterRole"></a>
 Additional you can also create a `ClusterRole` for Spring components let it named `spring-roles`.
 Create a file `service-account-for-spring-cloud-k8s-access.yaml`
 ```yaml
@@ -178,6 +139,46 @@ Now when you check che Cluster Console under _Administration/Roles_ and you sear
 
 ![cluster-console-search-spring-roles.png](/assets/img/2019/spring-boot-k8s/cluster-console-search-spring-roles.png)
 ![cluster-console-spring-roles.png](/assets/img/2019/spring-boot-k8s/cluster-console-spring-roles.png)
+
+
+
+
+## Deploy ConfigMap <a name="DeployConfigMap"></a>
+Now is time to create our `ConfigMap` and `apply` it in the`development` namespace for the `oder-service`
+You can do it directly in a shell.
+```bash
+$ echo "apiVersion: v1
+kind: ConfigMap
+metadata:
+    #  matches the spring app name as defined in application.yml
+    name: order-service
+data:
+    #  must be named 'application.yaml' or be the only key in this config
+    #  refer to Spring Cloud Kubernetes Config documentation or source code
+    application.yaml: |
+        opentracing:
+            jaeger:
+                http-sender:
+                    url: http://jaeger-collector-jaeger.apps.c3smonkey.ch/api/traces" | oc apply -f -
+```
+
+Better is you create a `ConfigMap` file and the you use the `apply` command.  
+```bash
+$ oc apply -f deployments/configmap.yaml
+```
+
+When you hit the service again you will see some traces in the Jaeger now.
+```bash
+$ for x in (seq 50); http "http://order-service-development.apps.c3smonkey.ch/api/v1/orders/random"; end
+```
+
+![Jaeger-Order-Service-Traces](/assets/img/2019/spring-boot-k8s/Jaeger-Order-Service-Traces.png)
+
+
+
+
+
+
 
 
 ### Addition Commands
