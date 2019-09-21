@@ -144,7 +144,7 @@ Now when you check che Cluster Console under _Administration/Roles_ and you sear
 
 
 ## Deploy ConfigMap <a name="DeployConfigMap"></a>
-Now is time to create our `ConfigMap` and `apply` it in the`development` namespace for the `oder-service`
+Now is time to create our `ConfigMap` and `apply` it in the `development` namespace for the `oder-service`
 You can do it directly in a shell.
 ```bash
 $ echo "apiVersion: v1
