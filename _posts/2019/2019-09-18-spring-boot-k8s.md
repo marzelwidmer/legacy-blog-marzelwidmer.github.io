@@ -171,10 +171,9 @@ Login in with privileged user `oc login -u <privileged user>`.
 $ oc apply -f service-account-for-spring-cloud-k8s-access.yaml
 ```
 
-The role you see now in the see in the Cluster Console _Administration/Roles_ search for `spring` 
-![cluster-console-search-spring-roles.png](/assets/img/2019/spring-boot-k8s/cluster-console-search-spring-roles.png)
+Now when you check che Cluster Console under _Administration/Roles_ and you search for `spring` you will find the role. 
 
-Overview :
+![cluster-console-search-spring-roles.png](/assets/img/2019/spring-boot-k8s/cluster-console-search-spring-roles.png)
 ![cluster-console-spring-roles.png](/assets/img/2019/spring-boot-k8s/cluster-console-spring-roles.png)
 
 
