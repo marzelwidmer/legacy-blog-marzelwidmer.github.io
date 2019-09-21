@@ -177,8 +177,7 @@ Now when you check che Cluster Console under _Administration/Roles_ and you sear
 ![cluster-console-spring-roles.png](/assets/img/2019/spring-boot-k8s/cluster-console-spring-roles.png)
 
 
-
-# Addition Commands
+### Addition Commands
 Create `ConfigMap` from file is also a useful way to create a `ConfigMap`
 ```bash
 $ oc create configmap order-service --from-file=src/main/resources/application.yaml
