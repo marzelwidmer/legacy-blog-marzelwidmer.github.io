@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Install OKD on you Hetzner VM
+title: Install OKD on Hetzner Cloud
 date: 2019-08-19
 #last_modified:
-description: # Add post description (optional)
+description: Install Single Node OKD on Hetzner Cloud # Add post description (optional)
 img: 2019/hetzner-okd/cloudcomputing.jpg # Add image post (optional)
 tags: [Blog, Kubernetes, Hetzner, Infrastructure, OpenShift]
 author: # Add name author (optional)
