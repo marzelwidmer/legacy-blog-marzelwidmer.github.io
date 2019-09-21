@@ -4,7 +4,7 @@ title: Spring Boot meets k8s ConfigMap
 date: 2019-09-18
 last_modified: 2019-09-21
 description: Integrate Spring Boot with Kubernetes ConfigMap # Add post description (optional)
-img: 2019/spring-boot-k8s-configmap/springBoot-k8s-configmap.png  # Add image post (optional)
+img: 2019/spring-boot-k8s-configmap/springBoot-k8s-configmap.jpg  # Add image post (optional)
 tags: [Blog, k8s, ConfigMap, OpenShift, OKD, Spring Boot]
 author: # Add name author (optional)
 --- 
