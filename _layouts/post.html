@@ -17,7 +17,7 @@ layout: default
 
           <div class="page-date"><time datetime="{{page.date}}">{{page.date | date: '%Y, %b %d'}}</time></div>
           {% if page.last_modified %}
-          <div class="page-date">Updated: <time datetime="{{page.date}}">{{page.last_modified | date: '%Y, %b %d'}}</time></div>
+          <div class="page-date">last update: <time datetime="{{page.date}}">{{page.last_modified | date: '%Y, %b %d'}}</time></div>
           {% endif %}
         </div>
         {{page.content | markdownify}}
