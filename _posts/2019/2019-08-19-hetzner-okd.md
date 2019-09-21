@@ -4,7 +4,7 @@ title: Install OKD on you Hetzner VM
 date: 2019-08-19
 #last_modified:
 description: # Add post description (optional)
-img: 2019/hetzner-okd/101010.jpg # Add image post (optional)
+img: 2019/hetzner-okd/cloudcomputing.jpg # Add image post (optional)
 tags: [Blog, Kubernetes, Hetzner, Infrastructure, OpenShift]
 author: # Add name author (optional)
 ---
