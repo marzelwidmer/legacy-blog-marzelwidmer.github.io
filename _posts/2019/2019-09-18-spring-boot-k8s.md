@@ -95,7 +95,7 @@ In OpenShift that we can read from the `ConfigMap` we have to update the RBAC po
 $ oc policy add-role-to-user view system:serviceaccount:development:default
 ```
 
-> ⚠️ **Avoid no RBAC policy matchedexception**: ```
+> ⚠️ **Avoid no RBAC policy match exception**: ```
                                         .fabric8.kubernetes.client.KubernetesClientException: 
                                         Failure executing: GET at: https://172.30.0.1/api/v1/namespaces/development/pods/order-service-35-wj25f. 
                                             Message: Forbidden!Configured service account doesnt have access. 
