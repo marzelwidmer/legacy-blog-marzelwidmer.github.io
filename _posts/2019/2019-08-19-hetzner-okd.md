@@ -15,7 +15,7 @@ author: # Add name author (optional)
 $ git clone https://github.com/c3smonkey/hetzner-okd-ansible
 ```
 ## Create VM
-Create a hetzner VM with the  [CLI](https://github.com/hetznercloud/cli){:target="_blank"}
+Create a hetzner VM with the [CLI](https://github.com/hetznercloud/cli){:target="_blank"}
 
 ```bash
 $ hcloud server create --name <YOUR_DOMAIN> --type cx41 --image centos-7 --ssh-key <YOUR_HETZNER_SSH_KEY> --datacenter hel1-dc2
