@@ -102,7 +102,7 @@ The better solution is [configure ClusterRole](#ConfigureClusterRole)
                                                 forbidden: User "system:serviceaccount:development:default" cannot get pods in the namespace "development": no RBAC policy matched.
                                          
 
-# Create Spring-Roles ClusterRole <a name="ConfigureClusterRole"></a>
+# Create ClusterRole  <a name="ConfigureClusterRole"></a>
 Additional you can also create a `ClusterRole` for Spring components let it named `spring-roles`.
 Create a file `service-account-for-spring-cloud-k8s-access.yaml`
 ```yaml
