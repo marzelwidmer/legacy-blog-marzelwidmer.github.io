@@ -9,6 +9,9 @@ tags: [Blog, Kubernetes, Let's Encrypt, Infrastructure, OpenShift]
 author: # Add name author (optional)
 ---
 
+Inspiration from [Adding an SSL certificate to OKD - Part 2 of Installation of OKD 3.10 from start to finish]https://www.youtube.com/watch?v=S7HoJ09oYn0&feature=youtu.be){:target="_blank"}
+
+
 ## Check Certificate
 Let`s check first if there a certificate already for our domain [https://crt.sh/?q=c3smonkey.ch](https://crt.sh/?q=c3smonkey.ch) 
 
@@ -18,7 +21,7 @@ Let`s check first if there a certificate already for our domain [https://crt.sh/
 ## Check EPEL Reposittory
 Check if the `epel.repo` is enabled.
 ```bash
-$vi /etc/yum.repos.d/epel.repo
+$ vi /etc/yum.repos.d/epel.repo
 ```
 
 ```yaml
