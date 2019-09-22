@@ -9,7 +9,8 @@ tags: [Blog, Kubernetes, Ribbon, OpenShift, Spring Boot]
 author: # Add name author (optional)
 --- 
 
-`Spring Cloud Kubernetes Ribbon` provide a mechanism to perform a client side load-balancing who is needed in a microservice architecture 
+[Spring Cloud Kubernetes Ribbon](https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.1.0.M2/reference/html/#_ribbon_discovery_in_kubernetes){:target="_blank"} 
+provide a mechanism to perform a client side load-balancing who is needed in a microservice architecture 
 to allocate a list of all pods where our service is running (replicated)
 
 This mechanism can automatically discover and reach all the endpoints of a specific service, and subsequently, 

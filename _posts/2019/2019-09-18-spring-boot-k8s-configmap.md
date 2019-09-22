@@ -30,7 +30,7 @@ We will use the `ConfigMap` approach with the [Spring Cloud Kubernetes](https://
 
 ## Maven <a name="MavenConfiguration"></a>
 Update Maven Configuration with [Spring Cloud Kubernetes](https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.0.3.RELEASE/single/spring-cloud-kubernetes.html){:target="_blank"} library.
-
+ 
 ### Dependency Management `spring-cloud-dependencies`
 ```xml
 <dependencyManagement>
@@ -89,7 +89,7 @@ management:
 ```
 
 ## Configured Service Account - RBAC policy <a name="RBACpolicy"></a>
-To read the `ConfigMap` we have to give to the service account in the default namespace access right. This can be done to give just 
+To read the `ConfigMap` we have to give to the [Service Account](https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.1.0.M2/reference/html/#_service_account){:target="_blank"}  in the default namespace access right. This can be done to give just 
 `view` access `oc policy add-role-to-user view system:serviceaccount:development:default` 
  
 The better solution is [configure ClusterRole](#ConfigureClusterRole) 
