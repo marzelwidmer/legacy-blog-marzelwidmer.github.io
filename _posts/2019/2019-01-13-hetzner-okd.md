@@ -8,6 +8,9 @@ img: 2019/hetzner-okd/cloudcomputing.jpg # Add image post (optional)
 tags: [Blog, Kubernetes, Hetzner, Infrastructure, OpenShift]
 author: # Add name author (optional)
 ---
+
+Inspiration from [Installation of OKD 3.10 from start to finish](https://www.youtube.com/watch?v=ZkFIozGY0IA){:target="_blank"}
+
 # Install OKD on Hetzner Cloud
 ## Clone Repository
 
@@ -15,7 +18,6 @@ author: # Add name author (optional)
 $ git clone https://github.com/c3smonkey/hetzner-okd-ansible
 ```
 ## Create VM
-Inspiration from [Installation of OKD 3.10 from start to finish](https://www.youtube.com/watch?v=ZkFIozGY0IA){:target="_blank"}
 
 This will install a _Cluster Admin_ you can configure, it will also create a default _Cluster User_ with user name `developer`
 and password `developer`.   
