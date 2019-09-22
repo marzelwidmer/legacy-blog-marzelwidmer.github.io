@@ -112,6 +112,7 @@ $ ansible --connection local -i inventory.ini hetzner-vm -a uptime --verbose --u
 $ ansible --connection local -i inventory.ini local -a 'hcloud server list' --verbose --user root
 ```
 
+## SSL
 To configure your certificate put the following inside your inventory files under [OSEv3:vars]
 ```properties
 # Cert
@@ -129,7 +130,8 @@ For renewal, the following is enough, but only if the domain name don't change:
 ```bash
 $  /usr/share/ansible/openshift-ansible/playbooks/redeploy-certificates.yml
 ```
-    
+
+More details check this out [Certbot - let`s Encrypt/](http://blog.marcelwidmer.org/certbot-letsencrypt/)
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
