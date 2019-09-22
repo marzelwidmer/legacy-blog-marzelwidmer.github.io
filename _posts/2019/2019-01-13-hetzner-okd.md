@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Install OKD on Hetzner Cloud
-date: 2019-08-19
+date: 2019-01-13
 #last_modified:
 description: Install Single Node OKD on Hetzner Cloud # Add post description (optional)
 img: 2019/hetzner-okd/cloudcomputing.jpg # Add image post (optional)
