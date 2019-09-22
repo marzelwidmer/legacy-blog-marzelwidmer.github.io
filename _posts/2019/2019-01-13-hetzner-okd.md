@@ -112,18 +112,23 @@ $ ansible --connection local -i inventory.ini hetzner-vm -a uptime --verbose --u
 $ ansible --connection local -i inventory.ini local -a 'hcloud server list' --verbose --user root
 ```
 
-
 To configure your certificate put the following inside your inventory files under [OSEv3:vars]
-    # Cert
-    openshift_master_overwrite_named_certificates=true 
-    openshift_master_named_certificates=[{"certfile": "/etc/path-to/cert.pem", "keyfile": "/etc/path-to/key.pem", "names": ["console.okd.domain.io"], "cafile": "/etc/path-to/ca.cer"}] 
-    openshift_hosted_router_certificate={"certfile": "/etc/path-to/cert.pem", "keyfile": "/etc/path-to/key.pem", "cafile": "/etc/path-to/ca.cer"} 
+```properties
+# Cert
+openshift_master_overwrite_named_certificates=true 
+openshift_master_named_certificates=[{"certfile": "/etc/path-to/cert.pem", "keyfile": "/etc/path-to/key.pem", "names": ["console.okd.domain.io"], "cafile": "/etc/path-to/ca.cer"}] 
+openshift_hosted_router_certificate={"certfile": "/etc/path-to/cert.pem", "keyfile": "/etc/path-to/key.pem", "cafile": "/etc/path-to/ca.cer"} 
+```
 
 If you setup your cert the first time, you must run the following playbook:
-    /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
+```bash
+$ /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
+```
 
 For renewal, the following is enough, but only if the domain name don't change:
-    /usr/share/ansible/openshift-ansible/playbooks/redeploy-certificates.yml
+```bash
+$  /usr/share/ansible/openshift-ansible/playbooks/redeploy-certificates.yml
+```
     
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
