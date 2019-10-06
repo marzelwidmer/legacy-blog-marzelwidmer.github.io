@@ -59,7 +59,7 @@ $ oc new-app jenkins-persistent --name jenkins --param ENABLE_OAUTH=true \
 
 
 ### Jenkins File From Source Repository
-The pipeline [Jenkinsfile](https://raw.githubusercontent.com/marzelwidmer/catalog-service/master/jenkins/Promotion-Jenkinsfile){:target="_blank"} is provided in the source repository. 
+The pipeline [Jenkinsfile](https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/assets/img/2019/multiple-project-promoting/Promotion-Jenkinsfile){:target="_blank"} is provided in the source repository. 
 
 ## Add Edit Role To ServiceAccount Jenkins  <a name="AddEditRoleToServiceAccountJenkins"></a>
 Let’s add in RBAC to our projects to allow the different service accounts to build, pro‐ mote, and tag images.
