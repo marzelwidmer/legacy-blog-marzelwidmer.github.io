@@ -1,0 +1,66 @@
+def project = "catalog-service"
+node('maven') {
+    stage 'build & deploy in dev'
+    openshiftBuild(namespace: 'development',
+            buildConfig: project,
+            showBuildLogs: 'true',
+            waitTime: '3000000')
+
+    stage 'verify deploy in dev'
+    openshiftVerifyDeployment(namespace: 'development',
+            depCfg: project,
+            replicaCount: '1',
+            verifyReplicaCount: 'true',
+            waitTime: '300000')
+
+    stage 'deploy in test'
+    openshiftTag(namespace: 'development',
+            sourceStream: project,
+            sourceTag: 'latest',
+            destinationStream: project,
+            destinationTag: 'promoteQA')
+
+    openshiftDeploy(namespace: 'testing',
+            deploymentConfig: project,
+            waitTime: '300000')
+
+    openshiftScale(namespace: 'testing',
+            deploymentConfig: project,
+            waitTime: '300000',
+            replicaCount: '2')
+
+    stage 'verify deploy in test'
+    openshiftVerifyDeployment(namespace: 'testing',
+            depCfg: project,
+            replicaCount: '2',
+            verifyReplicaCount: 'true',
+            waitTime: '300000')
+
+    stage 'Deploy to production'
+    timeout(time: 2, unit: 'DAYS') {
+        input message: 'Approve to production?'
+    }
+
+    openshiftTag(namespace: 'development',
+            sourceStream: project,
+            sourceTag: 'promoteQA',
+            destinationStream: project,
+            destinationTag: 'promotePRD')
+
+
+    openshiftDeploy(namespace: 'production',
+            deploymentConfig: project,
+            waitTime: '300000')
+
+    openshiftScale(namespace: 'production',
+            deploymentConfig: project,
+            waitTime: '300000',
+            replicaCount: '2')
+
+    stage 'verify deploy in production'
+    openshiftVerifyDeployment(namespace: 'production',
+            depCfg: project,
+            replicaCount: '2',
+            verifyReplicaCount: 'true',
+            waitTime: '300000')
+}
