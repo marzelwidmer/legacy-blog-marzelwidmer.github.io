@@ -1,16 +1,13 @@
 ---
 layout: post
-title: Spring Initializr - httpie
+title: Create Kotlin Project with Spring Initializr and HTTPie
 date: 2020-04-12
 last_modified: 2020-04-12
-description: Create Maven Spring Project with httpie from start.spring.io - Spring Boot - Maven   # Add post description (optional)
-img: 2020/spring-initializr/initializr-card # Add image post (optional)
+description: Create Maven Spring Project with HTTPie from start.spring.io - Spring Boot - Maven   # Add post description (optional)
+img: 2020/spring-initializr/initializr-card.jpg # Add image post (optional)
 tags: [spring-initializr, Spring Boot, Kotlin]
 author: # Add name author (optional)
 --- 
-
-![initializr-card.jpg](/assets/img/2020/spring-initializr/initializr-card.jpg)
-
                                                                                                                 
 # Create Kotlin with HTTPie from start.spring.io 
 
