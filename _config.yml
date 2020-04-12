@@ -9,7 +9,7 @@ url: "https://docs.marcelwidmer.org" # the base hostname & protocol for your sit
 # Author settings
 author: Marcel Widmer # add your name
 author-pic: Me.png
-about-author: My name is Marcel Widmer. I love Kotlin, Spring Boot and Openshift.
+about-author: My name is Marcel Widmer. I love Kotlin, Spring Boot and K8s.
 
 # Contact links
 #email: # Add your Email address
