@@ -23,10 +23,10 @@ javaVersion==11 language==kotlin \
 baseDir==kotlin-sidecar-gateway | tar -xzvf -
 ```
 
-# Copy Banner
-Change in just created project folder then copy the banner in the `src/main/resources`
+# Download Banner
+Download Banner in the `src/main/resources` folder.
 ```bash
-http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/assets/img/2020/spring-initializr/banner.txt -d kotlin-sidecar-gateway/src/main/resources
+http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/assets/img/2020/spring-initializr/banner.txt > kotlin-sidecar-gateway/src/main/resources/banner.txt
 ```
 
 
