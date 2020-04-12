@@ -10,17 +10,21 @@ author: # Add name author (optional)
 --- 
                                                                                                                 
 # Create Kotlin Maven Project with HTTPie from start.spring.io 
-
-The following command extract a Kotlin Maven Project generated from the `https://start.spring.io`
+Let's create and extract a `Maven` `Kotlin` project with some dependecies `actuator` `data-mongodb-reactive` `webflux` and `cloud-gateway`
+The `https://start.spring.io` site also provide a `HATEOAS` endpoint
 
 ```bash
 http https://start.spring.io/starter.tgz \
-dependencies==actuator,data-mongodb-reactive,webflux,cloud-gateway \
-description=="Demo project Kotlin Sidecar Gateway" \
-applicationName==SidecarGatewayApplication name==kotlin-sidecar-gateway groupId==ch.keepcalm \
-artifactId==kotlin-sidecar-gateway packageName==ch.keepcalm.demo \
-javaVersion==11 language==kotlin \
-baseDir==kotlin-sidecar-gateway | tar -xzvf -
+    dependencies==actuator,data-mongodb-reactive,webflux,cloud-gateway \
+    description=="Demo project Kotlin Sidecar Gateway" \
+    applicationName==SidecarGatewayApplication \
+    name==kotlin-sidecar-gateway \
+    groupId==ch.keepcalm \
+    artifactId==kotlin-sidecar-gateway \
+    packageName==ch.keepcalm.demo \
+    javaVersion==11 \
+    language==kotlin \
+    baseDir==kotlin-sidecar-gateway | tar -xzvf -
 ```
 
 # Download Banner
