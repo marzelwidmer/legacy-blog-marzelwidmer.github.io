@@ -4,12 +4,12 @@ title: Create Kotlin Project with Spring Initializr and HTTPie
 date: 2020-04-12
 last_modified: 2020-04-12
 description: Create Maven Spring Project with HTTPie from start.spring.io - Spring Boot - Maven   # Add post description (optional)
-img: 2020/spring-initializr/initializr-card.jpg # Add image post (optional)
+img: 2020/spring-initializr/initializr.png # Add image post (optional)
 tags: [spring-initializr, Spring Boot, Kotlin]
 author: # Add name author (optional)
 --- 
                                                                                                                 
-# Create Kotlin with HTTPie from start.spring.io 
+# Create Kotlin Maven Project with HTTPie from start.spring.io 
 
 The following command extract a Kotlin Maven Project generated from the `https://start.spring.io`
 
