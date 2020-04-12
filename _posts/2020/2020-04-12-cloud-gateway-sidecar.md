@@ -38,7 +38,7 @@ class CustomerService(private val customerRepository: CustomerRepository) {
 ````
 
 ## Initialize Data
-Every Application stat let's clean the `MongoDB` collection and write some data to it.
+On every application start let's clean the `MongoDB` collection and write some new data to it.
 We do it with a `Bean` definition with the Kotlin DSL.
 
 ```kotlin
@@ -101,3 +101,46 @@ bean {
         }
 }
 ```
+
+## Call Gateway Route
+Now is time to call the `Gateway Route` to check if we get a result also with the additional `ResponsHeader`
+`X-AnotherHeader: SideCar`
+
+**Request :**
+```bash
+http -v :8080/api/customers
+```
+
+
+**Response :**
+```bash
+GET /api/customers HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: localhost:8080
+User-Agent: HTTPie/2.0.0
+
+
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+X-AnotherHeader: SideCar
+transfer-encoding: chunked
+
+[
+    {
+        "id": "a36f75ae-a97f-41ba-9b38-59a5a6d38055",
+        "name": "John"
+    },
+    {
+        "id": "c0b25559-13ad-4b6b-ae25-adbcd898db82",
+        "name": "Jane"
+    },
+    {
+        "id": "2a3a1350-4bea-4504-b732-5b7c97602ebb",
+        "name": "Jack"
+    }
+]
+```
+
