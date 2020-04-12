@@ -49,3 +49,5 @@ _site
 .idea
 .jekyll-cache
 /.jekyll-metadata
+node_modules
+node_modules
