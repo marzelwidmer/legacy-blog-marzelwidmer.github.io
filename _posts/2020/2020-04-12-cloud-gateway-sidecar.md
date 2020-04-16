@@ -2,8 +2,8 @@
 layout: post
 title: Spring Cloud Gateway as Sidecar
 date: 2020-04-12
-last_modified: 2020-04-12
-description: CSpring Cloud Gateway as Sidecar   # Add post description (optional)
+last_modified: 2020-04-16
+description: Spring Cloud Gateway as Sidecar   # Add post description (optional)
 img: 2020/cloud-gateway-sidecar/spring-boot-kotlin-mongodb.jpg
 tags: [Spring Cloud Gateway, Sidecar, Spring Boot, Kotlin]
 author: # Add name author (optional)
