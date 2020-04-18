@@ -40,7 +40,10 @@ echo "spring:
   application:
     name: kotlin-sidecar-gateway" | > kotlin-sidecar-gateway/src/main/resources/application.yaml
 ```
-
+Remove `application.properties`
+```bash
+rm kotlin-sidecar-gateway/src/main/resources/application.properties
+```
 
 
 

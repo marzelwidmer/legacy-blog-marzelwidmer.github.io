@@ -3,7 +3,7 @@ layout: post
 title: Reactive Spring Boot with Resilience4j CircuitBreaker
 date: 2020-04-18
 last_modified: 2020-04-18
-description: CircuitBreaker pattern with Kotlin Reactive Spring Boot Application
+description: Resilience4j - CircuitBreaker with Kotlin Reactive Spring Boot Application
 img: 2020/resilience4j-circuitbreaker/kotlin-spring-reactive.jpg
 tags: [Spring Boot, Spring Reactive, Resilience4j CircuitBreaker, Kotlin]
 author: # Add name author (optional)
@@ -40,7 +40,10 @@ echo "spring:
   application:
     name: kboot-resilience4j" | > kboot-resilience4j/src/main/resources/application.yaml
 ```
-
+Remove `application.properties`
+```bash
+rm kboot-resilience4j/src/main/resources/application.properties
+```
 
 
 The example source code can be found here [GitHub](https://github.com/marzelwidmer/kboot-resilience4j)
