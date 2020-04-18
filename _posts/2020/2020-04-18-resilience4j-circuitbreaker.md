@@ -84,10 +84,10 @@ We start with a `Hello World` Endpoint `/hello/{name}` and will refactor it late
 fun main(args: Array<String>) {
     runApplication<Resilience4jApplication>(*args){
         addInitializers(
-            beans {
-                bean {
-                    router {
-                        GET("/hello/{name}") {
+            beans { // this: BeanDefinitionDsl
+                bean { // this: BeanDefinitionDsl.BeanSupplierContext
+                    router { // this: RouterFunctionDsl
+                        GET("/hello/{name}") { // it: ServerRequest
                             ok().body(fromValue("Hello ${it.pathVariable("name")}"))
                         }
                     }
