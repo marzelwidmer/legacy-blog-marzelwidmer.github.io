@@ -128,6 +128,34 @@ fun main(args: Array<String>) {
 }
 ```
 
+Let's test the new API first with a loop and call the service `50` times. 
+```bash
+for i in {1..50}; do http "http://localhost:8080/slow/Service" ; done
+
+HTTP/1.1 200 OK
+Content-Length: 55
+Content-Type: application/json
+
+{
+    "message": "Service Ready, set, go!! this call took 2"
+}
+
+HTTP/1.1 200 OK
+Content-Length: 55
+Content-Type: application/json
+
+{
+    "message": "Service Ready, set, go!! this call took 7"
+}
+
+HTTP/1.1 200 OK
+Content-Length: 55
+Content-Type: application/json
+
+{
+    "message": "Service Ready, set, go!! this call took 9"
+}
+```
 
 
 
