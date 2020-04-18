@@ -27,11 +27,21 @@ http https://start.spring.io/starter.tgz \
     baseDir==kotlin-sidecar-gateway | tar -xzvf -
 ```
 
-# Download Banner
+# Banner
 Download Banner in the `src/main/resources` folder.
 ```bash
 http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/assets/img/2020/spring-initializr/banner.txt > kotlin-sidecar-gateway/src/main/resources/banner.txt
 ```
+
+# Spring Application Name
+Configure `spring.applicatin.name`
+```bash
+echo "spring:
+  application:
+    name: kotlin-sidecar-gateway" | > kotlin-sidecar-gateway/src/main/resources/application.yaml
+```
+
+
 
 
 [jekyll-docs]: https://jekyllrb.com/docs/home

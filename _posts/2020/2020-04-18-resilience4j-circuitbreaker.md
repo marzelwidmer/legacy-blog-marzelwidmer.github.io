@@ -34,7 +34,12 @@ Add Customer Banner
 http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/assets/img/2020/spring-initializr/banner.txt \
     > kboot-resilience4j/src/main/resources/banner.txt
 ```
-
+Configure `spring.applicatin.name`
+```bash
+echo "spring:
+  application:
+    name: kboot-resilience4j" | > kboot-resilience4j/src/main/resources/application.yaml
+```
 
 
 
