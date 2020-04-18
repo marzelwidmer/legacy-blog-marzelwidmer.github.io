@@ -49,7 +49,7 @@ rm kboot-resilience4j/src/main/resources/application.properties
 
 See also my other post [Spring Initializr and HTTPie](https://blog.marcelwidmer.org/spring-initializr/)
 
-## Implement Slow Service
+## Service 
 Let's create a slow service `TurtleService` with a response class `TurtleServiceResponse`.
 The Publisher have some nice functions to simulate a slow service. `.delayElement(Duration.ofSeconds(delayInSeconds.toLong()))`
 We also will log the message with the `.doOnNext { log.info(it.message) }` function on server side.
@@ -74,6 +74,44 @@ class TurtleService {
 }
 data class TurtleServiceResponse(val message: String)
 ```
+
+## API
+Let's create a REST API `/slow/{name}` with the [Reactive router Kotlin DSL](https://docs.spring.io/spring-framework/docs/current/kdoc-api/spring-framework/org.springframework.web.reactive.function.server/-router-function-dsl/index.html). 
+A easy way to create a `WebFlux.fn` [RouterFunction](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/reactive/function/server/RouterFunctions.html)
+
+We start with a `Hello World` Endpoint `/hello/{name}` and will refactor it later. 
+```kotlin
+fun main(args: Array<String>) {
+    runApplication<Resilience4jApplication>(*args){
+        addInitializers(
+            beans {
+                bean {
+                    router {
+                        GET("/hello/{name}") {
+                            ok().body(fromValue("Hello ${it.pathVariable("name")}"))
+                        }
+                    }
+                }
+            }
+        )
+    }
+}
+```
+
+`http :8080/hello/world`
+
+```bash
+HTTP/1.1 200 OK
+Content-Length: 11
+Content-Type: text/plain;charset=UTF-8
+
+Hello world
+```
+
+
+
+
+
 
 
 
