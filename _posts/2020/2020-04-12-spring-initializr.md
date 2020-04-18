@@ -11,7 +11,7 @@ author: # Add name author (optional)
                                                                                                                 
 # Create Kotlin Maven Project with HTTPie from start.spring.io 
 Let's create and extract a `Maven` `Kotlin` project with some dependecies `actuator` `data-mongodb-reactive` `webflux` and `cloud-gateway`
-The `https://start.spring.io` site also provide a `HATEOAS` endpoint
+The `https://start.spring.io`
 
 ```bash
 http https://start.spring.io/starter.tgz \
