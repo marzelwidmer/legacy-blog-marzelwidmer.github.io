@@ -8,7 +8,6 @@ img: 2020/resilience4j-circuitbreaker/kotlin-spring-reactive.jpg
 tags: [Spring Boot, Spring Reactive, Resilience4j CircuitBreaker, Kotlin]
 author: # Add name author (optional)
 --- 
-
 # Reactive Spring Boot with Resilience4j CircuitBreaker
 
 ## Create Project
@@ -108,8 +107,26 @@ Content-Type: text/plain;charset=UTF-8
 Hello world
 ```
 
-
-
+Let's call the `TurtleService` now from a Router API `/slow/{name}` for this we can get a [Bean Reference](https://docs.spring.io/spring/docs/current/kdoc-api/spring-framework/org.springframework.context.support/-bean-definition-dsl/-bean-supplier-context/ref.html)
+`val service = ref<TurtleService>()` an call our `readySetGo` function.
+```kotlin
+fun main(args: Array<String>) {
+    runApplication<Resilience4jApplication>(*args){
+        addInitializers(
+            beans {
+                bean {
+                    router {
+                        GET("/slow/{name}") {
+                            val service = ref<TurtleService>() // Bean Reference
+                            ok().body(service.readySetGo(name = it.pathVariable("name")))
+                        }
+                    }
+                }
+            }
+        )
+    }
+}
+```
 
 
 
