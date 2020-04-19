@@ -64,10 +64,10 @@ class TurtleService {
             val msg = "$name Ready, set, go!! this call took $delayInSeconds"
             return Mono.just(TurtleServiceResponse(message = msg))
                 .delayElement(Duration.ofSeconds(delayInSeconds.toLong()))
-                .doOnNext { log.info(it.message) }
+                .doOnNext { log.info("$it") }
         }.isNullOrEmpty()
             .apply {
-                return Mono.error(NullPointerException())
+                return Mono.empty()
             }
     }
 }
@@ -157,7 +157,56 @@ Content-Type: application/json
 }
 ```
 
+Let's go one step further and refactor again our code. 
+Create first a new `Bean` for the `WebClient` with this we will call our Service on Application Start.
+This will simulate our `Httpie` call from before.
 
+```kotlin
+    // Client
+    bean {
+        WebClient.builder()
+            .baseUrl("http://localhost:8080")
+            .build()
+    }
+```  
+
+Then create a `Client` Spring `Component` class with the name `Client` where we inject our `WebClient`.
+We also will implement a function `ready` with a loop `for (count in 1..50)` like before on application start for this we use the Spring `EventListener`
+and the `@EventListener(classes = [ApplicationReadyEvent::class])`  annotation.
+
+```kotlin
+@Component
+class Client(private val webClient: WebClient) {
+
+    private val log = LoggerFactory.getLogger(javaClass)
+
+    @EventListener(classes = [ApplicationReadyEvent::class])
+    fun ready() {
+
+        for (count in 1..50) {
+            webClient
+                .get()
+                .uri("/slow/{name}", "[$count]CallFromEventListener")
+                .retrieve()
+                .bodyToMono(TurtleServiceResponse::class.java)
+                .map { it.message }
+                .subscribe {
+                    log.info("--> Client[$count] :  $it")
+                }
+        }
+    }
+}
+
+```
+
+Now when we start our application again `mvn spring-boot:run` you will see in the logfile something like this hopefully.
+
+```bash
+020-04-19 07:54:49.756  INFO 6512 --- [parallel-11] ch.keepcalm.demo.TurtleService: TurtleServiceResponse(message=[5]CallFromEventListener Ready, set, go!! this call took 2)
+2020-04-19 07:54:49.756  INFO 6512 --- [parallel-1] ch.keepcalm.demo.TurtleService: TurtleServiceResponse(message=[8]CallFromEventListener Ready, set, go!! this call took 2)
+2020-04-19 07:54:49.758  INFO 6512 --- [parallel-5] ch.keepcalm.demo.TurtleService: TurtleServiceResponse(message=[30]CallFromEventListener Ready, set, go!! this call took 2)
+2020-04-19 07:54:49.758  INFO 6512 --- [ctor-http-nio-6] ch.keepcalm.demo.Client  : --> Client[5] :  [5]CallFromEventListener Ready, set, go!! this call took 2
+```
 
 
 
