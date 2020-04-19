@@ -48,79 +48,90 @@ rm kboot-resilience4j/src/main/resources/application.properties
 
 See also my other post [Spring Initializr and HTTPie](https://blog.marcelwidmer.org/spring-initializr/)
 
+## Domain Model
+Let's start with the `Movie` domain class with the following properties.
+* name
+* year
+* description
+
+```kotlin
+data class Movie(val id: String? = UUID.randomUUID().toString(), val name: String, val year: Year, val description: String)
+``` 
+
 ## Service 
-Let's create a slow service `TurtleService` with a response class `TurtleServiceResponse`.
-The Publisher have some nice functions to simulate a slow service. `.delayElement(Duration.ofSeconds(delayInSeconds.toLong()))`
-We also will log the message with the `.doOnNext { log.info(it.message) }` function on server side.
+Now we create the service class `MovieService` who hold some hard coded movies in a list.
+The amazing functions:
+
+* Get all Movies
+* Get a random list of Movies
+* Get a Movie by his name
+* Get a Movie by his ID
 
 ```kotlin
 @Service
-class TurtleService {
-    private val log = LoggerFactory.getLogger(javaClass)
+class MovieService {
 
-    fun readySetGo(name: String?): Mono<TurtleServiceResponse> {
-        name?.map {
-            val delayInSeconds = (0..10).random()
-            val msg = "$name Ready, set, go!! this call took $delayInSeconds"
-            return Mono.just(TurtleServiceResponse(message = msg))
-                .delayElement(Duration.ofSeconds(delayInSeconds.toLong()))
-                .doOnNext { log.info("$it") }
-        }.isNullOrEmpty()
-            .apply {
-                return Mono.empty()
-            }
-    }
+    private val movies = listOf(
+        Movie(name = "Matrix",
+            year = Year.of(1999),
+            description = "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers."),
+        Movie(name = "The Godfather",
+            year = Year.of(1972),
+            description = "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son."),
+        Movie(name = "Casablanca",
+            year = Year.of(1942),
+            description = "A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco."),
+        Movie(name = "Rocky",
+            year = Year.of(1976),
+            description = "A small-time boxer gets a supremely rare chance to fight a heavy-weight champion in a bout in which he strives to go the distance for his self-respect.")
+    )
+
+    fun randomMovie() = Mono.just(movies[kotlin.random.Random.nextInt(movies.size)])
+    fun movies() = Flux.just(movies)
+    fun movieByName(name: String) = Mono.just(movies.first { it.name.toLowerCase() == name.toString().toLowerCase() })
+    fun movieById(id: String) = Mono.just(movies.first { it.id == id })
+
 }
-data class TurtleServiceResponse(val message: String)
 ```
-
-## API
-Let's create a REST API `/slow/{name}` with the [Reactive router Kotlin DSL](https://docs.spring.io/spring-framework/docs/current/kdoc-api/spring-framework/org.springframework.web.reactive.function.server/-router-function-dsl/index.html). 
+## Rest API  
+I think now is time to create a REST API `/movies/random` with the [Reactive router Kotlin DSL](https://docs.spring.io/spring-framework/docs/current/kdoc-api/spring-framework/org.springframework.web.reactive.function.server/-router-function-dsl/index.html). 
 A easy way to create a `WebFlux.fn` [RouterFunction](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/reactive/function/server/RouterFunctions.html)
+Because we have more then one endpoint under `/movies` we use the `"/movies".nest` router function.
 
-We start with a `Hello World` Endpoint `/hello/{name}` and will refactor it later. 
+
+We use also our service `MovieService` so we need a [Bean Reference](https://docs.spring.io/spring/docs/current/kdoc-api/spring-framework/org.springframework.context.support/-bean-definition-dsl/-bean-supplier-context/ref.html) to it.
+
+`val service = ref<MovieService>()`
+
+> 💡: Take care of the order in the Route definiton "/" have to be at latest position.
+
 ```kotlin
 fun main(args: Array<String>) {
-    runApplication<Resilience4jApplication>(*args){
-        addInitializers(
-            beans { // this: BeanDefinitionDsl
-                bean { // this: BeanDefinitionDsl.BeanSupplierContext
-                    router { // this: RouterFunctionDsl
-                        GET("/hello/{name}") { // it: ServerRequest
-                            ok().body(fromValue("Hello ${it.pathVariable("name")}"))
-                        }
-                    }
-                }
-            }
-        )
-    }
-}
-```
-
-`http :8080/hello/world`
-
-```bash
-HTTP/1.1 200 OK
-Content-Length: 11
-Content-Type: text/plain;charset=UTF-8
-
-Hello world
-```
-
-Let's call the `TurtleService` now from a Router API `/slow/{name}` for this we can get a [Bean Reference](https://docs.spring.io/spring/docs/current/kdoc-api/spring-framework/org.springframework.context.support/-bean-definition-dsl/-bean-supplier-context/ref.html)
-`val service = ref<TurtleService>()` an call our `readySetGo` function.
-```kotlin
-fun main(args: Array<String>) {
-    runApplication<Resilience4jApplication>(*args){
+    runApplication<Resilience4jApplication>(*args) {
         addInitializers(
             beans {
                 bean {
                     router {
-                        GET("/slow/{name}") {
-                            val service = ref<TurtleService>() // Bean Reference
-                            ok().body(service.readySetGo(name = it.pathVariable("name")))
-                        }
-                    }
+                         "movies".nest {
+                             val service = ref<MovieService>()
+                             //http :8080/movies/random
+                             GET("/random") {
+                                 ok().body(service.randomMovie())
+                             }
+                             //http :8080/movies/ name=="Rocky" -vv
+                             queryParam("name", { true }) {
+                                 ok().body(service.movieByName(name = it.queryParam("name").get()))
+                             }
+                             //http :8080/movies/c7f399bc-ff4c-4a2f-bddf-d92d53a96df2
+                             GET("/{id}") {
+                                 ok().body(service.movieById(id = it.pathVariable("id")))
+                             }
+                             //http :8080/movies/random
+                             GET("/") {
+                                 ok().body(service.movies())
+                             }
+                         }
+                     }
                 }
             }
         )
@@ -128,83 +139,131 @@ fun main(args: Array<String>) {
 }
 ```
 
-Let's test the new API first with a loop and call the service `50` times. 
+## Test Rest API
+No is time to make some calls from the terminal with the `HTTPie` or in a Browser.
+First start the application e.g. with `mvn spring-boot:run`.
+
+Then lets call our amazing endpoints with the `HTTPie` or Browser.
+
+### Get all Movies
+
+[http://localhost:8080/movies](http://localhost:8080/movies)
+
 ```bash
-for i in {1..50}; do http "http://localhost:8080/slow/Service" ; done
-
+http :8080/movies/
 HTTP/1.1 200 OK
-Content-Length: 55
 Content-Type: application/json
-
-{
-    "message": "Service Ready, set, go!! this call took 2"
-}
-
-HTTP/1.1 200 OK
-Content-Length: 55
-Content-Type: application/json
-
-{
-    "message": "Service Ready, set, go!! this call took 7"
-}
-
-HTTP/1.1 200 OK
-Content-Length: 55
-Content-Type: application/json
-
-{
-    "message": "Service Ready, set, go!! this call took 9"
-}
-```
-
-Let's go one step further and refactor again our code. 
-Create first a new `Bean` for the `WebClient` with this we will call our Service on Application Start.
-This will simulate our `Httpie` call from before.
-
-```kotlin
-    // Client
-    bean {
-        WebClient.builder()
-            .baseUrl("http://localhost:8080")
-            .build()
-    }
-```  
-
-Then create a `Client` Spring `Component` class with the name `Client` where we inject our `WebClient`.
-We also will implement a function `ready` with a loop `for (count in 1..50)` like before on application start for this we use the Spring `EventListener`
-and the `@EventListener(classes = [ApplicationReadyEvent::class])`  annotation.
-
-```kotlin
-@Component
-class Client(private val webClient: WebClient) {
-
-    private val log = LoggerFactory.getLogger(javaClass)
-
-    @EventListener(classes = [ApplicationReadyEvent::class])
-    fun ready() {
-
-        for (count in 0..50) {
-            webClient
-                .get()
-                .uri("/slow/{name}", "[$count]CallFromEventListener")
-                .retrieve()
-                .bodyToMono(TurtleServiceResponse::class.java)
-                .map { it.message }
-                .subscribe {
-                    log.info("--> Client[$count] :  $it")
-                }
+transfer-encoding: chunked
+[
+    [
+        {
+            "description": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
+            "id": "c7f399bc-ff4c-4a2f-bddf-d92d53a96df2",
+            "name": "Matrix",
+            "year": "1999"
+        },
+        {
+            "description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+            "id": "0c7a74fc-b735-41a3-a383-72b9dad7d608",
+            "name": "The Godfather",
+            "year": "1972"
+        },
+        {
+            "description": "A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco.",
+            "id": "15a9e15d-4a5e-4b8a-a7c5-d34b0d5d0879",
+            "name": "Casablanca",
+            "year": "1942"
+        },
+        {
+            "description": "A small-time boxer gets a supremely rare chance to fight a heavy-weight champion in a bout in which he strives to go the distance for his self-respect.",
+            "id": "f6fb4a62-6d84-434e-8e2c-70e4c1e7ab2c",
+            "name": "Rocky",
+            "year": "1976"
         }
-    }
-}
-
+    ]
+]
 ```
 
-Now when we start our application again `mvn spring-boot:run` you will see in the logfile something like this hopefully.
+### Get a random list of Movies
+   
+[http://localhost:8080/movies/random](http://localhost:8080/movies/random)
 
 ```bash
-2020-04-19 Sun 09:45:43.793 TurtleService - <-- TurtleService : TurtleServiceResponse(message=[25]CallFromEventListener Ready, set, go!! this call took 3)
-2020-04-19 Sun 09:45:43.795 Client        - --> Client[25] :  [25]CallFromEventListener Ready, set, go!! this call took 3
+ http :8080/movies/random
+HTTP/1.1 200 OK
+Content-Length: 240
+Content-Type: application/json
+
+{
+    "description": "A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco.",
+    "id": "5dd310b8-8d51-4a1e-a20c-790fec00029f",
+    "name": "Casablanca",
+    "year": "1942"
+}
 ```
+ 
+### Get a Movie by his name
+   
+[http://localhost:8080/movies/?name=Rocky](http://localhost:8080/movies/?name=Rocky)
+
+```bash
+http :8080/movies name=="Rocky" -v
+GET /movies?name=Rocky HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: localhost:8080
+User-Agent: HTTPie/2.0.0
+
+HTTP/1.1 200 OK
+Content-Length: 242
+Content-Type: application/json
+
+{
+    "description": "A small-time boxer gets a supremely rare chance to fight a heavy-weight champion in a bout in which he strives to go the distance for his self-respect.",
+    "id": "5cae75c6-d18a-495b-a80f-60bdd0763eb1",
+    "name": "Rocky",
+    "year": "1976"
+}
+```
+
+### Get a Movie by his ID
+   
+[http://localhost:8080/movies/5dd310b8-8d51-4a1e-a20c-790fec00029f](http://localhost:8080/movies/5dd310b8-8d51-4a1e-a20c-790fec00029f)
+
+```bash
+http :8080/movies/5dd310b8-8d51-4a1e-a20c-790fec00029f
+HTTP/1.1 200 OK
+Content-Length: 240
+Content-Type: application/json
+
+{
+    "description": "A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco.",
+    "id": "5dd310b8-8d51-4a1e-a20c-790fec00029f",
+    "name": "Casablanca",
+    "year": "1942"
+}
+```
+
+### Search for a not existing Movie
+Now let's also search for `Creed` is also a great movie but this one is not yet in our 'MovieService' included
+we will get the following exception.
+```bash
+http :8080/movies/creed
+HTTP/1.1 500 Internal Server Error
+Content-Length: 206
+Content-Type: application/json
+
+{
+    "error": "Internal Server Error",
+    "message": "Collection contains no element matching the predicate.",
+    "path": "/movies/creed",
+    "requestId": "4eac7833-10",
+    "status": 500,
+    "timestamp": "2020-04-19T17:04:12.054+00:00"
+}
+```
+
 
 > 💡 **Logger Configuration**: 
     logging.pattern.console: "%clr(%d{yyyy-MM-dd E HH:mm:ss.SSS}){blue} %clr(%-40.40logger{0}){magenta} - %clr(%m){green}%n" 
