@@ -88,8 +88,16 @@ class MovieService {
 
     fun randomMovie() = Mono.just(movies[kotlin.random.Random.nextInt(movies.size)])
     fun movies() = Flux.just(movies)
-    fun movieByName(name: String) = Mono.just(movies.first { it.name.toLowerCase() == name.toString().toLowerCase() })
     fun movieById(id: String) = Mono.just(movies.first { it.id == id })
+    fun movieByName(name: String?): Mono<Movie> {
+            name?.map {
+                movies.firstOrNull() { it.name.toLowerCase() == name.toLowerCase() }?.let {
+                    return Mono.just(it)
+                }
+            }.isNullOrEmpty().apply {
+                return Mono.error(IllegalArgumentException("Movie was not found."))
+            }
+    }
 
 }
 ```
@@ -246,40 +254,76 @@ Content-Type: application/json
 ```
 
 ### Search for a not existing Movie
-Now let's also search for `Creed` is also a great movie but this one is not yet in our 'MovieService' included
+Now let's also search for `http://localhost:8080/movies/?name=Creed` is also a great movie but this one is not yet in our `MovieService` included
 we will get the following exception.
 ```bash
-http :8080/movies/creed
+http :8080/movies name=="Creed" -v
+GET /movies?name=Creed HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: localhost:8080
+User-Agent: HTTPie/2.0.0
+
 HTTP/1.1 500 Internal Server Error
-Content-Length: 206
+Content-Length: 165
 Content-Type: application/json
 
 {
     "error": "Internal Server Error",
-    "message": "Collection contains no element matching the predicate.",
-    "path": "/movies/creed",
-    "requestId": "4eac7833-10",
+    "message": "Movie was not found.",
+    "path": "/movies",
+    "requestId": "61569a89-3",
     "status": 500,
-    "timestamp": "2020-04-19T17:04:12.054+00:00"
+    "timestamp": "2020-04-19T21:13:10.403+00:00"
+}
+
+```
+
+## Configure CircuitBreaker
+
+😎 Cool stuff 😎 let's implement the `CircuitBreaker` with `Resilinece4j`.
+Let's configure the `ReactiveCircuitBreaker` Bean from `ReactiveResilience4JCircuitBreakerFactory` with a name `movie-service`.
+
+```kotlin
+bean {
+    ReactiveResilience4JCircuitBreakerFactory()
+        .create("movie-service")
 }
 ```
 
 
-> 💡 **Logger Configuration**: 
-    logging.pattern.console: "%clr(%d{yyyy-MM-dd E HH:mm:ss.SSS}){blue} %clr(%-40.40logger{0}){magenta} - %clr(%m){green}%n" 
-    
 
+
+
+
+
+😎 Cool stuff 😎 let's implement the `CircuitBreaker` with `Resilinece4j`. 
+
+For this we create a `ReactiveCircuitBreaker` Bean from `ReactiveResilience4JCircuitBreakerFactory` with a name `readySetGo`.
+
+```kotlin
+bean {
+    ReactiveResilience4JCircuitBreakerFactory()
+        .create("readySetGo")
+}
+```
+  
 
 
 The example source code can be found here [GitHub](https://github.com/marzelwidmer/kboot-resilience4j)
 
 
 
+> 💡 **Logger Configuration**: 
+    logging.pattern.console: "%clr(%d{yyyy-MM-dd E HH:mm:ss.SSS}){blue} %clr(%-40.40logger{0}){magenta} - %clr(%m){green}%n" 
+    
+
 > **_References:_**  
 >[Resilience4j docs](https://resilience4j.readme.io/docs)
  
 
-
+ 
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
