@@ -183,7 +183,7 @@ class Client(private val webClient: WebClient) {
     @EventListener(classes = [ApplicationReadyEvent::class])
     fun ready() {
 
-        for (count in 1..50) {
+        for (count in 0..50) {
             webClient
                 .get()
                 .uri("/slow/{name}", "[$count]CallFromEventListener")
@@ -202,13 +202,13 @@ class Client(private val webClient: WebClient) {
 Now when we start our application again `mvn spring-boot:run` you will see in the logfile something like this hopefully.
 
 ```bash
-020-04-19 07:54:49.756  INFO 6512 --- [parallel-11] ch.keepcalm.demo.TurtleService: TurtleServiceResponse(message=[5]CallFromEventListener Ready, set, go!! this call took 2)
-2020-04-19 07:54:49.756  INFO 6512 --- [parallel-1] ch.keepcalm.demo.TurtleService: TurtleServiceResponse(message=[8]CallFromEventListener Ready, set, go!! this call took 2)
-2020-04-19 07:54:49.758  INFO 6512 --- [parallel-5] ch.keepcalm.demo.TurtleService: TurtleServiceResponse(message=[30]CallFromEventListener Ready, set, go!! this call took 2)
-2020-04-19 07:54:49.758  INFO 6512 --- [ctor-http-nio-6] ch.keepcalm.demo.Client  : --> Client[5] :  [5]CallFromEventListener Ready, set, go!! this call took 2
+2020-04-19 Sun 09:45:43.793 TurtleService - <-- TurtleService : TurtleServiceResponse(message=[25]CallFromEventListener Ready, set, go!! this call took 3)
+2020-04-19 Sun 09:45:43.795 Client        - --> Client[25] :  [25]CallFromEventListener Ready, set, go!! this call took 3
 ```
 
-
+> 💡 **Logger Configuration**: 
+    logging.pattern.console: "%clr(%d{yyyy-MM-dd E HH:mm:ss.SSS}){blue} %clr(%-40.40logger{0}){magenta} - %clr(%m){green}%n" 
+    
 
 
 
@@ -218,6 +218,8 @@ The example source code can be found here [GitHub](https://github.com/marzelwidm
 
 > **_References:_**  
 >[Resilience4j docs](https://resilience4j.readme.io/docs)
+ 
+
 
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
