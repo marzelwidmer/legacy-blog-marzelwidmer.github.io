@@ -5,7 +5,7 @@ date: 2020-04-12
 last_modified: 2020-04-12
 description: Create Maven Spring Project with HTTPie from start.spring.io - Spring Boot - Maven   # Add post description (optional)
 img: 2020/spring-initializr/initializr.png # Add image post (optional)
-tags: [spring-initializr, Spring Boot, Kotlin]
+tags: [Blog, spring-initializr, Spring Boot, Kotlin]
 author: # Add name author (optional)
 --- 
                                                                                                                 

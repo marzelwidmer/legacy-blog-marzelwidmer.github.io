@@ -5,7 +5,7 @@ date: 2020-04-18
 last_modified: 2020-04-18
 description: Resilience4j - CircuitBreaker with Kotlin Reactive Spring Boot Application
 img: 2020/resilience4j-circuitbreaker/kotlin-spring-reactive.jpg
-tags: [Spring Boot, Spring Reactive, Resilience4j CircuitBreaker, Kotlin]
+tags: [Blog, Spring Boot, Spring Reactive, Resilience4j CircuitBreaker, Kotlin]
 author: # Add name author (optional)
 --- 
 # Reactive Spring Boot with Resilience4j CircuitBreaker
