@@ -230,7 +230,7 @@ Press Enter to Continue
 
 In my case something like so :
 
-![_acme-challenge.apps](/assets/img/2019/hetzner-okd/_acme-challenge.apps.png)
+![_acme-challenge.apps](/assets/img/2019/hetzner-okd/acme.png)
 
 You can check the `DNS` with [https://dnschecker.org/](https://dnschecker.org/#TXT/_acme-challenge.apps.keepcalm.ch)
 Check with `host` command.
