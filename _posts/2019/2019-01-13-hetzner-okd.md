@@ -211,7 +211,7 @@ Are you OK with your IP being logged?
 ```
 
 
-> ⚠️ **Important Steps **: Be sure you update the `DNS TXT` records with the prompted values 
+> ⚠️ **Important Steps**: Be sure you update the `DNS TXT` records with the prompted values 
 
 The following values you have to add in you `DNS`.
 So let's open again the `DNS` Admin console from your provider. 
