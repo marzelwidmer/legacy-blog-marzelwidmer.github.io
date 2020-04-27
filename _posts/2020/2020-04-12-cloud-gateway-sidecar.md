@@ -1,15 +1,17 @@
----
+--- 
 layout: post
 title: Spring Cloud Gateway as Sidecar
-date: 2020-04-12
-last_modified: 2020-04-16
-description: Spring Cloud Gateway as Sidecar   # Add post description (optional)
-img: 2020/cloud-gateway-sidecar/spring-boot-kotlin-mongodb.jpg
-tags: [Blog, Spring Cloud Gateway, Sidecar, Spring Boot, Kotlin]
-author: # Add name author (optional)
---- 
+description: Spring Cloud Gateway as Sidecar 
+date:   2020-04-16 18:05:55 +0300
+image: IMG_9722.jpg
+tags: [Spring Boot, Kotlin]
+---
 
 # Spring Cloud Gateway as Sidecar
+
+![]({{site.baseurl}}/img/2020/initializr.png)
+
+
 
 This sample show how easy you can put on an existing `API` the `Spring Cloud Gateway` as kind of `SideCar` where you can manage your Security, Logging etc. 
 Or just provide a other `Endpoint` `URL` like in this sample.
@@ -43,27 +45,35 @@ That we have some data we create a little functionality on application start wit
 Let's create a Bean definitionfor the `ApplicationRunner` that delete first all entries and then save some sample values to it.
  
 ```kotlin
-  runApplication<SidecarGatewayApplication>(*args) {
+
+fun main(args: Array<String>) {
+    runApplication<SidecarGatewayApplication>(*args) {
         addInitializers(
             beans {
                 bean {
                     ApplicationRunner {
                         val customerService = ref<CustomerService>()
-
+    
                         customerService
-                            .deleteAll() // first cleanUp Database
-                            .thenMany(  // create a list of Customers
+                            // first cleanUp Database
+                            .deleteAll()
+                            // create a list of Customers 
+                            .thenMany(  
                                 listOf("John", "Jane", "Jack")
                                     .toFlux()
                                     .map { Customer(name = it) })
-                            .flatMap { customerService.save(it) } // Save it to the Database
-                            .thenMany(customerService.findAll()) // Search all entries
-                            .subscribe { log.info("--> $it") } // subscribe - let`s do the work...
+                            // Save it to the Database
+                            .flatMap { customerService.save(it) } 
+                             // Search all entries
+                            .thenMany(customerService.findAll()) 
+                            // subscribe - let`s do the work...
+                            .subscribe { log.info("--> $it") } 
                     }
                 }
             }
-        }
-   }
+        )
+    }
+}
 ```
 Now we have some data in our MongoDB I think now is time to create a other Bean with the Kotlin DSL that provide a Rest endpoint.
 For this we create an `Router` that will provide the following endpoints.
@@ -75,12 +85,16 @@ For this we create an `Router` that will provide the following endpoints.
 bean {
     router {
         val customerService = ref<CustomerService>()
-        GET("/customers") { ok().body(customerService.findAll()) }
-        GET("/customers/{id}") { ok().body(customerService.findById(it.pathVariable("id"))) }
+        GET("/customers") { 
+            ok().body(customerService.findAll()) 
+        }
+        GET("/customers/{id}") { 
+            ok().body(customerService.findById(it.pathVariable("id"))) 
+        }
     }
 }
 ```
-When we start now out application we can call the endpoint and hopefully we get a result like below.
+When we start now our application we can call the endpoint and hopefully we get a result like below.
 
 ```bash
 mvn spring-boot:run

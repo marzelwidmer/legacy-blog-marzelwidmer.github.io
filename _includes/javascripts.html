@@ -1,15 +1,16 @@
-<!-- JS -->
-<script src="{{site.baseurl}}/assets/js/jquery-3.2.1.min.js"></script>
-<script src="{{site.baseurl}}/assets/js/jekyll-search.js"></script>
+<script src="{{ site.baseurl }}/js/jquery-3.3.1.min.js"></script>
+<script src="{{ site.baseurl }}/js/simple-jekyll-search.min.js"></script>
 <script>
   SimpleJekyllSearch({
-    searchInput: document.getElementById('search-input'),
-    resultsContainer: document.getElementById('results-container'),
-    json: '{{site.baseurl}}/search.json',
-    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
-    noResultsText: 'No results found',
-    fuzzy: false,
-    exclude: ['Welcome']
+  searchInput: document.getElementById("js-search-input"),
+  resultsContainer: document.getElementById("js-results-container"),
+  json: "{{site.baseurl}}/search.json",
+  searchResultTemplate:
+    '<li class="search-item"><a class="search-link" href="{url}">{title}</a></li>',
+  noResultsText: '<li class="search-no-item">No results found</li>'
   });
 </script>
-<script src="{{site.baseurl}}/assets/js/main.js"></script>
+<script src="{{ site.baseurl }}/js/instafeed.min.js"></script>
+<script src="{{ site.baseurl }}/js/jquery.waitforimages.min.js"></script>
+<script src="{{ site.baseurl }}/js/jquery.fitvids.js"></script>
+<script src="{{ site.baseurl }}/js/common.js"></script>

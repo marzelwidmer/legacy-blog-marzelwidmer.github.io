@@ -1,13 +1,12 @@
----
+--- 
 layout: post
 title: Reactive Spring Boot with Resilience4j CircuitBreaker
-date: 2020-04-18
-last_modified: 2020-04-18
 description: Resilience4j - CircuitBreaker with Kotlin Reactive Spring Boot Application
-img: 2020/resilience4j-circuitbreaker/kotlin-spring-reactive.jpg
-tags: [Blog, Spring Boot, Spring Reactive, Resilience4j CircuitBreaker, Kotlin]
-author: # Add name author (optional)
---- 
+date:   2020-04-18 12:05:55 +0300
+last_modified:   2020-04-18 12:05:55 +0300
+image: kotlin-kyn-boot.png
+tags: [Spring Boot, Kotlin]
+---
 # Reactive Spring Boot with Resilience4j CircuitBreaker
 
 ## Create Project
@@ -16,7 +15,7 @@ Let's create a Sample Application with Kotlin and Reactive Spring Boot with the 
 * webflux
 * cloud-resilience4j
 
-```bash
+```
 http https://start.spring.io/starter.tgz \
     dependencies==actuator,webflux,cloud-resilience4j \
     description=="Demo project Kotlin Spring Boot with Resilience4j" \

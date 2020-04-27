@@ -1,13 +1,11 @@
----
+--- 
 layout: post
 title: Create Kotlin Project with Spring Initializr and HTTPie
-date: 2020-04-12
-last_modified: 2020-04-12
-description: Create Maven Spring Project with HTTPie from start.spring.io - Spring Boot - Maven   # Add post description (optional)
-img: 2020/spring-initializr/initializr.png # Add image post (optional)
-tags: [Blog, spring-initializr, Spring Boot, Kotlin]
-author: # Add name author (optional)
---- 
+description: Create Maven Spring Project with HTTPie from start.spring.io - Spring Boot - Maven
+date:   2020-04-12 10:05:55 +0300
+image: IMG_0079.jpeg
+tags: [Spring Boot, Kotlin]
+---
                                                                                                                 
 # Create Kotlin Maven Project with HTTPie from start.spring.io 
 Let's create and extract a `Maven` `Kotlin` project with some dependecies `actuator` `data-mongodb-reactive` `webflux` and `cloud-gateway`
@@ -30,7 +28,8 @@ http https://start.spring.io/starter.tgz \
 # Banner
 Download Banner in the `src/main/resources` folder.
 ```bash
-http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/assets/img/2020/spring-initializr/banner.txt > kotlin-sidecar-gateway/src/main/resources/banner.txt
+http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/2020/spring-initializr/banner.txt \
+    > kotlin-sidecar-gateway/src/main/resources/banner.txt
 ```
 
 # Spring Application Name

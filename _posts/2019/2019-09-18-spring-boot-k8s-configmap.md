@@ -1,13 +1,12 @@
----
+--- 
 layout: post
 title: Spring Boot Kubernetes ConfigMap
 date: 2019-09-18
 last_modified: 2019-09-21
-description: Integrate Spring Boot with Kubernetes ConfigMap # Add post description (optional)
-img: 2019/spring-boot-k8s-configmap/springBoot-k8s-configmap.png  # Add image post (optional)
-tags: [Blog, Kubernetes, ConfigMap, OpenShift, Spring Boot]
-author: # Add name author (optional)
---- 
+description: Integrate Spring Boot with Kubernetes ConfigMap
+image: k8s.png
+tags: [Kubernetes, OpenShift]
+---
 
 # Table of contents
 * [Maven](#MavenConfiguration)
@@ -137,7 +136,7 @@ $ oc apply -f service-account-for-spring-cloud-k8s-access.yaml
 
 Now when you check che Cluster Console under _Administration/Roles_ and you search for `spring` you will find the role. 
 
-![cluster-console-search-spring-roles.png](/assets/img/2019/spring-boot-k8s-configmap/cluster-console-search-spring-roles.png)
+![cluster-console-search-spring-roles.png](/img/2019/spring-boot-k8s-configmap/cluster-console-search-spring-roles.png)
 ![cluster-console-spring-roles.png](/assets/img/2019/spring-boot-k8s-configmap/cluster-console-spring-roles.png)
 
 

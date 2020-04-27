@@ -1,13 +1,13 @@
----
+--- 
 layout: post
 title: Semantic Release Delivery Pipeline
 date: 2019-09-08
 last_modified: 2019-09-19
-description: Semantic Release with Jenkins Maven Fabric8 Delivery Pipeline # Add post description (optional)
-img: 2019/semantic-release-delivery-pipeline/out-0010.png  # Add image post (optional)
-tags: [Blog, Kubernetes, Semantic Release, CI/CD, OpenShift, Jenkins, Spring Boot]
-author: # Add name author (optional)
+description: Semantic Release with Jenkins Maven Fabric8 Delivery Pipeline
+image: 2019/semantic-release-delivery-pipeline/out-0010.png
+tags: [Kubernetes, Semantic Release, CI/CD, OpenShift]
 ---
+
 
 # Table of contents
 * [Setup Deployment](#SetupDeployment)
@@ -65,7 +65,7 @@ $ oc expose svc/customer-service -n production
 Let's creat a Jenkins Pipeline for the `customer-service` in the project `jenkins`.
 ```bash
 $ oc create -n jenkins -f \
-    https://blog.marcelwidmer.org/assets/img/2019/semantic-release-delivery-pipeline/deploy/customer-service-pipeline.yaml
+    https://blog.marcelwidmer.org/img/2019/semantic-release-delivery-pipeline/deploy/customer-service-pipeline.yaml
 ```
 
 ## WebHooks <a name="WebHooks"></a>

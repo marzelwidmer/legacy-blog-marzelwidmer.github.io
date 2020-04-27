@@ -1,14 +1,13 @@
----
+--- 
 layout: post
 title: Spring Boot Kubernetes Discovery
 date: 2019-09-18
 last_modified: 2019-09-21
-description: Discovery Spring Boot in Kubernetes  # Add post description (optional)
-img: 2019/spring-boot-k8s-ribbon-discovery/springBoot-k8s-ribbon.png  # Add image post (optional)
-tags: [Blog, Kubernetes, Ribbon, OpenShift, Spring Boot]
-author: # Add name author (optional)
---- 
-
+description: Discovery Spring Boot in Kubernetes
+image: k8s.png
+tags: [Kubernetes, OpenShift]
+---
+ 
 [Spring Cloud Kubernetes Ribbon](https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.1.0.M2/reference/html/#_ribbon_discovery_in_kubernetes){:target="_blank"} 
 provide a mechanism to perform a client side load-balancing who is needed in a microservice architecture 
 to allocate a list of all pods where our service is running (replicated)

@@ -1,13 +1,14 @@
----
+--- 
 layout: post
 title: Promoting Applications Across Environments
+description: 
 date: 2019-08-28
 last_modified: 2019-09-19
 description: # Add post description (optional)
-img: 2019/multiple-project-promoting/Pipeline-Commissioning.jpg  # Add image post (optional)
-tags: [Blog, Kubernetes, CI/CD, OpenShift, Jenkins, Spring Boot]
-author: # Add name author (optional)
+image: 2019/multiple-project-promoting/Pipeline-Commissioning.jpg 
+tags: [Kubernetes, OpenShift, CI/CD]
 ---
+
 
 # Table of contents
 * [Create Project](#CreateProject)
@@ -40,15 +41,15 @@ Create a Jenkins in the `Jenkins CI/CD` project with some storage. Take the Jenk
 Everything else we let the default values. 
 After installation you can login with your Openshift account to the [Jenkins BlueOcean](https://jenkins-jenkins.apps.c3smonkey.ch/blue/organizations/jenkins/)  
 
-![Jenkins-From-Catalog-1](/assets/img/2019/multiple-project-promoting/Jenkins-from-catalog-1.png)
-![Jenkins-From-Catalog-2](/assets/img/2019/multiple-project-promoting/Jenkins-from-catalog-2.png)
-![Jenkins-From-Catalog-3](/assets/img/2019/multiple-project-promoting/Jenkins-from-catalog-3.png)
+![Jenkins-From-Catalog-1](/img/2019/multiple-project-promoting/Jenkins-from-catalog-1.png)
+![Jenkins-From-Catalog-2](/img/2019/multiple-project-promoting/Jenkins-from-catalog-2.png)
+![Jenkins-From-Catalog-3](/img/2019/multiple-project-promoting/Jenkins-from-catalog-3.png)
 
 ## Configure Jenkins Maven Slave - Concurrency Limit
 Let's configure out `Maven-Slave` concurrency limit to `5` in order that we later want build more then one project.
 Please go to the Jenkins Configuration Page `https://<jenkins>/configure` in the section `Cloud/Kubernetes Pod Template` and search for the `Maven` Pod.
 
-![Maven-Pod-Concurrency-Limit](/assets/img/2019/multiple-project-promoting/Maven-Pod-Concurrency-Limit.png)
+![Maven-Pod-Concurrency-Limit](/img/2019/multiple-project-promoting/Maven-Pod-Concurrency-Limit.png)
 
 
 ## Install Jenkins with CLI <a name="InstallJenkinsWithCLID"></a> 
@@ -59,7 +60,7 @@ $ oc new-app jenkins-persistent --name jenkins --param ENABLE_OAUTH=true \
 
 
 ### Jenkins File From Source Repository
-The pipeline [Jenkinsfile](https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/assets/img/2019/multiple-project-promoting/Promotion-Jenkinsfile){:target="_blank"} is provided in the source repository. 
+The pipeline [Jenkinsfile](https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/2019/multiple-project-promoting/Promotion-Jenkinsfile){:target="_blank"} is provided in the source repository. 
 
 ## Add Edit Role To ServiceAccount Jenkins  <a name="AddEditRoleToServiceAccountJenkins"></a>
 Let’s add in RBAC to our projects to allow the different service accounts to build, pro‐ mote, and tag images.
@@ -137,7 +138,7 @@ catalog-service  catalog-service-development.apps.c3smonkey.ch        catalog-se
 
 Now take a look in the OpenShift [console](https://console.c3smonkey.ch:8443/){:target="_blank"} project `development`
 
-![catalog-service-dev-deployment](/assets/img/2019/multiple-project-promoting/catalog-service-dev-deployment.png)
+![catalog-service-dev-deployment](/img/2019/multiple-project-promoting/catalog-service-dev-deployment.png)
 
 Let's take a look what the S2i crated for us. 
 This can be done with the following command `oc get all -n development --selector app=catalog-service`.
@@ -260,18 +261,18 @@ $ oc expose svc/catalog-service
 ## Jenkins Pipeline  <a name="JenkinsPipeline"></a>
 
 So now let's create a `BuildConfig` for the `catalaog-service` with the 
-following [catalog-service-jenkins-pipeline](/assets/img/2019/multiple-project-promoting/catalog-service-pipeline.yaml){:target="_blank"} configuration
-in the Jenkins namespace (project) let's do it with `oc create -n jenkins -f https://blog.marcelwidmer.org/assets/img/2019/openshift-pipeline/catalog-service-pipeline.yaml`
+following [catalog-service-jenkins-pipeline](/img/2019/multiple-project-promoting/catalog-service-pipeline.yaml){:target="_blank"} configuration
+in the Jenkins namespace (project) let's do it with `oc create -n jenkins -f https://blog.marcelwidmer.org/img/2019/openshift-pipeline/catalog-service-pipeline.yaml`
 
 ```bash
 $ oc create -n jenkins -f \
-    https://blog.marcelwidmer.org/assets/img/2019/openshift-pipeline/catalog-service-pipeline.yaml
+    https://blog.marcelwidmer.org/img/2019/openshift-pipeline/catalog-service-pipeline.yaml
 buildconfig.build.openshift.io/catalog-service-pipeline created
 ```
 
 When you go now in the OpenShift [console](https://console.c3smonkey.ch:8443/console/project/jenkins/browse/pipelines){:target="_blank"} in the project `Jenkins` in the section.
 `Builds/Pipelines` you will something like this.
-![Catalog Service Pipeline](/assets/img/2019/multiple-project-promoting/catalog-service-pipeline-created.png)
+![Catalog Service Pipeline](/img/2019/multiple-project-promoting/catalog-service-pipeline-created.png)
 
 
 ### Run Jenkins Pipeline 
@@ -284,12 +285,12 @@ build.build.openshift.io/catalog-service-pipeline-1 started
 
 After a while you will see something like this. For production deployment we configured our pipeline with a approvable step.
 
-![Catalog Service Pipeline approvable](/assets/img/2019/multiple-project-promoting/catalog-service-pipeline-approvable.png)
+![Catalog Service Pipeline approvable](/img/2019/multiple-project-promoting/catalog-service-pipeline-approvable.png)
 
 Now is time to approve the application and hit the 
 After the approve button in the pipeline to deploy to the production namespace.
 
-![Catalog Service Pipeline success](/assets/img/2019/multiple-project-promoting/catalog-service-pipeline-success.png)
+![Catalog Service Pipeline success](/img/2019/multiple-project-promoting/catalog-service-pipeline-success.png)
 
 
 ## WebHooks <a name="WebHooks"></a>
@@ -383,8 +384,8 @@ SSL verification
  By default, we verify SSL certificates when delivering payloads.
 
 
-![Add GitHub WebHook](/assets/img/2019/multiple-project-promoting/Add-GitHub-WebHook.png)
-![GitHub WebHooks](/assets/img/2019/multiple-project-promoting/GitHub-WebHooks.png)
+![Add GitHub WebHook](/img/2019/multiple-project-promoting/Add-GitHub-WebHook.png)
+![GitHub WebHooks](/img/2019/multiple-project-promoting/GitHub-WebHooks.png)
 
 
 > **_References:_**  

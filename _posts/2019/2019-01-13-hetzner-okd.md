@@ -1,13 +1,13 @@
----
+--- 
 layout: post
 title: Install OKD on Hetzner Cloud
+description: Install Single Node OKD on Hetzner Cloud # Add post description (optional)
 date: 2019-01-13
 last_modified: 2020-04-26
-description: Install Single Node OKD on Hetzner Cloud # Add post description (optional)
-img: 2019/hetzner-okd/cloudcomputing.jpg # Add image post (optional)
-tags: [Blog, Kubernetes, Hetzner, OpenShift]
-author: # Add name author (optional)
+image:  2019/hetzner-okd/cloudcomputing.jpg
+tags: [Kubernetes, Hetzner, OpenShift]
 ---
+
 Inspiration from [Installation of OKD 3.10 from start to finish](https://www.youtube.com/watch?v=ZkFIozGY0IA){:target="_blank"}
 
 Create a `Hetzner VM` with the CLI https://github.com/hetznercloud/cli
@@ -16,7 +16,7 @@ Create a `Hetzner VM` with the CLI https://github.com/hetznercloud/cli
 Let's check first some `hcloud` command that we can use later to create a `VM` with the right size and in the `Datacenter` we want.
 
 
-![hetzner-preis](/assets/img/2019/hetzner-okd/hetzner-preis.png)
+![hetzner-preis](/img/2019/hetzner-okd/hetzner-preis.png)
 
 
 ```bash
@@ -230,7 +230,7 @@ Press Enter to Continue
 
 In my case something like so :
 
-![acme](/assets/img/2019/hetzner-okd/acme.png)
+![acme](/img/2019/hetzner-okd/acme.png)
 
 You can check the `DNS` with [https://dnschecker.org/](https://dnschecker.org/#TXT/_acme-challenge.apps.keepcalm.ch)
 Check with `host` command.
@@ -327,7 +327,7 @@ Using project "default".
 After the installation is finish you can on : [https://console.keepcalm.ch:8443/console/catalog](https://console.keepcalm.ch:8443/console/catalog)
 You have now a `OKD` instance with Let's Encrypt.
 
-![hetzner-preis](/assets/img/2019/hetzner-okd/console.png)
+![hetzner-preis](/img/2019/hetzner-okd/console.png)
 
 
 # Renewal Let's Encrypt 

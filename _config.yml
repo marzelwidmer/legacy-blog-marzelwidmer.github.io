@@ -1,48 +1,74 @@
-title: My personal blog - Marcel Widmer
-email: marzelwidmer@gmail.com
-description: > # this means to ignore newlines until "baseurl:"
-  This Blog Page is basically for me... Is my personal brain....
-permalink: ':title/'
+#-------------------------------
+# General Site Settings
+
+title: Blog | Marcel Widmder
+description: My personal blog. # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://docs.marcelwidmer.org" # the base hostname & protocol for your site, e.g. http://example.com
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
-# Author settings
-author: Marcel Widmer # add your name
-author-pic: Me.png
-about-author: My name is Marcel Widmer. I love Kotlin, Spring Boot and K8s.
 
+#-------------------------------
+# About Section
+author-name:   Marcel Widmer
+author-avatar: https://avatars2.githubusercontent.com/u/3108477?v=4
+
+
+#-------------------------------
 # Contact links
-#email: # Add your Email address
-#phone: # Add your Phone number
-website: //www.marcelwidmer.org  # Add your website, do not add http://
-#linkedin:  marcel-widmer-180ab354 # Add your Linkedin handle
-github: marzelwidmer # Add your Github handle
-#twitter: '@marzelwidmer' # Add your Twitter handle
-#facebook: # Add your Facebook handle
-#instagram: # Add your Instagram handle
-#pinterest: # Add your Pinterest handle
+#facebook:  https://facebook.com/ # Add your Facebook handle
+#twitter:   https://twitter.com/ # Add your Facebook handle
+#instagram: https://www.instagram.com/ # Add your Facebook handle
+#pinterest: https://www.pinterest.com/ # Add your Facebook handle
+github: https://github.com/marzelwidmer
+cv: https://cv.marcelwidmer.org
 
+
+#-------------------------------
+# Comment Section (Disqus)
+disqus-identifier:  # Add your shortname for Disqus Comment. For example mr-brown
+
+
+#-------------------------------
+# Instagram Feed
+#instafeed: true # To enable the instafeed, use the value true. To turn off use the value false.
+
+
+#-------------------------------
+# Google Analytics
+google-analytics: # Add your identifier. For example UA-99631805-1.
+
+
+#-------------------------------
 # Newsletter
-#mailchimp: # Add your MailChimp form identifier.
+mailchimp: # Add your MailChimp form identifier. For example - blogenjoyfreedom.us16.list-manage.com/subscribe/post?u=cd56155d76ddeeb4c0bc4d080&amp;id=7a526cd13e
 
 
-# Disqus
-#discus_identifier: mr-brown # Add your discus identifier
-
-# Tracker
-analytics: # Google Analytics
-
-# Paginate
-paginate: 20
-paginate_path: /page:num/
-
+#-------------------------------
 # Build settings
 markdown: kramdown
-
-plugins_dir:
+permalink: ':title/'
+plugins:
   - jekyll-paginate
-  - jekyll-feed
   - jekyll-sitemap
 
-include: [_pages]
-exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock", "package-lock.json", "assets/css/sass/"]
+paginate: 7
+paginate_path: "/page/:num"
+
+include:
+  - _pages
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+
+#-------------------------------
+# Exclude from processing.
+exclude:
+ - Gemfile
+ - Gemfile.lock
+ - node_modules
+ - vendor/bundle/
+ - vendor/cache/
+ - vendor/gems/
+ - vendor/ruby/
