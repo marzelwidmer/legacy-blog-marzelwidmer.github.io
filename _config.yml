@@ -1,7 +1,7 @@
 #-------------------------------
 # General Site Settings
 
-title: Blog | Marcel Widmder
+title: Blog | Marcel Widmer
 description: My personal blog. # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
