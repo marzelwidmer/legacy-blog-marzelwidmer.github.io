@@ -1,171 +1,114 @@
-Galada - Easy & Simple Theme for Personal Blog
-======
-Galada is an easy and simple theme for Jekyll. Dark colors, give it a special exquisite look. A careful approach to design and features make it an ideal solution for a personal blog.
+# The Hacker-Blog theme
 
-* * *
+*Hacker-Blog is a minimalistic, responsive jekyll theme built for hackers. It is based on the [hacker theme](https://github.com/pages-themes/hacker) for project pages.*
 
-Table of Contents
------------------
-*   [Features](#features)
-*   [Demo](#demo)
-*   [Deployment](#deployment)
-*   [Posts](#posts)
-*   [Disqus Comments](#DisqusComments)
-*   [Instagram](#instagram)
-*   [Google Analytics](#GoogleAnalytics)
-*   [Update favicon](#UpdateFavicon)
-*   [Credits](#Credits)
-*   [Support](#Support)
+Demo: [https://ashishchaudhary.in/hacker-blog](https://ashishchaudhary.in/hacker-blog)
 
-* * *
+### Included
 
-### Features
+1. Pagination
+2. SEO tags
+3. Archive Page
+4. About Page
+5. RSS (`https://base-url/atom`)
+6. Sitemap (`https://base-url/sitemap`)
+7. Google Analytics (optional)
 
-* 100% responsive and clean theme
+## Usage
 
-* Optimized for mobile devices
+1. Fork and Clone this repository
+2. Customize your blog
+3. Add a new post in `_posts/` directory with proper name format (as shown in placeholder posts)
+4. Commit and push to master on a repository named `<githubusername.github.io>`.
+5. Visit `<githubusername>.github.io`
 
-* Minimal design
+## Local Build
 
-* Valid HTML5 code
+If you want to see the changes before pushing the blog to Github, do a local build.
 
-* Post sharing
+1. [`gem install jekyll`](https://jekyllrb.com/docs/installation/#install-with-rubygems)
+2. `gem install jekyll-seo-tag`
+3. `gem install jekyll-paginate`
+4. `gem install jekyll-sitemap`
+5. (`cd` to the blog directory, then:) `jekyll serve --watch --port 8000`
+6. Go to `http://0.0.0.0:8000/` in your web browser.
 
-* Subscription form
+*Note: In case you have set a `baseurl` different than `/` in `_config.yml`, go to `http://0.0.0.0:8000/BASEURL/` instead.*
 
-* Supports Disqus Comments
+### Local build using docker
 
-* Instagram Feed
+```bash
+docker run --rm -p 8000:8000 \
+  --volume="LOCATION_OF_YOUR_JEKYLL_BLOG:/srv/jekyll" \
+  -it tocttou/jekyll:3.5 \
+  jekyll serve --watch --port 8000
+```
 
-* Ionicons Icons
+Replace `LOCATION_OF_YOUR_JEKYLL_BLOG` with the full path of your blog repository. Visit `http://localhost:8000/` to access the blog.
 
-* Google Fonts
+*Note: In case you have set a `baseurl` different than `/` in `_config.yml`, go to `http://0.0.0.0:8000/BASEURL/` instead.*
 
+## Customizing
 
-* * *
+### Configuration variables
 
-### Demo
+Edit the `_config.yml` file and set the following variables:
 
-Check the theme in action [Demo](https://artemsheludko.github.io/galada/)
+```yml
+title: [The title of your blog]
+description: [A short description of your blog's purpose]
+author:
+  name: [Your name]
+  email: [Your email address]
+  url: [URL of your website]
 
-![Main page preview](https://github.com/artemsheludko/galada/blob/master/img/galada-main-page.jpg?raw=true)
+baseurl: [The base url for this blog.]
 
-The post page would look like this:
+paginate: [Number of posts in one paginated section (default: 3)]
+owner: [Your name]
+year: [Current Year]
+```
 
-![Post page preview](https://github.com/artemsheludko/galada/blob/master/img/galada-post.jpg?raw=true)
+*Note: All links in the site are prepended with `baseurl`. Default `baseurl` is `/`. Any other baseurl can be setup like `baseurl: /hacker-blog`, which makes the site available at `http://domain.name/hacker-blog`.*
 
-* * *
+Additionally, you may choose to set the following optional variables:
 
-### Deployment
+```yml
+google_analytics: [Your Google Analytics tracking ID]
+```
 
-To run the theme locally, navigate to the theme directory and run `bundle install` to install the dependencies, then run `jekyll serve` or `bundle exec jekyll serve` to start the Jekyll server.
+### About Page
 
-I would recommend checking the [Deployment Methods](https://jekyllrb.com/docs/deployment-methods/) page on Jekyll website.
+Edit `about.md`
 
-* * *
+### Layout
 
-### Posts
+If you would like to modify the site style:
 
-To create a new post, you can create a new markdown file inside the \_posts directory by following the [recommended file structure](https://jekyllrb.com/docs/posts/#creating-post-files).
+**HTML**
 
-      ---
-      layout: post
-      title: Premiere on Broadway
-      date: 2018-08-23 16:04:00 +0300
-      image: 03.jpg
-      tags: [Rest]
-      ---
-          
+Footer: Edit `_includes/footer.html`
 
-You can set the tags and the post image.
+Header: Edit `_includes/header.html`
 
-Add post images to **/img/** directory.
+Links in the header: Edit `_includes/links.html`
 
-For tags, try to not add space between two words, for example, `Ruby on Rails`, could be something like (`ruby-on-rails`, `Ruby_on_Rails`, or `Ruby-on-Rails`).
+Meta tags, blog title display, and additional CSS: Edit `_includes/head.html`
 
-* * *
+Index page layout: Edit `_layouts/default.html`
 
-### Disqus Comments
+Post layout: Edit `_layouts/post.html`
 
-Galada Theme comes with Disqus comments enabled.
+**CSS**
 
-Open `_config.yml` file, and change the `mr-brown` value on line 26 with your [Disqus account shortname](https://help.disqus.com/customer/portal/articles/466208).
+Site wide CSS: Edit `_sass/base.scss`
 
-      Comment Section (Disqus)
-      disqus-identifier: mr-brown \# Add your shortname for Disqus Comment. For example mr-brown
-          
+Custom CSS: Make `_sass/custom.scss` and use it. Then add `@import "custom";` to `css/main.scss`
 
-That’s all you need to setup Disqus from the theme side. If you get any issue regarding that comments are unable to load. First, make sure you have [registered your website with Disqus (Step 1)](https://help.disqus.com/customer/portal/articles/466182-publisher-quick-start-guide).
+**404 page**
 
-And also check [Disqus troubleshooting guide](https://help.disqus.com/customer/portal/articles/472007-i-m-receiving-the-message-%22we-were-unable-to-load-disqus-%22) if you still have issues.
+Edit `404.md`
 
-* * *
+## License
 
-### Instagram
-
-The Instagram feed is working using [Instafeed.js](http://instafeedjs.com/) to show the photos.
-
-First, you will need to get your account `userId` and `accessToken` from the following URLs:
-
-*   userId: [smashballoon.com/instagram-feed/find-instagram-user-id](https://smashballoon.com/instagram-feed/find-instagram-user-id/)
-*   accessToken: [instagram.pixelunion.net](http://instagram.pixelunion.net/)
-
-Second, open the `js/common.js` file and replace the `userId` and `accessToken` values.
-
-            var instagramFeed = new Instafeed({
-              get: 'user',
-              limit: 6,
-              resolution: 'standard_resolution',
-              userId: '8987997106',
-              accessToken: '8987997106.924f677.8555ecbd52584f41b9b22ec1a16dafb9',
-              template: ''
-            });
-          
-
-Third, open the `_config.yml` file and replace the `instafeed: false` on `instafeed: true` value.
-
-            \# Instagram Feed
-            instafeed: false \# To enable the instafeed, use the value true. To turn off use the value false.
-          
-
-* * *
-
-### Google Analytics
-
-To integrate Google Analytics, open `_config.yml`, and add your Google Analytics identifier.
-
-    \# Google Analytics
-    google-analytics: \# Add your identifier. For example UA-99631805-1
-          
-
-* * *
-
-### Update favicon
-
-You can find the current favicon (favicon.ico) inside the theme root directory, just replace it with your new favicon.
-
-* * *
-
-### Credits
-
-I have used the following scripts, fonts or other files as listed.
-
-*   [Google Fonts](https://fonts.google.com/specimen/Nunito) (Nunito, Sans Serif).
-*   [Ionicons Icons](https://ionicons.com/)
-*   [FitVids.js](http://fitvidsjs.com/)
-*   [Instafeed.js](http://instafeedjs.com/)
-*   [jQuery.com](https://jquery.com/)
-*   [Wait For Images](https://github.com/alexanderdickson/waitForImages)
-*   Preview Images form [unsplash.com](https://unsplash.com/), [pexels.com](https://www.pexels.com/)
-
-* * *
-### License
-
-Mit License
-
-* * *
-
-### Support
-
-<p>If you like the themes that I create you can become my sponsor on <a href="https://www.patreon.com/artemsheludko" target="_blank">Patreon</a>.
-<p align="center"><b>Thank you for your support ❤️</b></p>
+CC0 1.0 Universal

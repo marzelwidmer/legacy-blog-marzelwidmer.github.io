@@ -137,7 +137,7 @@ $ oc apply -f service-account-for-spring-cloud-k8s-access.yaml
 Now when you check che Cluster Console under _Administration/Roles_ and you search for `spring` you will find the role. 
 
 ![cluster-console-search-spring-roles.png](/img/2019/spring-boot-k8s-configmap/cluster-console-search-spring-roles.png)
-![cluster-console-spring-roles.png](/assets/img/2019/spring-boot-k8s-configmap/cluster-console-spring-roles.png)
+![cluster-console-spring-roles.png](/img/2019/spring-boot-k8s-configmap/cluster-console-spring-roles.png)
 
 
 ## Deploy ConfigMap <a name="DeployConfigMap"></a>
@@ -169,7 +169,7 @@ When you hit the service again you will see some traces in the Jaeger now.
 $ for x in (seq 50); http "http://order-service-development.apps.c3smonkey.ch/api/v1/orders/random"; end
 ```
 
-![Jaeger-Order-Service-Traces](/assets/img/2019/spring-boot-k8s-configmap/Jaeger-Order-Service-Traces.png)
+![Jaeger-Order-Service-Traces](/img/2019/spring-boot-k8s-configmap/Jaeger-Order-Service-Traces.png)
 
 
 

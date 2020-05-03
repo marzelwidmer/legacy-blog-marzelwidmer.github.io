@@ -1,73 +1,44 @@
-#-------------------------------
-# General Site Settings
-
 title: Blog | Marcel Widmer
-description: My personal blog. # this means to ignore newlines until "baseurl:"
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+description: "My personal blog."
+author:
+  name: "Marcel Widmer"
+  email: "marzelwidmer@gmail.com"
+  url: "https://blog.marcelwidmer.org"
 
+baseurl: /
 
-#-------------------------------
-# About Section
-author-name:   Marcel Widmer
-author-avatar: https://avatars2.githubusercontent.com/u/3108477?v=4
+source: .
+destination: ./_site
+permalink: /:title
+paginate: 3
+paginate_path: /page/:num/
 
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
 
-#-------------------------------
-# Contact links
-#facebook:  https://facebook.com/ # Add your Facebook handle
-#twitter:   https://twitter.com/ # Add your Facebook handle
-#instagram: https://www.instagram.com/ # Add your Facebook handle
-#pinterest: https://www.pinterest.com/ # Add your Facebook handle
-github: https://github.com/marzelwidmer
-cv: https://cv.marcelwidmer.org
-
-
-#-------------------------------
-# Comment Section (Disqus)
-#disqus-identifier: c3smonkey # Add your shortname for Disqus Comment. For example mr-brown
-
-#-------------------------------
-# Instagram Feed
-#instafeed: true # To enable the instafeed, use the value true. To turn off use the value false.
-
-#-------------------------------
-# Google Analytics
-#google-analytics: # Add your identifier. For example UA-99631805-1.
-
-#-------------------------------
-# Newsletter
-#mailchimp:  # Add your MailChimp form identifier. For example - blogenjoyfreedom.us16.list-manage.com/subscribe/post?u=cd56155d76ddeeb4c0bc4d080&amp;id=7a526cd13e
-
-
-#-------------------------------
-# Build settings
-markdown: kramdown
-permalink: ':title/'
+future: true
 plugins:
+  - jekyll-seo-tag
   - jekyll-paginate
   - jekyll-sitemap
 
-paginate: 7
-paginate_path: "/page/:num"
-
-include:
-  - _pages
-
-sass:
-  sass_dir: _sass
-  style: compressed
+# Custom variables
+owner : "c3smonkey"
+year : "2020"
 
 
 #-------------------------------
 # Exclude from processing.
 exclude:
- - Gemfile
- - Gemfile.lock
- - node_modules
- - vendor/bundle/
- - vendor/cache/
- - vendor/gems/
- - vendor/ruby/
-
-theme: jekyll-theme-hacker
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
