@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Minikube Kubernetes Ingress 
-description: Setup Minikube Ingress
+title: Kubernetes Ingress with NGINX Ingress Controller
+description: Set up Ingress on Minikube with the NGINX Ingress Controller
 date: 2020-05-01
 last_modified: 2020-05-01 10:05:55 +0300
 img: k8s.png
@@ -386,142 +386,10 @@ kube-public       Active   19h
 kube-system       Active   19h
 ```
 
-## Delete all with given lable
+## Delete with given label
 ```bash
 k delete all -l  app=web
 ```
-
-
-
-
-
-
-
-# Nginx Deployment
-Create a `nginx-deployment.yaml` file and deploy it on K8s.
-```bash
-echo  "apiVersion: apps/v1
-kind: Deployment
-metadata:
- name: nginx
-spec:
- replicas: 1
- selector:
-   matchLabels:
-     app: nginx
- template:
-   metadata:
-     labels:
-       app: nginx
-   spec:
-     containers:
-     - name: nginx-container
-       image: nginx:latest
-       ports:
-       - containerPort: 80" | > nginx-deployment.yaml
-```
-
-```bash
-kubectl apply -f nginx-deployment.yaml
-deployment.apps/nginx created
-```
-Check the if the `'POD` is running with.
-```bash
-kubectl wait --timeout=600s --for=condition=ready pod --all
-
-pod/nginx-cd668b899-djld6 condition met
-```
-Verify the `Deployment` with:
-```bash
-kubectl get deployment
-NAME    READY   UP-TO-DATE   AVAILABLE   AGE
-nginx   1/1     1            1           22s
-```
-
-# Nginx Service
-To access we have to create a service, lets create a other file `nginx-service.yaml` and apply it like before. 
-```bash
-echo  "apiVersion: v1
-kind: Service
-metadata:
- name: nginx
-spec:
- type: ClusterIP
- selector:
-   app: nginx
- ports:
-   - targetPort: 80
-     port: 80"  | > nginx-service.yaml
-```
-
-```bash
-echo  "apiVersion: v1
-kind: Service
-metadata:
-  name: nginx
-spec:
-  type: NodePort
-  selector:
-    app: nginx-app
-  ports:
-    - targetPort: 80
-      port: 80
-      nodePort: 30080"  | > nginx-service.yaml
-```  
-      
-```bash
-echo "apiVersion: v1
-kind: Service
-metadata:  
-  name: nginx
-spec:
-  selector:    
-    app: nginx
-  type: ClusterIP
-  ports:  
-  - name: http
-    port: 80
-    targetPort: 80
-    protocol: TCP" | > nginx-service.yaml
-```    
-    
-```bash
-kubectl apply -f nginx-service.yaml
-service/nginx created
-```
- 
-```bash
-kubectl get svc
-NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
-kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   52m
-nginx        ClusterIP   10.109.237.55   <none>        80/TCP    17s
-```
-
-# Nginx Ingress
-```bash
-echo  "apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
- name: nginx
-spec:
- rules:
-   - host: "minkikube.me"
-     http:
-       paths:
-         - backend:
-             serviceName: nginx
-             servicePort: 80"  | > nginx-ingess.yaml
- ```
-
-```bash
-kubectl apply -f nginx-ingess.yaml
-ingress.networking.k8s.io/nginx created
-``` 
- 
-
-
- 
-
 
 
 
