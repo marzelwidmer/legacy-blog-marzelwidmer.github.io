@@ -8,7 +8,7 @@ image: k8s.png
 tags: [Kubernetes]
 --- 
 # OSX Minikube Kubernetes 
-If you use `ohmyzsh`  is ther a nice Plugin with some `kubectl` for more details check [ohmyzsh plugins kubectl](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/kubectl) 
+If you use `ohmyzsh`  is there a nice Plugin with some `kubectl` for more details check [ohmyzsh plugins kubectl](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/kubectl) 
 
 ## Install Minikube with Ingress Controller
 ```bash
