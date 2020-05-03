@@ -4,7 +4,7 @@ title: Kubernetes Ingress with NGINX Ingress Controller
 description: Set up Ingress on Minikube with the NGINX Ingress Controller
 date: 2020-05-01 12:05:55 +0300
 last_modified: 2020-05-01 12:05:55 +0300
-img: k8s.png
+image: k8s.png
 tags: [Kubernetes]
 --- 
 # OSX Minikube Kubernetes 
