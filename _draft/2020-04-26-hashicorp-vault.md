@@ -5,7 +5,7 @@ date: 2020-04-26
 last_modified: 2020-04-26
 description: HashiCorp - Vault
 img: 2020/hashicorp-vault/vault.jpg
-tags: [Blog, Kubernetes, HashiCorp Vault, OpenShift]
+tags: [Kubernetes, HashiCorp Vault, OpenShift]
 author: Marcel Widmer
 --- 
 
