@@ -124,9 +124,9 @@ Verify the console output you should see something like `AbstractCamelContext - 
 
 
 > **_References:_**  
->[GitHub Sample Project](https://github.com/marzelwidmer/kboot-camel)
->[Spring Tips Apache Camel](https://spring.io/blog/2018/05/23/spring-tips-apache-camel)
->[Camel Apache Spring Boot](https://camel.apache.org/camel-spring-boot/latest/)
+> [GitHub Sample Project](https://github.com/marzelwidmer/kboot-camel)
+> [Spring Tips Apache Camel](https://spring.io/blog/2018/05/23/spring-tips-apache-camel)
+> [Camel Apache Spring Boot](https://camel.apache.org/camel-spring-boot/latest/)
  
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
