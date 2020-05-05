@@ -47,7 +47,7 @@ idea .
 ### Change Maven Dependencies
 When working with `Camel` best practice is to change the generated Maven `pom.xml` from the `start.spring.io`
 Like in the official description of `Apache Camel` [camel-spring-boot](https://camel.apache.org/camel-spring-boot/latest/) 
-So let's refactor our `pom.xml` 
+So lets refactor our `pom.xml` 
 
 We take the version from the `camel-spring-boot-starter` move it up to the `properties` section with the property name `camel.version`.
 Add the `Camel` `BOM` `dependencieManagement` section to it.
@@ -87,14 +87,14 @@ Add the `Camel` `BOM` `dependencieManagement` section to it.
 ```
 
 ## Start Application 
-Let`s check if `Camel` is loading in out Spring Boot aplication.
+Let's check if `Camel` is loading in out Spring Boot application.
 
 Run the following command :
 ```bash
 mvn spring-boot:run
 ```
 
-And verify the console output you should see something like `AbstractCamelContext - Apache Camel 3.2.0 (CamelContext: camel-1) is starting`
+Verify the console output you should see something like `AbstractCamelContext - Apache Camel 3.2.0 (CamelContext: camel-1) is starting`
 
 ```bash
    _    ____              _
