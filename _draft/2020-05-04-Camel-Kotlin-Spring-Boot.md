@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Camel with Kotlin and SpringBoot
-description: Camel with Kotlin and SpringBoot
+title: Camel with Kotlin and Spring Boot
+description: Camel with Kotlin and Spring Boot
 date: 2020-05-04 12:05:55 +0300
 last_modified: 2020-05-04 12:05:55 +0300
 image: k8s.png
