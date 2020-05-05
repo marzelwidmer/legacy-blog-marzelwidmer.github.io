@@ -11,7 +11,6 @@ tags: [Spring Boot, Kotlin]
 Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
 
 ## Create Project
-
 Run the following commands :
 ```bash
 export KBOOT_NAME=kboot-camel
@@ -29,7 +28,6 @@ http https://start.spring.io/starter.tgz \
     language==kotlin \
     bootVersion==2.3.0.RC1 \
     baseDir==$KBOOT_NAME| tar -xzvf -
-
 
 
 cd $KBOOT_NAME
@@ -123,7 +121,7 @@ Verify the console output you should see something like `AbstractCamelContext - 
 ```
 
 
-# Camel
+# Camel    
 ## FileBuilderRoute
 ```kotlin
 @Component
@@ -144,6 +142,28 @@ class FileRouteBuilder : RouteBuilder() {
 }
 
 ```
+
+To test the `FileBuilderRoute` you can copy the test `XML` files from my sample application on [GitHub](https://github.com/marzelwidmer/kboot-camel)
+```bash
+.
+├── files
+│   ├── order-2.xml
+│   └── order.xml
+
+```
+
+in the folder `orders/in` after application start. The proceeded files will be then in the hidden folder `.camel`
+```bash
+orders
+├── in
+│   └── .camel
+│       ├── order-2.xml
+│       └── order.xml
+└── out
+    ├── 2019-01-28-order-2.xml
+    └── order.xml
+```
+
 
 
 
