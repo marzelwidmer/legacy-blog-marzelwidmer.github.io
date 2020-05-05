@@ -125,22 +125,79 @@ Verify the console output you should see something like `AbstractCamelContext - 
 # Camel
 ## FileBuilderRoute
 ```kotlin
-
 @Component
 class FileRouteBuilder : RouteBuilder() {
 
-    private val input = "${System.getenv("PWD")}/orders/in?include=order.xml"
-    private val output = "${System.getenv("PWD")}/orders/out?fileExist=Fail"
+    private val workDir =System.getenv("PWD")
+    private val input = "$workDir/orders/in?include=order.xml"
+    private val output = "$workDir/orders/out?fileExist=Fail"
 
     @Throws(Exception::class)
     override fun configure() {
         from("file:$input")
+            .process(HeaderProcessor())
             .to("file:$output")
+            .log("Camel body: \${body.class} \${body}")
+
+    }
+}
+
+```
+
+
+
+## Processor
+Creat a `HeaderProcessor` that implement the interface `Processor`.
+
+```kotlin
+class HeaderProcessor : Processor {
+
+    private final val XPATH_DATE = "/order/orderDate/text()"
+
+    override fun process(exchange: Exchange?) {
+        val oderXml = exchange?.`in`?.body
+        val orderDateTime = XPathBuilder.xpath(XPATH_DATE).evaluate(exchange?.context, oderXml)
+        val formattedOrderDate = getFormattedData(orderDateTime = orderDateTime)
+        exchange?.`in`?.setHeader("orderDate", formattedOrderDate)
+    }
+
+    // TODO: 05.05.20 DirtyHarry Implementation
+    private fun getFormattedData(orderDateTime: String): String {
+        val datetime = LocalDateTime.ofInstant(Instant.parse(orderDateTime), ZoneOffset.UTC)
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(datetime)
+    }
+
+}
+```
+
+Add `HeaderProcessor` class to our `FileRouteBuilder` with `.process(HeaderProcessor())`
+We also change the filename in the `to` section with `.to("file:$workDir/orders/out?fileName=\${header.orderDate}-\${header.CamelFileName}")`
+
+```kotlin
+@Component
+class FileRouteBuilder : RouteBuilder() {
+
+    private val workDir =System.getenv("PWD")
+    private val input = "$workDir/orders/in?include=order.xml"
+    private val output = "$workDir/orders/out?fileExist=Fail"
+
+    @Throws(Exception::class)
+    override fun configure() {
+        from("file:$input")
+            .process(HeaderProcessor())
+            .to("file:$output")
+            .log("Camel body: \${body.class} \${body}")
+
+        from("file:$workDir/orders/in?include=order-.*xml")
+            .process(HeaderProcessor())
+            .to("file:$workDir/orders/out?fileName=\${header.orderDate}-\${header.CamelFileName}")
             .log("Camel body: \${body.class} \${body}")
     }
 }
 
 ```
+
+
 
 
 > **_References:_**  
