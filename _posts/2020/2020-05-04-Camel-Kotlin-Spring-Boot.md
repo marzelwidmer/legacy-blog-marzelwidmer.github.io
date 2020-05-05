@@ -148,8 +148,8 @@ class FileRouteBuilder : RouteBuilder() {
 
 
 ## Processor
-Creat a `HeaderProcessor` that implement the interface `Processor`.
-
+Creat a `HeaderProcessor` that implement the function `process` from the interface `org.apache.camel.Processor`.
+there we parse the date with `XPath`. 
 ```kotlin
 class HeaderProcessor : Processor {
 
@@ -163,11 +163,8 @@ class HeaderProcessor : Processor {
     }
 
     // TODO: 05.05.20 DirtyHarry Implementation
-    private fun getFormattedData(orderDateTime: String): String {
-        val datetime = LocalDateTime.ofInstant(Instant.parse(orderDateTime), ZoneOffset.UTC)
-        return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(datetime)
-    }
-
+    private fun getFormattedData(orderDateTime: String) = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        .format(LocalDateTime.ofInstant(Instant.parse(orderDateTime), ZoneOffset.UTC))
 }
 ```
 
