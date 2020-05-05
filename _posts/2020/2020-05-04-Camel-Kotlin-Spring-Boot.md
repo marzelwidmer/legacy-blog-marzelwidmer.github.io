@@ -122,6 +122,26 @@ Verify the console output you should see something like `AbstractCamelContext - 
 ```
 
 
+# Camel
+## FileBuilderRoute
+```kotlin
+
+@Component
+class FileRouteBuilder : RouteBuilder() {
+
+    private val input = "${System.getenv("PWD")}/orders/in?include=order.xml"
+    private val output = "${System.getenv("PWD")}/orders/out?fileExist=Fail"
+
+    @Throws(Exception::class)
+    override fun configure() {
+        from("file:$input")
+            .to("file:$output")
+            .log("Camel body: \${body.class} \${body}")
+    }
+}
+
+```
+
 
 > **_References:_**  
  [GitHub Sample Project](https://github.com/marzelwidmer/kboot-camel)
