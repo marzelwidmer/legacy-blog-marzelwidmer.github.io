@@ -7,7 +7,7 @@ last_modified: 2020-05-04 12:05:55 +0300
 image: k8s.png
 tags: [Spring Boot, Kotlin]
 --- 
-# Apache Camel with Kotlin and SpringBoot
+# Apache Camel with Kotlin and Spring Boot
 Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
 
 ## Create Project
