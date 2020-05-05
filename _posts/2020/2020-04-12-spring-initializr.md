@@ -28,7 +28,7 @@ http https://start.spring.io/starter.tgz \
 # Banner
 Download Banner in the `src/main/resources` folder.
 ```bash
-http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/2020/spring-initializr/banner.txt \
+http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/banner.txt \
     > kotlin-sidecar-gateway/src/main/resources/banner.txt
 ```
 

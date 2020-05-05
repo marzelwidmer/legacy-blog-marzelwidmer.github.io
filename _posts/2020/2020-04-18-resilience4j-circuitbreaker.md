@@ -31,7 +31,7 @@ http https://start.spring.io/starter.tgz \
 ```
 Add Customer Banner
 ```bash
-http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/assets/img/2020/spring-initializr/banner.txt \
+http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/banner.txt \
     > kboot-resilience4j/src/main/resources/banner.txt
 ```
 Configure `spring.applicatin.name`
