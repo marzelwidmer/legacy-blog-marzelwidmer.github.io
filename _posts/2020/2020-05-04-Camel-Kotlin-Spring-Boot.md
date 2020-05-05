@@ -180,6 +180,7 @@ class HeaderProcessor : Processor {
         val orderDateTime = XPathBuilder.xpath(XPATH_DATE).evaluate(exchange?.context, oderXml)
         val formattedOrderDate = getFormattedData(orderDateTime = orderDateTime)
         exchange?.`in`?.setHeader("orderDate", formattedOrderDate)
+        exchange?.`in`?.setHeader("uuid", UUID.randomUUID().toString().take(4))
     }
 
     // TODO: 05.05.20 DirtyHarry Implementation
@@ -202,13 +203,12 @@ class FileRouteBuilder : RouteBuilder() {
     @Throws(Exception::class)
     override fun configure() {
         from("file:$input")
-            .process(HeaderProcessor())
             .to("file:$output")
             .log("Camel body: \${body.class} \${body}")
 
         from("file:$workDir/orders/in?include=order-.*xml")
             .process(HeaderProcessor())
-            .to("file:$workDir/orders/out?fileName=\${header.orderDate}-\${header.CamelFileName}")
+            .to("file:$workDir/orders/out?fileName=\${header.orderDate}-\${header.uuid}-\${header.CamelFileName}")
             .log("Camel body: \${body.class} \${body}")
     }
 }
