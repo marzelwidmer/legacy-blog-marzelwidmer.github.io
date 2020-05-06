@@ -3,7 +3,7 @@ layout: post
 title: Camel with Kotlin and Spring Boot
 description: Camel with Kotlin and Spring Boot
 date: 2020-05-04 12:05:55 +0300
-last_modified: 2020-05-04 12:05:55 +0300
+last_modified: 2020-05-06 08:05:55 +0300
 image: k8s.png
 tags: [Spring Boot, Kotlin]
 --- 
@@ -220,6 +220,16 @@ class FileRouteBuilder : RouteBuilder() {
 
 
 ## FTP Route Builder
+Let's update our `pom` file with the `camel-ftp` dependency.
+
+```xml
+<!-- camel-ftp  -->
+<dependency>
+    <groupId>org.apache.camel</groupId>
+    <artifactId>camel-ftp</artifactId>
+</dependency>
+``` 
+
 ```kotlin
 @Component
 class FtpRouteBuilder : RouteBuilder() {
