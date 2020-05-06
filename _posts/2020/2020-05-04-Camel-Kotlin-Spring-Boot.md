@@ -292,7 +292,7 @@ Run the following command :
 ```
 
 ## Start Application
-When you start the Application `mvn spring-boot:run` you will some information now in the console like :
+When you start the Application `mvn spring-boot:run` check the console output for `New File  picked up from`:
 ```bash
 2020-05-06 Wed 07:32:39.101 KbootCamelKt    - Started KbootCamelKt in 2.055 seconds (JVM running for 2.265)
 2020-05-06 Wed 07:32:40.099 route3          - New File  picked up from
