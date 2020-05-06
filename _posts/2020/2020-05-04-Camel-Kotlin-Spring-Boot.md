@@ -10,13 +10,27 @@ tags: [Spring Boot, Kotlin]
 # Apache Camel with Kotlin and Spring Boot
 Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
 
-### Precondition on OSX 
-We will also use command line `ftp` commands for this you need the `ftp` command line tool this can be installed with :
+
+
+
+# Table of contents
+* [Precondition on OSX](#Precondition-on-OSX)
+* [Create Project](#CreateProject)
+* [Check Camel Context](#CheckCamelContext)
+* [File Route](#CamelFileRoute)
+* [FTP Route](#CamelFTPRoute)
+ 
+
+
+### Precondition on OSX  <a name="Precondition-on-OSX"></a>
+We will also use command line `ftp` commands for this you need the `ftp` 
+command line tool this can be installed with :
+
 ```bash
 brew install inetutils
 ```
 
-## Create Project
+## Create Project <a name="CreateProject"></a>
 Run the following commands :
 ```bash
 export KBOOT_NAME=kboot-camel
@@ -91,8 +105,8 @@ Add the `Camel` `BOM` `dependencieManagement` section to it.
 </dependencyManagement>
 ```
 
-## Start Application 
-Let's check if `Camel` is loading in out Spring Boot application.
+## Check CamelContext <a name="CheckCamelContext"></a>
+Let's check if `Camel` is loading in out Spring Boot application for this let`s start the application 
 
 Run the following command :
 ```bash
@@ -127,7 +141,8 @@ Verify the console output you should see something like `AbstractCamelContext - 
 ```
 
 
-## File Builder Route
+## File Route <a name="CamelFileRoute"></a>
+### File Builder Route 
 ```kotlin
 @Component
 class FileRouteBuilder : RouteBuilder() {
@@ -218,8 +233,8 @@ class FileRouteBuilder : RouteBuilder() {
 ```
 
 
-
-## FTP Route Builder
+## FTP Route <a name="CamelFTPRoute"></a>
+### FTP Route Builder 
 Let's update our `pom` file with the `camel-ftp` dependency.
 
 ```xml
