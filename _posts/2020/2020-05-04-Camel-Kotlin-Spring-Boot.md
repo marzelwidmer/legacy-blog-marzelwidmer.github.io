@@ -19,7 +19,7 @@ Apache Camel is an open source integration framework that empowers you to quickl
 * [Check Camel Context](#CheckCamelContext)
 * [File Route](#CamelFileRoute)
 * [FTP Route](#CamelFTPRoute)
-* [Choice Rout](#ChoiceRoute)
+* [Choice Route](#ChoiceRoute)
  
 
 ### Precondition on OSX  <a name="Precondition-on-OSX"></a>
