@@ -10,6 +10,12 @@ tags: [Spring Boot, Kotlin]
 # Apache Camel with Kotlin and Spring Boot
 Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
 
+### Precondition on OSX 
+We will also use command line `ftp` commands for this you need the `ftp` command line tool this can be installed with :
+```bash
+brew install inetutils
+```
+
 ## Create Project
 Run the following commands :
 ```bash
@@ -121,8 +127,7 @@ Verify the console output you should see something like `AbstractCamelContext - 
 ```
 
 
-# Camel    
-## FileBuilderRoute
+## File Builder Route
 ```kotlin
 @Component
 class FileRouteBuilder : RouteBuilder() {
@@ -164,10 +169,7 @@ orders
     └── order.xml
 ```
 
-
-
-
-## Processor
+### Processor
 Creat a `HeaderProcessor` that implement the function `process` from the interface `org.apache.camel.Processor`.
 there we parse the date with `XPath`. 
 ```kotlin
@@ -217,11 +219,78 @@ class FileRouteBuilder : RouteBuilder() {
 
 
 
+## FTP Route Builder
+```kotlin
+@Component
+class FtpRouteBuilder : RouteBuilder() {
+
+
+    private val ftpEndpoint ="ftp.walkerit.ch"
+    private val username ="public"
+    private val password ="Public8852"
+
+    private val workDir =System.getenv("PWD")
+    private val output = "$workDir/orders/out?fileExist=Fail"
+
+
+    @Throws(Exception::class)
+    override fun configure() {
+         from("ftp://$ftpEndpoint?username=$username&password=$password&delete=true&include=order.*xml")
+             .log("New File \${header.CamleFileName} picked up from \${header.CamleFileHost}")
+             .process(ExchangePrinter())
+             .to("file://$output")
+    }
+}
+```
+
+### Processor
+```kotlin
+class ExchangePrinter : Processor {
+
+    private val log = LoggerFactory.getLogger(javaClass)
+
+    @Throws(Exception::class)
+    override fun process(exchange: Exchange?) {
+        val body = exchange?.`in`?.body
+        log.info("Body: $body")
+    }
+}
+```
+
+## FTP Server
+Upload test `xml` file to public `FTP` server [https://www.walkerit.ch/public-ftp](https://www.walkerit.ch/public-ftp)
+with the script `ftp-upload.sh`.
+ 
+Run the following command :
+```bash
+./ftp-upload.sh
+```
+
+## Start Application
+When you start the Application `mvn spring-boot:run` you will some information now in the console like :
+```bash
+2020-05-06 Wed 07:32:39.101 KbootCamelKt    - Started KbootCamelKt in 2.055 seconds (JVM running for 2.265)
+2020-05-06 Wed 07:32:40.099 route3          - New File  picked up from
+2020-05-06 Wed 07:32:40.099 ExchangePrinter - Body: RemoteFile[order-ftp.xml]
+```
+
+and the files will be downloaded in the `out` folder.
+```bash
+ tree
+.
+├── in
+└── out
+    └── order-ftp.xml
+```
+
+
+
 
 > **_References:_**  
- [GitHub Sample Project](https://github.com/marzelwidmer/kboot-camel)
- [Spring Tips Apache Camel](https://spring.io/blog/2018/05/23/spring-tips-apache-camel)
- [Camel Apache Spring Boot](https://camel.apache.org/camel-spring-boot/latest/)
+>[GitHub Sample Project](https://github.com/marzelwidmer/kboot-camel)
+>[Spring Tips Apache Camel](https://spring.io/blog/2018/05/23/spring-tips-apache-camel)
+>[Camel Apache Spring Boot](https://camel.apache.org/camel-spring-boot/latest/)
+>[Public FTP](https://www.walkerit.ch/public-ftp)
  
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
