@@ -19,8 +19,8 @@ Apache Camel is an open source integration framework that empowers you to quickl
 * [Check Camel Context](#CheckCamelContext)
 * [File Route](#CamelFileRoute)
 * [FTP Route](#CamelFTPRoute)
+* [Choice Rout](#ChoiceRoute)
  
-
 
 ### Precondition on OSX  <a name="Precondition-on-OSX"></a>
 We will also use command line `ftp` commands for this you need the `ftp` 
@@ -306,6 +306,84 @@ and the files will be downloaded in the `out` folder.
 ├── in
 └── out
     └── order-ftp.xml
+```
+
+
+
+
+## Choice Route  <a name="ChoiceRoute"></a>
+### Choice Route Builder
+Lets creat a choice route aka `switch`. 
+
+This route will put the files in a folder of the publisher name. We will do this with `xPATH`
+ 
+```kotlin
+private final val XPATH_SEARCH_ORLY = "order/orderItems/orderItem/orderItemPublisherName/text() = 'ORly'"
+```
+
+This will parse the xml file and deliver the files in the correct folder. For this you can put the sample files from the `files` folder in the `in/publisher/` folder.
+```bash
+ tree
+.
+├── in
+│   └── publisher
+│       ├── pub-foo.xml
+│       ├── pub-orly.xml
+│       └── pub-packt.xml
+└── out
+    └── publisher
+        ├── orly
+        ├── others
+        └── packt
+```
+
+
+
+```kotlin
+@Component
+class ChoiceRouteBuilder : RouteBuilder() {
+
+    private val workDir = System.getenv("PWD")
+    private val input = "$workDir/orders/in/publisher?include=pub-.*xml"
+    private val output = "$workDir/orders/out/publisher"
+
+    private final val XPATH_SEARCH_ORLY = "order/orderItems/orderItem/orderItemPublisherName/text() = 'ORly'"
+    private final val XPATH_SEARCH_PACKT = "order/orderItems/orderItem/orderItemPublisherName/text() = 'Packt'"
+
+    @Throws(Exception::class)
+    override fun configure() {
+        from("file:$input")
+            .to("log:ordersReceived")
+            .choice()
+                .`when`(xpath(XPATH_SEARCH_ORLY))
+                .log("ORly received")
+                .to("file:$output/orly")
+            .`when`(xpath(XPATH_SEARCH_PACKT))
+                .log("Packt received")
+                .to("file:$output/packt")
+            .otherwise()
+                .log("Other received")
+                .to("file:$output/others")
+            .end()
+    }
+
+}
+```
+
+
+```bash
+tree
+.
+├── in
+│   └── publisher
+└── out
+    └── publisher
+        ├── orly
+        │   └── pub-orly.xml
+        ├── others
+        │   └── pub-foo.xml
+        └── packt
+            └── pub-packt.xml
 ```
 
 
