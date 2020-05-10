@@ -11,8 +11,6 @@ tags: [Spring Boot, Kotlin]
 Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
 
 
-
-
 # Table of contents
 * [Precondition on OSX](#Precondition-on-OSX)
 * [Create Project](#CreateProject)
@@ -309,8 +307,6 @@ and the files will be downloaded in the `out` folder.
 ```
 
 
-
-
 ## Choice Route  <a name="ChoiceRoute"></a>
 ### Choice Route Builder
 Lets creat a choice route aka `switch`. 
@@ -336,8 +332,6 @@ This will parse the xml file and deliver the files in the correct folder. For th
         ├── others
         └── packt
 ```
-
-
 
 ```kotlin
 @Component
