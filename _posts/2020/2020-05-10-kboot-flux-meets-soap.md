@@ -10,7 +10,7 @@ tags: [Spring Boot, Kotlin, WebFlux]
 
 This will demonstrate how we can deal with a `Blocking API` in a `Reactive World`.
 
-This Sample provides a 
+This [Sample on GitHub](https://github.com/marzelwidmer/kboot-flux-meets-soap) provides a 
 * `soap-server` who demonstrate the blocking downstream `API`.
 * `flux-client` with `REST API` 
   * `lockdown` that will call the blocking `SOAP` endpoint and. [Blockhound](https://github.com/reactor/BlockHound) will throw an exception.
