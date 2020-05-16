@@ -10,14 +10,16 @@ tags: [Spring Boot, Kotlin, WebFlux]
 
 This will demonstrate how we can deal with a `Blocking API` in a `Reactive World`.
 
-This Sample provides a `soap-server` who demonstrate the blocking downstream `API`.
-The `flux-client` have two `REST API` who call the blocking `SOAP` endpoint the `lockdown` with no special implementation,
-where the [Blockhound](https://github.com/reactor/BlockHound) will throw an exception. 
+This Sample provides a 
+* `soap-server` who demonstrate the blocking downstream `API`.
+* `flux-client` with `REST API` 
+  * `lockdown` that will call the blocking `SOAP` endpoint and. [Blockhound](https://github.com/reactor/BlockHound) will throw an exception.
+  * `easing` have an implemented from [Avoiding Reactor Meltdown](https://www.youtube.com/watch?v=xCu73WVg8Ps&t=7s) show case how to manage `Blocking API`.
 
-The `easing` `REST API` have implemented [Avoiding Reactor Meltdown](https://www.youtube.com/watch?v=xCu73WVg8Ps&t=7s) show case how to manage `Blocking API`.
+With this approach to manage `Blocking API` in the same service ant not in a separate service we have all the nice features like `retry` `filter` `map` and so on
+in our `Servive A` from the `Reactive Streams API`. 
 
-With this approach to manage `Blocking API` in the same service in not in a separate service we have all the nice features like `retry` `filter` `map` and so on in our `Servive A` from the `Reactive Streams API`. 
-We also not have to manage no other service and have less network hops who are sometimes increase complexity and so on.
+We also not have to manage a other service who will handle it for us. With this we have less network hops, Organisations-Issues, Deployment etc. who are sometimes increase complexity and so on.
 
 
 ![hetzner-preis](/img/2020/flux-meets-soap/FluxMeetsSoap.png)
