@@ -32,7 +32,6 @@ We also not have to manage a other service who will handle it for us. With this 
 ![hetzner-preis](/img/2020/flux-meets-soap/FluxMeetsSoap.png)
 
 
-
 # Flux Client  <a name="restAPI"></a>
 ## API Lockdown Switzerland
 ```bash
