@@ -108,8 +108,8 @@ printf '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelop
 >[Kotlin DSL in under an hour](https://www.youtube.com/watch?v=zYNbsVv9oN0)
 >[Do Super Language with Kotlin](https://www.youtube.com/watch?v=hYXAFO3q3qU)
 >[Blockhound](https://github.com/reactor/BlockHound
->>[Avoiding Reactor Meltdown](https://youtu.be/xCu73WVg8Ps?t=1)
->>[Avoiding Reactor Meltdown GitHub](https://github.com/philsttr/avoiding-reactor-meltdown)
+>[Avoiding Reactor Meltdown](https://youtu.be/xCu73WVg8Ps?t=1)
+>[Avoiding Reactor Meltdown GitHub](https://github.com/philsttr/avoiding-reactor-meltdown)
  
 
 
