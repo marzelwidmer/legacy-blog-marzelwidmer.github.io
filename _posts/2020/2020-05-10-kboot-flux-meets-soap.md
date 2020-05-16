@@ -20,7 +20,7 @@ With this approach to manage `Blocking API` in the same service in not in a sepa
 We also not have to manage no other service and have less network hops who are sometimes increase complexity and so on.
 
 
-![]({{site.baseurl}}/img/2020/FluxMeetsSoap.png)
+![hetzner-preis](/img/2020/flux-meets-soap/FluxMeetsSoap.png)
 
 
 # Flux Client

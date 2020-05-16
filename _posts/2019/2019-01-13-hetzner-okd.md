@@ -4,7 +4,7 @@ title: Install OKD on Hetzner Cloud
 description: Install Single Node OKD on Hetzner Cloud # Add post description (optional)
 date: 2019-01-13
 last_modified: 2020-04-26
-image:  2019/hetzner-okd/cloudcomputing.jpg
+
 tags: [Kubernetes, Hetzner, OpenShift]
 ---
 
