@@ -25,7 +25,16 @@ We also not have to manage a other service who will handle it for us. With this 
 ![hetzner-preis](/img/2020/flux-meets-soap/FluxMeetsSoap.png)
 
 
-# Flux Client
+
+* [Rest API](#restAPI)
+* [BlockHound Plugin](#blockHound)
+* [SOAP Server](#soapServer)
+* [SOAP with HTTPie Server](#httpieSoapCall)
+* [Implementation](#Implementation)
+
+
+
+# Flux Client  <a name="restAPI"></a>
 ## API Lockdown Switzerland
 ```bash
 http :8080/api/lockdown/Switzerland
@@ -37,7 +46,7 @@ http :8080/api/easing/Switzerland
 ```
 
 
-## Blockhound
+## Blockhound  <a name="blockHound"></a>
 [BlockHound](https://github.com/reactor/BlockHound) is a Java agent to detect blocking calls from non-blocking threads. 
 Add the following or latest dependency from `blockhound`.
 ```xml
@@ -56,8 +65,8 @@ fun main(args: Array<String>) {
 	runApplication<KbootFluxWS>(*args)
 }
 ```
-
-# SOAP Server
+ 
+# SOAP Server <a name="soapServer"></a>
 The Server have an implementation with a demonstration how we can write own `Kotlin DSL`.
 
 ## DSL
@@ -90,7 +99,7 @@ The Server have an implementation with a demonstration how we can write own `Kot
 </soapenv:Envelope>
 ```
 
-## Call Service with `HTTPie`
+## Call Service with `HTTPie` <a name="httpieSoapCall"></a>
 
 ```bash
 printf '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
@@ -105,7 +114,61 @@ printf '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelop
  Content-Type:'text/xml'
 ```
 
- 
+
+
+
+# Implementation  <a name="implementation"></a>
+## Router Table 
+```kotlin
+bean {
+    router {
+        "api".nest {
+            GET("/lockdown/{name}") {
+                val countryService = ref<CountryService>()
+                ok().body(BodyInserters.fromValue(
+                    countryService.getCountryByName(it.pathVariable("name")))
+                )
+            }
+            GET("/easing/{name}") {
+                val countryReactiveService = ref<CountryReactiveService>()
+                ok().body(
+                    BodyInserters.fromPublisher(countryReactiveService.getCountryByName(it.pathVariable("name")), GetCountryResponse::class.java)
+                )
+            }
+        }
+    }
+}
+```
+
+## Reactive Service
+```kotlin
+@Service
+class CountryReactiveService  (private val soapClient: SoapClient) {
+
+    fun getCountryByName(name: String): Mono<GetCountryResponse> {
+        return soapClient.getCountryReactive(name)
+    }
+}
+```
+## Reactive SOAP Client
+`.subscribeOn(Schedulers.boundedElastic())`
+```kotlin
+fun getCountryReactive(country: String): Mono<GetCountryResponse> {
+    val request = GetCountryRequest()
+    request.name = country
+    log.info("Requesting location for $country")
+    return Mono.fromCallable {
+        webServiceTemplate
+            .marshalSendAndReceive("http://localhost:8888/ws/countries", request,
+                SoapActionCallback(
+                    "http://keepcalm.ch/web-services/GetCountryRequest")) as GetCountryResponse
+    }
+        // properly schedule above blocking call on
+        // scheduler meant for blocking tasks
+        .subscribeOn(Schedulers.boundedElastic())
+}
+```
+
 > **_References:_**  
 * [Kotlin DSL in under an hour](https://www.youtube.com/watch?v=zYNbsVv9oN0)
 * [Do Super Language with Kotlin](https://www.youtube.com/watch?v=hYXAFO3q3qU)
