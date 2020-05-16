@@ -22,15 +22,14 @@ in our `Servive A` from the `Reactive Streams API`.
 We also not have to manage a other service who will handle it for us. With this we have less network hops, Organisations-Issues, Deployment etc. who are sometimes increase complexity and so on.
 
 
-![hetzner-preis](/img/2020/flux-meets-soap/FluxMeetsSoap.png)
-
-
-
 * [Rest API](#restAPI)
 * [BlockHound Plugin](#blockHound)
 * [SOAP Server](#soapServer)
 * [SOAP with HTTPie Server](#httpieSoapCall)
-* [Implementation](#Implementation)
+* [Implementation](#implementation)
+
+
+![hetzner-preis](/img/2020/flux-meets-soap/FluxMeetsSoap.png)
 
 
 
@@ -83,7 +82,7 @@ The Server have an implementation with a demonstration how we can write own `Kot
 ## WSDL 
 `http://localhost:8888/ws/countries.wsdl`
 
-## EndPoint
+## End-Point
 `http://localhost:8888/ws`
 
 ## Request 
@@ -117,7 +116,7 @@ printf '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelop
 
 
 
-# Implementation  <a name="implementation"></a>
+# Implementation <a name="implementation"></a>  
 ## Router Table 
 ```kotlin
 bean {
