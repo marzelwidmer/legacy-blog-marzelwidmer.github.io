@@ -292,22 +292,7 @@ bean {
 ```
 
 
-
-
-
-
-
-😎 Cool stuff 😎 let's implement the `CircuitBreaker` with `Resilinece4j`. 
-
-For this we create a `ReactiveCircuitBreaker` Bean from `ReactiveResilience4JCircuitBreakerFactory` with a name `readySetGo`.
-
-```kotlin
-bean {
-    ReactiveResilience4JCircuitBreakerFactory()
-        .create("readySetGo")
-}
-```
-  
+### to be continued ..
 
 
 The example source code can be found here [GitHub](https://github.com/marzelwidmer/kboot-resilience4j)
