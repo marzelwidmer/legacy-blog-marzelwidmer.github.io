@@ -14,12 +14,12 @@
 <meta name="twitter:title" content="Kboot Flux Meets Soap"/>
 <meta name="twitter:description" content="This will demonstrate how we can deal with a Blocking API in a Reactive World.
 The GitHb 1 sample provides a
- soap-server who demonstrate the blocking downstream API. flux-client with REST API  lockdown that will call the blocking SOAP endpoint and. Blockhound 2 will throw an exception. easing have an implemented from Avoiding Reactor Meltdown 3 show case how to manage Blocking API.    With this approach to manage Blocking API in the same service ant not in a separate service we have all the nice features like retry filter map and so on in our Servive A from the Reactive Streams API."/>
+ soap-server who demonstrate the blocking downstream API. flux-client with REST API  lockdown that will call the blocking SOAP endpoint and. Blockhound 2 will throw an exception. easing have an implemented from Avoiding Reactor Meltdown 3 show case how to manage Blocking API.    With this approach to manage Blocking API in the same service ant not in a separate service we have all the nice features like retry filter map and so on in our Service A from the Reactive Streams API."/>
 
     <meta property="og:title" content="Kboot Flux Meets Soap" />
 <meta property="og:description" content="This will demonstrate how we can deal with a Blocking API in a Reactive World.
 The GitHb 1 sample provides a
- soap-server who demonstrate the blocking downstream API. flux-client with REST API  lockdown that will call the blocking SOAP endpoint and. Blockhound 2 will throw an exception. easing have an implemented from Avoiding Reactor Meltdown 3 show case how to manage Blocking API.    With this approach to manage Blocking API in the same service ant not in a separate service we have all the nice features like retry filter map and so on in our Servive A from the Reactive Streams API." />
+ soap-server who demonstrate the blocking downstream API. flux-client with REST API  lockdown that will call the blocking SOAP endpoint and. Blockhound 2 will throw an exception. easing have an implemented from Avoiding Reactor Meltdown 3 show case how to manage Blocking API.    With this approach to manage Blocking API in the same service ant not in a separate service we have all the nice features like retry filter map and so on in our Service A from the Reactive Streams API." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/2020-05-10-kboot-flux-meets-soap/" />
 <meta property="article:published_time" content="2020-06-01T00:00:00+00:00" />
@@ -80,7 +80,7 @@ The GitHb 1 sample provides a
 </li>
 </ul>
 <p>With this approach to manage <code>Blocking API</code> in the same service ant not in a separate service we have all the nice features like <code>retry</code> <code>filter</code> <code>map</code> and so on
-in our <code>Servive A</code> from the <code>Reactive Streams API</code>.</p>
+in our <code>Service A</code> from the <code>Reactive Streams API</code>.</p>
 <p>We also not have to manage a other service who will handle it for us. With this we have less network hops, Organisations-Issues, Deployment etc. who are sometimes increase complexity and so on.</p>
 <ul>
 <li><a href="#restAPI">Rest API</a></li>
@@ -90,12 +90,12 @@ in our <code>Servive A</code> from the <code>Reactive Streams API</code>.</p>
 <li><a href="#implementation">Implementation</a></li>
 </ul>
 <p><img src="/2020-05-10-kboot-flux-meets-soap/FluxMeetsSoap.png" alt="fluxMeetsSoap"></p>
-<h1 id="flux-client--a-namerestapia">Flux Client  <!-- raw HTML omitted --><!-- raw HTML omitted --></h1>
+<h1 id="restAPI">Flux Client </h1>
 <h2 id="api-lockdown-switzerland">API Lockdown Switzerland</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/api/lockdown/Switzerland
 </code></pre></div><h2 id="api-easing-switzerland">API easing Switzerland</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/api/easing/Switzerland
-</code></pre></div><h2 id="blockhound--a-nameblockhounda">Blockhound  <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id="blockHound">Blockhound </h2>
 <p><a href="https://github.com/reactor/BlockHound">BlockHound</a> is a Java agent to detect blocking calls from non-blocking threads.
 Add the following or latest dependency from <code>blockhound</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!-- Blockhound	--&gt;</span>
@@ -109,7 +109,7 @@ Add the following or latest dependency from <code>blockhound</code>.</p>
 	BlockHound.install()
 	runApplication&lt;KbootFluxWS&gt;(*args)
 }
-</code></pre></div><h1 id="soap-server-a-namesoapservera">SOAP Server <!-- raw HTML omitted --><!-- raw HTML omitted --></h1>
+</code></pre></div><h1 id="soapServer">SOAP Server </h1>
 <p>The Server have an implementation with a demonstration how we can write own <code>Kotlin DSL</code>.</p>
 <h2 id="dsl-kotlindslinunderanhour">DSL <sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"> country {
@@ -132,7 +132,7 @@ Add the following or latest dependency from <code>blockhound</code>.</p>
       <span style="color:#f92672">&lt;/gs:getCountryRequest&gt;</span>
    <span style="color:#f92672">&lt;/soapenv:Body&gt;</span>
 <span style="color:#f92672">&lt;/soapenv:Envelope&gt;</span>
-</code></pre></div><h2 id="call-service-with-httpie-a-namehttpiesoapcalla">Call Service with <code>HTTPie</code> <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id="httpieSoapCall">Call Service with <code>HTTPie</code> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">printf <span style="color:#e6db74">&#39;&lt;soapenv:Envelope xmlns:soapenv=&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;
 </span><span style="color:#e6db74">                                  xmlns:gs=&#34;http://keepcalm.ch/web-services&#34;&gt;
 </span><span style="color:#e6db74">   &lt;soapenv:Header/&gt;
@@ -143,7 +143,7 @@ Add the following or latest dependency from <code>blockhound</code>.</p>
 </span><span style="color:#e6db74">   &lt;/soapenv:Body&gt;
 </span><span style="color:#e6db74">&lt;/soapenv:Envelope&gt;&#39;</span>| http  --follow --timeout <span style="color:#ae81ff">3600</span> POST http://localhost:8888/ws <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span> Content-Type:<span style="color:#e6db74">&#39;text/xml&#39;</span>
-</code></pre></div><h1 id="implementation-a-nameimplementationa">Implementation <!-- raw HTML omitted --><!-- raw HTML omitted --></h1>
+</code></pre></div><h1 id="implementation">Implementation </h1>
 <h2 id="router-table">Router Table</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">bean {
     router {
