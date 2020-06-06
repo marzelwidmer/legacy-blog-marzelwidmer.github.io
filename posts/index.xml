@@ -33,5 +33,16 @@ The GitHb 1 sample provides a
 brew install inetutils Create Project Run the following commands :</description>
     </item>
     
+    <item>
+      <title>Kubernetes Ingress with Ngnix Ingress Controller</title>
+      <link>/posts/2020-05-01-minikube-ingress-controller/</link>
+      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2020-05-01-minikube-ingress-controller/</guid>
+      <description> References:
+ ingress-minikube
+ </description>
+    </item>
+    
   </channel>
 </rss>
