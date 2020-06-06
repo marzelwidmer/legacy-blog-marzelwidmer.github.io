@@ -6,7 +6,7 @@
     <description>Recent content in WebFlux on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 10 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/webflux/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Kboot Flux Meets Soap</title>
       <link>/posts/2020-05-10-kboot-flux-meets-soap/</link>
-      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
       
       <guid>/posts/2020-05-10-kboot-flux-meets-soap/</guid>
       <description>This will demonstrate how we can deal with a Blocking API in a Reactive World.
