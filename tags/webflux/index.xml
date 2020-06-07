@@ -22,5 +22,17 @@ The GitHb 1 sample provides a
  soap-server who demonstrate the blocking downstream API. flux-client with REST API  lockdown that will call the blocking SOAP endpoint and. Blockhound 2 will throw an exception. easing have an implemented from Avoiding Reactor Meltdown 3 show case how to manage Blocking API.    With this approach to manage Blocking API in the same service ant not in a separate service we have all the nice features like retry filter map and so on in our Service A from the Reactive Streams API.</description>
     </item>
     
+    <item>
+      <title>Spring Cloud Gateway</title>
+      <link>/posts/2020-04-12-cloud-gateway-sidecar/</link>
+      <pubDate>Thu, 16 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2020-04-12-cloud-gateway-sidecar/</guid>
+      <description>This sample show how easy you can put on an existing API the Spring Cloud Gateway as kind of SideCar where you can manage your Security, Logging etc. Or just provide an other Endpoint URL like in this sample.
+Let&amp;rsquo;s create a Service with a Reactive Spring Boot Application and MongoDB and a Rest Endpoint.
+We start with the MongoDB document class Customer and a ReactiveCrudRepository interface CustomerRepository
+@Document data class Customer(@Id val id: String = UUID.</description>
+    </item>
+    
   </channel>
 </rss>

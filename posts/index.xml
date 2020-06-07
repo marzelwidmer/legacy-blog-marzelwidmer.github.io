@@ -6,10 +6,24 @@
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 07 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kubernetes cheat sheet</title>
+      <link>/posts/2020-06-07-k8s-cheat-sheet/</link>
+      <pubDate>Sun, 07 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2020-06-07-k8s-cheat-sheet/</guid>
+      <description>Config Maps Create ConfigMap from file is also a useful way to create a ConfigMap
+$ oc create configmap order-service --from-file=src/main/resources/application.yaml Get all ConfigMaps
+$ oc get configmaps Get ConfigMap as yaml
+$ oc get configmap order-service -o yaml Describe ConfigMap
+$ oc describe configmap order-service Delete ConfigMap
+$ oc delete configmap order-service </description>
+    </item>
     
     <item>
       <title>Kboot Flux Meets Soap</title>
@@ -41,6 +55,61 @@ brew install inetutils Create Project Run the following commands :</description>
       <guid>/posts/2020-05-01-minikube-ingress-controller/</guid>
       <description>OSX Minikube Kubernetes If you use ohmyzsh is there a nice Plugin with some kubectl for more details check ohmyzsh plugins kubectl
 Install Minikube with Ingress Controller brew install minikube Start Minikube minikube start 😄 minikube v1.9.2 on Darwin 10.15.4 ▪ MINIKUBE_ACTIVE_DOCKERD=minikube ✨ Using the hyperkit driver based on existing profile 👍 Starting control plane node m01 in cluster minikube 🔄 Restarting existing hyperkit VM for &amp;#34;minikube&amp;#34; ... 🐳 Preparing Kubernetes v1.</description>
+    </item>
+    
+    <item>
+      <title>Reactive Spring Boot with Resilience4j CircuitBreaker</title>
+      <link>/posts/2020-04-18-resilience4j-circuitbreaker/</link>
+      <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2020-04-18-resilience4j-circuitbreaker/</guid>
+      <description>Create Project Let&amp;rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the spring inializr Rest Endpoint. We will take the latest and greates Spring Boot version 2.3.0.M4 and language kotlin with the following dependencies:
+ actuator webflux cloud-resilience4j  http https://start.spring.io/starter.tgz \ dependencies==actuator,webflux,cloud-resilience4j \ description==&amp;quot;Demo project Kotlin Spring Boot with Resilience4j&amp;quot; \ applicationName==Resilience4jApplication \ name==kboot-resilience4j \ groupId==ch.keepcalm \ artifactId==kboot-resilience4j \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ bootVersion==2.3.0.M4 \ baseDir==kboot-resilience4j| tar -xzvf - Add Customer Banner</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud Gateway</title>
+      <link>/posts/2020-04-12-cloud-gateway-sidecar/</link>
+      <pubDate>Thu, 16 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2020-04-12-cloud-gateway-sidecar/</guid>
+      <description>This sample show how easy you can put on an existing API the Spring Cloud Gateway as kind of SideCar where you can manage your Security, Logging etc. Or just provide an other Endpoint URL like in this sample.
+Let&amp;rsquo;s create a Service with a Reactive Spring Boot Application and MongoDB and a Rest Endpoint.
+We start with the MongoDB document class Customer and a ReactiveCrudRepository interface CustomerRepository
+@Document data class Customer(@Id val id: String = UUID.</description>
+    </item>
+    
+    <item>
+      <title>Create Kotlin Project with Spring Initializr and HTTPie</title>
+      <link>/posts/2020-04-12-spring-initializr/</link>
+      <pubDate>Sun, 12 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2020-04-12-spring-initializr/</guid>
+      <description>Create Kotlin Maven Project with HTTPie from start.spring.io Let&amp;rsquo;s create and extract a Maven Kotlin project with some dependencies actuator data-mongodb-reactive webflux and cloud-gateway The https://start.spring.io
+http https://start.spring.io/starter.tgz \  dependencies==actuator,data-mongodb-reactive,webflux,cloud-gateway \  description==&amp;#34;Demo project Kotlin Sidecar Gateway&amp;#34; \  applicationName==SidecarGatewayApplication \  name==kotlin-sidecar-gateway \  groupId==ch.keepcalm \  artifactId==kotlin-sidecar-gateway \  packageName==ch.keepcalm.demo \  javaVersion==11 \  language==kotlin \  baseDir==kotlin-sidecar-gateway | tar -xzvf - Banner Download Banner in the src/main/resources folder.</description>
+    </item>
+    
+    <item>
+      <title>Spring Boot Kubernetes ConfigMap</title>
+      <link>/posts/2019-09-18-spring-boot-k8s-configmap/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2019-09-18-spring-boot-k8s-configmap/</guid>
+      <description>Now is time to configure our microservices to send the tracing logs to Jaeger 1. The configuration opentracing.jaeger.http-sender.url in configuration application.yaml file looks like below in the sources.
+opentracing: jaeger: log-spans: true http-sender: url: http://localhost:14268/api/traces The opentracing.jaeger.http-sender.url we are looking for we get form the section Get Route Host in the Jaeger post We will use the ConfigMap approach with the Spring Cloud Kubernetes{:target=&amp;rdquo;_blank&amp;rdquo;} starters.
+Maven  Update Maven Configuration with Spring Cloud Kubernetes{:target=&amp;rdquo;_blank&amp;rdquo;} library.</description>
+    </item>
+    
+    <item>
+      <title>Install OKD on Hetzner Cloud</title>
+      <link>/posts/2019-01-13-hetzner-okd/</link>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2019-01-13-hetzner-okd/</guid>
+      <description>Inspiration from Installation of OKD 3.10 from start to finish{:target=&amp;rdquo;_blank&amp;rdquo;}
+Create a Hetzner VM with the CLI https://github.com/hetznercloud/cli
+hcloud (Hetzner CLI) Let&amp;rsquo;s check first some hcloud command that we can use later to create a VM with the right size and in the Datacenter we want.
+hcloud server create --name &amp;lt;YOUR_DOMAIN&amp;gt; --type &amp;lt;SERVER-TYPE&amp;gt; --image &amp;lt;IMAGE&amp;gt; --ssh-key &amp;lt;YOUR_HETZNER_SSH_KEY&amp;gt; --datacenter &amp;lt;DATACENTER&amp;gt; Server Type hcloud server-type list ID NAME CORES MEMORY DISK STORAGE TYPE 1 cx11 1 2.</description>
     </item>
     
   </channel>
