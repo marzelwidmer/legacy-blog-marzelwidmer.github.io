@@ -1,127 +1,1718 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Posts on </title>
-    <link>/posts/</link>
-    <description>Recent content in Posts on </description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 07 Jun 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Kubernetes cheat sheet</title>
-      <link>/posts/2020-06-07-k8s-cheat-sheet/</link>
-      <pubDate>Sun, 07 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/2020-06-07-k8s-cheat-sheet/</guid>
-      <description>Config Maps Create ConfigMap from file is also a useful way to create a ConfigMap
-$ oc create configmap order-service --from-file=src/main/resources/application.yaml Get all ConfigMaps
-$ oc get configmaps Get ConfigMap as yaml
-$ oc get configmap order-service -o yaml Describe ConfigMap
-$ oc describe configmap order-service Delete ConfigMap
-$ oc delete configmap order-service </description>
-    </item>
-    
-    <item>
-      <title>Kboot Flux Meets Soap</title>
-      <link>/posts/2020-05-10-kboot-flux-meets-soap/</link>
-      <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/2020-05-10-kboot-flux-meets-soap/</guid>
-      <description>This will demonstrate how we can deal with a Blocking API in a Reactive World.
+    <channel>
+        <title>Posts on Hello Friend NG</title>
+        <link>/posts/</link>
+        <description>Recent content in Posts on Hello Friend NG</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+        <lastBuildDate>Sun, 10 May 2020 00:00:00 +0000</lastBuildDate>
+        <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Kboot Flux Meets Soap</title>
+            <link>/posts/2020/05/kboot-flux-meets-soap/</link>
+            <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
+            
+            <guid>/posts/2020/05/kboot-flux-meets-soap/</guid>
+            <description>This will demonstrate how we can deal with a Blocking API in a Reactive World.
 The GitHb 1 sample provides a
  soap-server who demonstrate the blocking downstream API. flux-client with REST API  lockdown that will call the blocking SOAP endpoint and. Blockhound 2 will throw an exception. easing have an implemented from Avoiding Reactor Meltdown 3 show case how to manage Blocking API.    With this approach to manage Blocking API in the same service ant not in a separate service we have all the nice features like retry filter map and so on in our Service A from the Reactive Streams API.</description>
-    </item>
-    
-    <item>
-      <title>Apache Camel with Kotlin and Spring Boot</title>
-      <link>/posts/2020-05-04-camel-kotlin-spring-boot/</link>
-      <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/2020-05-04-camel-kotlin-spring-boot/</guid>
-      <description>Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
+            <content type="html"><![CDATA[<p>This will demonstrate how we can deal with a <code>Blocking API</code> in a <code>Reactive World</code>.</p>
+<p>The GitHb <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> sample provides a</p>
+<ul>
+<li><code>soap-server</code> who demonstrate the blocking downstream <code>API</code>.</li>
+<li><code>flux-client</code> with <code>REST API</code>
+<ul>
+<li><code>lockdown</code> that will call the blocking <code>SOAP</code> endpoint and. Blockhound <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> will throw an exception.</li>
+<li><code>easing</code> have an implemented from Avoiding Reactor Meltdown <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> show case how to manage <code>Blocking API</code>.</li>
+</ul>
+</li>
+</ul>
+<p>With this approach to manage <code>Blocking API</code> in the same service ant not in a separate service we have all the nice features like <code>retry</code> <code>filter</code> <code>map</code> and so on
+in our <code>Service A</code> from the <code>Reactive Streams API</code>.</p>
+<p>We also not have to manage a other service who will handle it for us. With this we have less network hops, Organisations-Issues, Deployment etc. who are sometimes increase complexity and so on.</p>
+<ul>
+<li><a href="#restAPI">Rest API</a></li>
+<li><a href="#blockHound">BlockHound Plugin</a></li>
+<li><a href="#soapServer">SOAP Server</a></li>
+<li><a href="#httpieSoapCall">SOAP with HTTPie Server</a></li>
+<li><a href="#implementation">Implementation</a></li>
+</ul>
+<p><img src="/FluxMeetsSoap.png" alt="fluxMeetsSoap"></p>
+<h1 id="restAPI">Flux Client </h1>
+<h2 id="api-lockdown-switzerland">API Lockdown Switzerland</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/api/lockdown/Switzerland
+</code></pre></div><h2 id="api-easing-switzerland">API easing Switzerland</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/api/easing/Switzerland
+</code></pre></div><h2 id="blockHound">Blockhound </h2>
+<p><a href="https://github.com/reactor/BlockHound">BlockHound</a> is a Java agent to detect blocking calls from non-blocking threads.
+Add the following or latest dependency from <code>blockhound</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!-- Blockhound	--&gt;</span>
+<span style="color:#f92672">&lt;dependency&gt;</span>
+    <span style="color:#f92672">&lt;groupId&gt;</span>io.projectreactor.tools<span style="color:#f92672">&lt;/groupId&gt;</span>
+    <span style="color:#f92672">&lt;artifactId&gt;</span>blockhound<span style="color:#f92672">&lt;/artifactId&gt;</span>
+    <span style="color:#f92672">&lt;version&gt;</span>1.0.3.RELEASE<span style="color:#f92672">&lt;/version&gt;</span>
+<span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div><p>Install the agent <code>BlockHound.install()</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args: Array&lt;String&gt;) {
+	BlockHound.install()
+	runApplication&lt;KbootFluxWS&gt;(*args)
+}
+</code></pre></div><h1 id="soapServer">SOAP Server </h1>
+<p>The Server have an implementation with a demonstration how we can write own <code>Kotlin DSL</code>.</p>
+<h2 id="dsl-kotlindslinunderanhour">DSL <sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"> country {
+    name = <span style="color:#e6db74">&#34;Switzerland&#34;</span>
+    capital = <span style="color:#e6db74">&#34;Bern&#34;</span>
+    population = <span style="color:#ae81ff">8</span>_603_900
+    currency = <span style="color:#e6db74">&#34;CHF&#34;</span>
+}
+</code></pre></div><h2 id="wsdl">WSDL</h2>
+<p><code>http://localhost:8888/ws/countries.wsdl</code></p>
+<h2 id="end-point">End-Point</h2>
+<p><code>http://localhost:8888/ws</code></p>
+<h2 id="request">Request</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;soapenv:Envelope</span> <span style="color:#a6e22e">xmlns:soapenv=</span><span style="color:#e6db74">&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;</span>
+				  <span style="color:#a6e22e">xmlns:gs=</span><span style="color:#e6db74">&#34;http://keepcalm.ch/web-services&#34;</span><span style="color:#f92672">&gt;</span>
+   <span style="color:#f92672">&lt;soapenv:Header/&gt;</span>
+   <span style="color:#f92672">&lt;soapenv:Body&gt;</span>
+      <span style="color:#f92672">&lt;gs:getCountryRequest&gt;</span>
+         <span style="color:#f92672">&lt;gs:name&gt;</span>Switzerland<span style="color:#f92672">&lt;/gs:name&gt;</span>
+      <span style="color:#f92672">&lt;/gs:getCountryRequest&gt;</span>
+   <span style="color:#f92672">&lt;/soapenv:Body&gt;</span>
+<span style="color:#f92672">&lt;/soapenv:Envelope&gt;</span>
+</code></pre></div><h2 id="httpieSoapCall">Call Service with <code>HTTPie</code> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">printf <span style="color:#e6db74">&#39;&lt;soapenv:Envelope xmlns:soapenv=&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;
+</span><span style="color:#e6db74">                                  xmlns:gs=&#34;http://keepcalm.ch/web-services&#34;&gt;
+</span><span style="color:#e6db74">   &lt;soapenv:Header/&gt;
+</span><span style="color:#e6db74">   &lt;soapenv:Body&gt;
+</span><span style="color:#e6db74">      &lt;gs:getCountryRequest&gt;
+</span><span style="color:#e6db74">         &lt;gs:name&gt;Switzerland&lt;/gs:name&gt;
+</span><span style="color:#e6db74">      &lt;/gs:getCountryRequest&gt;
+</span><span style="color:#e6db74">   &lt;/soapenv:Body&gt;
+</span><span style="color:#e6db74">&lt;/soapenv:Envelope&gt;&#39;</span>| http  --follow --timeout <span style="color:#ae81ff">3600</span> POST http://localhost:8888/ws <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span> Content-Type:<span style="color:#e6db74">&#39;text/xml&#39;</span>
+</code></pre></div><h1 id="implementation">Implementation </h1>
+<h2 id="router-table">Router Table</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">bean {
+    router {
+        <span style="color:#e6db74">&#34;api&#34;</span>.nest {
+            GET(<span style="color:#e6db74">&#34;/lockdown/{name}&#34;</span>) {
+                <span style="color:#66d9ef">val</span> countryService = ref&lt;CountryService&gt;()
+                ok().body(BodyInserters.fromValue(
+                    countryService.getCountryByName(it.pathVariable(<span style="color:#e6db74">&#34;name&#34;</span>)))
+                )
+            }
+            GET(<span style="color:#e6db74">&#34;/easing/{name}&#34;</span>) {
+                <span style="color:#66d9ef">val</span> countryReactiveService = ref&lt;CountryReactiveService&gt;()
+                ok().body(
+                    BodyInserters.fromPublisher(countryReactiveService.getCountryByName(it.pathVariable(<span style="color:#e6db74">&#34;name&#34;</span>)), GetCountryResponse<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>.java)
+                )
+            }
+        }
+    }
+}
+</code></pre></div><h2 id="reactive-service">Reactive Service</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Service
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CountryReactiveService</span>  (<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> soapClient: SoapClient) {
+
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getCountryByName</span>(name: String): Mono&lt;GetCountryResponse&gt; {
+        <span style="color:#66d9ef">return</span> soapClient.getCountryReactive(name)
+    }
+}
+</code></pre></div><h2 id="reactive-soap-client">Reactive SOAP Client</h2>
+<p><code>.subscribeOn(Schedulers.boundedElastic())</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getCountryReactive</span>(country: String): Mono&lt;GetCountryResponse&gt; {
+    <span style="color:#66d9ef">val</span> request = GetCountryRequest()
+    request.name = country
+    log.info(<span style="color:#e6db74">&#34;Requesting location for $country&#34;</span>)
+    <span style="color:#66d9ef">return</span> Mono.fromCallable {
+        webServiceTemplate
+            .marshalSendAndReceive(<span style="color:#e6db74">&#34;http://localhost:8888/ws/countries&#34;</span>, request,
+                SoapActionCallback(
+                    <span style="color:#e6db74">&#34;http://keepcalm.ch/web-services/GetCountryRequest&#34;</span>)) <span style="color:#66d9ef">as</span> GetCountryResponse
+    }
+        <span style="color:#75715e">// properly schedule above blocking call on
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// scheduler meant for blocking tasks
+</span><span style="color:#75715e"></span>        .subscribeOn(Schedulers.boundedElastic())
+}
+</code></pre></div><section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://github.com/marzelwidmer/kboot-flux-meets-soap">kboot-flux-meets-soap</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://github.com/reactor/BlockHound">Blockhound</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p><a href="https://youtu.be/xCu73WVg8Ps?t=1">Avoiding Reactor Meltdown</a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p><a href="https://www.youtube.com/watch?v=zYNbsVv9oN0">Kotlin DSL in under an hour</a> | <a href="https://www.youtube.com/watch?v=hYXAFO3q3qU">Do Super Language with Kotlin</a> <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Apache Camel with Kotlin and Spring Boot</title>
+            <link>/posts/2020/05/apache-camel-with-kotlin-and-spring-boot/</link>
+            <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
+            
+            <guid>/posts/2020/05/apache-camel-with-kotlin-and-spring-boot/</guid>
+            <description>Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
  Precondition on OSX Create Project Check Camel Context File Route FTP Route Choice Route  Precondition on OSX We will also use command line ftp commands for this you need the ftp command line tool this can be installed with :
 brew install inetutils Create Project Run the following commands :</description>
-    </item>
-    
-    <item>
-      <title>Kubernetes Ingress with Ngnix Ingress Controller</title>
-      <link>/posts/2020-05-01-minikube-ingress-controller/</link>
-      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/2020-05-01-minikube-ingress-controller/</guid>
-      <description>OSX Minikube Kubernetes If you use ohmyzsh is there a nice Plugin with some kubectl for more details check ohmyzsh plugins kubectl
+            <content type="html"><![CDATA[<p>Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.</p>
+<ul>
+<li><a href="#precondition">Precondition on OSX</a></li>
+<li><a href="#createProject">Create Project</a></li>
+<li><a href="#checkCamelContext">Check Camel Context</a></li>
+<li><a href="#fileRoute">File Route</a></li>
+<li><a href="#ftpRoute">FTP Route</a></li>
+<li><a href="#choiceRoute">Choice Route</a></li>
+</ul>
+<h3 id="precondition">Precondition on OSX</h3>
+<p>We will also use command line <code>ftp</code> commands for this you need the <code>ftp</code>
+command line tool this can be installed with :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install inetutils
+</code></pre></div><h2 id="createProject">Create Project</h2>
+<p>Run the following commands :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export KBOOT_NAME<span style="color:#f92672">=</span>kboot-camel
+export KBOOT_APPL_NAME<span style="color:#f92672">=</span>KbootCamel
+
+http https://start.spring.io/starter.tgz <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    dependencies<span style="color:#f92672">==</span>camel,actuator,webflux <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    description<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;Demo project Spring Boot&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    applicationName<span style="color:#f92672">==</span>$KBOOT_APPL_NAME <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    name<span style="color:#f92672">==</span>$KBOOT_NAME <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    groupId<span style="color:#f92672">==</span>ch.keepcalm <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    artifactId<span style="color:#f92672">==</span>$KBOOT_NAME <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    packageName<span style="color:#f92672">==</span>ch.keepcalm.demo <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    javaVersion<span style="color:#f92672">==</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    language<span style="color:#f92672">==</span>kotlin <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    bootVersion<span style="color:#f92672">==</span>2.3.0.RC1 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    baseDir<span style="color:#f92672">==</span>$KBOOT_NAME| tar -xzvf -
+
+
+cd $KBOOT_NAME
+
+http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/banner.txt <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    &gt; src/main/resources/banner.txt
+
+rm src/main/resources/application.properties
+
+echo <span style="color:#e6db74">&#34;spring:
+</span><span style="color:#e6db74">  application:
+</span><span style="color:#e6db74">    name: </span>$KBOOT_NAME<span style="color:#e6db74">&#34;</span> | &gt; src/main/resources/application.yaml
+
+idea .
+</code></pre></div><h3 id="change-maven-dependencies">Change Maven Dependencies</h3>
+<p>When working with <code>Camel</code> best practice is to change the generated Maven <code>pom.xml</code> from the <code>start.spring.io</code>
+Like in the official description of <code>Apache Camel</code> <a href="https://camel.apache.org/camel-spring-boot/latest/">camel-spring-boot</a>
+So lets refactor our <code>pom.xml</code></p>
+<p>We take the version from the <code>camel-spring-boot-starter</code> move it up to the <code>properties</code> section with the property name <code>camel.version</code>.
+Add the <code>Camel</code> <code>BOM</code> <code>dependencieManagement</code> section to it.</p>
+<h4 id="properties-section">Properties Section</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;properties&gt;</span>`
+		<span style="color:#f92672">&lt;camel.version&gt;</span>3.2.0<span style="color:#f92672">&lt;/camel.version&gt;</span>
+        ...
+<span style="color:#f92672">&lt;/properties&gt;</span>
+</code></pre></div><h4 id="dependency-section">Dependency Section</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!-- Camel --&gt;</span>
+<span style="color:#f92672">&lt;dependency&gt;</span>
+    <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.camel.springboot<span style="color:#f92672">&lt;/groupId&gt;</span>
+    <span style="color:#f92672">&lt;artifactId&gt;</span>camel-spring-boot-starter<span style="color:#f92672">&lt;/artifactId&gt;</span>
+<span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div><h4 id="dependency-management-section">Dependency Management Section</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependencyManagement&gt;</span>
+    <span style="color:#f92672">&lt;dependencies&gt;</span>
+        <span style="color:#75715e">&lt;!-- Camel BOM --&gt;</span>
+        <span style="color:#f92672">&lt;dependency&gt;</span>
+            <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.camel.springboot<span style="color:#f92672">&lt;/groupId&gt;</span>
+            <span style="color:#f92672">&lt;artifactId&gt;</span>camel-spring-boot-dependencies<span style="color:#f92672">&lt;/artifactId&gt;</span>
+            <span style="color:#f92672">&lt;version&gt;</span>${camel.version}<span style="color:#f92672">&lt;/version&gt;</span>
+            <span style="color:#f92672">&lt;type&gt;</span>pom<span style="color:#f92672">&lt;/type&gt;</span>
+            <span style="color:#f92672">&lt;scope&gt;</span>import<span style="color:#f92672">&lt;/scope&gt;</span>
+        <span style="color:#f92672">&lt;/dependency&gt;</span>
+    <span style="color:#f92672">&lt;/dependencies&gt;</span>
+<span style="color:#f92672">&lt;/dependencyManagement&gt;</span>
+</code></pre></div><h2 id="checkCamelContext">Check CamelContext</h2>
+<p>Let&rsquo;s check if <code>Camel</code> is loading in out Spring Boot application for this let`s start the application</p>
+<p>Run the following command :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn spring-boot:run
+</code></pre></div><p>Verify the console output you should see something like <code>AbstractCamelContext - Apache Camel 3.2.0 (CamelContext: camel-1) is starting</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">   _    ____              _
+   | | __ __ <span style="color:#f92672">)</span>  ___   ___ | |_
+   | |/ /  _ <span style="color:#ae81ff">\ </span>/ _ <span style="color:#ae81ff">\ </span>/ _ <span style="color:#ae81ff">\|</span> __|
+   |   &lt;| |_<span style="color:#f92672">)</span> | <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span> | <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span> | |_
+   |_|<span style="color:#ae81ff">\_\_</span>___/ <span style="color:#ae81ff">\_</span>__/ <span style="color:#ae81ff">\_</span>__/ <span style="color:#ae81ff">\_</span>_|
+
+:: kboot-camel: :: Running Spring Boot: <span style="color:#f92672">(</span>v2.3.0.RC1<span style="color:#f92672">)</span> :: Active Profiles: default ::
+
+2020-05-05 Tue 07:50:57.489 KbootCamelKt                             - Starting KbootCamelKt on MacBookPro with PID <span style="color:#ae81ff">20731</span> <span style="color:#f92672">(</span>/Users/morpheus/dev/kboot-camel/target/classes started by morpheus in /Users/morpheus/dev/kboot-camel<span style="color:#f92672">)</span>
+2020-05-05 Tue 07:50:57.493 KbootCamelKt                             - No active profile set, falling back to default profiles: default
+2020-05-05 Tue 07:50:58.261 trationDelegate$BeanPostProcessorChecker - Bean <span style="color:#e6db74">&#39;org.apache.camel.spring.boot.CamelAutoConfiguration&#39;</span> of type <span style="color:#f92672">[</span>org.apache.camel.spring.boot.CamelAutoConfiguration<span style="color:#f92672">]</span> is not eligible <span style="color:#66d9ef">for</span> getting processed by all BeanPostProcessors <span style="color:#f92672">(</span><span style="color:#66d9ef">for</span> example: not eligible <span style="color:#66d9ef">for</span> auto-proxying<span style="color:#f92672">)</span>
+2020-05-05 Tue 07:50:58.548 LRUCacheFactory                          - Detected and using LURCacheFactory: camel-caffeine-lrucache
+2020-05-05 Tue 07:50:58.739 EndpointLinksResolver                    - Exposing <span style="color:#ae81ff">2</span> endpoint<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> beneath base path <span style="color:#e6db74">&#39;/actuator&#39;</span>
+2020-05-05 Tue 07:50:58.971 SpringBootRoutesCollector                - Loading additional Camel XML routes from: classpath:camel/*.xml
+2020-05-05 Tue 07:50:58.971 SpringBootRoutesCollector                - Loading additional Camel XML rests from: classpath:camel-rest/*.xml
+2020-05-05 Tue 07:50:58.985 DefaultManagementStrategy                - JMX is enabled
+2020-05-05 Tue 07:50:58.987 AbstractCamelContext                     - Apache Camel 3.2.0 <span style="color:#f92672">(</span>CamelContext: camel-1<span style="color:#f92672">)</span> is starting
+2020-05-05 Tue 07:50:58.989 AbstractCamelContext                     - StreamCaching is not in use. If using streams <span style="color:#66d9ef">then</span> its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2020-05-05 Tue 07:50:58.989 AbstractCamelContext                     - Total <span style="color:#ae81ff">0</span> routes, of which <span style="color:#ae81ff">0</span> are started
+2020-05-05 Tue 07:50:58.989 AbstractCamelContext                     - Apache Camel 3.2.0 <span style="color:#f92672">(</span>CamelContext: camel-1<span style="color:#f92672">)</span> started in 0.002 seconds
+2020-05-05 Tue 07:50:59.139 NettyWebServer                           - Netty started on port<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>: <span style="color:#ae81ff">8080</span>
+2020-05-05 Tue 07:50:59.142 KbootCamelKt                             - Started KbootCamelKt in 1.965 seconds <span style="color:#f92672">(</span>JVM running <span style="color:#66d9ef">for</span> 2.195<span style="color:#f92672">)</span>
+</code></pre></div><h2 id="fileRoute">File Route</h2>
+<h3 id="file-builder-route">File Builder Route</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Component
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FileRouteBuilder</span> : RouteBuilder() {
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> workDir =System.getenv(<span style="color:#e6db74">&#34;PWD&#34;</span>)
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> input = <span style="color:#e6db74">&#34;$workDir/orders/in?include=order.xml&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;$workDir/orders/out?fileExist=Fail&#34;</span>
+
+    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">configure</span>() {
+        from(<span style="color:#e6db74">&#34;file:$input&#34;</span>)
+            .process(HeaderProcessor())
+            .to(<span style="color:#e6db74">&#34;file:$output&#34;</span>)
+            .log(<span style="color:#e6db74">&#34;Camel body: \${body.class} \${body}&#34;</span>)
+
+    }
+}
+
+</code></pre></div><p>To test the <code>FileBuilderRoute</code> you can copy the test <code>XML</code> files from my sample application on <a href="https://github.com/marzelwidmer/kboot-camel">GitHub</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">.
+├── files
+│   ├── order-2.xml
+│   └── order.xml
+
+</code></pre></div><p>in the folder <code>orders/in</code> after application start. The proceeded files will be then in the hidden folder <code>.camel</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">orders
+├── in
+│   └── .camel
+│       ├── order-2.xml
+│       └── order.xml
+└── out
+    ├── 2019-01-28-order-2.xml
+    └── order.xml
+</code></pre></div><h3 id="processor">Processor</h3>
+<p>Creat a <code>HeaderProcessor</code> that implement the function <code>process</code> from the interface <code>org.apache.camel.Processor</code>.
+there we parse the date with <code>XPath</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HeaderProcessor</span> : Processor {
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">val</span> XPATH_DATE = <span style="color:#e6db74">&#34;/order/orderDate/text()&#34;</span>
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">process</span>(exchange: Exchange?) {
+        <span style="color:#66d9ef">val</span> oderXml = exchange<span style="color:#f92672">?.</span>`in`<span style="color:#f92672">?.</span>body
+        <span style="color:#66d9ef">val</span> orderDateTime = XPathBuilder.xpath(XPATH_DATE).evaluate(exchange<span style="color:#f92672">?.</span>context, oderXml)
+        <span style="color:#66d9ef">val</span> formattedOrderDate = getFormattedData(orderDateTime = orderDateTime)
+        exchange<span style="color:#f92672">?.</span>`in`<span style="color:#f92672">?.</span>setHeader(<span style="color:#e6db74">&#34;orderDate&#34;</span>, formattedOrderDate)
+        exchange<span style="color:#f92672">?.</span>`in`<span style="color:#f92672">?.</span>setHeader(<span style="color:#e6db74">&#34;uuid&#34;</span>, UUID.randomUUID().toString().take(<span style="color:#ae81ff">4</span>))
+    }
+
+    <span style="color:#75715e">// TODO: 05.05.20 DirtyHarry Implementation
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getFormattedData</span>(orderDateTime: String) = DateTimeFormatter.ofPattern(<span style="color:#e6db74">&#34;yyyy-MM-dd&#34;</span>)
+        .format(LocalDateTime.ofInstant(Instant.parse(orderDateTime), ZoneOffset.UTC))
+}
+</code></pre></div><p>Add <code>HeaderProcessor</code> class to our <code>FileRouteBuilder</code> with <code>.process(HeaderProcessor())</code>
+We also change the filename in the <code>to</code> section with <code>.to(&quot;file:$workDir/orders/out?fileName=\${header.orderDate}-\${header.CamelFileName}&quot;)</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Component
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FileRouteBuilder</span> : RouteBuilder() {
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> workDir =System.getenv(<span style="color:#e6db74">&#34;PWD&#34;</span>)
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> input = <span style="color:#e6db74">&#34;$workDir/orders/in?include=order.xml&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;$workDir/orders/out?fileExist=Fail&#34;</span>
+
+    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">configure</span>() {
+        from(<span style="color:#e6db74">&#34;file:$input&#34;</span>)
+            .to(<span style="color:#e6db74">&#34;file:$output&#34;</span>)
+            .log(<span style="color:#e6db74">&#34;Camel body: \${body.class} \${body}&#34;</span>)
+
+        from(<span style="color:#e6db74">&#34;file:$workDir/orders/in?include=order-.*xml&#34;</span>)
+            .process(HeaderProcessor())
+            .to(<span style="color:#e6db74">&#34;file:$workDir/orders/out?fileName=\${header.orderDate}-\${header.uuid}-\${header.CamelFileName}&#34;</span>)
+            .log(<span style="color:#e6db74">&#34;Camel body: \${body.class} \${body}&#34;</span>)
+    }
+}
+
+</code></pre></div><h2 id="ftpRoute">FTP Route</h2>
+<h3 id="ftp-route-builder">FTP Route Builder</h3>
+<p>Let&rsquo;s update our <code>pom</code> file with the <code>camel-ftp</code> dependency.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!-- camel-ftp  --&gt;</span>
+<span style="color:#f92672">&lt;dependency&gt;</span>
+    <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.camel<span style="color:#f92672">&lt;/groupId&gt;</span>
+    <span style="color:#f92672">&lt;artifactId&gt;</span>camel-ftp<span style="color:#f92672">&lt;/artifactId&gt;</span>
+<span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Component
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FtpRouteBuilder</span> : RouteBuilder() {
+
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> ftpEndpoint =<span style="color:#e6db74">&#34;ftp.walkerit.ch&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> username =<span style="color:#e6db74">&#34;public&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> password =<span style="color:#e6db74">&#34;Public8852&#34;</span>
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> workDir =System.getenv(<span style="color:#e6db74">&#34;PWD&#34;</span>)
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;$workDir/orders/out?fileExist=Fail&#34;</span>
+
+
+    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">configure</span>() {
+         from(<span style="color:#e6db74">&#34;ftp://$ftpEndpoint?username=$username&amp;password=$password&amp;delete=true&amp;include=order.*xml&#34;</span>)
+             .log(<span style="color:#e6db74">&#34;New File \${header.CamleFileName} picked up from \${header.CamleFileHost}&#34;</span>)
+             .process(ExchangePrinter())
+             .to(<span style="color:#e6db74">&#34;file://$output&#34;</span>)
+    }
+}
+</code></pre></div><h3 id="processor-1">Processor</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ExchangePrinter</span> : Processor {
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> log = LoggerFactory.getLogger(javaClass)
+
+    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">process</span>(exchange: Exchange?) {
+        <span style="color:#66d9ef">val</span> body = exchange<span style="color:#f92672">?.</span>`in`<span style="color:#f92672">?.</span>body
+        log.info(<span style="color:#e6db74">&#34;Body: $body&#34;</span>)
+    }
+}
+</code></pre></div><h2 id="ftp-server">FTP Server</h2>
+<p>Upload test <code>xml</code> file to public <code>FTP</code> server <a href="https://www.walkerit.ch/public-ftp">https://www.walkerit.ch/public-ftp</a>
+with the script <code>ftp-upload.sh</code>.</p>
+<p>Run the following command :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./ftp-upload.sh
+</code></pre></div><h2 id="start-application">Start Application</h2>
+<p>When you start the Application <code>mvn spring-boot:run</code> check the console output for <code>New File  picked up from</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">2020-05-06 Wed 07:32:39.101 KbootCamelKt    - Started KbootCamelKt in 2.055 seconds <span style="color:#f92672">(</span>JVM running <span style="color:#66d9ef">for</span> 2.265<span style="color:#f92672">)</span>
+2020-05-06 Wed 07:32:40.099 route3          - New File  picked up from
+2020-05-06 Wed 07:32:40.099 ExchangePrinter - Body: RemoteFile<span style="color:#f92672">[</span>order-ftp.xml<span style="color:#f92672">]</span>
+</code></pre></div><p>and the files will be downloaded in the <code>out</code> folder.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> tree
+.
+├── in
+└── out
+    └── order-ftp.xml
+</code></pre></div><h2 id="choiceRoute">Choice Route </h2>
+<h3 id="choice-route-builder">Choice Route Builder</h3>
+<p>Lets creat a choice route aka <code>switch</code>.</p>
+<p>This route will put the files in a folder of the publisher name. We will do this with <code>xPATH</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">val</span> XPATH_SEARCH_ORLY = <span style="color:#e6db74">&#34;order/orderItems/orderItem/orderItemPublisherName/text() = &#39;ORly&#39;&#34;</span>
+</code></pre></div><p>This will parse the xml file and deliver the files in the correct folder. For this you can put the sample files from the <code>files</code> folder in the <code>in/publisher/</code> folder.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> tree
+.
+├── in
+│   └── publisher
+│       ├── pub-foo.xml
+│       ├── pub-orly.xml
+│       └── pub-packt.xml
+└── out
+    └── publisher
+        ├── orly
+        ├── others
+        └── packt
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Component
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ChoiceRouteBuilder</span> : RouteBuilder() {
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> workDir = System.getenv(<span style="color:#e6db74">&#34;PWD&#34;</span>)
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> input = <span style="color:#e6db74">&#34;$workDir/orders/in/publisher?include=pub-.*xml&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;$workDir/orders/out/publisher&#34;</span>
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">val</span> XPATH_SEARCH_ORLY = <span style="color:#e6db74">&#34;order/orderItems/orderItem/orderItemPublisherName/text() = &#39;ORly&#39;&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">val</span> XPATH_SEARCH_PACKT = <span style="color:#e6db74">&#34;order/orderItems/orderItem/orderItemPublisherName/text() = &#39;Packt&#39;&#34;</span>
+
+    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">configure</span>() {
+        from(<span style="color:#e6db74">&#34;file:$input&#34;</span>)
+            .to(<span style="color:#e6db74">&#34;log:ordersReceived&#34;</span>)
+            .choice()
+                .`when`(xpath(XPATH_SEARCH_ORLY))
+                .log(<span style="color:#e6db74">&#34;ORly received&#34;</span>)
+                .to(<span style="color:#e6db74">&#34;file:$output/orly&#34;</span>)
+            .`when`(xpath(XPATH_SEARCH_PACKT))
+                .log(<span style="color:#e6db74">&#34;Packt received&#34;</span>)
+                .to(<span style="color:#e6db74">&#34;file:$output/packt&#34;</span>)
+            .otherwise()
+                .log(<span style="color:#e6db74">&#34;Other received&#34;</span>)
+                .to(<span style="color:#e6db74">&#34;file:$output/others&#34;</span>)
+            .end()
+    }
+
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tree
+.
+├── in
+│   └── publisher
+└── out
+    └── publisher
+        ├── orly
+        │   └── pub-orly.xml
+        ├── others
+        │   └── pub-foo.xml
+        └── packt
+            └── pub-packt.xml
+</code></pre></div><hr>
+<p><em>References:</em></p>
+<blockquote>
+<p><a href="https://github.com/marzelwidmer/kboot-camel">GitHub Sample Project</a>
+| <a href="https://spring.io/blog/2018/05/23/spring-tips-apache-camel">Spring Tips Apache Camel</a>
+| <a href="https://camel.apache.org/camel-spring-boot/latest/">Camel Apache Spring Boot</a>
+| <a href="https://www.walkerit.ch/public-ftp">Public FTP</a></p>
+</blockquote>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Kubernetes Ingress with Ngnix Ingress Controller</title>
+            <link>/posts/2020/05/kubernetes-ingress-with-ngnix-ingress-controller/</link>
+            <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
+            
+            <guid>/posts/2020/05/kubernetes-ingress-with-ngnix-ingress-controller/</guid>
+            <description>OSX Minikube Kubernetes If you use ohmyzsh is there a nice Plugin with some kubectl for more details check ohmyzsh plugins kubectl
 Install Minikube with Ingress Controller brew install minikube Start Minikube minikube start 😄 minikube v1.9.2 on Darwin 10.15.4 ▪ MINIKUBE_ACTIVE_DOCKERD=minikube ✨ Using the hyperkit driver based on existing profile 👍 Starting control plane node m01 in cluster minikube 🔄 Restarting existing hyperkit VM for &amp;#34;minikube&amp;#34; ... 🐳 Preparing Kubernetes v1.</description>
-    </item>
-    
-    <item>
-      <title>Reactive Spring Boot with Resilience4j CircuitBreaker</title>
-      <link>/posts/2020-04-18-resilience4j-circuitbreaker/</link>
-      <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/2020-04-18-resilience4j-circuitbreaker/</guid>
-      <description>Create Project Let&amp;rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the spring inializr Rest Endpoint. We will take the latest and greates Spring Boot version 2.3.0.M4 and language kotlin with the following dependencies:
+            <content type="html"><![CDATA[<h1 id="osx-minikube-kubernetes">OSX Minikube Kubernetes</h1>
+<p>If you use <code>ohmyzsh</code>  is there a nice Plugin with some <code>kubectl</code> for more details check <a href="https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/kubectl">ohmyzsh plugins kubectl</a></p>
+<h2 id="install-minikube-with-ingress-controller">Install Minikube with Ingress Controller</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install minikube
+</code></pre></div><h2 id="start-minikube">Start Minikube</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">minikube start
+😄  minikube v1.9.2 on Darwin 10.15.4
+    ▪ MINIKUBE_ACTIVE_DOCKERD<span style="color:#f92672">=</span>minikube
+✨  Using the hyperkit driver based on existing profile
+👍  Starting control plane node m01 in cluster minikube
+🔄  Restarting existing hyperkit VM <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#34;minikube&#34;</span> ...
+🐳  Preparing Kubernetes v1.18.0 on Docker 19.03.8 ...
+🌟  Enabling addons: dashboard, default-storageclass, ingress, storage-provisioner
+🏄  Done! kubectl is now configured to use <span style="color:#e6db74">&#34;minikube&#34;</span>
+</code></pre></div><h2 id="minkikube-status">Minkikube Status</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">minikube status
+m01
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+</code></pre></div><h2 id="enable-ingress-addons">Enable Ingress Addons</h2>
+<p>We need the addon <code>ingress</code> this can be done with the followng command.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">minikube addons enable ingress
+</code></pre></div><p>Check minikube addons with <code>minikube addons list</code> if <code>ingress</code> is enabled.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">minikube addons list
+
+|-----------------------------|----------|--------------|
+|         ADDON NAME          | PROFILE  |    STATUS    |
+|-----------------------------|----------|--------------|
+| dashboard                   | minikube | enabled ✅   |
+| default-storageclass        | minikube | enabled ✅   |
+| efk                         | minikube | disabled     |
+| freshpod                    | minikube | disabled     |
+| gvisor                      | minikube | disabled     |
+| helm-tiller                 | minikube | disabled     |
+| ingress                     | minikube | enabled ✅   |
+| ingress-dns                 | minikube | disabled     |
+| istio                       | minikube | disabled     |
+| istio-provisioner           | minikube | disabled     |
+| logviewer                   | minikube | disabled     |
+| metrics-server              | minikube | disabled     |
+| nvidia-driver-installer     | minikube | disabled     |
+| nvidia-gpu-device-plugin    | minikube | disabled     |
+| registry                    | minikube | disabled     |
+| registry-aliases            | minikube | disabled     |
+| registry-creds              | minikube | disabled     |
+| storage-provisioner         | minikube | enabled ✅   |
+| storage-provisioner-gluster | minikube | disabled     |
+|-----------------------------|----------|--------------|
+</code></pre></div><h2 id="ingress-controller">Ingress Controller</h2>
+<p>Let&rsquo;s check if the <code>Nginx Ingress Controller</code> is up and running.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k get pods -n kube-system | grep nginx-ingress
+nginx-ingress-controller-6d57c87cb9-rtgpk   1/1     Running   <span style="color:#ae81ff">1</span>          12m
+</code></pre></div><h1 id="create-namespace">Create Namespace</h1>
+<p>Let&rsquo;s create first a <code>dev</code> name space where we deploy our sample application.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k create ns dev
+namespace/dev created
+</code></pre></div><h1 id="switch-namespace-permanently">Switch Namespace Permanently</h1>
+<p>With the following command we can switch the namespace permanently like <code>oc project</code> in a <code>OpenShift</code> environment.
+This command will save the namespace for all other <code>kubectl</code> commands in that context.
+This required the <a href="https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/kubectl">ohmyzsh plugins kubectl</a> Plugin.
+Without this plugin will be the command <code>kubectl config set-context --current --namespace=dev</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kcn dev
+</code></pre></div><h1 id="create-deployment">Create Deployment</h1>
+<p>Let&rsquo;s create a deployment now for a sample application with the name <code>myapp</code> with the image <code>google-samples/hello-app:1.0</code> in the current namespace <code>dev</code></p>
+<p>Run the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k create deployment myapp --image<span style="color:#f92672">=</span>gcr.io/google-samples/hello-app:1.0
+deployment.apps/myapp created
+</code></pre></div><p>If you want see what deployments we have you can use <code>kubectl get deployments</code> command.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k get deployments
+NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+myapp   1/1     <span style="color:#ae81ff">1</span>            <span style="color:#ae81ff">1</span>           44m
+</code></pre></div><p>Let&rsquo;s also check if the pod is running.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k get pods -n dev -o wide --show-labels --field-selector<span style="color:#f92672">=</span>status.phase<span style="color:#f92672">=</span>Running
+
+NAME                    READY   STATUS    RESTARTS   AGE   IP           NODE       NOMINATED NODE   READINESS GATES   LABELS
+myapp-75d86849b-2gbps   1/1     Running   <span style="color:#ae81ff">0</span>          67m   172.17.0.3   minikube   &lt;none&gt;           &lt;none&gt;            app<span style="color:#f92672">=</span>myapp,pod-template-hash<span style="color:#f92672">=</span>75d86849b
+</code></pre></div><h1 id="create-service">Create Service</h1>
+<p>To reach our application we have to create a <code>service</code> this can be easily done with the <code>expose</code> command and the <code>NodePort</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k expose deployment myapp --port<span style="color:#f92672">=</span><span style="color:#ae81ff">8080</span> --type<span style="color:#f92672">=</span>NodePort
+</code></pre></div><p>Let&rsquo;s check the service.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k get svc
+NAME    TYPE       CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>          AGE
+myapp   NodePort   10.110.101.126   &lt;none&gt;        8080:30506/TCP   21m
+</code></pre></div><h2 id="test-service-internal-in-a-cluster">Test Service internal in a Cluster</h2>
+<p>Let&rsquo;s check the service with a small container based on the <code>tutum/curl:alpine</code> Docker image, which contains the curl command.
+Run the <code>curl -s 'http://myapp:8080'</code> command inside the container and redirect the output to the Terminal using the <code>-i</code> option.
+Delete the pod using the <code>--rm</code> option.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k run -i --rm --restart<span style="color:#f92672">=</span>Never curl-client --image<span style="color:#f92672">=</span>tutum/curl:alpine --command -- curl -s <span style="color:#e6db74">&#39;http://myapp:8080&#39;</span>
+
+Hello, world!
+Version: 1.0.0
+Hostname: myapp-75d86849b-2gbps
+pod <span style="color:#e6db74">&#34;curl-client&#34;</span> deleted
+</code></pre></div><p>This mean we can call a pod internal a cluster with the internal <code>DNS</code>.</p>
+<h2 id="test-service-outside-a-cluster">Test Service outside a Cluster</h2>
+<p>Let&rsquo;s call again the command <code>k get svc</code> to get the exposed port from out service.
+Run the following command again :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k get svc
+NAME    TYPE       CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>          AGE
+myapp   NodePort   10.110.101.126   &lt;none&gt;        8080:30506/TCP   21m
+</code></pre></div><p>You see the exposed port is here <code>30506</code> now let&rsquo;s get the <code>IP</code> address from out minikube with <code>minikube ip</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">minikube ip
+192.168.64.18
+</code></pre></div><p>Now let&rsquo;s also call out service <code>myapp</code> with <code>HTTPie</code> or in a browser <code>http://192.168.64.18:30506</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http http://192.168.64.18:30506
+
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Length: <span style="color:#ae81ff">61</span>
+Content-Type: text/plain; charset<span style="color:#f92672">=</span>utf-8
+Date: Sun, <span style="color:#ae81ff">03</span> May <span style="color:#ae81ff">2020</span> 08:07:35 GMT
+
+Hello, world!
+Version: 1.0.0
+Hostname: myapp-75d86849b-2gbps
+</code></pre></div><h1 id="etchosts">/etc/hosts</h1>
+<p>To get on the service with the URL <code>minikube.me</code> we update now out local <code>/etc/hosts</code> file with <code>IP</code> address from your minikube <code>minikube ip</code>
+Run the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#66d9ef">$(</span>minikube ip<span style="color:#66d9ef">)</span> minikube.me | sudo tee -a /etc/hosts
+
+Password:
+192.168.64.11 minikube.me
+</code></pre></div><p>Verify it the <code>IP</code> is in the <code>/etc/hosts</code> with the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat /etc/hosts | tail -n <span style="color:#ae81ff">1</span>
+
+192.168.64.11 minikube.me
+</code></pre></div><p>Now you can also call the service wit the <code>DNS</code>  <code>http://minikube.me:30506</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http http://minikube.me:30506
+
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Length: <span style="color:#ae81ff">61</span>
+Content-Type: text/plain; charset<span style="color:#f92672">=</span>utf-8
+Date: Sun, <span style="color:#ae81ff">03</span> May <span style="color:#ae81ff">2020</span> 08:12:51 GMT
+
+Hello, world!
+Version: 1.0.0
+Hostname: myapp-75d86849b-2gbps
+</code></pre></div><h1 id="nginx-ingress">Nginx Ingress</h1>
+<p>Now is time to create our <code>nginx ingress</code> for this we creat a file named <code>nginx-ingess.yaml</code>
+where we point <code>/</code> to the <code>myapp</code> service on internal port <code>8080</code>.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo  <span style="color:#e6db74">&#34;apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+</span><span style="color:#e6db74">kind: Ingress
+</span><span style="color:#e6db74">metadata:
+</span><span style="color:#e6db74"> name: nginx-ingress
+</span><span style="color:#e6db74"> namespace: dev
+</span><span style="color:#e6db74"> annotations:
+</span><span style="color:#e6db74">   nginx.ingress.kubernetes.io/rewrite-target: /</span>$1<span style="color:#e6db74">
+</span><span style="color:#e6db74">spec:
+</span><span style="color:#e6db74"> rules:
+</span><span style="color:#e6db74"> - host: minikube.me
+</span><span style="color:#e6db74">   http:
+</span><span style="color:#e6db74">     paths:
+</span><span style="color:#e6db74">     - path: /
+</span><span style="color:#e6db74">       backend:
+</span><span style="color:#e6db74">         serviceName: myapp
+</span><span style="color:#e6db74">         servicePort: 8080&#34;</span>  | &gt; nginx-ingess.yaml
+</code></pre></div><p>Now let&rsquo;s also take a new <code>alias</code> in the game <code>kaf</code> is the alias for <code>kubectl -f</code> and let&rsquo;s apply the <code>nginx-ingess.yaml</code> file.
+For this run the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kaf nginx-ingess.yaml
+
+ingress.networking.k8s.io/nginx-ingress created
+</code></pre></div><p>With <code>kubectl get ingress</code> you can list all ingress in the namespace.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k get ingress
+
+NAME            CLASS    HOSTS         ADDRESS   PORTS   AGE
+nginx-ingress   &lt;none&gt;   minikube.me             <span style="color:#ae81ff">80</span>      22s
+</code></pre></div><h2 id="test-ingress">Test Ingress</h2>
+<p>Open a browser now <code>http://minikube.me</code> or with <code>HTTPie</code> in a terminal.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http http://minikube.me
+
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Connection: keep-alive
+Content-Length: <span style="color:#ae81ff">61</span>
+Content-Type: text/plain; charset<span style="color:#f92672">=</span>utf-8
+Date: Sun, <span style="color:#ae81ff">03</span> May <span style="color:#ae81ff">2020</span> 09:18:45 GMT
+Server: openresty/1.15.8.2
+
+Hello, world!
+Version: 1.0.0
+Hostname: myapp-75d86849b-v72vs
+</code></pre></div><p>Now let&rsquo;s also deploy a second application and expose it as service.
+Configure the <code>nginx ingress</code> also to the second service.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k create deployment myapp2 --image<span style="color:#f92672">=</span>gcr.io/google-samples/hello-app:2.0
+k expose deployment myapp2 --port<span style="color:#f92672">=</span><span style="color:#ae81ff">8080</span> --type<span style="color:#f92672">=</span>NodePort
+</code></pre></div><p>Update the <code>nginx-ingess.yaml</code> file with <code>vi</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  - <span style="color:#66d9ef">path</span>: /v2/*
+    <span style="color:#66d9ef">backend</span>:
+      <span style="color:#66d9ef">serviceName</span>: myapp2
+      <span style="color:#66d9ef">servicePort</span>: <span style="color:#ae81ff">8080</span>
+</code></pre></div><p>Check the <code>nginx-ingess.yaml</code> file with <code>cat nginx-ingess.yaml</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apiVersion: networking.k8s.io/v1beta1 <span style="color:#75715e"># for versions before 1.14 use extensions/v1beta1</span>
+kind: Ingress
+metadata:
+ name: nginx-ingress
+ namespace: dev
+ annotations:
+   nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+ rules:
+ - host: minikube.me
+   http:
+     paths:
+     - path: /
+       backend:
+         serviceName: myapp
+         servicePort: <span style="color:#ae81ff">8080</span>     
+     - path: /v2
+       backend:
+         serviceName: myapp2
+         servicePort: <span style="color:#ae81ff">8080</span>
+</code></pre></div><p>Apply the changes with the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kaf nginx-ingess.yaml
+ingress.networking.k8s.io/nginx-ingress configured
+
+</code></pre></div><p>Now we have one Ingress who point to 2 individual services.
+Verify it with <code>HTTPie</code> or with the browser <code>http://minikube.me/</code> will give back <code>Version: 1.0.0</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http http://minikube.me/
+
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Connection: keep-alive
+Content-Length: <span style="color:#ae81ff">61</span>
+Content-Type: text/plain; charset<span style="color:#f92672">=</span>utf-8
+Date: Sun, <span style="color:#ae81ff">03</span> May <span style="color:#ae81ff">2020</span> 09:31:12 GMT
+Server: openresty/1.15.8.2
+
+Hello, world!
+Version: 1.0.0
+Hostname: myapp-75d86849b-v72vs
+</code></pre></div><p>On the second route <code>http://minikube.me/v2</code> we get back <code>Version: 2.0.0</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http http://minikube.me/v2
+
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Connection: keep-alive
+Content-Length: <span style="color:#ae81ff">63</span>
+Content-Type: text/plain; charset<span style="color:#f92672">=</span>utf-8
+Date: Sun, <span style="color:#ae81ff">03</span> May <span style="color:#ae81ff">2020</span> 09:32:23 GMT
+Server: openresty/1.15.8.2
+
+Hello, world!
+Version: 2.0.0
+Hostname: myapp2-548b98644f-rqqmp
+</code></pre></div><h1 id="kubectl-cheat-sheet">kubectl Cheat Sheet</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k get pods -o wide --show-labels  --field-selector<span style="color:#f92672">=</span>status.phase<span style="color:#f92672">=</span>Running  -w   | grep -vi <span style="color:#e6db74">&#34;Terminating&#34;</span>
+NAME                   READY   STATUS    RESTARTS   AGE   IP           NODE       NOMINATED NODE   READINESS GATES   LABELS
+web-6785d44d5-vb2wb    1/1     Running   <span style="color:#ae81ff">1</span>          19h   172.17.0.4   minikube   &lt;none&gt;           &lt;none&gt;            app<span style="color:#f92672">=</span>web,pod-template-hash<span style="color:#f92672">=</span>6785d44d5
+web2                   1/1     Running   <span style="color:#ae81ff">1</span>          19h   172.17.0.3   minikube   &lt;none&gt;           &lt;none&gt;            run<span style="color:#f92672">=</span>web2
+web2-8474c56fd-wk4kh   1/1     Running   <span style="color:#ae81ff">1</span>          18h   172.17.0.5   minikube   &lt;none&gt;           &lt;none&gt;            app<span style="color:#f92672">=</span>web2,pod-template-hash<span style="color:#f92672">=</span>8474c56fd
+</code></pre></div><h2 id="namespaces">Namespaces</h2>
+<ul>
+<li><code>kubectl get ns</code></li>
+<li><code>k get ns</code></li>
+<li><code>kgns</code></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k get ns
+NAME              STATUS   AGE
+default           Active   19h
+kube-node-lease   Active   19h
+kube-public       Active   19h
+kube-system       Active   19h
+</code></pre></div><h2 id="delete-with-given-label">Delete with given label</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k delete all -l  app<span style="color:#f92672">=</span>web
+</code></pre></div><hr>
+<p><em>References:</em></p>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/">ingress-minikube</a></p>
+</blockquote>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Reactive Spring Boot with Resilience4j CircuitBreaker</title>
+            <link>/posts/2020/04/reactive-spring-boot-with-resilience4j-circuitbreaker/</link>
+            <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
+            
+            <guid>/posts/2020/04/reactive-spring-boot-with-resilience4j-circuitbreaker/</guid>
+            <description>Create Project Let&amp;rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the spring inializr Rest Endpoint. We will take the latest and greates Spring Boot version 2.3.0.M4 and language kotlin with the following dependencies:
  actuator webflux cloud-resilience4j  http https://start.spring.io/starter.tgz \ dependencies==actuator,webflux,cloud-resilience4j \ description==&amp;quot;Demo project Kotlin Spring Boot with Resilience4j&amp;quot; \ applicationName==Resilience4jApplication \ name==kboot-resilience4j \ groupId==ch.keepcalm \ artifactId==kboot-resilience4j \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ bootVersion==2.3.0.M4 \ baseDir==kboot-resilience4j| tar -xzvf - Add Customer Banner</description>
-    </item>
-    
-    <item>
-      <title>Spring Cloud Gateway</title>
-      <link>/posts/2020-04-12-cloud-gateway-sidecar/</link>
-      <pubDate>Thu, 16 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/2020-04-12-cloud-gateway-sidecar/</guid>
-      <description>This sample show how easy you can put on an existing API the Spring Cloud Gateway as kind of SideCar where you can manage your Security, Logging etc. Or just provide an other Endpoint URL like in this sample.
+            <content type="html"><![CDATA[<h2 id="create-project">Create Project</h2>
+<p>Let&rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the <a href="https://start.spring.io/">spring inializr</a> Rest Endpoint. We will take the latest and greates Spring Boot version <code>2.3.0.M4</code> and language <code>kotlin</code> with the following dependencies:</p>
+<ul>
+<li>actuator</li>
+<li>webflux</li>
+<li>cloud-resilience4j</li>
+</ul>
+<pre><code>http https://start.spring.io/starter.tgz \
+    dependencies==actuator,webflux,cloud-resilience4j \
+    description==&quot;Demo project Kotlin Spring Boot with Resilience4j&quot; \
+    applicationName==Resilience4jApplication \
+    name==kboot-resilience4j \
+    groupId==ch.keepcalm \
+    artifactId==kboot-resilience4j \
+    packageName==ch.keepcalm.demo \
+    javaVersion==11 \
+    language==kotlin \
+    bootVersion==2.3.0.M4 \
+    baseDir==kboot-resilience4j| tar -xzvf -
+</code></pre><p>Add Customer Banner</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/banner.txt <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    &gt; kboot-resilience4j/src/main/resources/banner.txt
+</code></pre></div><p>Configure <code>spring.applicatin.name</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;spring:
+</span><span style="color:#e6db74">  application:
+</span><span style="color:#e6db74">    name: kboot-resilience4j&#34;</span> | &gt; kboot-resilience4j/src/main/resources/application.yaml
+</code></pre></div><p>Remove <code>application.properties</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rm kboot-resilience4j/src/main/resources/application.properties
+</code></pre></div><p>See also my other post <a href="https://blog.marcelwidmer.org/spring-initializr/">Spring Initializr and HTTPie</a></p>
+<h2 id="domain-model">Domain Model</h2>
+<p>Let&rsquo;s start with the <code>Movie</code> domain class with the following properties.</p>
+<ul>
+<li>name</li>
+<li>year</li>
+<li>description</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Movie</span>(<span style="color:#66d9ef">val</span> id: String? = UUID.randomUUID().toString(), <span style="color:#66d9ef">val</span> name: String, <span style="color:#66d9ef">val</span> year: Year, <span style="color:#66d9ef">val</span> description: String)
+</code></pre></div><h2 id="service">Service</h2>
+<p>Now we create the service class <code>MovieService</code> who hold some hard coded movies in a list.
+The amazing functions:</p>
+<ul>
+<li>Get all Movies</li>
+<li>Get a random list of Movies</li>
+<li>Get a Movie by his name</li>
+<li>Get a Movie by his ID</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Service
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MovieService</span> {
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> movies = listOf(
+        Movie(name = <span style="color:#e6db74">&#34;Matrix&#34;</span>,
+            year = Year.of(<span style="color:#ae81ff">1999</span>),
+            description = <span style="color:#e6db74">&#34;A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.&#34;</span>),
+        Movie(name = <span style="color:#e6db74">&#34;The Godfather&#34;</span>,
+            year = Year.of(<span style="color:#ae81ff">1972</span>),
+            description = <span style="color:#e6db74">&#34;The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.&#34;</span>),
+        Movie(name = <span style="color:#e6db74">&#34;Casablanca&#34;</span>,
+            year = Year.of(<span style="color:#ae81ff">1942</span>),
+            description = <span style="color:#e6db74">&#34;A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco.&#34;</span>),
+        Movie(name = <span style="color:#e6db74">&#34;Rocky&#34;</span>,
+            year = Year.of(<span style="color:#ae81ff">1976</span>),
+            description = <span style="color:#e6db74">&#34;A small-time boxer gets a supremely rare chance to fight a heavy-weight champion in a bout in which he strives to go the distance for his self-respect.&#34;</span>)
+    )
+
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">randomMovie</span>() = Mono.just(movies[kotlin.random.Random.nextInt(movies.size)])
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">movies</span>() = Flux.just(movies)
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">movieById</span>(id: String) = Mono.just(movies.first { it.id == id })
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">movieByName</span>(name: String?): Mono&lt;Movie&gt; {
+            name<span style="color:#f92672">?.</span>map {
+                movies.firstOrNull() { it.name.toLowerCase() == name.toLowerCase() }<span style="color:#f92672">?.</span>let {
+                    <span style="color:#66d9ef">return</span> Mono.just(it)
+                }
+            }.isNullOrEmpty().apply {
+                <span style="color:#66d9ef">return</span> Mono.error(IllegalArgumentException(<span style="color:#e6db74">&#34;Movie was not found.&#34;</span>))
+            }
+    }
+
+}
+</code></pre></div><h2 id="rest-api">Rest API</h2>
+<p>I think now is time to create a REST API <code>/movies/random</code> with the <a href="https://docs.spring.io/spring-framework/docs/current/kdoc-api/spring-framework/org.springframework.web.reactive.function.server/-router-function-dsl/index.html">Reactive router Kotlin DSL</a>.
+A easy way to create a <code>WebFlux.fn</code> <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/reactive/function/server/RouterFunctions.html">RouterFunction</a>
+Because we have more then one endpoint under <code>/movies</code> we use the <code>&quot;/movies&quot;.nest</code> router function.</p>
+<p>We use also our service <code>MovieService</code> so we need a <a href="https://docs.spring.io/spring/docs/current/kdoc-api/spring-framework/org.springframework.context.support/-bean-definition-dsl/-bean-supplier-context/ref.html">Bean Reference</a> to it.</p>
+<p><code>val service = ref&lt;MovieService&gt;()</code></p>
+<blockquote>
+<p>💡: Take care of the order in the Route definiton &ldquo;/&rdquo; have to be at latest position.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args: Array&lt;String&gt;) {
+    runApplication&lt;Resilience4jApplication&gt;(*args) {
+        addInitializers(
+            beans {
+                bean {
+                    router {
+                         <span style="color:#e6db74">&#34;movies&#34;</span>.nest {
+                             <span style="color:#66d9ef">val</span> service = ref&lt;MovieService&gt;()
+                             <span style="color:#75715e">//http :8080/movies/random
+</span><span style="color:#75715e"></span>                             GET(<span style="color:#e6db74">&#34;/random&#34;</span>) {
+                                 ok().body(service.randomMovie())
+                             }
+                             <span style="color:#75715e">//http :8080/movies/ name==&#34;Rocky&#34; -vv
+</span><span style="color:#75715e"></span>                             queryParam(<span style="color:#e6db74">&#34;name&#34;</span>, { <span style="color:#66d9ef">true</span> }) {
+                                 ok().body(service.movieByName(name = it.queryParam(<span style="color:#e6db74">&#34;name&#34;</span>).<span style="color:#66d9ef">get</span>()))
+                             }
+                             <span style="color:#75715e">//http :8080/movies/c7f399bc-ff4c-4a2f-bddf-d92d53a96df2
+</span><span style="color:#75715e"></span>                             GET(<span style="color:#e6db74">&#34;/{id}&#34;</span>) {
+                                 ok().body(service.movieById(id = it.pathVariable(<span style="color:#e6db74">&#34;id&#34;</span>)))
+                             }
+                             <span style="color:#75715e">//http :8080/movies/random
+</span><span style="color:#75715e"></span>                             GET(<span style="color:#e6db74">&#34;/&#34;</span>) {
+                                 ok().body(service.movies())
+                             }
+                         }
+                     }
+                }
+            }
+        )
+    }
+}
+</code></pre></div><h2 id="test-rest-api">Test Rest API</h2>
+<p>No is time to make some calls from the terminal with the <code>HTTPie</code> or in a Browser.
+First start the application e.g. with <code>mvn spring-boot:run</code>.</p>
+<p>Then lets call our amazing endpoints with the <code>HTTPie</code> or Browser.</p>
+<h3 id="get-all-movies">Get all Movies</h3>
+<p><a href="http://localhost:8080/movies">http://localhost:8080/movies</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/movies/
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Type: application/json
+transfer-encoding: chunked
+<span style="color:#f92672">[</span>
+    <span style="color:#f92672">[</span>
+        <span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.&#34;</span>,
+            <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;c7f399bc-ff4c-4a2f-bddf-d92d53a96df2&#34;</span>,
+            <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Matrix&#34;</span>,
+            <span style="color:#e6db74">&#34;year&#34;</span>: <span style="color:#e6db74">&#34;1999&#34;</span>
+        <span style="color:#f92672">}</span>,
+        <span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.&#34;</span>,
+            <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;0c7a74fc-b735-41a3-a383-72b9dad7d608&#34;</span>,
+            <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;The Godfather&#34;</span>,
+            <span style="color:#e6db74">&#34;year&#34;</span>: <span style="color:#e6db74">&#34;1972&#34;</span>
+        <span style="color:#f92672">}</span>,
+        <span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco.&#34;</span>,
+            <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;15a9e15d-4a5e-4b8a-a7c5-d34b0d5d0879&#34;</span>,
+            <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Casablanca&#34;</span>,
+            <span style="color:#e6db74">&#34;year&#34;</span>: <span style="color:#e6db74">&#34;1942&#34;</span>
+        <span style="color:#f92672">}</span>,
+        <span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;A small-time boxer gets a supremely rare chance to fight a heavy-weight champion in a bout in which he strives to go the distance for his self-respect.&#34;</span>,
+            <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;f6fb4a62-6d84-434e-8e2c-70e4c1e7ab2c&#34;</span>,
+            <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Rocky&#34;</span>,
+            <span style="color:#e6db74">&#34;year&#34;</span>: <span style="color:#e6db74">&#34;1976&#34;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">]</span>
+<span style="color:#f92672">]</span>
+</code></pre></div><h3 id="get-a-random-list-of-movies">Get a random list of Movies</h3>
+<p><a href="http://localhost:8080/movies/random">http://localhost:8080/movies/random</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> http :8080/movies/random
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Length: <span style="color:#ae81ff">240</span>
+Content-Type: application/json
+
+<span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco.&#34;</span>,
+    <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;5dd310b8-8d51-4a1e-a20c-790fec00029f&#34;</span>,
+    <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Casablanca&#34;</span>,
+    <span style="color:#e6db74">&#34;year&#34;</span>: <span style="color:#e6db74">&#34;1942&#34;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="get-a-movie-by-his-name">Get a Movie by his name</h3>
+<p><a href="http://localhost:8080/movies/?name=Rocky">http://localhost:8080/movies/?name=Rocky</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/movies name<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;Rocky&#34;</span> -v
+GET /movies?name<span style="color:#f92672">=</span>Rocky HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: localhost:8080
+User-Agent: HTTPie/2.0.0
+
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Length: <span style="color:#ae81ff">242</span>
+Content-Type: application/json
+
+<span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;A small-time boxer gets a supremely rare chance to fight a heavy-weight champion in a bout in which he strives to go the distance for his self-respect.&#34;</span>,
+    <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;5cae75c6-d18a-495b-a80f-60bdd0763eb1&#34;</span>,
+    <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Rocky&#34;</span>,
+    <span style="color:#e6db74">&#34;year&#34;</span>: <span style="color:#e6db74">&#34;1976&#34;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="get-a-movie-by-his-id">Get a Movie by his ID</h3>
+<p><a href="http://localhost:8080/movies/5dd310b8-8d51-4a1e-a20c-790fec00029f">http://localhost:8080/movies/5dd310b8-8d51-4a1e-a20c-790fec00029f</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/movies/5dd310b8-8d51-4a1e-a20c-790fec00029f
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Length: <span style="color:#ae81ff">240</span>
+Content-Type: application/json
+
+<span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco.&#34;</span>,
+    <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;5dd310b8-8d51-4a1e-a20c-790fec00029f&#34;</span>,
+    <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Casablanca&#34;</span>,
+    <span style="color:#e6db74">&#34;year&#34;</span>: <span style="color:#e6db74">&#34;1942&#34;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="search-for-a-not-existing-movie">Search for a not existing Movie</h3>
+<p>Now let&rsquo;s also search for <code>http://localhost:8080/movies/?name=Creed</code> is also a great movie but this one is not yet in our <code>MovieService</code> included
+we will get the following exception.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/movies name<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;Creed&#34;</span> -v
+GET /movies?name<span style="color:#f92672">=</span>Creed HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: localhost:8080
+User-Agent: HTTPie/2.0.0
+
+HTTP/1.1 <span style="color:#ae81ff">500</span> Internal Server Error
+Content-Length: <span style="color:#ae81ff">165</span>
+Content-Type: application/json
+
+<span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#e6db74">&#34;Internal Server Error&#34;</span>,
+    <span style="color:#e6db74">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;Movie was not found.&#34;</span>,
+    <span style="color:#e6db74">&#34;path&#34;</span>: <span style="color:#e6db74">&#34;/movies&#34;</span>,
+    <span style="color:#e6db74">&#34;requestId&#34;</span>: <span style="color:#e6db74">&#34;61569a89-3&#34;</span>,
+    <span style="color:#e6db74">&#34;status&#34;</span>: 500,
+    <span style="color:#e6db74">&#34;timestamp&#34;</span>: <span style="color:#e6db74">&#34;2020-04-19T21:13:10.403+00:00&#34;</span>
+<span style="color:#f92672">}</span>
+
+</code></pre></div><h2 id="configure-circuitbreaker">Configure CircuitBreaker</h2>
+<p>😎 Cool stuff 😎 let&rsquo;s implement the <code>CircuitBreaker</code> with <code>Resilinece4j</code>.
+Let&rsquo;s configure the <code>ReactiveCircuitBreaker</code> Bean from <code>ReactiveResilience4JCircuitBreakerFactory</code> with a name <code>movie-service</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">bean {
+    ReactiveResilience4JCircuitBreakerFactory()
+        .create(<span style="color:#e6db74">&#34;movie-service&#34;</span>)
+}
+</code></pre></div><h3 id="to-be-continued-">to be continued ..</h3>
+<p>The example source code can be found here <a href="https://github.com/marzelwidmer/kboot-resilience4j">GitHub</a></p>
+<blockquote>
+<p>💡 <strong>Logger Configuration</strong>:
+logging.pattern.console: &ldquo;%clr(%d{yyyy-MM-dd E HH:mm:ss.SSS}){blue} %clr(%-40.40logger{0}){magenta} - %clr(%m){green}%n&rdquo;</p>
+</blockquote>
+<hr>
+<p><em>References:</em></p>
+<blockquote>
+<p><a href="https://resilience4j.readme.io/docs">Resilience4j docs</a></p>
+</blockquote>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Spring Cloud Gateway</title>
+            <link>/posts/2020/04/spring-cloud-gateway/</link>
+            <pubDate>Thu, 16 Apr 2020 00:00:00 +0000</pubDate>
+            
+            <guid>/posts/2020/04/spring-cloud-gateway/</guid>
+            <description>This sample show how easy you can put on an existing API the Spring Cloud Gateway as kind of SideCar where you can manage your Security, Logging etc. Or just provide an other Endpoint URL like in this sample.
 Let&amp;rsquo;s create a Service with a Reactive Spring Boot Application and MongoDB and a Rest Endpoint.
 We start with the MongoDB document class Customer and a ReactiveCrudRepository interface CustomerRepository
 @Document data class Customer(@Id val id: String = UUID.</description>
-    </item>
+            <content type="html"><![CDATA[<p>This sample show how easy you can put on an existing <code>API</code> the <code>Spring Cloud Gateway</code> as kind of <code>SideCar</code> where you can manage your Security, Logging etc.
+Or just provide an other <code>Endpoint</code> <code>URL</code> like in this sample.</p>
+<p>Let&rsquo;s create a Service with a Reactive Spring Boot Application and MongoDB and a Rest Endpoint.</p>
+<p>We start with the <code>MongoDB</code> document class <code>Customer</code> and a <code>ReactiveCrudRepository</code> interface <code>CustomerRepository</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Document
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Customer</span>(@Id <span style="color:#66d9ef">val</span> id: String = UUID.randomUUID().toString(), <span style="color:#66d9ef">val</span> name: String)
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">CustomerRepository</span> : ReactiveCrudRepository&lt;Customer, String&gt;
+</code></pre></div><p>Now let&rsquo;s also create a service class <code>CustomerService</code> for it where we provide the following functionality.</p>
+<ul>
+<li>save</li>
+<li>findAll</li>
+<li>deleteAll</li>
+<li>findById</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Service
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CustomerService</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> customerRepository: CustomerRepository) {
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">save</span>(customer: Customer) = customerRepository.save(customer)
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">findAll</span>() = customerRepository.findAll()
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">deleteAll</span>() = customerRepository.deleteAll()
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">findById</span>(id: String) = customerRepository.findById(id)
+}
+</code></pre></div><p>That we have some data we create a little functionality on application start with the <code>ApplicationRunner</code> from Spring Boot.<br>
+Let&rsquo;s create a Bean definition for the <code>ApplicationRunner</code> that delete first all entries and then save some sample values to it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">
+<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args: Array&lt;String&gt;) {
+    runApplication&lt;SidecarGatewayApplication&gt;(*args) {
+        addInitializers(
+            beans {
+                bean {
+                    ApplicationRunner {
+                        <span style="color:#66d9ef">val</span> customerService = ref&lt;CustomerService&gt;()
     
-    <item>
-      <title>Create Kotlin Project with Spring Initializr and HTTPie</title>
-      <link>/posts/2020-04-12-spring-initializr/</link>
-      <pubDate>Sun, 12 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/2020-04-12-spring-initializr/</guid>
-      <description>Create Kotlin Maven Project with HTTPie from start.spring.io Let&amp;rsquo;s create and extract a Maven Kotlin project with some dependencies actuator data-mongodb-reactive webflux and cloud-gateway The https://start.spring.io
+                        customerService
+                            <span style="color:#75715e">// first cleanUp Database
+</span><span style="color:#75715e"></span>                            .deleteAll()
+                            <span style="color:#75715e">// create a list of Customers 
+</span><span style="color:#75715e"></span>                            .thenMany(  
+                                listOf(<span style="color:#e6db74">&#34;John&#34;</span>, <span style="color:#e6db74">&#34;Jane&#34;</span>, <span style="color:#e6db74">&#34;Jack&#34;</span>)
+                                    .toFlux()
+                                    .map { Customer(name = it) })
+                            <span style="color:#75715e">// Save it to the Database
+</span><span style="color:#75715e"></span>                            .flatMap { customerService.save(it) } 
+                             <span style="color:#75715e">// Search all entries
+</span><span style="color:#75715e"></span>                            .thenMany(customerService.findAll()) 
+                            <span style="color:#75715e">// subscribe - let`s do the work...
+</span><span style="color:#75715e"></span>                            .subscribe { log.info(<span style="color:#e6db74">&#34;--&gt; $it&#34;</span>) } 
+                    }
+                }
+            }
+        )
+    }
+}
+</code></pre></div><p>Now we have some data in our MongoDB I think now is time to create a other Bean with the Kotlin DSL that provide a Rest endpoint.
+For this we create an <code>Router</code> that will provide the following endpoints.</p>
+<ul>
+<li><code>/customers</code></li>
+<li><code>/customers/{id}</code></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#75715e">// Rest API
+</span><span style="color:#75715e"></span>bean {
+    router {
+        <span style="color:#66d9ef">val</span> customerService = ref&lt;CustomerService&gt;()
+        GET(<span style="color:#e6db74">&#34;/customers&#34;</span>) { 
+            ok().body(customerService.findAll()) 
+        }
+        GET(<span style="color:#e6db74">&#34;/customers/{id}&#34;</span>) { 
+            ok().body(customerService.findById(it.pathVariable(<span style="color:#e6db74">&#34;id&#34;</span>))) 
+        }
+    }
+}
+</code></pre></div><p>When we start now our application we can call the endpoint and hopefully we get a result like below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn spring-boot:run
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/customers
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Type: application/json
+transfer-encoding: chunked
+
+<span style="color:#f92672">[</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;a16c9582-0f40-4a7b-a566-372a56c3d5c8&#34;</span>,
+        <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John&#34;</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;944c3752-55c5-4ede-bc09-e02a5e47b390&#34;</span>,
+        <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jane&#34;</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;478ce3f9-0eff-4018-a056-0656cd2c5ad4&#34;</span>,
+        <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jack&#34;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">]</span>
+</code></pre></div><p>Now let&rsquo;s create a sidecar with <code>Spring cloud Gateway</code> that provide another Rest API <code>/api/customers</code> and <code>/api/customers/{id}</code>
+Let&rsquo;s create an additional response header <code>X-AnotherHeader</code> with the value <code>SideCar</code> as well.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#75715e">// Gateway Sidecar API
+</span><span style="color:#75715e">// http -v :8080/api/customers
+</span><span style="color:#75715e">// Gateway - Sidecar
+</span><span style="color:#75715e"></span>bean {
+    ref&lt;RouteLocatorBuilder&gt;()
+        .routes {
+            <span style="color:#75715e">// http -v :8080/api/customers
+</span><span style="color:#75715e"></span>            route(<span style="color:#e6db74">&#34;sidecar-api&#34;</span>) {
+                path(<span style="color:#e6db74">&#34;/api/**&#34;</span>)
+                filters {
+                    rewritePath(<span style="color:#e6db74">&#34;api(?&lt;segment&gt;/?.*)&#34;</span>, <span style="color:#e6db74">&#34;/$\\{segment}&#34;</span>)
+                }
+                uri(<span style="color:#e6db74">&#34;http://localhost:8080&#34;</span>)
+            }
+        }
+}
+</code></pre></div><p>When we call now the EndPoint <code>/api/customers</code> we expect that we get the result from before and the additional <code>ResponsHeader</code>
+with <code>X-AnotherHeader: SideCar</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http -v :8080/api/customers
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">GET /api/customers HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: localhost:8080
+User-Agent: HTTPie/2.0.0
+
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Type: application/json
+X-AnotherHeader: SideCar
+transfer-encoding: chunked
+
+<span style="color:#f92672">[</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;a36f75ae-a97f-41ba-9b38-59a5a6d38055&#34;</span>,
+        <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John&#34;</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;c0b25559-13ad-4b6b-ae25-adbcd898db82&#34;</span>,
+        <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jane&#34;</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;2a3a1350-4bea-4504-b732-5b7c97602ebb&#34;</span>,
+        <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jack&#34;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">]</span>
+</code></pre></div><p>With the Kotlin DSL Route definition is it also easy to create routes only for specifics Spring profiles.</p>
+<p>The following command will start the application with the <code>default</code> profile.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn spring-boot:run
+</code></pre></div><p><code>Spring Cloud Gateway</code> provide with the <code>Actuator</code> library an endpoint to check the configured routes.
+Also let&rsquo;s check first our Routing Table whe we start the application with the default Spring Profile.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/actuator/gateway/routes
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Type: application/json
+transfer-encoding: chunked
+
+<span style="color:#f92672">[</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;filters&#34;</span>: <span style="color:#f92672">[</span>
+            <span style="color:#e6db74">&#34;[[RewritePath api(?&lt;segment&gt;/?.*) = &#39;/</span><span style="color:#e6db74">${</span>segment<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;], order = 0]&#34;</span>
+        <span style="color:#f92672">]</span>,
+        <span style="color:#e6db74">&#34;order&#34;</span>: 0,
+        <span style="color:#e6db74">&#34;predicate&#34;</span>: <span style="color:#e6db74">&#34;Paths: [/api/**], match trailing slash: true&#34;</span>,
+        <span style="color:#e6db74">&#34;route_id&#34;</span>: <span style="color:#e6db74">&#34;sidecar-api&#34;</span>,
+        <span style="color:#e6db74">&#34;uri&#34;</span>: <span style="color:#e6db74">&#34;http://localhost:8080&#34;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">]</span>
+</code></pre></div><p>Now create a Route just for a specific Spring Profile <code>foo</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">    runApplication&lt;SidecarGatewayApplication&gt;(*args) {
+        addInitializers(
+            beans {
+                <span style="color:#75715e">// Profile
+</span><span style="color:#75715e"></span>                profile(<span style="color:#e6db74">&#34;foo&#34;</span>) {
+                    <span style="color:#75715e">// Gateway - Sidecar
+</span><span style="color:#75715e"></span>                    bean {
+                        ref&lt;RouteLocatorBuilder&gt;()
+                            .routes {
+                                <span style="color:#75715e">// http -v :8080/
+</span><span style="color:#75715e"></span>                                route(<span style="color:#e6db74">&#34;sidecar-root-to-customers-api&#34;</span>) {
+                                    path(<span style="color:#e6db74">&#34;/**&#34;</span>)
+                                    filters {
+                                        rewritePath(<span style="color:#e6db74">&#34;/(?&lt;segment&gt;/?.*)&#34;</span>, <span style="color:#e6db74">&#34;/customers/$\\{segment}&#34;</span>)
+                                    }
+                                    uri(<span style="color:#e6db74">&#34;http://localhost:8080/&#34;</span>)
+                                }
+                            }
+                    }
+                }
+            }
+        )
+}
+</code></pre></div><p>Start the application with the <code>foo</code> profile with <code>-Dspring-boot.run.profiles=foo</code> and check again the Routing Table.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn spring-boot:run -Dspring-boot.run.profiles<span style="color:#f92672">=</span>foo
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/actuator/gateway/routes
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Type: application/json
+transfer-encoding: chunked
+
+<span style="color:#f92672">[</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;filters&#34;</span>: <span style="color:#f92672">[</span>
+            <span style="color:#e6db74">&#34;[[RewritePath api(?&lt;segment&gt;/?.*) = &#39;/</span><span style="color:#e6db74">${</span>segment<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;], order = 0]&#34;</span>
+        <span style="color:#f92672">]</span>,
+        <span style="color:#e6db74">&#34;order&#34;</span>: 0,
+        <span style="color:#e6db74">&#34;predicate&#34;</span>: <span style="color:#e6db74">&#34;Paths: [/api/**], match trailing slash: true&#34;</span>,
+        <span style="color:#e6db74">&#34;route_id&#34;</span>: <span style="color:#e6db74">&#34;sidecar-api&#34;</span>,
+        <span style="color:#e6db74">&#34;uri&#34;</span>: <span style="color:#e6db74">&#34;http://localhost:8080&#34;</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;filters&#34;</span>: <span style="color:#f92672">[</span>
+            <span style="color:#e6db74">&#34;[[RewritePath /(?&lt;segment&gt;/?.*) = &#39;/customers/</span><span style="color:#e6db74">${</span>segment<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;], order = 0]&#34;</span>
+        <span style="color:#f92672">]</span>,
+        <span style="color:#e6db74">&#34;order&#34;</span>: 0,
+        <span style="color:#e6db74">&#34;predicate&#34;</span>: <span style="color:#e6db74">&#34;Paths: [/**], match trailing slash: true&#34;</span>,
+        <span style="color:#e6db74">&#34;route_id&#34;</span>: <span style="color:#e6db74">&#34;sidecar-root-to-customers-api&#34;</span>,
+        <span style="color:#e6db74">&#34;uri&#34;</span>: <span style="color:#e6db74">&#34;http://localhost:8080/&#34;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">]</span>
+</code></pre></div><p>The example source code can be found here <a href="https://github.com/marzelwidmer/kotlin-sidecar-gateway">GitHub kotlin-sidecar-gateway</a></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Create Kotlin Project with Spring Initializr and HTTPie</title>
+            <link>/posts/2020/04/create-kotlin-project-with-spring-initializr-and-httpie/</link>
+            <pubDate>Sun, 12 Apr 2020 00:00:00 +0000</pubDate>
+            
+            <guid>/posts/2020/04/create-kotlin-project-with-spring-initializr-and-httpie/</guid>
+            <description>Create Kotlin Maven Project with HTTPie from start.spring.io Let&amp;rsquo;s create and extract a Maven Kotlin project with some dependencies actuator data-mongodb-reactive webflux and cloud-gateway The https://start.spring.io
 http https://start.spring.io/starter.tgz \  dependencies==actuator,data-mongodb-reactive,webflux,cloud-gateway \  description==&amp;#34;Demo project Kotlin Sidecar Gateway&amp;#34; \  applicationName==SidecarGatewayApplication \  name==kotlin-sidecar-gateway \  groupId==ch.keepcalm \  artifactId==kotlin-sidecar-gateway \  packageName==ch.keepcalm.demo \  javaVersion==11 \  language==kotlin \  baseDir==kotlin-sidecar-gateway | tar -xzvf - Banner Download Banner in the src/main/resources folder.</description>
-    </item>
-    
-    <item>
-      <title>Spring Boot Kubernetes ConfigMap</title>
-      <link>/posts/2019-09-18-spring-boot-k8s-configmap/</link>
-      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/2019-09-18-spring-boot-k8s-configmap/</guid>
-      <description>Now is time to configure our microservices to send the tracing logs to Jaeger 1. The configuration opentracing.jaeger.http-sender.url in configuration application.yaml file looks like below in the sources.
+            <content type="html"><![CDATA[<h1 id="create-kotlin-maven-project-with-httpie-from-startspringio">Create Kotlin Maven Project with HTTPie from start.spring.io</h1>
+<p>Let&rsquo;s create and extract a <code>Maven</code> <code>Kotlin</code> project with some dependencies <code>actuator</code> <code>data-mongodb-reactive</code> <code>webflux</code> and <code>cloud-gateway</code>
+The <code>https://start.spring.io</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http https://start.spring.io/starter.tgz <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    dependencies<span style="color:#f92672">==</span>actuator,data-mongodb-reactive,webflux,cloud-gateway <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    description<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;Demo project Kotlin Sidecar Gateway&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    applicationName<span style="color:#f92672">==</span>SidecarGatewayApplication <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    name<span style="color:#f92672">==</span>kotlin-sidecar-gateway <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    groupId<span style="color:#f92672">==</span>ch.keepcalm <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    artifactId<span style="color:#f92672">==</span>kotlin-sidecar-gateway <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    packageName<span style="color:#f92672">==</span>ch.keepcalm.demo <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    javaVersion<span style="color:#f92672">==</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    language<span style="color:#f92672">==</span>kotlin <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    baseDir<span style="color:#f92672">==</span>kotlin-sidecar-gateway | tar -xzvf -
+</code></pre></div><h1 id="banner">Banner</h1>
+<p>Download Banner in the <code>src/main/resources</code> folder.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/banner.txt <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    &gt; kotlin-sidecar-gateway/src/main/resources/banner.txt
+</code></pre></div><h1 id="spring-application-name">Spring Application Name</h1>
+<p>Configure <code>spring.applicatin.name</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;spring:
+</span><span style="color:#e6db74">  application:
+</span><span style="color:#e6db74">    name: kotlin-sidecar-gateway&#34;</span> | &gt; kotlin-sidecar-gateway/src/main/resources/application.yaml
+</code></pre></div><p>Remove <code>application.properties</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rm kotlin-sidecar-gateway/src/main/resources/application.properties
+</code></pre></div>]]></content>
+        </item>
+        
+        <item>
+            <title>Spring Boot Kubernetes ConfigMap</title>
+            <link>/posts/2019/09/spring-boot-kubernetes-configmap/</link>
+            <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+            
+            <guid>/posts/2019/09/spring-boot-kubernetes-configmap/</guid>
+            <description>Now is time to configure our microservices to send the tracing logs to Jaeger 1. The configuration opentracing.jaeger.http-sender.url in configuration application.yaml file looks like below in the sources.
 opentracing: jaeger: log-spans: true http-sender: url: http://localhost:14268/api/traces The opentracing.jaeger.http-sender.url we are looking for we get form the section Get Route Host in the Jaeger post We will use the ConfigMap approach with the Spring Cloud Kubernetes{:target=&amp;rdquo;_blank&amp;rdquo;} starters.
 Maven  Update Maven Configuration with Spring Cloud Kubernetes{:target=&amp;rdquo;_blank&amp;rdquo;} library.</description>
-    </item>
-    
-    <item>
-      <title>Spring Boot Kubernetes Discovery</title>
-      <link>/posts/2019-09-21-spring-boot-k8s-ribbon-discovery/</link>
-      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/2019-09-21-spring-boot-k8s-ribbon-discovery/</guid>
-      <description>Spring Cloud Kubernetes Ribbon provide a mechanism to perform a client side load-balancing who is needed in a microservice architecture to allocate a list of all pods where our service is running (replicated)
+            <content type="html"><![CDATA[<p>Now is time to configure our <a href="https://github.com/marzelwidmer/microservices-demo">microservices</a> to send the tracing
+logs to Jaeger <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.
+The configuration <code>opentracing.jaeger.http-sender.url</code> in configuration <code>application.yaml</code> file looks like below in the sources.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">opentracing</span>:
+  <span style="color:#66d9ef">jaeger</span>:
+    <span style="color:#66d9ef">log-spans</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">http-sender</span>:
+      <span style="color:#66d9ef">url</span>: http://localhost:<span style="color:#ae81ff">14268</span>/api/traces
+</code></pre></div><p>The <code>opentracing.jaeger.http-sender.url</code> we are looking for we get form the section <a href="http://blog.marcelwidmer.org/jaeger/#GetRouteHost">Get Route Host in the Jaeger post</a>
+We will use the <code>ConfigMap</code> approach with the <a href="https://spring.io/projects/spring-cloud-kubernetes">Spring Cloud Kubernetes</a>{:target=&rdquo;_blank&rdquo;} starters.</p>
+<h2 id="maven-a-namemavenconfigurationa">Maven <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+<p>Update Maven Configuration with <a href="https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.0.3.RELEASE/single/spring-cloud-kubernetes.html">Spring Cloud Kubernetes</a>{:target=&rdquo;_blank&rdquo;} library.</p>
+<h3 id="dependency-management-spring-cloud-dependencies">Dependency Management <code>spring-cloud-dependencies</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependencyManagement&gt;</span>
+    <span style="color:#f92672">&lt;dependencies&gt;</span>
+        <span style="color:#f92672">&lt;dependency&gt;</span>
+            <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.cloud<span style="color:#f92672">&lt;/groupId&gt;</span>
+            <span style="color:#f92672">&lt;artifactId&gt;</span>spring-cloud-dependencies<span style="color:#f92672">&lt;/artifactId&gt;</span>
+            <span style="color:#f92672">&lt;version&gt;</span>${spring-cloud.version}<span style="color:#f92672">&lt;/version&gt;</span>
+            <span style="color:#f92672">&lt;type&gt;</span>pom<span style="color:#f92672">&lt;/type&gt;</span>
+            <span style="color:#f92672">&lt;scope&gt;</span>import<span style="color:#f92672">&lt;/scope&gt;</span>
+        <span style="color:#f92672">&lt;/dependency&gt;</span>
+    <span style="color:#f92672">&lt;/dependencies&gt;</span>
+<span style="color:#f92672">&lt;/dependencyManagement&gt;</span>
+</code></pre></div><h3 id="spring-cloud-version-spring-cloudversion">Spring Cloud Version <code>spring-cloud.version</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;properties&gt;</span>
+    ...
+    <span style="color:#f92672">&lt;spring-cloud.version&gt;</span>Greenwich.SR3<span style="color:#f92672">&lt;/spring-cloud.version&gt;</span>
+<span style="color:#f92672">&lt;/properties&gt;</span>
+</code></pre></div><h3 id="dependency-spring-cloud-starter-kubernetes-config">Dependency <code>spring-cloud-starter-kubernetes-config</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!-- Kubernetes --&gt;</span>
+<span style="color:#f92672">&lt;dependency&gt;</span>
+    <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.cloud<span style="color:#f92672">&lt;/groupId&gt;</span>
+    <span style="color:#f92672">&lt;artifactId&gt;</span>spring-cloud-starter-kubernetes-config<span style="color:#f92672">&lt;/artifactId&gt;</span>
+<span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div><h2 id="application-configuration">Application Configuration</h2>
+<p>The application may need to detect changes on external property sources and update their internal status to reflect the new configuration.
+The reload feature of <code>Spring Cloud Kubernetes</code> is able to trigger an application reload when a related <code>ConfigMap</code> changes.</p>
+<p>This feature is disabled by default and can be enabled using the configuration property <code>spring.cloud.kubernetes.reload.enabled=true</code>
+in the <code>application.yaml</code> file.</p>
+<p>The configuration <code>spring.cloud.kubernetes.reload.strategy=restart_context</code> will restart the whole Spring ApplicationContext gracefully.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">spring</span>:
+  <span style="color:#66d9ef">cloud</span>:
+    <span style="color:#66d9ef">kubernetes</span>:
+      <span style="color:#66d9ef">reload</span>:
+        <span style="color:#66d9ef">enabled</span>: <span style="color:#66d9ef">true</span>
+        <span style="color:#66d9ef">strategy</span>: restart_context
+</code></pre></div><p>Configure the <code>management.endpoint.restart.enabled=true</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">management:
+  endpoint:
+    restart:
+      enabled: true
+</code></pre></div><h2 id="configured-service-account---rbac-policy">Configured Service Account - RBAC policy</h2>
+<p>To read the <code>ConfigMap</code> we have to give to the <a href="https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.1.0.M2/reference/html/#_service_account">Service Account</a>{:target=&rdquo;_blank&rdquo;}  in the default namespace access right. This can be done to give just
+<code>view</code> access <code>oc policy add-role-to-user view system:serviceaccount:development:default</code></p>
+<p>The better solution is <a href="#ConfigureClusterRole">configure ClusterRole</a></p>
+<blockquote>
+<p>⚠️ <strong>Avoid no RBAC policy match exception</strong>:<br>
+.fabric8.kubernetes.client.KubernetesClientException:
+Failure executing: GET at: https://172.30.0.1/api/v1/namespaces/development/pods/order-service-35-wj25f.
+Message: Forbidden!Configured service account doesnt have access.
+Service account may have been revoked. pods &ldquo;order-service-35-wj25f&rdquo; is
+forbidden: User &ldquo;system:serviceaccount:development:default&rdquo; cannot get pods in the namespace &ldquo;development&rdquo;: no RBAC policy matched.</p>
+</blockquote>
+<h1 id="create-clusterrole">Create ClusterRole</h1>
+<p>Additional you can also create a <code>ClusterRole</code> for Spring components let it named <code>spring-roles</code>.
+Create a file <code>service-account-for-spring-cloud-k8s-access.yaml</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">kind</span>: ClusterRole
+<span style="color:#66d9ef">apiVersion</span>: rbac.authorization.k8s.io/v1
+<span style="color:#66d9ef">metadata</span>:
+  <span style="color:#66d9ef">namespace</span>: default
+  <span style="color:#66d9ef">name</span>: spring-roles
+<span style="color:#66d9ef">rules</span>:
+- <span style="color:#66d9ef">apiGroups</span>: [<span style="color:#e6db74">&#34;&#34;</span>] <span style="color:#75715e"># &#34;&#34; indicates the core API group</span>
+  <span style="color:#66d9ef">resources</span>: [<span style="color:#e6db74">&#34;pods&#34;</span>,<span style="color:#e6db74">&#34;configmaps&#34;</span>]
+  <span style="color:#66d9ef">verbs</span>: [<span style="color:#e6db74">&#34;get&#34;</span>, <span style="color:#e6db74">&#34;list&#34;</span>, <span style="color:#e6db74">&#34;watch&#34;</span>]
+---
+<span style="color:#66d9ef">apiVersion</span>: rbac.authorization.k8s.io/v1beta1
+<span style="color:#66d9ef">kind</span>: ClusterRoleBinding
+<span style="color:#66d9ef">metadata</span>:
+  <span style="color:#66d9ef">name</span>: allow-spring-to-access-cluster
+<span style="color:#66d9ef">subjects</span>:
+  - <span style="color:#66d9ef">kind</span>: ServiceAccount
+    <span style="color:#66d9ef">name</span>: default
+    <span style="color:#66d9ef">namespace</span>: default
+<span style="color:#66d9ef">roleRef</span>:
+  <span style="color:#66d9ef">kind</span>: ClusterRole
+  <span style="color:#66d9ef">name</span>: spring-roles
+  <span style="color:#66d9ef">apiGroup</span>: rbac.authorization.k8s.io
+</code></pre></div><p>Login in with privileged user <code>oc login -u &lt;privileged user&gt;</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc apply -f service-account-for-spring-cloud-k8s-access.yaml
+</code></pre></div><p>Now when you check che Cluster Console under <em>Administration/Roles</em> and you search for <code>spring</code> you will find the role.</p>
+<p><img src="/cluster-console-search-spring-roles.png" alt="cluster-console-search-spring-roles.png">
+<img src="/cluster-console-spring-roles.png" alt="cluster-console-spring-roles.png"></p>
+<h2 id="deploy-configmap">Deploy ConfigMap</h2>
+<p>Now is time to create our <code>ConfigMap</code> and <code>apply</code> it in the <code>development</code> namespace for the <code>oder-service</code>
+You can do it directly in a shell.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo <span style="color:#e6db74">&#34;apiVersion: v1
+</span><span style="color:#e6db74">kind: ConfigMap
+</span><span style="color:#e6db74">metadata:
+</span><span style="color:#e6db74">    #  matches the spring app name as defined in application.yml
+</span><span style="color:#e6db74">    name: order-service
+</span><span style="color:#e6db74">data:
+</span><span style="color:#e6db74">    #  must be named &#39;application.yaml&#39; or be the only key in this config
+</span><span style="color:#e6db74">    #  refer to Spring Cloud Kubernetes Config documentation or source code
+</span><span style="color:#e6db74">    application.yaml: |
+</span><span style="color:#e6db74">        opentracing:
+</span><span style="color:#e6db74">            jaeger:
+</span><span style="color:#e6db74">                http-sender:
+</span><span style="color:#e6db74">                    url: http://jaeger-collector-jaeger.apps.c3smonkey.ch/api/traces&#34;</span> | oc apply -f -
+</code></pre></div><p>Better is you create a <code>ConfigMap</code> file and then you use the <code>apply</code> command.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc apply -f deployments/configmap.yaml
+</code></pre></div><p>When you hit the service again you will see some traces in the Jaeger now.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#66d9ef">for</span> x in <span style="color:#f92672">(</span>seq 50<span style="color:#f92672">)</span>; http <span style="color:#e6db74">&#34;http://order-service-development.apps.c3smonkey.ch/api/v1/orders/random&#34;</span>; end
+</code></pre></div><section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://www.jaegertracing.io/">jaegertracing.io</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Spring Boot Kubernetes Discovery</title>
+            <link>/posts/2019/09/spring-boot-kubernetes-discovery/</link>
+            <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+            
+            <guid>/posts/2019/09/spring-boot-kubernetes-discovery/</guid>
+            <description>Spring Cloud Kubernetes Ribbon provide a mechanism to perform a client side load-balancing who is needed in a microservice architecture to allocate a list of all pods where our service is running (replicated)
 This mechanism can automatically discover and reach all the endpoints of a specific service, and subsequently, it populates a Ribbon ServerList with information about the endpoints.
 Let&amp;rsquo;s start by adding the spring-cloud-starter-kubernetes-ribbon dependency to our pom.xml file:</description>
-    </item>
-    
-    <item>
-      <title>Install OKD on Hetzner Cloud</title>
-      <link>/posts/2019-01-13-hetzner-okd/</link>
-      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/2019-01-13-hetzner-okd/</guid>
-      <description>Inspiration from Installation of OKD 3.10 from start to finish{:target=&amp;rdquo;_blank&amp;rdquo;}
+            <content type="html"><![CDATA[<p><a href="https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.1.0.M2/reference/html/#_ribbon_discovery_in_kubernetes">Spring Cloud Kubernetes Ribbon</a>
+provide a mechanism to perform a client side load-balancing who is needed in a microservice architecture
+to allocate a list of all pods where our service is running (replicated)</p>
+<p>This mechanism can automatically discover and reach all the endpoints of a specific service, and subsequently,
+it populates a Ribbon ServerList with information about the endpoints.</p>
+<p>Let&rsquo;s start by adding the <code>spring-cloud-starter-kubernetes-ribbon</code> dependency to our <code>pom.xml</code> file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependency&gt;</span>
+    <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.cloud<span style="color:#f92672">&lt;/groupId&gt;</span>
+    <span style="color:#f92672">&lt;artifactId&gt;</span>spring-cloud-starter-kubernetes-ribbon<span style="color:#f92672">&lt;/artifactId&gt;</span>
+<span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div><p>When the list of the endpoints is populated, the K8s client will search the registered endpoints
+living in the current <code>namespace</code></p>
+<p>We also need to enable the ribbon client in the <code>application.yaml</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">ribbon.http.client.enabled=<span style="color:#66d9ef">true</span>
+</code></pre></div><p>Now add the <code>@EnableDiscoveryClient</code> annotation in the Spring Boot application.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@EnableDiscoveryClient
+@SpringBootApplication
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CatalogServiceClient</span>
+</code></pre></div><p>As next we also add the <code>@LoadBalanced</code> annotation.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderServiceConfiguration</span> {
+ 
+     @Bean
+     @LoadBalanced
+     <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">webClientBuilder</span>() = WebClient.builder()
+}
+</code></pre></div><p>Now we can use now the service name <code>http://catalog-service</code> to call other services.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Service
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CatalogServiceClient</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> webClientBuilder: WebClient.Builder) {
+
+    <span style="color:#66d9ef">companion</span> <span style="color:#66d9ef">object</span> {
+        <span style="color:#66d9ef">val</span> CATALOG_SERVICE_URL = <span style="color:#e6db74">&#34;http://catalog-service/api/v1/animals/random&#34;</span>
+    }
+
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getRandomAnimalNames</span>(): Flux&lt;String&gt; {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.webClientBuilder
+                .baseUrl(CATALOG_SERVICE_URL).build()
+                .<span style="color:#66d9ef">get</span>()
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve().bodyToFlux(String<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>.java)
+                .log()
+    }
+}
+
+</code></pre></div>]]></content>
+        </item>
+        
+        <item>
+            <title>Install OKD on Hetzner Cloud</title>
+            <link>/posts/2019/01/install-okd-on-hetzner-cloud/</link>
+            <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
+            
+            <guid>/posts/2019/01/install-okd-on-hetzner-cloud/</guid>
+            <description>Inspiration from Installation of OKD 3.10 from start to finish{:target=&amp;rdquo;_blank&amp;rdquo;}
 Create a Hetzner VM with the CLI https://github.com/hetznercloud/cli
 hcloud (Hetzner CLI) Let&amp;rsquo;s check first some hcloud command that we can use later to create a VM with the right size and in the Datacenter we want.
 hcloud server create --name &amp;lt;YOUR_DOMAIN&amp;gt; --type &amp;lt;SERVER-TYPE&amp;gt; --image &amp;lt;IMAGE&amp;gt; --ssh-key &amp;lt;YOUR_HETZNER_SSH_KEY&amp;gt; --datacenter &amp;lt;DATACENTER&amp;gt; Server Type hcloud server-type list ID NAME CORES MEMORY DISK STORAGE TYPE 1 cx11 1 2.</description>
-    </item>
-    
-  </channel>
+            <content type="html"><![CDATA[<p>Inspiration from <a href="https://www.youtube.com/watch?v=ZkFIozGY0IA">Installation of OKD 3.10 from start to finish</a>{:target=&rdquo;_blank&rdquo;}</p>
+<p>Create a <code>Hetzner VM</code> with the CLI <a href="https://github.com/hetznercloud/cli">https://github.com/hetznercloud/cli</a></p>
+<h1 id="hcloud-hetzner-cli">hcloud (Hetzner CLI)</h1>
+<p>Let&rsquo;s check first some <code>hcloud</code> command that we can use later to create a <code>VM</code> with the right size and in the <code>Datacenter</code> we want.</p>
+<p><img src="/hetzner-preis.png" alt="hetzner-preis"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hcloud server create --name &lt;YOUR_DOMAIN&gt; --type &lt;SERVER-TYPE&gt; --image &lt;IMAGE&gt; --ssh-key &lt;YOUR_HETZNER_SSH_KEY&gt; --datacenter &lt;DATACENTER&gt;
+</code></pre></div><h2 id="server-type">Server Type</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hcloud server-type list
+ID   NAME        CORES   MEMORY     DISK     STORAGE TYPE
+<span style="color:#ae81ff">1</span>    cx11        <span style="color:#ae81ff">1</span>       2.0 GB     <span style="color:#ae81ff">20</span> GB    local
+<span style="color:#ae81ff">2</span>    cx11-ceph   <span style="color:#ae81ff">1</span>       2.0 GB     <span style="color:#ae81ff">20</span> GB    network
+<span style="color:#ae81ff">3</span>    cx21        <span style="color:#ae81ff">2</span>       4.0 GB     <span style="color:#ae81ff">40</span> GB    local
+<span style="color:#ae81ff">4</span>    cx21-ceph   <span style="color:#ae81ff">2</span>       4.0 GB     <span style="color:#ae81ff">40</span> GB    network
+<span style="color:#ae81ff">5</span>    cx31        <span style="color:#ae81ff">2</span>       8.0 GB     <span style="color:#ae81ff">80</span> GB    local
+<span style="color:#ae81ff">6</span>    cx31-ceph   <span style="color:#ae81ff">2</span>       8.0 GB     <span style="color:#ae81ff">80</span> GB    network
+<span style="color:#ae81ff">7</span>    cx41        <span style="color:#ae81ff">4</span>       16.0 GB    <span style="color:#ae81ff">160</span> GB   local
+<span style="color:#ae81ff">8</span>    cx41-ceph   <span style="color:#ae81ff">4</span>       16.0 GB    <span style="color:#ae81ff">160</span> GB   network
+<span style="color:#ae81ff">9</span>    cx51        <span style="color:#ae81ff">8</span>       32.0 GB    <span style="color:#ae81ff">240</span> GB   local
+<span style="color:#ae81ff">10</span>   cx51-ceph   <span style="color:#ae81ff">8</span>       32.0 GB    <span style="color:#ae81ff">240</span> GB   network
+<span style="color:#ae81ff">11</span>   ccx11       <span style="color:#ae81ff">2</span>       8.0 GB     <span style="color:#ae81ff">80</span> GB    local
+<span style="color:#ae81ff">12</span>   ccx21       <span style="color:#ae81ff">4</span>       16.0 GB    <span style="color:#ae81ff">160</span> GB   local
+<span style="color:#ae81ff">13</span>   ccx31       <span style="color:#ae81ff">8</span>       32.0 GB    <span style="color:#ae81ff">240</span> GB   local
+<span style="color:#ae81ff">14</span>   ccx41       <span style="color:#ae81ff">16</span>      64.0 GB    <span style="color:#ae81ff">360</span> GB   local
+<span style="color:#ae81ff">15</span>   ccx51       <span style="color:#ae81ff">32</span>      128.0 GB   <span style="color:#ae81ff">600</span> GB   local
+<span style="color:#ae81ff">22</span>   cpx11       <span style="color:#ae81ff">2</span>       2.0 GB     <span style="color:#ae81ff">40</span> GB    local
+<span style="color:#ae81ff">23</span>   cpx21       <span style="color:#ae81ff">3</span>       4.0 GB     <span style="color:#ae81ff">80</span> GB    local
+<span style="color:#ae81ff">24</span>   cpx31       <span style="color:#ae81ff">4</span>       8.0 GB     <span style="color:#ae81ff">160</span> GB   local
+<span style="color:#ae81ff">25</span>   cpx41       <span style="color:#ae81ff">8</span>       16.0 GB    <span style="color:#ae81ff">240</span> GB   local
+<span style="color:#ae81ff">26</span>   cpx51       <span style="color:#ae81ff">16</span>      32.0 GB    <span style="color:#ae81ff">360</span> GB   local
+</code></pre></div><h2 id="image">Image</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hcloud image list
+ID         TYPE     NAME           DESCRIPTION    IMAGE SIZE   DISK SIZE   CREATED
+<span style="color:#ae81ff">1</span>          system   ubuntu-16.04   Ubuntu 16.04   -            <span style="color:#ae81ff">5</span> GB        <span style="color:#ae81ff">2</span> years ago
+<span style="color:#ae81ff">2</span>          system   debian-9       Debian <span style="color:#ae81ff">9</span>       -            <span style="color:#ae81ff">5</span> GB        <span style="color:#ae81ff">2</span> years ago
+<span style="color:#ae81ff">3</span>          system   centos-7       CentOS <span style="color:#ae81ff">7</span>       -            <span style="color:#ae81ff">5</span> GB        <span style="color:#ae81ff">2</span> years ago
+<span style="color:#ae81ff">168855</span>     system   ubuntu-18.04   Ubuntu 18.04   -            <span style="color:#ae81ff">5</span> GB        <span style="color:#ae81ff">2</span> years ago
+<span style="color:#ae81ff">5924233</span>    system   debian-10      Debian <span style="color:#ae81ff">10</span>      -            <span style="color:#ae81ff">5</span> GB        <span style="color:#ae81ff">9</span> months ago
+<span style="color:#ae81ff">8356453</span>    system   centos-8       CentOS <span style="color:#ae81ff">8</span>       -            <span style="color:#ae81ff">5</span> GB        <span style="color:#ae81ff">6</span> months ago
+<span style="color:#ae81ff">9032843</span>    system   fedora-31      Fedora <span style="color:#ae81ff">31</span>      -            <span style="color:#ae81ff">5</span> GB        <span style="color:#ae81ff">5</span> months ago
+<span style="color:#ae81ff">15512617</span>   system   ubuntu-20.04   Ubuntu 20.04   -            <span style="color:#ae81ff">5</span> GB        <span style="color:#ae81ff">2</span> days ago
+</code></pre></div><h2 id="datacenter">Datacenter</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hcloud datacenter list
+ID   NAME        DESCRIPTION          LOCATION
+<span style="color:#ae81ff">2</span>    nbg1-dc3    Nuremberg <span style="color:#ae81ff">1</span> DC <span style="color:#ae81ff">3</span>     nbg1
+<span style="color:#ae81ff">3</span>    hel1-dc2    Helsinki <span style="color:#ae81ff">1</span> DC <span style="color:#ae81ff">2</span>      hel1
+<span style="color:#ae81ff">4</span>    fsn1-dc14   Falkenstein <span style="color:#ae81ff">1</span> DC14   fsn1
+</code></pre></div><h2 id="create-server">Create Server</h2>
+<p>Let&rsquo;s create a Server <code>cx41</code> with CentOS <code>centos-7</code> (because of some issues with <code>centos-8</code>) on a data center in Nuremberg <code>nbg1-dc3</code>.
+When the Server is we will get a Public IP <code>116.203.16.100</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hcloud server create --name keepcalm.ch --type cx41 --image centos-8 --ssh-key ~/.ssh/id_rsa_hetzner.pub --datacenter nbg1-dc3
+
+6s <span style="color:#f92672">[=====================================]</span> 100.00%
+Waiting <span style="color:#66d9ef">for</span> server <span style="color:#ae81ff">5577861</span> to have started
+ ... <span style="color:#66d9ef">done</span>
+Server <span style="color:#ae81ff">5577861</span> created
+IPv4: 116.203.16.100
+</code></pre></div><h3 id="rebuild-server">Rebuild Server</h3>
+<p>if you have already one and want it just rest and re-install the cluster you can user the following command.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hcloud server rebuild keepcalm.ch --image centos-7
+</code></pre></div><h3 id="delete-server">Delete Server</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hcloud server delete keepcalm.ch
+</code></pre></div><h1 id="configure-dns">Configure DNS</h1>
+<p>Configure now the following <code>DNS</code> entries in your <code>DNS</code> provider with the <code>IP</code> from <code>Hetzner</code> in my case I have <a href="https://www.gandi.net/en">gandi.net</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">@ 10800 IN SOA ns1.gandi.net. hostmaster.gandi.net. 1585063961 10800 3600 604800 10800
+* 420 IN CNAME apps.console
+@ 1800 IN A 116.203.16.100
+apps.console 300 IN A 116.203.16.100
+console 300 IN A 116.203.16.100
+</code></pre></div><h1 id="install-okd">Install OKD</h1>
+<p>Now you can connect with <code>SSH</code> to your <code>VM</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh -i ~/.ssh/id_rsa_hetzner root@keepcalm.ch
+The authenticity of host <span style="color:#e6db74">&#39;keepcalm.ch (116.203.16.100)&#39;</span> can<span style="color:#e6db74">&#39;t be established.
+</span><span style="color:#e6db74">ECDSA key fingerprint is SHA256:mc7itrGp4777okbKnKDKPDlQwkMi0e4awyh6cfssNXM.
+</span><span style="color:#e6db74">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+</span><span style="color:#e6db74">Warning: Permanently added &#39;</span>keepcalm.ch,116.203.16.100<span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span> to the list of known hosts.
+Last failed login: Sun Apr <span style="color:#ae81ff">26</span> 12:02:57 CEST <span style="color:#ae81ff">2020</span> from 51.77.212.235 on ssh:notty
+There were <span style="color:#ae81ff">3</span> failed login attempts since the last successful login.
+<span style="color:#f92672">[</span>root@keepcalm ~<span style="color:#f92672">]</span>#
+</code></pre></div><h2 id="update-system-and-install-git">Update System and install GIT</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum -y update <span style="color:#f92672">&amp;&amp;</span> yum -y install git
+</code></pre></div><h2 id="clone-git-repo">Clone Git Repo</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/marzelwidmer/installcentos.git
+</code></pre></div><h2 id="update-user-custom-exports-script">Update user-custom-exports script</h2>
+<p>Update <code>user-custom-exports.sh</code> script with your domain specific settings.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd installcentos <span style="color:#f92672">&amp;&amp;</span> vi user-custom-exports.sh
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">#!/bin/bash
+export DOMAIN=&#34;keepcalm.ch&#34;
+export USERNAME=&#34;admin&#34;
+export PASSWORD=&#34;password&#34;
+export MAIL=&#34;marzelwidmer@gmail.com&#34;
+
+export SCRIPT_REPO=&#34;&#34;
+export IP=&#34;&#34;
+export DISK=&#34;&#34;
+</code></pre></div><h2 id="load-user-custom-exports-script">Load user-custom-exports script</h2>
+<p>Execute the shell script to load the variables</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">. user-custom-exports.sh
+</code></pre></div><h2 id="start-install-script">Start install script</h2>
+<p>Now we can execute the installation script and press enter till the question <code>Do you wish to enable HTTPS with Let``s Encrypt</code>
+There we choose <code>1) Yes</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@keepcalm installcentos<span style="color:#f92672">]</span><span style="color:#75715e"># ./install-openshift.sh</span>
+Domain to use: <span style="color:#f92672">(</span>keepcalm.ch<span style="color:#f92672">)</span>:
+Username: <span style="color:#f92672">(</span>admin<span style="color:#f92672">)</span>:
+Password: <span style="color:#f92672">(</span>password<span style="color:#f92672">)</span>:
+OpenShift Version: <span style="color:#f92672">(</span>3.11<span style="color:#f92672">)</span>:
+IP: <span style="color:#f92672">(</span>0<span style="color:#f92672">)</span>:
+API Port: <span style="color:#f92672">(</span>8443<span style="color:#f92672">)</span>:
+Do you wish to enable HTTPS with Let<span style="color:#e6db74">&#39;s Encrypt?
+</span><span style="color:#e6db74">Warnings:
+</span><span style="color:#e6db74">  Let&#39;</span>s Encrypt only works <span style="color:#66d9ef">if</span> the IP is using publicly accessible IP and custom certificates.
+  This feature doesn<span style="color:#960050;background-color:#1e0010">&#39;</span>t work with OpenShift CLI <span style="color:#66d9ef">for</span> now.
+1<span style="color:#f92672">)</span> Yes
+2<span style="color:#f92672">)</span> No
+</code></pre></div><p>The following questions we answer with yes.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Complete!
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Plugins selected: Authenticator manual, Installer None
+Starting new HTTPS connection <span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>: acme-v02.api.letsencrypt.org
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Would you be willing to share your email address with the Electronic Frontier
+Foundation, a founding partner of the Let<span style="color:#e6db74">&#39;s Encrypt project and the non-profit
+</span><span style="color:#e6db74">organization that develops Certbot? We&#39;</span>d like to send you email about our work
+encrypting the web, EFF news, campaigns, and ways to support digital freedom.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+<span style="color:#f92672">(</span>Y<span style="color:#f92672">)</span>es/<span style="color:#f92672">(</span>N<span style="color:#f92672">)</span>o: yes
+Starting new HTTPS connection <span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>: supporters.eff.org
+Obtaining a new certificate
+Performing the following challenges:
+dns-01 challenge <span style="color:#66d9ef">for</span> apps.keepcalm.ch
+dns-01 challenge <span style="color:#66d9ef">for</span> keepcalm.ch
+dns-01 challenge <span style="color:#66d9ef">for</span> keepcalm.ch
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+NOTE: The IP of this machine will be publicly logged as having requested this
+certificate. If you<span style="color:#e6db74">&#39;re running certbot in manual mode on a machine that is not
+</span><span style="color:#e6db74">your server, please ensure you&#39;</span>re okay with that.
+
+Are you OK with your IP being logged?
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+<span style="color:#f92672">(</span>Y<span style="color:#f92672">)</span>es/<span style="color:#f92672">(</span>N<span style="color:#f92672">)</span>o: yes
+</code></pre></div><blockquote>
+<p>⚠️ <strong>Important Steps</strong>: Be sure you update the <code>DNS TXT</code> records with the prompted values</p>
+</blockquote>
+<p>The following values you have to add in you <code>DNS</code>.
+So let&rsquo;s open again the <code>DNS</code> Admin console from your provider.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Please deploy a DNS TXT record under the name
+_acme-challenge.apps.keepcalm.ch with the following value:
+
+xj9uF017asqGXhuS1VPhA3idwmUq__UgUTscTMYgbxI
+
+Before continuing, verify the record is deployed.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Press Enter to Continue
+</code></pre></div><p>In my case something like so :</p>
+<p><img src="/acme.png" alt="acme"></p>
+<p>You can check the <code>DNS</code> with <a href="https://dnschecker.org/#TXT/_acme-challenge.apps.keepcalm.ch">https://dnschecker.org/</a>
+Check with <code>host</code> command.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">host -t txt _acme-challenge.apps.keepcalm.ch
+_acme-challenge.apps.keepcalm.ch descriptive text <span style="color:#e6db74">&#34;xj9uF017asqGXhuS1VPhA3idwmUq__UgUTscTMYgbxI&#34;</span>
+</code></pre></div><p>Your <code>DNS</code> will look like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">@ 10800 IN SOA ns1.gandi.net. hostmaster.gandi.net. 1587897751 10800 3600 604800 10800
+* 420 IN CNAME apps.console
+@ 1800 IN A 116.203.16.100
+_acme-challenge 300 IN TXT &#34;H2S720yowtzUBVKq3EbH6W8rmgg7qzF0EEVF_IZOz9c&#34;
+_acme-challenge 300 IN TXT &#34;dpMeonbQDeHkbJopDOuXw1j4NtFHXzEvr8CGutiRX8w&#34;
+_acme-challenge.apps 300 IN TXT &#34;xj9uF017asqGXhuS1VPhA3idwmUq__UgUTscTMYgbxI&#34;
+apps.console 300 IN A 116.203.16.100
+console 300 IN A 116.203.16.100
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Before continuing, verify the record is deployed.
+<span style="color:#f92672">(</span>This must be set up in addition to the previous challenges; <span style="color:#66d9ef">do</span> not remove,
+replace, or undo the previous challenge tasks yet. Note that you might be
+asked to create multiple distinct TXT records with the same name. This is
+permitted by DNS standards.<span style="color:#f92672">)</span>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Press Enter to Continue
+Waiting <span style="color:#66d9ef">for</span> verification...
+Resetting dropped connection: acme-v02.api.letsencrypt.org
+Cleaning up challenges
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/keepcalm.ch/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/keepcalm.ch/privkey.pem
+   Your cert will expire on 2020-07-25. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot
+   again. To non-interactively renew *all* of your certificates, run
+   <span style="color:#e6db74">&#34;certbot renew&#34;</span>
+ - Your account credentials have been saved in your Certbot
+   configuration directory at /etc/letsencrypt. You should make a
+   secure backup of this folder now. This configuration directory will
+   also contain certificates and private keys obtained by Certbot so
+   making regular backups of this folder is ideal.
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let<span style="color:#960050;background-color:#1e0010">&#39;</span>s Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+
+</code></pre></div><p>Now you have to wait some minutes till the installation is finished.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">created volume <span style="color:#ae81ff">199</span>
+persistentvolume/vol200 created
+created volume <span style="color:#ae81ff">200</span>
+******
+* Your console is https://console.keepcalm.ch:8443
+* Your username is admin
+* Your password is password
+*
+* Login using:
+*
+$ oc login -u admin -p password https://console.keepcalm.ch:8443/
+******
+Login successful.
+
+You have access to the following projects and can switch between them with <span style="color:#e6db74">&#39;oc project &lt;projectname&gt;&#39;</span>:
+
+  * default
+    kube-public
+    kube-service-catalog
+    kube-system
+    management-infra
+    openshift
+    openshift-console
+    openshift-infra
+    openshift-logging
+    openshift-metrics-server
+    openshift-monitoring
+    openshift-node
+    openshift-sdn
+    openshift-template-service-broker
+    openshift-web-console
+
+Using project <span style="color:#e6db74">&#34;default&#34;</span>.
+<span style="color:#f92672">[</span>root@keepcalm installcentos<span style="color:#f92672">]</span>#
+</code></pre></div><p>After the installation is finish you can on : <a href="https://console.keepcalm.ch:8443/console/catalog">https://console.keepcalm.ch:8443/console/catalog</a>
+You have now a <code>OKD</code> instance with Let&rsquo;s Encrypt.</p>
+<p><img src="/console.png" alt="hetzner-preis"></p>
+<h1 id="renewal-lets-encrypt">Renewal Let&rsquo;s Encrypt</h1>
+<p>to renewal the Let&rsquo;s Encrypt you can log in to your <code>VM</code> and execute the following scrupts
+two ansible scripts in the <code>installcentos/</code> folder.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> . user-custom-exports.sh
+ ansible-playbook -i inventory.ini openshift-ansible/playbooks/prerequisites.yml
+ ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
+</code></pre></div>]]></content>
+        </item>
+        
+    </channel>
 </rss>
