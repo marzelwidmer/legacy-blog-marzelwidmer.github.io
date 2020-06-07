@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kubernetes on Hello Friend NG</title>
+    <title>Kubernetes on </title>
     <link>/categories/kubernetes/</link>
-    <description>Recent content in Kubernetes on Hello Friend NG</description>
+    <description>Recent content in Kubernetes on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Fri, 01 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
@@ -14,20 +13,20 @@
     
     <item>
       <title>Kubernetes Ingress with Ngnix Ingress Controller</title>
-      <link>/posts/2020/05/kubernetes-ingress-with-ngnix-ingress-controller/</link>
+      <link>/posts/2020-05-01-minikube-ingress-controller/</link>
       <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2020/05/kubernetes-ingress-with-ngnix-ingress-controller/</guid>
+      <guid>/posts/2020-05-01-minikube-ingress-controller/</guid>
       <description>OSX Minikube Kubernetes If you use ohmyzsh is there a nice Plugin with some kubectl for more details check ohmyzsh plugins kubectl
 Install Minikube with Ingress Controller brew install minikube Start Minikube minikube start 😄 minikube v1.9.2 on Darwin 10.15.4 ▪ MINIKUBE_ACTIVE_DOCKERD=minikube ✨ Using the hyperkit driver based on existing profile 👍 Starting control plane node m01 in cluster minikube 🔄 Restarting existing hyperkit VM for &amp;#34;minikube&amp;#34; ... 🐳 Preparing Kubernetes v1.</description>
     </item>
     
     <item>
       <title>Spring Boot Kubernetes ConfigMap</title>
-      <link>/posts/2019/09/spring-boot-kubernetes-configmap/</link>
+      <link>/posts/2019-09-18-spring-boot-k8s-configmap/</link>
       <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2019/09/spring-boot-kubernetes-configmap/</guid>
+      <guid>/posts/2019-09-18-spring-boot-k8s-configmap/</guid>
       <description>Now is time to configure our microservices to send the tracing logs to Jaeger 1. The configuration opentracing.jaeger.http-sender.url in configuration application.yaml file looks like below in the sources.
 opentracing: jaeger: log-spans: true http-sender: url: http://localhost:14268/api/traces The opentracing.jaeger.http-sender.url we are looking for we get form the section Get Route Host in the Jaeger post We will use the ConfigMap approach with the Spring Cloud Kubernetes{:target=&amp;rdquo;_blank&amp;rdquo;} starters.
 Maven  Update Maven Configuration with Spring Cloud Kubernetes{:target=&amp;rdquo;_blank&amp;rdquo;} library.</description>
@@ -35,10 +34,10 @@ Maven  Update Maven Configuration with Spring Cloud Kubernetes{:target=&amp;rdqu
     
     <item>
       <title>Spring Boot Kubernetes Discovery</title>
-      <link>/posts/2019/09/spring-boot-kubernetes-discovery/</link>
+      <link>/posts/2019-09-21-spring-boot-k8s-ribbon-discovery/</link>
       <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2019/09/spring-boot-kubernetes-discovery/</guid>
+      <guid>/posts/2019-09-21-spring-boot-k8s-ribbon-discovery/</guid>
       <description>Spring Cloud Kubernetes Ribbon provide a mechanism to perform a client side load-balancing who is needed in a microservice architecture to allocate a list of all pods where our service is running (replicated)
 This mechanism can automatically discover and reach all the endpoints of a specific service, and subsequently, it populates a Ribbon ServerList with information about the endpoints.
 Let&amp;rsquo;s start by adding the spring-cloud-starter-kubernetes-ribbon dependency to our pom.xml file:</description>
@@ -46,10 +45,10 @@ Let&amp;rsquo;s start by adding the spring-cloud-starter-kubernetes-ribbon depen
     
     <item>
       <title>Install OKD on Hetzner Cloud</title>
-      <link>/posts/2019/01/install-okd-on-hetzner-cloud/</link>
+      <link>/posts/2019-01-13-hetzner-okd/</link>
       <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2019/01/install-okd-on-hetzner-cloud/</guid>
+      <guid>/posts/2019-01-13-hetzner-okd/</guid>
       <description>Inspiration from Installation of OKD 3.10 from start to finish{:target=&amp;rdquo;_blank&amp;rdquo;}
 Create a Hetzner VM with the CLI https://github.com/hetznercloud/cli
 hcloud (Hetzner CLI) Let&amp;rsquo;s check first some hcloud command that we can use later to create a VM with the right size and in the Datacenter we want.
