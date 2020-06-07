@@ -8,6 +8,16 @@
   </url>
   
   <url>
+    <loc>/categories/</loc>
+    <lastmod>2020-05-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/development/</loc>
+    <lastmod>2020-05-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/posts/2020-05-10-kboot-flux-meets-soap/</loc>
     <lastmod>2020-05-10T00:00:00+00:00</lastmod>
   </url>
@@ -43,17 +53,18 @@
   </url>
   
   <url>
-    <loc>/tags/kubernetes/</loc>
+    <loc>/tags/k8s/</loc>
+    <lastmod>2020-05-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/kubernetes/</loc>
     <lastmod>2020-05-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/posts/2020-05-01-minikube-ingress-controller/</loc>
     <lastmod>2020-05-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/</loc>
   </url>
   
 </urlset>
