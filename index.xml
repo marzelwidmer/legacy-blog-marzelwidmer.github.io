@@ -39,9 +39,8 @@ brew install inetutils Create Project Run the following commands :</description>
       <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
       
       <guid>/posts/2020-05-01-minikube-ingress-controller/</guid>
-      <description> References:
- ingress-minikube
- </description>
+      <description>OSX Minikube Kubernetes If you use ohmyzsh is there a nice Plugin with some kubectl for more details check ohmyzsh plugins kubectl
+Install Minikube with Ingress Controller brew install minikube Start Minikube minikube start 😄 minikube v1.9.2 on Darwin 10.15.4 ▪ MINIKUBE_ACTIVE_DOCKERD=minikube ✨ Using the hyperkit driver based on existing profile 👍 Starting control plane node m01 in cluster minikube 🔄 Restarting existing hyperkit VM for &amp;#34;minikube&amp;#34; ... 🐳 Preparing Kubernetes v1.</description>
     </item>
     
   </channel>
