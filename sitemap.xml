@@ -98,6 +98,11 @@
   </url>
   
   <url>
+    <loc>/posts/2019-09-21-spring-boot-k8s-ribbon-discovery/</loc>
+    <lastmod>2019-09-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/posts/2019-01-13-hetzner-okd/</loc>
     <lastmod>2019-01-13T00:00:00+00:00</lastmod>
   </url>
