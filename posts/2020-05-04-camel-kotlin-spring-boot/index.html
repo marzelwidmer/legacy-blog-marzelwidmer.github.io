@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Apache Camel with Kotlin and Spring Boot // </title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.72.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.60b6f603c6636b80509d0a8f8c965e01d4c7b9b2facacd04beaf4d6ed7d8c7c2.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Apache Camel with Kotlin and Spring Boot"/>
+<meta name="twitter:description" content="Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
+ Precondition on OSX Create Project Check Camel Context File Route FTP Route Choice Route  Precondition on OSX We will also use command line ftp commands for this you need the ftp command line tool this can be installed with :
+brew install inetutils Create Project Run the following commands :"/>
+
+    <meta property="og:title" content="Apache Camel with Kotlin and Spring Boot" />
+<meta property="og:description" content="Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
+ Precondition on OSX Create Project Check Camel Context File Route FTP Route Choice Route  Precondition on OSX We will also use command line ftp commands for this you need the ftp command line tool this can be installed with :
+brew install inetutils Create Project Run the following commands :" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/2020-05-04-camel-kotlin-spring-boot/" />
+<meta property="article:published_time" content="2020-05-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-04T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/avatar.png" alt="John Doe" /></a>
+      <h1></h1>
+      <p>This is my personal blog where I will mostly post about development.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/marzelwidmer" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+      </div>
+
+      <div>
+        <a href="//tags">Tags</a>
+      </div>
+      <div>
+        <a href="//categories">categories</a>
+      </div>
+
+
+    </header>
+    <main class="app-container">
+      
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Apache Camel with Kotlin and Spring Boot <br>
+      <i class="post-subtitle">Apache Camel integration framework</i>
+    </h1>
+    <div class="post-meta">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+        May 4, 2020
+      </div>
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+        6 min read
+      </div><div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+        <a class="tag" href="/tags/springboot/">SpringBoot</a><a class="tag" href="/tags/kotlin/">Kotlin</a></div></div>
+  </header>
+  <div class="post-content">
+    <p>Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.</p>
+<ul>
+<li><a href="#precondition">Precondition on OSX</a></li>
+<li><a href="#createProject">Create Project</a></li>
+<li><a href="#checkCamelContext">Check Camel Context</a></li>
+<li><a href="#fileRoute">File Route</a></li>
+<li><a href="#ftpRoute">FTP Route</a></li>
+<li><a href="#choiceRoute">Choice Route</a></li>
+</ul>
+<h3 id="precondition">Precondition on OSX</h3>
+<p>We will also use command line <code>ftp</code> commands for this you need the <code>ftp</code>
+command line tool this can be installed with :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install inetutils
+</code></pre></div><h2 id="createProject">Create Project</h2>
+<p>Run the following commands :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export KBOOT_NAME<span style="color:#f92672">=</span>kboot-camel
+export KBOOT_APPL_NAME<span style="color:#f92672">=</span>KbootCamel
+
+http https://start.spring.io/starter.tgz <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    dependencies<span style="color:#f92672">==</span>camel,actuator,webflux <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    description<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;Demo project Spring Boot&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    applicationName<span style="color:#f92672">==</span>$KBOOT_APPL_NAME <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    name<span style="color:#f92672">==</span>$KBOOT_NAME <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    groupId<span style="color:#f92672">==</span>ch.keepcalm <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    artifactId<span style="color:#f92672">==</span>$KBOOT_NAME <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    packageName<span style="color:#f92672">==</span>ch.keepcalm.demo <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    javaVersion<span style="color:#f92672">==</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    language<span style="color:#f92672">==</span>kotlin <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    bootVersion<span style="color:#f92672">==</span>2.3.0.RC1 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    baseDir<span style="color:#f92672">==</span>$KBOOT_NAME| tar -xzvf -
+
+
+cd $KBOOT_NAME
+
+http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/banner.txt <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    &gt; src/main/resources/banner.txt
+
+rm src/main/resources/application.properties
+
+echo <span style="color:#e6db74">&#34;spring:
+</span><span style="color:#e6db74">  application:
+</span><span style="color:#e6db74">    name: </span>$KBOOT_NAME<span style="color:#e6db74">&#34;</span> | &gt; src/main/resources/application.yaml
+
+idea .
+</code></pre></div><h3 id="change-maven-dependencies">Change Maven Dependencies</h3>
+<p>When working with <code>Camel</code> best practice is to change the generated Maven <code>pom.xml</code> from the <code>start.spring.io</code>
+Like in the official description of <code>Apache Camel</code> <a href="https://camel.apache.org/camel-spring-boot/latest/">camel-spring-boot</a>
+So lets refactor our <code>pom.xml</code></p>
+<p>We take the version from the <code>camel-spring-boot-starter</code> move it up to the <code>properties</code> section with the property name <code>camel.version</code>.
+Add the <code>Camel</code> <code>BOM</code> <code>dependencieManagement</code> section to it.</p>
+<h4 id="properties-section">Properties Section</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;properties&gt;</span>`
+		<span style="color:#f92672">&lt;camel.version&gt;</span>3.2.0<span style="color:#f92672">&lt;/camel.version&gt;</span>
+        ...
+<span style="color:#f92672">&lt;/properties&gt;</span>
+</code></pre></div><h4 id="dependency-section">Dependency Section</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!-- Camel --&gt;</span>
+<span style="color:#f92672">&lt;dependency&gt;</span>
+    <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.camel.springboot<span style="color:#f92672">&lt;/groupId&gt;</span>
+    <span style="color:#f92672">&lt;artifactId&gt;</span>camel-spring-boot-starter<span style="color:#f92672">&lt;/artifactId&gt;</span>
+<span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div><h4 id="dependency-management-section">Dependency Management Section</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependencyManagement&gt;</span>
+    <span style="color:#f92672">&lt;dependencies&gt;</span>
+        <span style="color:#75715e">&lt;!-- Camel BOM --&gt;</span>
+        <span style="color:#f92672">&lt;dependency&gt;</span>
+            <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.camel.springboot<span style="color:#f92672">&lt;/groupId&gt;</span>
+            <span style="color:#f92672">&lt;artifactId&gt;</span>camel-spring-boot-dependencies<span style="color:#f92672">&lt;/artifactId&gt;</span>
+            <span style="color:#f92672">&lt;version&gt;</span>${camel.version}<span style="color:#f92672">&lt;/version&gt;</span>
+            <span style="color:#f92672">&lt;type&gt;</span>pom<span style="color:#f92672">&lt;/type&gt;</span>
+            <span style="color:#f92672">&lt;scope&gt;</span>import<span style="color:#f92672">&lt;/scope&gt;</span>
+        <span style="color:#f92672">&lt;/dependency&gt;</span>
+    <span style="color:#f92672">&lt;/dependencies&gt;</span>
+<span style="color:#f92672">&lt;/dependencyManagement&gt;</span>
+</code></pre></div><h2 id="checkCamelContext">Check CamelContext</h2>
+<p>Let&rsquo;s check if <code>Camel</code> is loading in out Spring Boot application for this let`s start the application</p>
+<p>Run the following command :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn spring-boot:run
+</code></pre></div><p>Verify the console output you should see something like <code>AbstractCamelContext - Apache Camel 3.2.0 (CamelContext: camel-1) is starting</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">   _    ____              _
+   | | __ __ <span style="color:#f92672">)</span>  ___   ___ | |_
+   | |/ /  _ <span style="color:#ae81ff">\ </span>/ _ <span style="color:#ae81ff">\ </span>/ _ <span style="color:#ae81ff">\|</span> __|
+   |   &lt;| |_<span style="color:#f92672">)</span> | <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span> | <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span> | |_
+   |_|<span style="color:#ae81ff">\_\_</span>___/ <span style="color:#ae81ff">\_</span>__/ <span style="color:#ae81ff">\_</span>__/ <span style="color:#ae81ff">\_</span>_|
+
+:: kboot-camel: :: Running Spring Boot: <span style="color:#f92672">(</span>v2.3.0.RC1<span style="color:#f92672">)</span> :: Active Profiles: default ::
+
+2020-05-05 Tue 07:50:57.489 KbootCamelKt                             - Starting KbootCamelKt on MacBookPro with PID <span style="color:#ae81ff">20731</span> <span style="color:#f92672">(</span>/Users/morpheus/dev/kboot-camel/target/classes started by morpheus in /Users/morpheus/dev/kboot-camel<span style="color:#f92672">)</span>
+2020-05-05 Tue 07:50:57.493 KbootCamelKt                             - No active profile set, falling back to default profiles: default
+2020-05-05 Tue 07:50:58.261 trationDelegate$BeanPostProcessorChecker - Bean <span style="color:#e6db74">&#39;org.apache.camel.spring.boot.CamelAutoConfiguration&#39;</span> of type <span style="color:#f92672">[</span>org.apache.camel.spring.boot.CamelAutoConfiguration<span style="color:#f92672">]</span> is not eligible <span style="color:#66d9ef">for</span> getting processed by all BeanPostProcessors <span style="color:#f92672">(</span><span style="color:#66d9ef">for</span> example: not eligible <span style="color:#66d9ef">for</span> auto-proxying<span style="color:#f92672">)</span>
+2020-05-05 Tue 07:50:58.548 LRUCacheFactory                          - Detected and using LURCacheFactory: camel-caffeine-lrucache
+2020-05-05 Tue 07:50:58.739 EndpointLinksResolver                    - Exposing <span style="color:#ae81ff">2</span> endpoint<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> beneath base path <span style="color:#e6db74">&#39;/actuator&#39;</span>
+2020-05-05 Tue 07:50:58.971 SpringBootRoutesCollector                - Loading additional Camel XML routes from: classpath:camel/*.xml
+2020-05-05 Tue 07:50:58.971 SpringBootRoutesCollector                - Loading additional Camel XML rests from: classpath:camel-rest/*.xml
+2020-05-05 Tue 07:50:58.985 DefaultManagementStrategy                - JMX is enabled
+2020-05-05 Tue 07:50:58.987 AbstractCamelContext                     - Apache Camel 3.2.0 <span style="color:#f92672">(</span>CamelContext: camel-1<span style="color:#f92672">)</span> is starting
+2020-05-05 Tue 07:50:58.989 AbstractCamelContext                     - StreamCaching is not in use. If using streams <span style="color:#66d9ef">then</span> its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2020-05-05 Tue 07:50:58.989 AbstractCamelContext                     - Total <span style="color:#ae81ff">0</span> routes, of which <span style="color:#ae81ff">0</span> are started
+2020-05-05 Tue 07:50:58.989 AbstractCamelContext                     - Apache Camel 3.2.0 <span style="color:#f92672">(</span>CamelContext: camel-1<span style="color:#f92672">)</span> started in 0.002 seconds
+2020-05-05 Tue 07:50:59.139 NettyWebServer                           - Netty started on port<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>: <span style="color:#ae81ff">8080</span>
+2020-05-05 Tue 07:50:59.142 KbootCamelKt                             - Started KbootCamelKt in 1.965 seconds <span style="color:#f92672">(</span>JVM running <span style="color:#66d9ef">for</span> 2.195<span style="color:#f92672">)</span>
+</code></pre></div><h2 id="fileRoute">File Route</h2>
+<h3 id="file-builder-route">File Builder Route</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Component
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FileRouteBuilder</span> : RouteBuilder() {
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> workDir =System.getenv(<span style="color:#e6db74">&#34;PWD&#34;</span>)
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> input = <span style="color:#e6db74">&#34;$workDir/orders/in?include=order.xml&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;$workDir/orders/out?fileExist=Fail&#34;</span>
+
+    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">configure</span>() {
+        from(<span style="color:#e6db74">&#34;file:$input&#34;</span>)
+            .process(HeaderProcessor())
+            .to(<span style="color:#e6db74">&#34;file:$output&#34;</span>)
+            .log(<span style="color:#e6db74">&#34;Camel body: \${body.class} \${body}&#34;</span>)
+
+    }
+}
+
+</code></pre></div><p>To test the <code>FileBuilderRoute</code> you can copy the test <code>XML</code> files from my sample application on <a href="https://github.com/marzelwidmer/kboot-camel">GitHub</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">.
+├── files
+│   ├── order-2.xml
+│   └── order.xml
+
+</code></pre></div><p>in the folder <code>orders/in</code> after application start. The proceeded files will be then in the hidden folder <code>.camel</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">orders
+├── in
+│   └── .camel
+│       ├── order-2.xml
+│       └── order.xml
+└── out
+    ├── 2019-01-28-order-2.xml
+    └── order.xml
+</code></pre></div><h3 id="processor">Processor</h3>
+<p>Creat a <code>HeaderProcessor</code> that implement the function <code>process</code> from the interface <code>org.apache.camel.Processor</code>.
+there we parse the date with <code>XPath</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HeaderProcessor</span> : Processor {
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">val</span> XPATH_DATE = <span style="color:#e6db74">&#34;/order/orderDate/text()&#34;</span>
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">process</span>(exchange: Exchange?) {
+        <span style="color:#66d9ef">val</span> oderXml = exchange<span style="color:#f92672">?.</span>`in`<span style="color:#f92672">?.</span>body
+        <span style="color:#66d9ef">val</span> orderDateTime = XPathBuilder.xpath(XPATH_DATE).evaluate(exchange<span style="color:#f92672">?.</span>context, oderXml)
+        <span style="color:#66d9ef">val</span> formattedOrderDate = getFormattedData(orderDateTime = orderDateTime)
+        exchange<span style="color:#f92672">?.</span>`in`<span style="color:#f92672">?.</span>setHeader(<span style="color:#e6db74">&#34;orderDate&#34;</span>, formattedOrderDate)
+        exchange<span style="color:#f92672">?.</span>`in`<span style="color:#f92672">?.</span>setHeader(<span style="color:#e6db74">&#34;uuid&#34;</span>, UUID.randomUUID().toString().take(<span style="color:#ae81ff">4</span>))
+    }
+
+    <span style="color:#75715e">// TODO: 05.05.20 DirtyHarry Implementation
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getFormattedData</span>(orderDateTime: String) = DateTimeFormatter.ofPattern(<span style="color:#e6db74">&#34;yyyy-MM-dd&#34;</span>)
+        .format(LocalDateTime.ofInstant(Instant.parse(orderDateTime), ZoneOffset.UTC))
+}
+</code></pre></div><p>Add <code>HeaderProcessor</code> class to our <code>FileRouteBuilder</code> with <code>.process(HeaderProcessor())</code>
+We also change the filename in the <code>to</code> section with <code>.to(&quot;file:$workDir/orders/out?fileName=\${header.orderDate}-\${header.CamelFileName}&quot;)</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Component
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FileRouteBuilder</span> : RouteBuilder() {
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> workDir =System.getenv(<span style="color:#e6db74">&#34;PWD&#34;</span>)
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> input = <span style="color:#e6db74">&#34;$workDir/orders/in?include=order.xml&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;$workDir/orders/out?fileExist=Fail&#34;</span>
+
+    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">configure</span>() {
+        from(<span style="color:#e6db74">&#34;file:$input&#34;</span>)
+            .to(<span style="color:#e6db74">&#34;file:$output&#34;</span>)
+            .log(<span style="color:#e6db74">&#34;Camel body: \${body.class} \${body}&#34;</span>)
+
+        from(<span style="color:#e6db74">&#34;file:$workDir/orders/in?include=order-.*xml&#34;</span>)
+            .process(HeaderProcessor())
+            .to(<span style="color:#e6db74">&#34;file:$workDir/orders/out?fileName=\${header.orderDate}-\${header.uuid}-\${header.CamelFileName}&#34;</span>)
+            .log(<span style="color:#e6db74">&#34;Camel body: \${body.class} \${body}&#34;</span>)
+    }
+}
+
+</code></pre></div><h2 id="ftpRoute">FTP Route</h2>
+<h3 id="ftp-route-builder">FTP Route Builder</h3>
+<p>Let&rsquo;s update our <code>pom</code> file with the <code>camel-ftp</code> dependency.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!-- camel-ftp  --&gt;</span>
+<span style="color:#f92672">&lt;dependency&gt;</span>
+    <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.camel<span style="color:#f92672">&lt;/groupId&gt;</span>
+    <span style="color:#f92672">&lt;artifactId&gt;</span>camel-ftp<span style="color:#f92672">&lt;/artifactId&gt;</span>
+<span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Component
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FtpRouteBuilder</span> : RouteBuilder() {
+
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> ftpEndpoint =<span style="color:#e6db74">&#34;ftp.walkerit.ch&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> username =<span style="color:#e6db74">&#34;public&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> password =<span style="color:#e6db74">&#34;Public8852&#34;</span>
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> workDir =System.getenv(<span style="color:#e6db74">&#34;PWD&#34;</span>)
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;$workDir/orders/out?fileExist=Fail&#34;</span>
+
+
+    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">configure</span>() {
+         from(<span style="color:#e6db74">&#34;ftp://$ftpEndpoint?username=$username&amp;password=$password&amp;delete=true&amp;include=order.*xml&#34;</span>)
+             .log(<span style="color:#e6db74">&#34;New File \${header.CamleFileName} picked up from \${header.CamleFileHost}&#34;</span>)
+             .process(ExchangePrinter())
+             .to(<span style="color:#e6db74">&#34;file://$output&#34;</span>)
+    }
+}
+</code></pre></div><h3 id="processor-1">Processor</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ExchangePrinter</span> : Processor {
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> log = LoggerFactory.getLogger(javaClass)
+
+    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">process</span>(exchange: Exchange?) {
+        <span style="color:#66d9ef">val</span> body = exchange<span style="color:#f92672">?.</span>`in`<span style="color:#f92672">?.</span>body
+        log.info(<span style="color:#e6db74">&#34;Body: $body&#34;</span>)
+    }
+}
+</code></pre></div><h2 id="ftp-server">FTP Server</h2>
+<p>Upload test <code>xml</code> file to public <code>FTP</code> server <a href="https://www.walkerit.ch/public-ftp">https://www.walkerit.ch/public-ftp</a>
+with the script <code>ftp-upload.sh</code>.</p>
+<p>Run the following command :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./ftp-upload.sh
+</code></pre></div><h2 id="start-application">Start Application</h2>
+<p>When you start the Application <code>mvn spring-boot:run</code> check the console output for <code>New File  picked up from</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">2020-05-06 Wed 07:32:39.101 KbootCamelKt    - Started KbootCamelKt in 2.055 seconds <span style="color:#f92672">(</span>JVM running <span style="color:#66d9ef">for</span> 2.265<span style="color:#f92672">)</span>
+2020-05-06 Wed 07:32:40.099 route3          - New File  picked up from
+2020-05-06 Wed 07:32:40.099 ExchangePrinter - Body: RemoteFile<span style="color:#f92672">[</span>order-ftp.xml<span style="color:#f92672">]</span>
+</code></pre></div><p>and the files will be downloaded in the <code>out</code> folder.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> tree
+.
+├── in
+└── out
+    └── order-ftp.xml
+</code></pre></div><h2 id="choiceRoute">Choice Route </h2>
+<h3 id="choice-route-builder">Choice Route Builder</h3>
+<p>Lets creat a choice route aka <code>switch</code>.</p>
+<p>This route will put the files in a folder of the publisher name. We will do this with <code>xPATH</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">val</span> XPATH_SEARCH_ORLY = <span style="color:#e6db74">&#34;order/orderItems/orderItem/orderItemPublisherName/text() = &#39;ORly&#39;&#34;</span>
+</code></pre></div><p>This will parse the xml file and deliver the files in the correct folder. For this you can put the sample files from the <code>files</code> folder in the <code>in/publisher/</code> folder.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> tree
+.
+├── in
+│   └── publisher
+│       ├── pub-foo.xml
+│       ├── pub-orly.xml
+│       └── pub-packt.xml
+└── out
+    └── publisher
+        ├── orly
+        ├── others
+        └── packt
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Component
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ChoiceRouteBuilder</span> : RouteBuilder() {
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> workDir = System.getenv(<span style="color:#e6db74">&#34;PWD&#34;</span>)
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> input = <span style="color:#e6db74">&#34;$workDir/orders/in/publisher?include=pub-.*xml&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;$workDir/orders/out/publisher&#34;</span>
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">val</span> XPATH_SEARCH_ORLY = <span style="color:#e6db74">&#34;order/orderItems/orderItem/orderItemPublisherName/text() = &#39;ORly&#39;&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">val</span> XPATH_SEARCH_PACKT = <span style="color:#e6db74">&#34;order/orderItems/orderItem/orderItemPublisherName/text() = &#39;Packt&#39;&#34;</span>
+
+    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">configure</span>() {
+        from(<span style="color:#e6db74">&#34;file:$input&#34;</span>)
+            .to(<span style="color:#e6db74">&#34;log:ordersReceived&#34;</span>)
+            .choice()
+                .`when`(xpath(XPATH_SEARCH_ORLY))
+                .log(<span style="color:#e6db74">&#34;ORly received&#34;</span>)
+                .to(<span style="color:#e6db74">&#34;file:$output/orly&#34;</span>)
+            .`when`(xpath(XPATH_SEARCH_PACKT))
+                .log(<span style="color:#e6db74">&#34;Packt received&#34;</span>)
+                .to(<span style="color:#e6db74">&#34;file:$output/packt&#34;</span>)
+            .otherwise()
+                .log(<span style="color:#e6db74">&#34;Other received&#34;</span>)
+                .to(<span style="color:#e6db74">&#34;file:$output/others&#34;</span>)
+            .end()
+    }
+
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tree
+.
+├── in
+│   └── publisher
+└── out
+    └── publisher
+        ├── orly
+        │   └── pub-orly.xml
+        ├── others
+        │   └── pub-foo.xml
+        └── packt
+            └── pub-packt.xml
+</code></pre></div><hr>
+<p><em>References:</em></p>
+<blockquote>
+<p><a href="https://github.com/marzelwidmer/kboot-camel">GitHub Sample Project</a>
+| <a href="https://spring.io/blog/2018/05/23/spring-tips-apache-camel">Spring Tips Apache Camel</a>
+| <a href="https://camel.apache.org/camel-spring-boot/latest/">Camel Apache Spring Boot</a>
+| <a href="https://www.walkerit.ch/public-ftp">Public FTP</a></p>
+</blockquote>
+
+  </div>
+  <div class="post-footer">
+    
+  </div>
+</article>
+
+    </main>
+  </body>
+</html>

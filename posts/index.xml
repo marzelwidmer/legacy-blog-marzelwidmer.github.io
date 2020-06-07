@@ -6,7 +6,7 @@
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 10 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,12 +14,33 @@
     <item>
       <title>Kboot Flux Meets Soap</title>
       <link>/posts/2020-05-10-kboot-flux-meets-soap/</link>
-      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
       
       <guid>/posts/2020-05-10-kboot-flux-meets-soap/</guid>
       <description>This will demonstrate how we can deal with a Blocking API in a Reactive World.
 The GitHb 1 sample provides a
- soap-server who demonstrate the blocking downstream API. flux-client with REST API  lockdown that will call the blocking SOAP endpoint and. Blockhound 2 will throw an exception. easing have an implemented from Avoiding Reactor Meltdown 3 show case how to manage Blocking API.    With this approach to manage Blocking API in the same service ant not in a separate service we have all the nice features like retry filter map and so on in our Servive A from the Reactive Streams API.</description>
+ soap-server who demonstrate the blocking downstream API. flux-client with REST API  lockdown that will call the blocking SOAP endpoint and. Blockhound 2 will throw an exception. easing have an implemented from Avoiding Reactor Meltdown 3 show case how to manage Blocking API.    With this approach to manage Blocking API in the same service ant not in a separate service we have all the nice features like retry filter map and so on in our Service A from the Reactive Streams API.</description>
+    </item>
+    
+    <item>
+      <title>Apache Camel with Kotlin and Spring Boot</title>
+      <link>/posts/2020-05-04-camel-kotlin-spring-boot/</link>
+      <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2020-05-04-camel-kotlin-spring-boot/</guid>
+      <description>Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
+ Precondition on OSX Create Project Check Camel Context File Route FTP Route Choice Route  Precondition on OSX We will also use command line ftp commands for this you need the ftp command line tool this can be installed with :
+brew install inetutils Create Project Run the following commands :</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes Ingress with Ngnix Ingress Controller</title>
+      <link>/posts/2020-05-01-minikube-ingress-controller/</link>
+      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2020-05-01-minikube-ingress-controller/</guid>
+      <description>OSX Minikube Kubernetes If you use ohmyzsh is there a nice Plugin with some kubectl for more details check ohmyzsh plugins kubectl
+Install Minikube with Ingress Controller brew install minikube Start Minikube minikube start 😄 minikube v1.9.2 on Darwin 10.15.4 ▪ MINIKUBE_ACTIVE_DOCKERD=minikube ✨ Using the hyperkit driver based on existing profile 👍 Starting control plane node m01 in cluster minikube 🔄 Restarting existing hyperkit VM for &amp;#34;minikube&amp;#34; ... 🐳 Preparing Kubernetes v1.</description>
     </item>
     
   </channel>
