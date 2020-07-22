@@ -18,7 +18,7 @@
       
       <guid>/posts/2020-04-18-resilience4j-circuitbreaker/</guid>
       <description>Create Project Let&amp;rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the spring inializr Rest Endpoint. We will take the latest and greates Spring Boot version 2.3.0.M4 and language kotlin with the following dependencies:
- actuator webflux cloud-resilience4j  http https://start.spring.io/starter.tgz \ dependencies==actuator,webflux,cloud-resilience4j \ description==&amp;quot;Demo project Kotlin Spring Boot with Resilience4j&amp;quot; \ applicationName==Resilience4jApplication \ name==kboot-resilience4j \ groupId==ch.keepcalm \ artifactId==kboot-resilience4j \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ bootVersion==2.3.0.M4 \ baseDir==kboot-resilience4j| tar -xzvf - Add Customer Banner</description>
+ actuator webflux cloud-resilience4j  http https://start.spring.io/starter.tgz \ dependencies==actuator,webflux,cloud-resilience4j \ description==&amp;quot;Demo project Kotlin Spring Boot with Resilience4j&amp;quot; \ applicationName==Resilience4jApplication \ name==kboot-resilience4j \ groupId==ch.keepcalm \ artifactId==kboot-resilience4j \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ baseDir==kboot-resilience4j| tar -xzvf - Add Customer Banner</description>
     </item>
     
     <item>
