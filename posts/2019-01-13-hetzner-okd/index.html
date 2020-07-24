@@ -71,7 +71,7 @@ hcloud server create --name &lt;YOUR_DOMAIN&gt; --type &lt;SERVER-TYPE&gt; --ima
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-        8 min read
+        9 min read
       </div><div>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -330,11 +330,23 @@ Using project <span style="color:#e6db74">&#34;default&#34;</span>.
 You have now a <code>OKD</code> instance with Let&rsquo;s Encrypt.</p>
 <p><img src="/console.png" alt="hetzner-preis"></p>
 <h1 id="renewal-lets-encrypt">Renewal Let&rsquo;s Encrypt</h1>
-<p>to renewal the Let&rsquo;s Encrypt you can log in to your <code>VM</code> and execute the following
-two ansible scripts in the <code>installcentos/</code> folder.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> . user-custom-exports.sh
- ansible-playbook -i inventory.ini openshift-ansible/playbooks/prerequisites.yml
- ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
+<p>There is a <code>crontab</code> with renew command.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crontab -l
+@weekly  certbot renew --pre-hook<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;oc scale --replicas=0 dc router&#34;</span> --post-hook<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;oc scale --replicas=1 dc router&#34;</span>
+</code></pre></div><h2 id="check-certificate">Check Certificate</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">certbot certificates
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Found the following certs:
+  Certificate Name: c3smonkey.ch
+    Serial Number: 4657db8105e7b58c87e5f69ff91a84a4178
+    Domains: c3smonkey.ch *.apps.c3smonkey.ch *.c3smonkey.ch
+    Expiry Date: 2020-10-22 07:16:07+00:00 <span style="color:#f92672">(</span>VALID: <span style="color:#ae81ff">89</span> days<span style="color:#f92672">)</span>
+    Certificate Path: /etc/letsencrypt/live/c3smonkey.ch/fullchain.pem
+    Private Key Path: /etc/letsencrypt/live/c3smonkey.ch/privkey.pem
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 </code></pre></div>
   </div>
   <div class="post-footer">
