@@ -3,7 +3,7 @@
   <head>
     <title>Install OKD on Hetzner Cloud // </title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.74.2" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
@@ -330,7 +330,7 @@ Using project <span style="color:#e6db74">&#34;default&#34;</span>.
 You have now a <code>OKD</code> instance with Let&rsquo;s Encrypt.</p>
 <p><img src="/console.png" alt="hetzner-preis"></p>
 <h1 id="renewal-lets-encrypt">Renewal Let&rsquo;s Encrypt</h1>
-<p>to renewal the Let&rsquo;s Encrypt you can log in to your <code>VM</code> and execute the following scrupts
+<p>to renewal the Let&rsquo;s Encrypt you can log in to your <code>VM</code> and execute the following
 two ansible scripts in the <code>installcentos/</code> folder.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> . user-custom-exports.sh
  ansible-playbook -i inventory.ini openshift-ansible/playbooks/prerequisites.yml
