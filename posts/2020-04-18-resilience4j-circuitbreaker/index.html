@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Reactive Spring Boot with Resilience4j CircuitBreaker // </title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.74.3" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.60b6f603c6636b80509d0a8f8c965e01d4c7b9b2facacd04beaf4d6ed7d8c7c2.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Reactive Spring Boot with Resilience4j CircuitBreaker"/>
+<meta name="twitter:description" content="Create Project Let&rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the spring inializr Rest Endpoint. We will take the latest and greates Spring Boot version 2.3.0.M4 and language kotlin with the following dependencies:
+ actuator webflux cloud-resilience4j  http https://start.spring.io/starter.tgz \ dependencies==actuator,webflux,cloud-resilience4j \ description==&quot;Demo project Kotlin Spring Boot with Resilience4j&quot; \ applicationName==Resilience4jApplication \ name==kboot-resilience4j \ groupId==ch.keepcalm \ artifactId==kboot-resilience4j \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ baseDir==kboot-resilience4j| tar -xzvf - Add Customer Banner"/>
+
+    <meta property="og:title" content="Reactive Spring Boot with Resilience4j CircuitBreaker" />
+<meta property="og:description" content="Create Project Let&rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the spring inializr Rest Endpoint. We will take the latest and greates Spring Boot version 2.3.0.M4 and language kotlin with the following dependencies:
+ actuator webflux cloud-resilience4j  http https://start.spring.io/starter.tgz \ dependencies==actuator,webflux,cloud-resilience4j \ description==&quot;Demo project Kotlin Spring Boot with Resilience4j&quot; \ applicationName==Resilience4jApplication \ name==kboot-resilience4j \ groupId==ch.keepcalm \ artifactId==kboot-resilience4j \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ baseDir==kboot-resilience4j| tar -xzvf - Add Customer Banner" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/2020-04-18-resilience4j-circuitbreaker/" />
+<meta property="article:published_time" content="2020-04-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-04-18T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/avatar.png" alt="John Doe" /></a>
+      <h1></h1>
+      <p>This is my personal blog where I will mostly post about development.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/marzelwidmer" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+      </div>
+
+      <li class="posts-list-item"></li>
+      <li class="posts-list-item"><a href="/">Blogs</a></li>
+
+
+
+      
+
+    </header>
+    <main class="app-container">
+      
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Reactive Spring Boot with Resilience4j CircuitBreaker <br>
+      <i class="post-subtitle">Resilience4j - CircuitBreaker with Kotlin Reactive Spring Boot Application</i>
+    </h1>
+    <div class="post-meta">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+        Apr 18, 2020
+      </div>
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+        5 min read
+      </div><div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+        <a class="tag" href="/tags/kotlin/">Kotlin</a></div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg>
+      
+        <a class="tag" href="/categories/development">Development</a>
+      
+
+
+
+    </div>
+  </header>
+  <div class="post-content">
+    <h2 id="create-project">Create Project</h2>
+<p>Let&rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the <a href="https://start.spring.io/">spring inializr</a> Rest Endpoint. We will take the latest and greates Spring Boot version <code>2.3.0.M4</code> and language <code>kotlin</code> with the following dependencies:</p>
+<ul>
+<li>actuator</li>
+<li>webflux</li>
+<li>cloud-resilience4j</li>
+</ul>
+<pre><code>http https://start.spring.io/starter.tgz \
+    dependencies==actuator,webflux,cloud-resilience4j \
+    description==&quot;Demo project Kotlin Spring Boot with Resilience4j&quot; \
+    applicationName==Resilience4jApplication \
+    name==kboot-resilience4j \
+    groupId==ch.keepcalm \
+    artifactId==kboot-resilience4j \
+    packageName==ch.keepcalm.demo \
+    javaVersion==11 \
+    language==kotlin \
+    baseDir==kboot-resilience4j| tar -xzvf -
+</code></pre><p>Add Customer Banner</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/banner.txt <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    &gt; kboot-resilience4j/src/main/resources/banner.txt
+</code></pre></div><p>Configure <code>spring.applicatin.name</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;spring:
+</span><span style="color:#e6db74">  application:
+</span><span style="color:#e6db74">    name: kboot-resilience4j&#34;</span> | &gt; kboot-resilience4j/src/main/resources/application.yaml
+</code></pre></div><p>Remove <code>application.properties</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rm kboot-resilience4j/src/main/resources/application.properties
+</code></pre></div><p>See also my other post <a href="https://blog.marcelwidmer.org/spring-initializr/">Spring Initializr and HTTPie</a></p>
+<h2 id="domain-model">Domain Model</h2>
+<p>Let&rsquo;s start with the <code>Movie</code> domain class with the following properties.</p>
+<ul>
+<li>name</li>
+<li>year</li>
+<li>description</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Movie</span>(<span style="color:#66d9ef">val</span> id: String? = UUID.randomUUID().toString(), <span style="color:#66d9ef">val</span> name: String, <span style="color:#66d9ef">val</span> year: Year, <span style="color:#66d9ef">val</span> description: String)
+</code></pre></div><h2 id="service">Service</h2>
+<p>Now we create the service class <code>MovieService</code> who hold some hard coded movies in a list.
+The amazing functions:</p>
+<ul>
+<li>Get all Movies</li>
+<li>Get a random list of Movies</li>
+<li>Get a Movie by his name</li>
+<li>Get a Movie by his ID</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Service
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MovieService</span> {
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> movies = listOf(
+        Movie(name = <span style="color:#e6db74">&#34;Matrix&#34;</span>,
+            year = Year.of(<span style="color:#ae81ff">1999</span>),
+            description = <span style="color:#e6db74">&#34;A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.&#34;</span>),
+        Movie(name = <span style="color:#e6db74">&#34;The Godfather&#34;</span>,
+            year = Year.of(<span style="color:#ae81ff">1972</span>),
+            description = <span style="color:#e6db74">&#34;The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.&#34;</span>),
+        Movie(name = <span style="color:#e6db74">&#34;Casablanca&#34;</span>,
+            year = Year.of(<span style="color:#ae81ff">1942</span>),
+            description = <span style="color:#e6db74">&#34;A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco.&#34;</span>),
+        Movie(name = <span style="color:#e6db74">&#34;Rocky&#34;</span>,
+            year = Year.of(<span style="color:#ae81ff">1976</span>),
+            description = <span style="color:#e6db74">&#34;A small-time boxer gets a supremely rare chance to fight a heavy-weight champion in a bout in which he strives to go the distance for his self-respect.&#34;</span>)
+    )
+
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">randomMovie</span>() = Mono.just(movies[kotlin.random.Random.nextInt(movies.size)])
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">movies</span>() = Flux.just(movies)
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">movieById</span>(id: String) = Mono.just(movies.first { it.id == id })
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">movieByName</span>(name: String?): Mono&lt;Movie&gt; {
+            name<span style="color:#f92672">?.</span>map {
+                movies.firstOrNull() { it.name.toLowerCase() == name.toLowerCase() }<span style="color:#f92672">?.</span>let {
+                    <span style="color:#66d9ef">return</span> Mono.just(it)
+                }
+            }.isNullOrEmpty().apply {
+                <span style="color:#66d9ef">return</span> Mono.error(IllegalArgumentException(<span style="color:#e6db74">&#34;Movie was not found.&#34;</span>))
+            }
+    }
+
+}
+</code></pre></div><h2 id="rest-api">Rest API</h2>
+<p>I think now is time to create a REST API <code>/movies/random</code> with the <a href="https://docs.spring.io/spring-framework/docs/current/kdoc-api/spring-framework/org.springframework.web.reactive.function.server/-router-function-dsl/index.html">Reactive router Kotlin DSL</a>.
+A easy way to create a <code>WebFlux.fn</code> <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/reactive/function/server/RouterFunctions.html">RouterFunction</a>
+Because we have more then one endpoint under <code>/movies</code> we use the <code>&quot;/movies&quot;.nest</code> router function.</p>
+<p>We use also our service <code>MovieService</code> so we need a <a href="https://docs.spring.io/spring/docs/current/kdoc-api/spring-framework/org.springframework.context.support/-bean-definition-dsl/-bean-supplier-context/ref.html">Bean Reference</a> to it.</p>
+<p><code>val service = ref&lt;MovieService&gt;()</code></p>
+<blockquote>
+<p>💡: Take care of the order in the Route definiton &ldquo;/&rdquo; have to be at latest position.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args: Array&lt;String&gt;) {
+    runApplication&lt;Resilience4jApplication&gt;(*args) {
+        addInitializers(
+            beans {
+                bean {
+                    router {
+                         <span style="color:#e6db74">&#34;movies&#34;</span>.nest {
+                             <span style="color:#66d9ef">val</span> service = ref&lt;MovieService&gt;()
+                             <span style="color:#75715e">//http :8080/movies/random
+</span><span style="color:#75715e"></span>                             GET(<span style="color:#e6db74">&#34;/random&#34;</span>) {
+                                 ok().body(service.randomMovie())
+                             }
+                             <span style="color:#75715e">//http :8080/movies/ name==&#34;Rocky&#34; -vv
+</span><span style="color:#75715e"></span>                             queryParam(<span style="color:#e6db74">&#34;name&#34;</span>, { <span style="color:#66d9ef">true</span> }) {
+                                 ok().body(service.movieByName(name = it.queryParam(<span style="color:#e6db74">&#34;name&#34;</span>).<span style="color:#66d9ef">get</span>()))
+                             }
+                             <span style="color:#75715e">//http :8080/movies/c7f399bc-ff4c-4a2f-bddf-d92d53a96df2
+</span><span style="color:#75715e"></span>                             GET(<span style="color:#e6db74">&#34;/{id}&#34;</span>) {
+                                 ok().body(service.movieById(id = it.pathVariable(<span style="color:#e6db74">&#34;id&#34;</span>)))
+                             }
+                             <span style="color:#75715e">//http :8080/movies/random
+</span><span style="color:#75715e"></span>                             GET(<span style="color:#e6db74">&#34;/&#34;</span>) {
+                                 ok().body(service.movies())
+                             }
+                         }
+                     }
+                }
+            }
+        )
+    }
+}
+</code></pre></div><h2 id="test-rest-api">Test Rest API</h2>
+<p>No is time to make some calls from the terminal with the <code>HTTPie</code> or in a Browser.
+First start the application e.g. with <code>mvn spring-boot:run</code>.</p>
+<p>Then lets call our amazing endpoints with the <code>HTTPie</code> or Browser.</p>
+<h3 id="get-all-movies">Get all Movies</h3>
+<p><a href="http://localhost:8080/movies">http://localhost:8080/movies</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/movies/
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Type: application/json
+transfer-encoding: chunked
+<span style="color:#f92672">[</span>
+    <span style="color:#f92672">[</span>
+        <span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.&#34;</span>,
+            <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;c7f399bc-ff4c-4a2f-bddf-d92d53a96df2&#34;</span>,
+            <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Matrix&#34;</span>,
+            <span style="color:#e6db74">&#34;year&#34;</span>: <span style="color:#e6db74">&#34;1999&#34;</span>
+        <span style="color:#f92672">}</span>,
+        <span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.&#34;</span>,
+            <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;0c7a74fc-b735-41a3-a383-72b9dad7d608&#34;</span>,
+            <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;The Godfather&#34;</span>,
+            <span style="color:#e6db74">&#34;year&#34;</span>: <span style="color:#e6db74">&#34;1972&#34;</span>
+        <span style="color:#f92672">}</span>,
+        <span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco.&#34;</span>,
+            <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;15a9e15d-4a5e-4b8a-a7c5-d34b0d5d0879&#34;</span>,
+            <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Casablanca&#34;</span>,
+            <span style="color:#e6db74">&#34;year&#34;</span>: <span style="color:#e6db74">&#34;1942&#34;</span>
+        <span style="color:#f92672">}</span>,
+        <span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;A small-time boxer gets a supremely rare chance to fight a heavy-weight champion in a bout in which he strives to go the distance for his self-respect.&#34;</span>,
+            <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;f6fb4a62-6d84-434e-8e2c-70e4c1e7ab2c&#34;</span>,
+            <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Rocky&#34;</span>,
+            <span style="color:#e6db74">&#34;year&#34;</span>: <span style="color:#e6db74">&#34;1976&#34;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">]</span>
+<span style="color:#f92672">]</span>
+</code></pre></div><h3 id="get-a-random-list-of-movies">Get a random list of Movies</h3>
+<p><a href="http://localhost:8080/movies/random">http://localhost:8080/movies/random</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> http :8080/movies/random
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Length: <span style="color:#ae81ff">240</span>
+Content-Type: application/json
+
+<span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco.&#34;</span>,
+    <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;5dd310b8-8d51-4a1e-a20c-790fec00029f&#34;</span>,
+    <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Casablanca&#34;</span>,
+    <span style="color:#e6db74">&#34;year&#34;</span>: <span style="color:#e6db74">&#34;1942&#34;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="get-a-movie-by-his-name">Get a Movie by his name</h3>
+<p><a href="http://localhost:8080/movies/?name=Rocky">http://localhost:8080/movies/?name=Rocky</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/movies name<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;Rocky&#34;</span> -v
+GET /movies?name<span style="color:#f92672">=</span>Rocky HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: localhost:8080
+User-Agent: HTTPie/2.0.0
+
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Length: <span style="color:#ae81ff">242</span>
+Content-Type: application/json
+
+<span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;A small-time boxer gets a supremely rare chance to fight a heavy-weight champion in a bout in which he strives to go the distance for his self-respect.&#34;</span>,
+    <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;5cae75c6-d18a-495b-a80f-60bdd0763eb1&#34;</span>,
+    <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Rocky&#34;</span>,
+    <span style="color:#e6db74">&#34;year&#34;</span>: <span style="color:#e6db74">&#34;1976&#34;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="get-a-movie-by-his-id">Get a Movie by his ID</h3>
+<p><a href="http://localhost:8080/movies/5dd310b8-8d51-4a1e-a20c-790fec00029f">http://localhost:8080/movies/5dd310b8-8d51-4a1e-a20c-790fec00029f</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/movies/5dd310b8-8d51-4a1e-a20c-790fec00029f
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Length: <span style="color:#ae81ff">240</span>
+Content-Type: application/json
+
+<span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco.&#34;</span>,
+    <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;5dd310b8-8d51-4a1e-a20c-790fec00029f&#34;</span>,
+    <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Casablanca&#34;</span>,
+    <span style="color:#e6db74">&#34;year&#34;</span>: <span style="color:#e6db74">&#34;1942&#34;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="search-for-a-not-existing-movie">Search for a not existing Movie</h3>
+<p>Now let&rsquo;s also search for <code>http://localhost:8080/movies/?name=Creed</code> is also a great movie but this one is not yet in our <code>MovieService</code> included
+we will get the following exception.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http :8080/movies name<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;Creed&#34;</span> -v
+GET /movies?name<span style="color:#f92672">=</span>Creed HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: localhost:8080
+User-Agent: HTTPie/2.0.0
+
+HTTP/1.1 <span style="color:#ae81ff">500</span> Internal Server Error
+Content-Length: <span style="color:#ae81ff">165</span>
+Content-Type: application/json
+
+<span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#e6db74">&#34;Internal Server Error&#34;</span>,
+    <span style="color:#e6db74">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;Movie was not found.&#34;</span>,
+    <span style="color:#e6db74">&#34;path&#34;</span>: <span style="color:#e6db74">&#34;/movies&#34;</span>,
+    <span style="color:#e6db74">&#34;requestId&#34;</span>: <span style="color:#e6db74">&#34;61569a89-3&#34;</span>,
+    <span style="color:#e6db74">&#34;status&#34;</span>: 500,
+    <span style="color:#e6db74">&#34;timestamp&#34;</span>: <span style="color:#e6db74">&#34;2020-04-19T21:13:10.403+00:00&#34;</span>
+<span style="color:#f92672">}</span>
+
+</code></pre></div><h2 id="configure-circuitbreaker">Configure CircuitBreaker</h2>
+<p>😎 Cool stuff 😎 let&rsquo;s implement the <code>CircuitBreaker</code> with <code>Resilinece4j</code>.
+Let&rsquo;s configure the <code>ReactiveCircuitBreaker</code> Bean from <code>ReactiveResilience4JCircuitBreakerFactory</code> with a name <code>movie-service</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">bean {
+    ReactiveResilience4JCircuitBreakerFactory()
+        .create(<span style="color:#e6db74">&#34;movie-service&#34;</span>)
+}
+</code></pre></div><h3 id="to-be-continued-">to be continued ..</h3>
+<p>The example source code can be found here <a href="https://github.com/marzelwidmer/kboot-resilience4j">GitHub</a></p>
+<blockquote>
+<p>💡 <strong>Logger Configuration</strong>:
+logging.pattern.console: &ldquo;%clr(%d{yyyy-MM-dd E HH:mm:ss.SSS}){blue} %clr(%-40.40logger{0}){magenta} - %clr(%m){green}%n&rdquo;</p>
+</blockquote>
+<hr>
+<p><em>References:</em></p>
+<blockquote>
+<p><a href="https://resilience4j.readme.io/docs">Resilience4j docs</a></p>
+</blockquote>
+
+  </div>
+  <div class="post-footer">
+    
+  </div>
+</article>
+
+    </main>
+  </body>
+</html>

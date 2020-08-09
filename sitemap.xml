@@ -67,4 +67,39 @@
     <lastmod>2020-05-01T00:00:00+00:00</lastmod>
   </url>
   
+  <url>
+    <loc>/posts/2020-04-18-resilience4j-circuitbreaker/</loc>
+    <lastmod>2020-04-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/spring-boot/</loc>
+    <lastmod>2020-04-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/2020-04-12-cloud-gateway-sidecar/</loc>
+    <lastmod>2020-04-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/2020-04-12-spring-initializr/</loc>
+    <lastmod>2020-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/2019-09-18-spring-boot-k8s-configmap/</loc>
+    <lastmod>2019-09-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/2019-09-21-spring-boot-k8s-ribbon-discovery/</loc>
+    <lastmod>2019-09-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/2019-01-13-hetzner-okd/</loc>
+    <lastmod>2019-01-13T00:00:00+00:00</lastmod>
+  </url>
+  
 </urlset>
