@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: customer-service-pipeline
+    name: customer-service-pipeline
+  name: customer-service-pipeline
+spec:
+  runPolicy: Serial
+  source:
+    git:
+      ref: master
+      uri: https://github.com/marzelwidmer/customer-service.git
+    sourceSecret:
+      name: ci-user-at-github
+    type: Git
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: jenkins/Jenkinsfile
+
