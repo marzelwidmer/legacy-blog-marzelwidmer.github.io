@@ -273,7 +273,7 @@ $ oc patch dc/catalog-service  -p <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>     <span style="color:#e6db74">&#39;{&#34;spec&#34;:{&#34;template&#34;:{&#34;spec&#34;:{&#34;containers&#34;:[{&#34;name&#34;:&#34;default-container&#34;,&#34;imagePullPolicy&#34;:&#34;Always&#34;}]}}}}&#39;</span>
 $ oc expose dc catalog-service --port<span style="color:#f92672">=</span><span style="color:#ae81ff">8080</span>
 $ oc expose svc/catalog-service
-</code></pre></div><h2 id="jenkins-pipeline--a-namejenkinspipelinea">Jenkins Pipeline  <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id="JenkinsPipeline">Jenkins Pipeline </h2>
 <p>So now let&rsquo;s create a <code>BuildConfig</code> for the <code>catalaog-service</code> with the
 following <a href="/multiple-project-promoting/catalog-service-pipeline.yaml">catalog-service-jenkins-pipeline</a> configuration
 in the Jenkins namespace (project) let&rsquo;s do it with <code>oc create -n jenkins -f https://blog.marcelwidmer.org/openshift-pipeline/catalog-service-pipeline.yaml</code></p>
@@ -292,7 +292,7 @@ build.build.openshift.io/catalog-service-pipeline-1 started
 <p>Now is time to approve the application and hit the
 After the approve button in the pipeline to deploy to the production namespace.</p>
 <p><img src="/multiple-project-promoting/catalog-service-pipeline-success.png" alt="Catalog Service Pipeline success"></p>
-<h2 id="webhooks-a-namewebhooksa">WebHooks <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+<h2 id="WebHooks">WebHooks </h2>
 <p>Now let&rsquo;s creat a WebHook. So when we push something in our <code>catalog-service</code> the pipeline start run.
 Change first to the <code>jenkins</code> project again with <code>oc project jenkins</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc project jenkins
