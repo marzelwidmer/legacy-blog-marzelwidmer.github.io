@@ -76,6 +76,16 @@ http https://start.spring.io/starter.tgz \  dependencies==actuator,data-mongodb-
     </item>
     
     <item>
+      <title>Promoting Applications Across Environments</title>
+      <link>/posts/2019-08-28-multiple-project-promoting/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2019-08-28-multiple-project-promoting/</guid>
+      <description>Table of contents  Create Project Install Jenkins / Install Jenkins With CLI Add Edit Role To ServiceAccount Jenkins Add Role To Group Deploy Application Development Environment Deployment  Test API Testing Environment Deployment Production Environment Deployment Jenkins Pipeline WebHooks  Create Project  We are going to use the CLI to create some projects. Let&amp;rsquo;s create our projects first:
+$ oc login $ oc new-project development --display-name=&amp;#34;Development Environment&amp;#34; $ oc new-project testing --display-name=&amp;#34;Testing Environment&amp;#34; $ oc new-project production --display-name=&amp;#34;Production Environment&amp;#34; $ oc new-project jenkins --display-name=&amp;#34;Jenkins CI/CD&amp;#34; Install Jenkins  Create a Jenkins in the Jenkins CI/CD project with some storage.</description>
+    </item>
+    
+    <item>
       <title>Spring Boot Kubernetes ConfigMap</title>
       <link>/posts/2019-09-18-spring-boot-k8s-configmap/</link>
       <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>

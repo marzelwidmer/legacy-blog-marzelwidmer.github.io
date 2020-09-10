@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Promoting Applications Across Environments // </title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.74.3" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.60b6f603c6636b80509d0a8f8c965e01d4c7b9b2facacd04beaf4d6ed7d8c7c2.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Promoting Applications Across Environments"/>
+<meta name="twitter:description" content="Table of contents  Create Project Install Jenkins / Install Jenkins With CLI Add Edit Role To ServiceAccount Jenkins Add Role To Group Deploy Application Development Environment Deployment  Test API Testing Environment Deployment Production Environment Deployment Jenkins Pipeline WebHooks  Create Project  We are going to use the CLI to create some projects. Let&rsquo;s create our projects first:
+$ oc login $ oc new-project development --display-name=&#34;Development Environment&#34; $ oc new-project testing --display-name=&#34;Testing Environment&#34; $ oc new-project production --display-name=&#34;Production Environment&#34; $ oc new-project jenkins --display-name=&#34;Jenkins CI/CD&#34; Install Jenkins  Create a Jenkins in the Jenkins CI/CD project with some storage."/>
+
+    <meta property="og:title" content="Promoting Applications Across Environments" />
+<meta property="og:description" content="Table of contents  Create Project Install Jenkins / Install Jenkins With CLI Add Edit Role To ServiceAccount Jenkins Add Role To Group Deploy Application Development Environment Deployment  Test API Testing Environment Deployment Production Environment Deployment Jenkins Pipeline WebHooks  Create Project  We are going to use the CLI to create some projects. Let&rsquo;s create our projects first:
+$ oc login $ oc new-project development --display-name=&#34;Development Environment&#34; $ oc new-project testing --display-name=&#34;Testing Environment&#34; $ oc new-project production --display-name=&#34;Production Environment&#34; $ oc new-project jenkins --display-name=&#34;Jenkins CI/CD&#34; Install Jenkins  Create a Jenkins in the Jenkins CI/CD project with some storage." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/2019-08-28-multiple-project-promoting/" />
+<meta property="article:published_time" content="2019-09-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-09-18T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/avatar.png" alt="John Doe" /></a>
+      <h1></h1>
+      <p>This is my personal blog where I will mostly post about development.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/marzelwidmer" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+      </div>
+
+      <li class="posts-list-item"></li>
+      <li class="posts-list-item"><a href="/">Blogs</a></li>
+
+
+
+      
+
+    </header>
+    <main class="app-container">
+      
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Promoting Applications Across Environments <br>
+      <i class="post-subtitle">Build and ship</i>
+    </h1>
+    <div class="post-meta">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+        Sep 18, 2019
+      </div>
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+        8 min read
+      </div><div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+        <a class="tag" href="/tags/k8s/">K8s</a><a class="tag" href="/tags/springboot/">SpringBoot</a></div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg>
+      
+        <a class="tag" href="/categories/kubernetes">Kubernetes</a>
+      
+
+
+
+    </div>
+  </header>
+  <div class="post-content">
+    <h1 id="table-of-contents">Table of contents</h1>
+<ul>
+<li><a href="#CreateProject">Create Project</a></li>
+<li><a href="#InstallJenkins">Install Jenkins</a> / <a href="#InstallJenkins">Install Jenkins With CLI</a></li>
+<li><a href="#AddEditRoleToServiceAccountJenkins">Add Edit Role To ServiceAccount Jenkins</a></li>
+<li><a href="#AddRoleToGroup">Add Role To Group</a></li>
+<li><a href="#DeployApplication">Deploy Application</a></li>
+<li><a href="#DevelopmentEnvironmentDeployment">Development Environment Deployment </a></li>
+<li><a href="#TestAPI">Test API</a></li>
+<li><a href="#TestingEnvironmentDeployment">Testing Environment Deployment</a></li>
+<li><a href="#ProductionEnvironmentDeployment">Production Environment Deployment</a></li>
+<li><a href="#JenkinsPipeline">Jenkins Pipeline</a></li>
+<li><a href="#WebHooks">WebHooks</a></li>
+</ul>
+<h2 id="CreateProject">Create Project </h2>
+<p>We are going to use the CLI to create some projects.
+Let&rsquo;s create our projects first:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc login  
+$ oc new-project development --display-name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Development Environment&#34;</span>
+$ oc new-project testing --display-name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Testing Environment&#34;</span>    
+$ oc new-project production --display-name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Production Environment&#34;</span>    
+$ oc new-project jenkins --display-name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Jenkins CI/CD&#34;</span>  
+</code></pre></div><h2 id="InstallJenkins">Install Jenkins </h2>
+<p>Create a Jenkins in the <code>Jenkins CI/CD</code> project with some storage. Take the Jenkins from the catalog and set some more memory and volume capacity on it.
+Everything else we let the default values.
+Login with your Openshift account to the <code>Jenkins BlueOcean</code>.</p>
+<p><img src="/multiple-project-promoting/Jenkins-from-catalog-1.png" alt="Jenkins-From-Catalog-1">
+<img src="/multiple-project-promoting/Jenkins-from-catalog-2.png" alt="Jenkins-From-Catalog-2">
+<img src="/multiple-project-promoting/Jenkins-from-catalog-3.png" alt="Jenkins-From-Catalog-3"></p>
+<h2 id="configure-jenkins-maven-slave---concurrency-limit">Configure Jenkins Maven Slave - Concurrency Limit</h2>
+<p>Let&rsquo;s configure out <code>Maven-Slave</code> concurrency limit to <code>5</code> in order that we later want build more then one project.
+Please go to the Jenkins Configuration Page <code>https://&lt;jenkins&gt;/configure</code> in the section <code>Cloud/Kubernetes Pod Template</code> and search for the <code>Maven</code> Pod.</p>
+<p><img src="/multiple-project-promoting/Maven-Pod-Concurrency-Limit.png" alt="Maven-Pod-Concurrency-Limit"></p>
+<h2 id="InstallJenkinsWithCLI">Install Jenkins with CLI</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc new-app jenkins-persistent --name jenkins --param ENABLE_OAUTH<span style="color:#f92672">=</span>true <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        --param MEMORY_LIMIT<span style="color:#f92672">=</span>2Gi --param VOLUME_CAPACITY<span style="color:#f92672">=</span>4Gi -n jenkins
+</code></pre></div><h3 id="jenkins-file-from-source-repository">Jenkins File From Source Repository</h3>
+<p>The pipeline <a href="https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/2019/multiple-project-promoting/Promotion-Jenkinsfile">Jenkinsfile</a> is provided in the source repository.</p>
+<h2 id="AddEditRoleToServiceAccountJenkins">Add Edit Role To ServiceAccount Jenkins </h2>
+<p>Let’s add in RBAC to our projects to allow the different service accounts to build, pro‐ mote, and tag images.
+First we will allow the cicd project’s Jenkins service account edit access to all of our projects:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n development
+$ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n testing
+$ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n production
+</code></pre></div><h2 id="AddRoleToGroup">Add Role To Group </h2>
+<p>That we can pull our image from <code>testing</code> and <code>production</code> environment from the <code>development</code> registry. This is needed for pulling the Images across the projects.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc policy add-role-to-group system:image-puller system:serviceaccounts:testing  <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        -n development
+$ oc policy add-role-to-group system:image-puller system:serviceaccounts:production <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        -n development
+</code></pre></div><h1 id="DeployApplication">Deploy Application </h1>
+<p>Let&rsquo;s deploy first the application with the <a href="https://docs.openshift.com/container-platform/3.11/creating_images/s2i.html">S2i strategy</a>.
+before we will create the delivery pipeline.</p>
+<h2 id="DevelopmentEnvironmentDeployment">Development Environment Deployment </h2>
+<p>Let&rsquo;s change first the project to to development with the <code>oc project development</code> command.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc project development
+
+Now using project <span style="color:#e6db74">&#34;development&#34;</span> on server <span style="color:#e6db74">&#34;https://console.c3smonkey.ch:8443&#34;</span>.
+
+Creat a new app with <span style="color:#e6db74">`</span>oc new-app<span style="color:#e6db74">`</span>
+</code></pre></div><p>We will use here the <a href="https://hub.docker.com/r/fabric8/s2i-java">fabric8/s2i-java</a> to deploy our application and will point it to the master branch with the command <code>oc new-app</code>
+We also want expose the service <code>oc expose svc/catalog-service</code> to get a URL with the command <code>oc get route catalog-service</code> we will see the URL on the terminal.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc new-app fabric8/s2i-java:latest-java11~https://github.com/marzelwidmer/catalog-service.git#master; <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    oc expose svc/catalog-service; <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    oc get route catalog-service
+
+--&gt; Found Docker image <span style="color:#ae81ff">6414174</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">7</span> weeks old<span style="color:#f92672">)</span> from Docker Hub <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#34;fabric8/s2i-java:latest-java11&#34;</span>
+
+  Java Applications
+  -----------------
+  Platform <span style="color:#66d9ef">for</span> building and running plain Java applications <span style="color:#f92672">(</span>fat-jar and flat classpath<span style="color:#f92672">)</span>
+
+  Tags: builder, java
+
+  * An image stream tag will be created as <span style="color:#e6db74">&#34;s2i-java:latest-java11&#34;</span> that will track the source image
+  * A source build using source code from https://github.com/marzelwidmer/catalog-service.git#master will be created
+    * The resulting image will be pushed to image stream tag <span style="color:#e6db74">&#34;catalog-service:latest&#34;</span>
+    * Every time <span style="color:#e6db74">&#34;s2i-java:latest-java11&#34;</span> changes a new build will be triggered
+  * This image will be deployed in deployment config <span style="color:#e6db74">&#34;catalog-service&#34;</span>
+  * Ports 8080/tcp, 8778/tcp, 9779/tcp will be load balanced by service <span style="color:#e6db74">&#34;catalog-service&#34;</span>
+    * Other containers can access this service through the hostname <span style="color:#e6db74">&#34;catalog-service&#34;</span>
+
+--&gt; Creating resources ...
+    imagestream.image.openshift.io <span style="color:#e6db74">&#34;s2i-java&#34;</span> created
+    imagestream.image.openshift.io <span style="color:#e6db74">&#34;catalog-service&#34;</span> created
+    buildconfig.build.openshift.io <span style="color:#e6db74">&#34;catalog-service&#34;</span> created
+    deploymentconfig.apps.openshift.io <span style="color:#e6db74">&#34;catalog-service&#34;</span> created
+    service <span style="color:#e6db74">&#34;catalog-service&#34;</span> created
+--&gt; Success
+    Build scheduled, use <span style="color:#e6db74">&#39;oc logs -f bc/catalog-service&#39;</span> to track its progress.
+    Application is not exposed. You can expose services to the outside world by executing one or more of the commands below:
+     <span style="color:#e6db74">&#39;oc expose svc/catalog-service&#39;</span>
+    Run <span style="color:#e6db74">&#39;oc status&#39;</span> to view your app.
+route.route.openshift.io/catalog-service exposed
+NAME             HOST/PORT                                      PATH  SERVICES         PORT      TERMINATION  WILDCARD
+catalog-service  catalog-service-development.apps.c3smonkey.ch        catalog-service  8080-tcp               None
+</code></pre></div><p>Now take a look in the OpenShift Console project <code>development</code></p>
+<p><img src="/multiple-project-promoting/catalog-service-dev-deployment.png" alt="catalog-service-dev-deployment"></p>
+<p>Let&rsquo;s take a look what the S2i crated for us.
+This can be done with the following command <code>oc get all -n development --selector app=catalog-service</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc get all -n development --selector app<span style="color:#f92672">=</span>catalog-service                                  
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/catalog-service-1-2rv5r   1/1     Running   <span style="color:#ae81ff">0</span>          56m
+
+NAME                                      DESIRED   CURRENT   READY   AGE
+replicationcontroller/catalog-service-1   <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>       56m
+
+NAME                      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>                      AGE
+service/catalog-service   ClusterIP   172.30.216.240   &lt;none&gt;        8080/TCP,8778/TCP,9779/TCP   57m
+
+NAME                                                 REVISION   DESIRED   CURRENT   TRIGGERED BY
+deploymentconfig.apps.openshift.io/catalog-service   <span style="color:#ae81ff">1</span>          <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>         config,image<span style="color:#f92672">(</span>catalog-service:latest<span style="color:#f92672">)</span>
+
+NAME                                             TYPE     FROM         LATEST
+buildconfig.build.openshift.io/catalog-service   Source   Git@master   <span style="color:#ae81ff">1</span>
+
+NAME                                         TYPE     FROM          STATUS     STARTED             DURATION
+build.build.openshift.io/catalog-service-1   Source   Git@b49dff4   Complete   About an hour ago   1m10s
+
+NAME                                             DOCKER REPO                                                    TAGS            
+imagestream.image.openshift.io/catalog-service   docker-registry.default.svc:5000/development/catalog-service   latest           
+imagestream.image.openshift.io/s2i-java          docker-registry.default.svc:5000/development/s2i-java          latest-java11   
+
+NAME                                       HOST/PORT                                       PATH   SERVICES          PORT        WILDCARD
+route.route.openshift.io/catalog-service   catalog-service-development.apps.c3smonkey.ch          catalog-service   8080-tcp    None
+</code></pre></div><h2 id="TestAPI">Test API on Development </h2>
+<p>Now let&rsquo;s test the amazing <code>/api/v1/animals/rando</code> API from <code>catalog-service</code> by hitting the following Rest endpoint 50 times.
+in a bash shell with the following command. <code>for x in (seq 50); http &quot;http://catalog-service-development.apps.c3smonkey.ch/api/v1/animals/random&quot;; end</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ~ 🐠 
+<span style="color:#66d9ef">for</span> x in <span style="color:#f92672">(</span>seq 50<span style="color:#f92672">)</span>; <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>     http <span style="color:#e6db74">&#34;http://catalog-service-development.apps.c3smonkey.ch/api/v1/animals/random&#34;</span>; <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>end                                                                               
+
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Cache-control: private
+Content-Length: <span style="color:#ae81ff">14</span>
+Content-Type: text/plain;charset<span style="color:#f92672">=</span>UTF-8
+Set-Cookie: 1e5e1500c4996e7978ef9efb67d863a1<span style="color:#f92672">=</span>1e12d12873c24c5c17782f3da537ed6a; path<span style="color:#f92672">=</span>/; HttpOnly
+
+Burrowing Frog
+
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Cache-control: private
+Content-Length: <span style="color:#ae81ff">14</span>
+Content-Type: text/plain;charset<span style="color:#f92672">=</span>UTF-8
+Set-Cookie: 1e5e1500c4996e7978ef9efb67d863a1<span style="color:#f92672">=</span>1e12d12873c24c5c17782f3da537ed6a; path<span style="color:#f92672">=</span>/; HttpOnly
+
+Dogo Argentino
+
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</code></pre></div><h2 id="TestingEnvironmentDeployment">Testing Environment Deployment</h2>
+<p>Let&rsquo;s change first to the testing project with <code>oc project testing</code>.
+We remember that we have in our setup only one docker registry from this registry we want promote our Docker images to other projects in our OpenShift Cluster setup.
+The access is now available because we did the <a href="#AddRoleToGroup">Add Role To Group</a>. Now let&rsquo;s take a look at the ImageStream in the project <code>development</code> with the
+following command <code>oc get is -n development</code> we will get the docker registry we need to create the a deployment configuration in the project <code>testing</code>. We are searching for the
+<code>catalog-service</code> docker registry.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc get is -n development
+NAME              DOCKER REPO                                                    TAGS            UPDATED
+catalog-service   docker-registry.default.svc:5000/development/catalog-service   latest          About an hour ago
+s2i-java          docker-registry.default.svc:5000/development/s2i-java          latest-java11   About an hour ago
+</code></pre></div><p>Now let&rsquo;s create a deployment configuration for the <code>promoteQA</code> tag with <code>oc create dc catalog-service --image=docker-registry.default.svc:5000/development/catalog-service:promoteQA</code>
+Our Jenkins pipeline is configured to interact with this tag to promote between the environments.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc create dc catalog-service --image<span style="color:#f92672">=</span>docker-registry.default.svc:5000/development/catalog-service:promoteQA
+deploymentconfig.apps.openshift.io/catalog-service created
+</code></pre></div><p>Now we have to expose the <code>dc/catalog-service</code> with the port <code>8080</code> who our Spring Boot App is running on.<br>
+This easy done with the <code>oc expose dc catalog-service --port=8080</code> command.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc expose dc catalog-service --port<span style="color:#f92672">=</span><span style="color:#ae81ff">8080</span>
+service/catalog-service exposed
+</code></pre></div><p>Now also expose the service and get the route <code>oc expose service catalog-service --name=catalog-service; oc get route</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc expose service catalog-service --name<span style="color:#f92672">=</span>catalog-service; oc get route
+route.route.openshift.io/catalog-service exposed
+NAME              HOST/PORT                                   PATH   SERVICES          PORT   TERMINATION   WILDCARD
+catalog-service   catalog-service-testing.apps.c3smonkey.ch          catalog-service   <span style="color:#ae81ff">8080</span>                 None
+</code></pre></div><p>We have to patch the <code>dc</code> <code>imagePullPolicy</code> from <code>IfNotPresent</code> to <code>Always</code> with <code>oc patch</code> command. The default is set to <code>IfNotPresent</code>,
+but we wish to always trigger a deployment when we tag a new image</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc patch dc/catalog-service  -p <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>      <span style="color:#e6db74">&#39;{&#34;spec&#34;:{&#34;template&#34;:{&#34;spec&#34;:{&#34;containers&#34;:[{&#34;name&#34;:&#34;default-container&#34;,&#34;imagePullPolicy&#34;:&#34;Always&#34;}]}}}}&#39;</span>
+</code></pre></div><h2 id="ProductionEnvironmentDeployment">Production Environment Deployment</h2>
+<p>The same what we did on the <a href="#TestingEnvironmentDeployment">Testing Environment Deployment </a> we also do now on the production environment.
+But we configure the promotion tag <code>promotePRD</code> in the deployment configuration.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc project production
+$ oc create dc catalog-service --image<span style="color:#f92672">=</span>docker-registry.default.svc:5000/development/catalog-service:promotePRD
+$ oc patch dc/catalog-service  -p <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>     <span style="color:#e6db74">&#39;{&#34;spec&#34;:{&#34;template&#34;:{&#34;spec&#34;:{&#34;containers&#34;:[{&#34;name&#34;:&#34;default-container&#34;,&#34;imagePullPolicy&#34;:&#34;Always&#34;}]}}}}&#39;</span>
+$ oc expose dc catalog-service --port<span style="color:#f92672">=</span><span style="color:#ae81ff">8080</span>
+$ oc expose svc/catalog-service
+</code></pre></div><h2 id="jenkins-pipeline--a-namejenkinspipelinea">Jenkins Pipeline  <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+<p>So now let&rsquo;s create a <code>BuildConfig</code> for the <code>catalaog-service</code> with the
+following <a href="/multiple-project-promoting/catalog-service-pipeline.yaml">catalog-service-jenkins-pipeline</a> configuration
+in the Jenkins namespace (project) let&rsquo;s do it with <code>oc create -n jenkins -f https://blog.marcelwidmer.org/openshift-pipeline/catalog-service-pipeline.yaml</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc create -n jenkins -f <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    https://blog.marcelwidmer.org/openshift-pipeline/catalog-service-pipeline.yaml
+buildconfig.build.openshift.io/catalog-service-pipeline created
+</code></pre></div><p>When you go now in the OpenShift <a href="https://console.c3smonkey.ch:8443/console/project/jenkins/browse/pipelines">Console</a> in the project <code>Jenkins</code> in the section.
+<code>Builds/Pipelines</code> you will something like this.
+<img src="/multiple-project-promoting/catalog-service-pipeline-created.png" alt="Catalog Service Pipeline"></p>
+<h3 id="run-jenkins-pipeline">Run Jenkins Pipeline</h3>
+<p>Now is time to run the pipeline with the command <code>oc start-build catalog-service-pipeline -n jenkins</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc start-build catalog-service-pipeline -n jenkins
+build.build.openshift.io/catalog-service-pipeline-1 started
+</code></pre></div><p>After a while you will see something like this. For production deployment we configured our pipeline with a approvable step.</p>
+<p><img src="/multiple-project-promoting/catalog-service-pipeline-approvable.png" alt="Catalog Service Pipeline approvable"></p>
+<p>Now is time to approve the application and hit the
+After the approve button in the pipeline to deploy to the production namespace.</p>
+<p><img src="/multiple-project-promoting/catalog-service-pipeline-success.png" alt="Catalog Service Pipeline success"></p>
+<h2 id="webhooks-a-namewebhooksa">WebHooks <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+<p>Now let&rsquo;s creat a WebHook. So when we push something in our <code>catalog-service</code> the pipeline start run.
+Change first to the <code>jenkins</code> project again with <code>oc project jenkins</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc project jenkins
+Now using project <span style="color:#e6db74">&#34;jenkins&#34;</span> on server <span style="color:#e6db74">&#34;https://console.c3smonkey.ch:8443&#34;</span>
+</code></pre></div><p>Now check the <code>Buildconfig</code> with <code>oc describe bc/catalog-service-pipeline</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc describe bc/catalog-service-pipeline                                                                                                                                               
+Name:		catalog-service-pipeline
+Namespace:	jenkins
+Created:	<span style="color:#ae81ff">2</span> hours ago
+Labels:		app<span style="color:#f92672">=</span>catalog-service-pipeline
+		name<span style="color:#f92672">=</span>catalog-service-pipeline
+Annotations:	&lt;none&gt;
+Latest Version:	<span style="color:#ae81ff">1</span>
+
+Strategy:		JenkinsPipeline
+URL:			https://github.com/marzelwidmer/catalog-service.git
+Ref:			master
+Jenkinsfile path:	Jenkinsfile
+
+Build Run Policy:	Serial
+Triggered by:		&lt;none&gt;
+Builds History Limit:
+	Successful:	<span style="color:#ae81ff">5</span>
+	Failed:		<span style="color:#ae81ff">5</span>
+
+Build				Status		Duration	Creation Time
+catalog-service-pipeline-1 	complete 	8m12s 		2019-09-05 13:54:18 +0200 CEST
+
+Events:	&lt;none&gt;
+</code></pre></div><p>At the moment we don&rsquo;t have any GitHub Hooks configured.</p>
+<h2 id="buildconfig-triggers">BuildConfig Triggers</h2>
+<p>With the following command you can set GitHub WebHook trigger. This will create a secret for us and configured a WebHook in our BuildConfig.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc set triggers bc/catalog-service-pipeline --from-github 
+</code></pre></div><p>When we run again the <code>oc describe bc/catalog-service-pipeline</code> command we will see that we have a <code>bc</code> like below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc describe bc/catalog-service-pipeline                                                                                                                                             
+Name:		catalog-service-pipeline
+Namespace:	jenkins
+Created:	<span style="color:#ae81ff">2</span> hours ago
+Labels:		app<span style="color:#f92672">=</span>catalog-service-pipeline
+		name<span style="color:#f92672">=</span>catalog-service-pipeline
+Annotations:	&lt;none&gt;
+Latest Version:	<span style="color:#ae81ff">1</span>
+
+Strategy:		JenkinsPipeline
+URL:			https://github.com/marzelwidmer/catalog-service.git
+Ref:			master
+Jenkinsfile path:	Jenkinsfile
+
+Build Run Policy:	Serial
+Triggered by:		&lt;none&gt;
+Webhook GitHub:
+	URL:	https://okd.ch/apis/build.openshift.io/v1/namespaces/jenkins/buildconfigs/catalog-service-pipeline/webhooks/&lt;secret&gt;/github
+Builds History Limit:
+	Successful:	<span style="color:#ae81ff">5</span>
+	Failed:		<span style="color:#ae81ff">5</span>
+
+Build				Status		Duration	Creation Time
+catalog-service-pipeline-1 	complete 	8m12s 		2019-09-05 13:54:18 +0200 CEST
+
+Events:	&lt;none&gt;
+</code></pre></div><blockquote>
+<p><strong><em>Note:</em></strong> The URL <!-- raw HTML omitted --> we will replace with a secret. This is just an place holder in the URL.
+<a href="https://console.c3smonkey.ch">https://console.c3smonkey.ch</a>:8443/apis/build.openshift.io/v1/namespaces/jenkins/buildconfigs/catalog-service-pipeline/webhooks/<!-- raw HTML omitted -->/github</p>
+</blockquote>
+<p>To grab the <code>&lt;secret&gt;</code> we have to replace in the URL you can call the following command.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc get bc/catalog-service-pipeline -o json | jq <span style="color:#e6db74">&#39;.spec.triggers[].github.secret&#39;</span>
+</code></pre></div><p>In your GitHub repository, select Add Webhook from Settings → Webhooks.
+Paste the URL output (similar to above) into the Payload URL field.</p>
+<blockquote>
+<p><strong><em>Hint:</em></strong> <code>SSL Disable (not recommended)</code> if your cluster don&rsquo;t have a valid SSL certificate.
+SSL verification
+By default, we verify SSL certificates when delivering payloads.</p>
+</blockquote>
+<p><img src="/multiple-project-promoting/Add-GitHub-WebHook.png" alt="Add GitHub WebHook">
+<img src="/multiple-project-promoting/GitHub-WebHooks.png" alt="GitHub WebHooks"></p>
+<blockquote>
+<p><strong><em>References:</em></strong><br>
+<a href="https://blog.openshift.com/decrease-maven-build-times-openshift-pipelines-using-persistent-volume-claim/">https://blog.openshift.com/decrease-maven-build-times-openshift-pipelines-using-persistent-volume-claim/</a>
+<a href="https://github.com/redhat-cop/container-pipelines/tree/master/basic-spring-boot">https://github.com/redhat-cop/container-pipelines/tree/master/basic-spring-boot</a></p>
+</blockquote>
+
+  </div>
+  <div class="post-footer">
+    
+  </div>
+</article>
+
+    </main>
+  </body>
+</html>

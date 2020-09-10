@@ -94,7 +94,7 @@ hcloud server create --name &lt;YOUR_DOMAIN&gt; --type &lt;SERVER-TYPE&gt; --ima
 <p>Create a <code>Hetzner VM</code> with the CLI <a href="https://github.com/hetznercloud/cli">https://github.com/hetznercloud/cli</a></p>
 <h1 id="hcloud-hetzner-cli">hcloud (Hetzner CLI)</h1>
 <p>Let&rsquo;s check first some <code>hcloud</code> command that we can use later to create a <code>VM</code> with the right size and in the <code>Datacenter</code> we want.</p>
-<p><img src="/hetzner-preis.png" alt="hetzner-preis"></p>
+<p><img src="/hetzner/hetzner-preis.png" alt="hetzner-preis"></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hcloud server create --name &lt;YOUR_DOMAIN&gt; --type &lt;SERVER-TYPE&gt; --image &lt;IMAGE&gt; --ssh-key &lt;YOUR_HETZNER_SSH_KEY&gt; --datacenter &lt;DATACENTER&gt;
 </code></pre></div><h2 id="server-type">Server Type</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hcloud server-type list
@@ -246,7 +246,7 @@ Before continuing, verify the record is deployed.
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Press Enter to Continue
 </code></pre></div><p>In my case something like so :</p>
-<p><img src="/acme.png" alt="acme"></p>
+<p><img src="/hetzner//acme.png" alt="acme"></p>
 <p>You can check the <code>DNS</code> with <a href="https://dnschecker.org/#TXT/_acme-challenge.apps.keepcalm.ch">https://dnschecker.org/</a>
 Check with <code>host</code> command.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">host -t txt _acme-challenge.apps.keepcalm.ch
@@ -328,7 +328,7 @@ Using project <span style="color:#e6db74">&#34;default&#34;</span>.
 <span style="color:#f92672">[</span>root@keepcalm installcentos<span style="color:#f92672">]</span>#
 </code></pre></div><p>After the installation is finish you can on : <a href="https://console.keepcalm.ch:8443/console/catalog">https://console.keepcalm.ch:8443/console/catalog</a>
 You have now a <code>OKD</code> instance with Let&rsquo;s Encrypt.</p>
-<p><img src="/console.png" alt="hetzner-preis"></p>
+<p><img src="/hetzner//console.png" alt="hetzner-preis"></p>
 <h1 id="renewal-lets-encrypt">Renewal Let&rsquo;s Encrypt</h1>
 <p>There is a <code>crontab</code> with renew command.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crontab -l

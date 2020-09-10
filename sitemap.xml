@@ -88,6 +88,11 @@
   </url>
   
   <url>
+    <loc>/posts/2019-08-28-multiple-project-promoting/</loc>
+    <lastmod>2019-09-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/posts/2019-09-18-spring-boot-k8s-configmap/</loc>
     <lastmod>2019-09-18T00:00:00+00:00</lastmod>
   </url>

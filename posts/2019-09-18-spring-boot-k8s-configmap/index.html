@@ -180,8 +180,8 @@ Create a file <code>service-account-for-spring-cloud-k8s-access.yaml</code></p>
 </code></pre></div><p>Login in with privileged user <code>oc login -u &lt;privileged user&gt;</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc apply -f service-account-for-spring-cloud-k8s-access.yaml
 </code></pre></div><p>Now when you check che Cluster Console under <em>Administration/Roles</em> and you search for <code>spring</code> you will find the role.</p>
-<p><img src="/cluster-console-search-spring-roles.png" alt="cluster-console-search-spring-roles.png">
-<img src="/cluster-console-spring-roles.png" alt="cluster-console-spring-roles.png"></p>
+<p><img src="/springboot-configmap/cluster-console-search-spring-roles.png" alt="cluster-console-search-spring-roles.png">
+<img src="/springboot-configmap/cluster-console-spring-roles.png" alt="cluster-console-spring-roles.png"></p>
 <h2 id="deploy-configmap">Deploy ConfigMap</h2>
 <p>Now is time to create our <code>ConfigMap</code> and <code>apply</code> it in the <code>development</code> namespace for the <code>oder-service</code>
 You can do it directly in a shell.</p>
