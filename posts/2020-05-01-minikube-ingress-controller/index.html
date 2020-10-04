@@ -3,7 +3,7 @@
   <head>
     <title>Kubernetes Ingress with Ngnix Ingress Controller // </title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.74.3" />
+    <meta name="generator" content="Hugo 0.75.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
@@ -280,10 +280,10 @@ Configure the <code>nginx ingress</code> also to the second service.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k create deployment myapp2 --image<span style="color:#f92672">=</span>gcr.io/google-samples/hello-app:2.0
 k expose deployment myapp2 --port<span style="color:#f92672">=</span><span style="color:#ae81ff">8080</span> --type<span style="color:#f92672">=</span>NodePort
 </code></pre></div><p>Update the <code>nginx-ingess.yaml</code> file with <code>vi</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  - <span style="color:#66d9ef">path</span>: /v2/*
-    <span style="color:#66d9ef">backend</span>:
-      <span style="color:#66d9ef">serviceName</span>: myapp2
-      <span style="color:#66d9ef">servicePort</span>: <span style="color:#ae81ff">8080</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/v2/*</span>
+    <span style="color:#f92672">backend</span>:
+      <span style="color:#f92672">serviceName</span>: <span style="color:#ae81ff">myapp2</span>
+      <span style="color:#f92672">servicePort</span>: <span style="color:#ae81ff">8080</span>
 </code></pre></div><p>Check the <code>nginx-ingess.yaml</code> file with <code>cat nginx-ingess.yaml</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apiVersion: networking.k8s.io/v1beta1 <span style="color:#75715e"># for versions before 1.14 use extensions/v1beta1</span>
 kind: Ingress

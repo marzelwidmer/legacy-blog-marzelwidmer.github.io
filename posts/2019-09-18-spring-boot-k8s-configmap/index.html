@@ -3,7 +3,7 @@
   <head>
     <title>Spring Boot Kubernetes ConfigMap // </title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.74.3" />
+    <meta name="generator" content="Hugo 0.75.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
@@ -13,13 +13,13 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Spring Boot Kubernetes ConfigMap"/>
 <meta name="twitter:description" content="Now is time to configure our microservices to send the tracing logs to Jaeger 1. The configuration opentracing.jaeger.http-sender.url in configuration application.yaml file looks like below in the sources.
-opentracing: jaeger: log-spans: true http-sender: url: http://localhost:14268/api/traces The opentracing.jaeger.http-sender.url we are looking for we get form the section Get Route Host in the Jaeger post We will use the ConfigMap approach with the Spring Cloud Kubernetes{:target=&rdquo;_blank&rdquo;} starters.
-Maven  Update Maven Configuration with Spring Cloud Kubernetes{:target=&rdquo;_blank&rdquo;} library."/>
+opentracing: jaeger: log-spans: true http-sender: url: http://localhost:14268/api/traces The opentracing.jaeger.http-sender.url we are looking for we get form the section Get Route Host in the Jaeger post We will use the ConfigMap approach with the Spring Cloud Kubernetes{:target=&quot;_blank&quot;} starters.
+Maven  Update Maven Configuration with Spring Cloud Kubernetes{:target=&quot;_blank&quot;} library."/>
 
     <meta property="og:title" content="Spring Boot Kubernetes ConfigMap" />
 <meta property="og:description" content="Now is time to configure our microservices to send the tracing logs to Jaeger 1. The configuration opentracing.jaeger.http-sender.url in configuration application.yaml file looks like below in the sources.
-opentracing: jaeger: log-spans: true http-sender: url: http://localhost:14268/api/traces The opentracing.jaeger.http-sender.url we are looking for we get form the section Get Route Host in the Jaeger post We will use the ConfigMap approach with the Spring Cloud Kubernetes{:target=&rdquo;_blank&rdquo;} starters.
-Maven  Update Maven Configuration with Spring Cloud Kubernetes{:target=&rdquo;_blank&rdquo;} library." />
+opentracing: jaeger: log-spans: true http-sender: url: http://localhost:14268/api/traces The opentracing.jaeger.http-sender.url we are looking for we get form the section Get Route Host in the Jaeger post We will use the ConfigMap approach with the Spring Cloud Kubernetes{:target=&quot;_blank&quot;} starters.
+Maven  Update Maven Configuration with Spring Cloud Kubernetes{:target=&quot;_blank&quot;} library." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/2019-09-18-spring-boot-k8s-configmap/" />
 <meta property="article:published_time" content="2019-09-18T00:00:00+00:00" />
@@ -91,15 +91,15 @@ Maven  Update Maven Configuration with Spring Cloud Kubernetes{:target=&rdquo;_b
     <p>Now is time to configure our <a href="https://github.com/marzelwidmer/microservices-demo">microservices</a> to send the tracing
 logs to Jaeger <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.
 The configuration <code>opentracing.jaeger.http-sender.url</code> in configuration <code>application.yaml</code> file looks like below in the sources.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">opentracing</span>:
-  <span style="color:#66d9ef">jaeger</span>:
-    <span style="color:#66d9ef">log-spans</span>: <span style="color:#66d9ef">true</span>
-    <span style="color:#66d9ef">http-sender</span>:
-      <span style="color:#66d9ef">url</span>: http://localhost:<span style="color:#ae81ff">14268</span>/api/traces
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">opentracing</span>:
+  <span style="color:#f92672">jaeger</span>:
+    <span style="color:#f92672">log-spans</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">http-sender</span>:
+      <span style="color:#f92672">url</span>: <span style="color:#ae81ff">http://localhost:14268/api/traces</span>
 </code></pre></div><p>The <code>opentracing.jaeger.http-sender.url</code> we are looking for we get form the section <a href="http://blog.marcelwidmer.org/jaeger/#GetRouteHost">Get Route Host in the Jaeger post</a>
-We will use the <code>ConfigMap</code> approach with the <a href="https://spring.io/projects/spring-cloud-kubernetes">Spring Cloud Kubernetes</a>{:target=&rdquo;_blank&rdquo;} starters.</p>
+We will use the <code>ConfigMap</code> approach with the <a href="https://spring.io/projects/spring-cloud-kubernetes">Spring Cloud Kubernetes</a>{:target=&quot;_blank&quot;} starters.</p>
 <h2 id="maven-a-namemavenconfigurationa">Maven <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
-<p>Update Maven Configuration with <a href="https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.0.3.RELEASE/single/spring-cloud-kubernetes.html">Spring Cloud Kubernetes</a>{:target=&rdquo;_blank&rdquo;} library.</p>
+<p>Update Maven Configuration with <a href="https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.0.3.RELEASE/single/spring-cloud-kubernetes.html">Spring Cloud Kubernetes</a>{:target=&quot;_blank&quot;} library.</p>
 <h3 id="dependency-management-spring-cloud-dependencies">Dependency Management <code>spring-cloud-dependencies</code></h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependencyManagement&gt;</span>
     <span style="color:#f92672">&lt;dependencies&gt;</span>
@@ -129,19 +129,19 @@ The reload feature of <code>Spring Cloud Kubernetes</code> is able to trigger an
 <p>This feature is disabled by default and can be enabled using the configuration property <code>spring.cloud.kubernetes.reload.enabled=true</code>
 in the <code>application.yaml</code> file.</p>
 <p>The configuration <code>spring.cloud.kubernetes.reload.strategy=restart_context</code> will restart the whole Spring ApplicationContext gracefully.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">spring</span>:
-  <span style="color:#66d9ef">cloud</span>:
-    <span style="color:#66d9ef">kubernetes</span>:
-      <span style="color:#66d9ef">reload</span>:
-        <span style="color:#66d9ef">enabled</span>: <span style="color:#66d9ef">true</span>
-        <span style="color:#66d9ef">strategy</span>: restart_context
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">spring</span>:
+  <span style="color:#f92672">cloud</span>:
+    <span style="color:#f92672">kubernetes</span>:
+      <span style="color:#f92672">reload</span>:
+        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+        <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">restart_context</span>
 </code></pre></div><p>Configure the <code>management.endpoint.restart.enabled=true</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">management:
   endpoint:
     restart:
       enabled: true
 </code></pre></div><h2 id="configured-service-account---rbac-policy">Configured Service Account - RBAC policy</h2>
-<p>To read the <code>ConfigMap</code> we have to give to the <a href="https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.1.0.M2/reference/html/#_service_account">Service Account</a>{:target=&rdquo;_blank&rdquo;}  in the default namespace access right. This can be done to give just
+<p>To read the <code>ConfigMap</code> we have to give to the <a href="https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.1.0.M2/reference/html/#_service_account">Service Account</a>{:target=&quot;_blank&quot;}  in the default namespace access right. This can be done to give just
 <code>view</code> access <code>oc policy add-role-to-user view system:serviceaccount:development:default</code></p>
 <p>The better solution is <a href="#ConfigureClusterRole">configure ClusterRole</a></p>
 <blockquote>
@@ -155,28 +155,28 @@ forbidden: User &ldquo;system:serviceaccount:development:default&rdquo; cannot g
 <h1 id="create-clusterrole">Create ClusterRole</h1>
 <p>Additional you can also create a <code>ClusterRole</code> for Spring components let it named <code>spring-roles</code>.
 Create a file <code>service-account-for-spring-cloud-k8s-access.yaml</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">kind</span>: ClusterRole
-<span style="color:#66d9ef">apiVersion</span>: rbac.authorization.k8s.io/v1
-<span style="color:#66d9ef">metadata</span>:
-  <span style="color:#66d9ef">namespace</span>: default
-  <span style="color:#66d9ef">name</span>: spring-roles
-<span style="color:#66d9ef">rules</span>:
-- <span style="color:#66d9ef">apiGroups</span>: [<span style="color:#e6db74">&#34;&#34;</span>] <span style="color:#75715e"># &#34;&#34; indicates the core API group</span>
-  <span style="color:#66d9ef">resources</span>: [<span style="color:#e6db74">&#34;pods&#34;</span>,<span style="color:#e6db74">&#34;configmaps&#34;</span>]
-  <span style="color:#66d9ef">verbs</span>: [<span style="color:#e6db74">&#34;get&#34;</span>, <span style="color:#e6db74">&#34;list&#34;</span>, <span style="color:#e6db74">&#34;watch&#34;</span>]
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ClusterRole</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">default</span>
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">spring-roles</span>
+<span style="color:#f92672">rules</span>:
+- <span style="color:#f92672">apiGroups</span>: [<span style="color:#e6db74">&#34;&#34;</span>] <span style="color:#75715e"># &#34;&#34; indicates the core API group</span>
+  <span style="color:#f92672">resources</span>: [<span style="color:#e6db74">&#34;pods&#34;</span>,<span style="color:#e6db74">&#34;configmaps&#34;</span>]
+  <span style="color:#f92672">verbs</span>: [<span style="color:#e6db74">&#34;get&#34;</span>, <span style="color:#e6db74">&#34;list&#34;</span>, <span style="color:#e6db74">&#34;watch&#34;</span>]
 ---
-<span style="color:#66d9ef">apiVersion</span>: rbac.authorization.k8s.io/v1beta1
-<span style="color:#66d9ef">kind</span>: ClusterRoleBinding
-<span style="color:#66d9ef">metadata</span>:
-  <span style="color:#66d9ef">name</span>: allow-spring-to-access-cluster
-<span style="color:#66d9ef">subjects</span>:
-  - <span style="color:#66d9ef">kind</span>: ServiceAccount
-    <span style="color:#66d9ef">name</span>: default
-    <span style="color:#66d9ef">namespace</span>: default
-<span style="color:#66d9ef">roleRef</span>:
-  <span style="color:#66d9ef">kind</span>: ClusterRole
-  <span style="color:#66d9ef">name</span>: spring-roles
-  <span style="color:#66d9ef">apiGroup</span>: rbac.authorization.k8s.io
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1beta1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ClusterRoleBinding</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">allow-spring-to-access-cluster</span>
+<span style="color:#f92672">subjects</span>:
+  - <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceAccount</span>
+    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">default</span>
+    <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">default</span>
+<span style="color:#f92672">roleRef</span>:
+  <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ClusterRole</span>
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">spring-roles</span>
+  <span style="color:#f92672">apiGroup</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io</span>
 </code></pre></div><p>Login in with privileged user <code>oc login -u &lt;privileged user&gt;</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ oc apply -f service-account-for-spring-cloud-k8s-access.yaml
 </code></pre></div><p>Now when you check che Cluster Console under <em>Administration/Roles</em> and you search for <code>spring</code> you will find the role.</p>
