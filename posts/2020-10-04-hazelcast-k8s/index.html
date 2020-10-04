@@ -13,15 +13,15 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Kubernetes Hazelcast Distributed Caching"/>
 <meta name="twitter:description" content="The sample code can be found on GitHub. 1
-Let&rsquo;s get ready first our Spring Boot application with the following dependencies.
+ Precondition Spring Caching with Hazelcast Kustomize Configuration Hazelcast Configuration  Precondition Spring Caching with Hazelcast Let&rsquo;s get ready first our Spring Boot application with the following dependencies.
 &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-cache&lt;/artifactId&gt; &lt;/dependency&gt; And also let&rsquo;s take the hazelcast-all from com.hazelcast that include the k8s dependencies. The version 4.x.x will also support yaml configuration of hazelcast.
-&lt;dependency&gt; &lt;groupId&gt;com.hazelcast&lt;/groupId&gt; &lt;artifactId&gt;hazelcast-all&lt;/artifactId&gt; &lt;version&gt;4.0.3&lt;/version&gt; &lt;/dependency&gt; Let&rsquo;s implement a real foo service with a super Jack Norris API for the moment. The API will take a string on /api/[key] eg."/>
+&lt;dependency&gt; &lt;groupId&gt;com.hazelcast&lt;/groupId&gt; &lt;artifactId&gt;hazelcast-all&lt;/artifactId&gt; &lt;version&gt;4.0.3&lt;/version&gt; &lt;/dependency&gt; Let&rsquo;s implement a real foo service with a super Jack Norris API for the moment."/>
 
     <meta property="og:title" content="Kubernetes Hazelcast Distributed Caching" />
 <meta property="og:description" content="The sample code can be found on GitHub. 1
-Let&rsquo;s get ready first our Spring Boot application with the following dependencies.
+ Precondition Spring Caching with Hazelcast Kustomize Configuration Hazelcast Configuration  Precondition Spring Caching with Hazelcast Let&rsquo;s get ready first our Spring Boot application with the following dependencies.
 &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-cache&lt;/artifactId&gt; &lt;/dependency&gt; And also let&rsquo;s take the hazelcast-all from com.hazelcast that include the k8s dependencies. The version 4.x.x will also support yaml configuration of hazelcast.
-&lt;dependency&gt; &lt;groupId&gt;com.hazelcast&lt;/groupId&gt; &lt;artifactId&gt;hazelcast-all&lt;/artifactId&gt; &lt;version&gt;4.0.3&lt;/version&gt; &lt;/dependency&gt; Let&rsquo;s implement a real foo service with a super Jack Norris API for the moment. The API will take a string on /api/[key] eg." />
+&lt;dependency&gt; &lt;groupId&gt;com.hazelcast&lt;/groupId&gt; &lt;artifactId&gt;hazelcast-all&lt;/artifactId&gt; &lt;version&gt;4.0.3&lt;/version&gt; &lt;/dependency&gt; Let&rsquo;s implement a real foo service with a super Jack Norris API for the moment." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/2020-10-04-hazelcast-k8s/" />
 <meta property="article:published_time" content="2020-10-04T00:00:00+00:00" />
@@ -71,7 +71,7 @@ Let&rsquo;s get ready first our Spring Boot application with the following depen
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-        1 min read
+        2 min read
       </div><div>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -91,6 +91,12 @@ Let&rsquo;s get ready first our Spring Boot application with the following depen
   </header>
   <div class="post-content">
     <p>The sample code can be found on GitHub. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<ul>
+<li><a href="#precondition">Precondition Spring Caching with Hazelcast</a></li>
+<li><a href="#kustomize">Kustomize Configuration</a></li>
+<li><a href="#hazelcastConfiguration">Hazelcast Configuration</a></li>
+</ul>
+<h3 id="precondition">Precondition Spring Caching with Hazelcast</h3>
 <p>Let&rsquo;s get ready first our Spring Boot application with the following dependencies.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependency&gt;</span>
     <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.boot<span style="color:#f92672">&lt;/groupId&gt;</span>
@@ -133,6 +139,37 @@ The second call with the same key <code>foo</code> will gibve the same <code>UUI
 	@Cacheable(value = [<span style="color:#e6db74">&#34;map&#34;</span>], key = <span style="color:#e6db74">&#34;#key&#34;</span>)
 	<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getUUID</span>(key: String): UUID? = UUID.randomUUID().also { println(<span style="color:#e6db74">&#34;Generated $it&#34;</span>) }
 }
+</code></pre></div><h3 id="kustomize">Kustomize Configuration</h3>
+<p>For the <code>kustomize</code> configuration I will only point to the important hazelcast configurations.
+You can find the configurations on GitHub. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<h4 id="deployment">Deployment</h4>
+<p>The important point in the <code>Deployment</code> ist to expose the <code>containerPort: 5701</code> for the Hazelcast communications (synchronization) between the Pods.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">template</span>:
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#f92672">containers</span>:
+        - <span style="color:#f92672">image</span>: <span style="color:#ae81ff">c3smonkey/template</span>
+          <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hazelcast-demo</span>
+          <span style="color:#f92672">ports</span>:
+            - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">8080</span>
+              <span style="color:#f92672">name</span>: <span style="color:#ae81ff">8080</span>-<span style="color:#ae81ff">tcp</span>
+              <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+            - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">5701</span>
+              <span style="color:#f92672">name</span>: <span style="color:#ae81ff">5701</span>-<span style="color:#ae81ff">tcp</span>
+              <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+</code></pre></div><h3 id="hazelcastConfiguration">Hazelcast Configuration</h3>
+<p>The important part here is the <code>hazelcast.network.join.kubernetes.service-dns</code> who point to the internal service address.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">hazelcast</span>:
+  <span style="color:#f92672">network</span>:
+    <span style="color:#f92672">join</span>:
+      <span style="color:#f92672">multicast</span>:
+        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">false</span>
+      <span style="color:#f92672">kubernetes</span>:
+        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+        <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">dev</span>
+        <span style="color:#f92672">service-dns</span>: <span style="color:#ae81ff">hazelcast-demoservice.dev.svc.cluster.local</span>
 </code></pre></div><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>

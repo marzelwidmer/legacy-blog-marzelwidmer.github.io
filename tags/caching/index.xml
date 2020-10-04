@@ -14,9 +14,9 @@
       
       <guid>/posts/2020-10-04-hazelcast-k8s/</guid>
       <description>The sample code can be found on GitHub. 1
-Let&amp;rsquo;s get ready first our Spring Boot application with the following dependencies.
+ Precondition Spring Caching with Hazelcast Kustomize Configuration Hazelcast Configuration  Precondition Spring Caching with Hazelcast Let&amp;rsquo;s get ready first our Spring Boot application with the following dependencies.
 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-cache&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; And also let&amp;rsquo;s take the hazelcast-all from com.hazelcast that include the k8s dependencies. The version 4.x.x will also support yaml configuration of hazelcast.
-&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.hazelcast&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;hazelcast-all&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;4.0.3&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; Let&amp;rsquo;s implement a real foo service with a super Jack Norris API for the moment. The API will take a string on /api/[key] eg.</description>
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.hazelcast&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;hazelcast-all&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;4.0.3&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; Let&amp;rsquo;s implement a real foo service with a super Jack Norris API for the moment.</description>
     </item>
     
   </channel>
