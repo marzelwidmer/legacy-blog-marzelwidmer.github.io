@@ -159,6 +159,25 @@ You can find the configurations on GitHub. <sup id="fnref:1"><a href="#fn:1" cla
             - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">5701</span>
               <span style="color:#f92672">name</span>: <span style="color:#ae81ff">5701</span>-<span style="color:#ae81ff">tcp</span>
               <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+</code></pre></div><h4 id="service">Service</h4>
+<p>Here also the important point here is the <code>spec.ports.hazelcast</code> part.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">app</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">LoadBalancer</span>
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">app</span>
+  <span style="color:#f92672">ports</span>:
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">8080-8080</span>
+      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8080</span>
+      <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+      <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">8080</span>
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hazelcast</span>
+      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">5701</span>
+      <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+      <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">5701</span>
 </code></pre></div><h3 id="hazelcastConfiguration">Hazelcast Configuration</h3>
 <p>The important part here is the <code>hazelcast.network.join.kubernetes.service-dns</code> who point to the internal service address.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">hazelcast</span>:
