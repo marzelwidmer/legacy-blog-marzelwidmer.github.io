@@ -15,13 +15,13 @@
 <meta name="twitter:description" content="The sample code can be found on GitHub. 1
  Precondition Spring Caching with Hazelcast Kustomize Configuration Hazelcast Configuration  Precondition Spring Caching with Hazelcast Let&rsquo;s get ready first our Spring Boot application with the following dependencies.
 &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-cache&lt;/artifactId&gt; &lt;/dependency&gt; Also let&rsquo;s take the hazelcast-all from com.hazelcast that include the k8s dependencies. The version 4.x.x will also support yaml configuration of hazelcast.
-&lt;dependency&gt; &lt;groupId&gt;com.hazelcast&lt;/groupId&gt; &lt;artifactId&gt;hazelcast-all&lt;/artifactId&gt; &lt;version&gt;4.0.3&lt;/version&gt; &lt;/dependency&gt; Let&rsquo;s implement a real foo service with a super Chuck Norris  API for the moment."/>
+&lt;dependency&gt; &lt;groupId&gt;com.hazelcast&lt;/groupId&gt; &lt;artifactId&gt;hazelcast-all&lt;/artifactId&gt; &lt;version&gt;4.0.3&lt;/version&gt; &lt;/dependency&gt; Let&rsquo;s implement a real foo service with a super Chuck Norris API for the moment."/>
 
     <meta property="og:title" content="Kubernetes Hazelcast Distributed Caching" />
 <meta property="og:description" content="The sample code can be found on GitHub. 1
  Precondition Spring Caching with Hazelcast Kustomize Configuration Hazelcast Configuration  Precondition Spring Caching with Hazelcast Let&rsquo;s get ready first our Spring Boot application with the following dependencies.
 &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-cache&lt;/artifactId&gt; &lt;/dependency&gt; Also let&rsquo;s take the hazelcast-all from com.hazelcast that include the k8s dependencies. The version 4.x.x will also support yaml configuration of hazelcast.
-&lt;dependency&gt; &lt;groupId&gt;com.hazelcast&lt;/groupId&gt; &lt;artifactId&gt;hazelcast-all&lt;/artifactId&gt; &lt;version&gt;4.0.3&lt;/version&gt; &lt;/dependency&gt; Let&rsquo;s implement a real foo service with a super Chuck Norris  API for the moment." />
+&lt;dependency&gt; &lt;groupId&gt;com.hazelcast&lt;/groupId&gt; &lt;artifactId&gt;hazelcast-all&lt;/artifactId&gt; &lt;version&gt;4.0.3&lt;/version&gt; &lt;/dependency&gt; Let&rsquo;s implement a real foo service with a super Chuck Norris API for the moment." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/2020-10-04-hazelcast-k8s/" />
 <meta property="article:published_time" content="2020-10-04T00:00:00+00:00" />
@@ -109,9 +109,9 @@ The version <code>4.x.x</code>  will also support <code>yaml</code> configuratio
     <span style="color:#f92672">&lt;artifactId&gt;</span>hazelcast-all<span style="color:#f92672">&lt;/artifactId&gt;</span>
     <span style="color:#f92672">&lt;version&gt;</span>4.0.3<span style="color:#f92672">&lt;/version&gt;</span>
 <span style="color:#f92672">&lt;/dependency&gt;</span>
-</code></pre></div><p>Let&rsquo;s implement a real <code>foo</code> service with a super <code>Chuck Norris </code> API for the moment.
+</code></pre></div><p>Let&rsquo;s implement a real <code>foo</code> service with a super <code>Chuck Norris</code> API for the moment.
 The API will take a string on <code>/api/[key]</code> eg. <code>/api/foo</code> this will create a <code>UUID</code> and will put it in the cache and give it back as response.
-The second call with the same key <code>foo</code> will give the same <code>UUID</code> if a cache hit.</p>
+The second call with the same key <code>foo</code> will give the same <code>UUID</code> on cache hit.</p>
 <ol>
 <li>Let&rsquo;s enable the caching
 <code>@EnableCaching</code></li>
