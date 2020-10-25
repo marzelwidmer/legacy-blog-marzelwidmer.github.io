@@ -6,7 +6,18 @@
     <description>Recent content in K8s on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GitOps with Argo CD</title>
+      <link>/posts/2020-10-05-gitops-argo/</link>
+      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2020-10-05-gitops-argo/</guid>
+      <description>Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes. Application definitions, configurations, and environments should be declarative and version controlled. Application deployment and lifecycle management should be automated, auditable, and easy to understand.
+ Minikube Setup Install Argo CD Create App on Argo CD  Minikube Setup Local Development Environment with minikube.
+Brew Installation Packages brew install hyperkit brew install minikube brew install httpie brew install stern brew install argocd brew install sops OSX Minikube Test Cluster Hyperkit Setup first minikube hyperkit driver.</description>
+    </item>
+    
     <item>
       <title>Kubernetes Hazelcast Distributed Caching</title>
       <link>/posts/2020-10-04-hazelcast-k8s/</link>
