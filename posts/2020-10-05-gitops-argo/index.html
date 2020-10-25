@@ -13,13 +13,13 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="GitOps with Argo CD"/>
 <meta name="twitter:description" content="Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes. Application definitions, configurations, and environments should be declarative and version controlled. Application deployment and lifecycle management should be automated, auditable, and easy to understand.
- Minikube Setup Install Argo CD Create App on Argo CD  Minikube Setup Local Development Environment with minikube.
-Brew Installation Packages brew install hyperkit brew install minikube brew install httpie brew install stern brew install argocd brew install sops OSX Minikube Test Cluster Hyperkit Setup first minikube hyperkit driver."/>
+ Minikube Setup  Monitoring - Grafana-Prometheus   Install Argo CD Create App on Argo CD  Minikube Setup Local Development Environment with minikube.
+Brew Installation Packages brew install hyperkit brew install minikube brew install helm brew install httpie brew install stern brew install argocd brew install sops OSX Minikube Test Cluster Hyperkit Setup first minikube hyperkit driver."/>
 
     <meta property="og:title" content="GitOps with Argo CD" />
 <meta property="og:description" content="Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes. Application definitions, configurations, and environments should be declarative and version controlled. Application deployment and lifecycle management should be automated, auditable, and easy to understand.
- Minikube Setup Install Argo CD Create App on Argo CD  Minikube Setup Local Development Environment with minikube.
-Brew Installation Packages brew install hyperkit brew install minikube brew install httpie brew install stern brew install argocd brew install sops OSX Minikube Test Cluster Hyperkit Setup first minikube hyperkit driver." />
+ Minikube Setup  Monitoring - Grafana-Prometheus   Install Argo CD Create App on Argo CD  Minikube Setup Local Development Environment with minikube.
+Brew Installation Packages brew install hyperkit brew install minikube brew install helm brew install httpie brew install stern brew install argocd brew install sops OSX Minikube Test Cluster Hyperkit Setup first minikube hyperkit driver." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/2020-10-05-gitops-argo/" />
 <meta property="article:published_time" content="2020-10-25T00:00:00+00:00" />
@@ -92,7 +92,11 @@ Brew Installation Packages brew install hyperkit brew install minikube brew inst
 Application definitions, configurations, and environments should be declarative and version controlled.
 Application deployment and lifecycle management should be automated, auditable, and easy to understand.</p>
 <ul>
-<li><a href="#minikube">Minikube Setup</a></li>
+<li><a href="#minikube">Minikube Setup</a>
+<ul>
+<li><a href="#monitoring">Monitoring - Grafana-Prometheus</a></li>
+</ul>
+</li>
 <li><a href="#argoCD">Install Argo CD</a></li>
 <li><a href="#argoCreatApp">Create App on Argo CD</a></li>
 </ul>
@@ -101,6 +105,7 @@ Application deployment and lifecycle management should be automated, auditable, 
 <h2 id="brew-installation-packages">Brew Installation Packages</h2>
 <pre><code>brew install hyperkit
 brew install minikube
+brew install helm
 brew install httpie
 brew install stern
 brew install argocd
@@ -118,6 +123,16 @@ minikube addons enable registry -p test
 </code></pre><h3 id="start-minikube">Start Minikube</h3>
 <p>Now start the minikube test cluster with some memory and cpu settings.</p>
 <pre><code>minikube start --memory 6144 --cpus 4 -p test
+</code></pre><h2 id="monitoring">Install Monitoring </h2>
+<p>Let&rsquo;s install Prometheus and Grafana with Helm. Add Repository and install it on the <code>monitoring</code> namespace.</p>
+<pre><code>helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm install --namespace monitoring --create-namespace prometheus prometheus-community/kube-prometheus-stack
+</code></pre><h3 id="forward-grafana">Forward Grafana</h3>
+<p>Search for the Pod.</p>
+<pre><code>kubectl get pod -n monitoring  | grep prometheus-grafana
+prometheus-grafana-bd89cc787-snlk6                       2/2     Running   0          9m34s
+</code></pre><p>Forward it port <code>http://localhost:3000</code> log in with the <code>admin</code> username and <code>prom-operator</code> password and you’ll see a lot of ready for user graphs</p>
+<pre><code>kubectl -n monitoring port-forward prometheus-grafana-bd89cc787-snlk6 3000:3000
 </code></pre><h1 id="argoCD">Install ARGO CD</h1>
 <p>Create a separate namespace <code>argocd</code> to install argo.</p>
 <pre><code>kubectl create namespace argocd
@@ -167,7 +182,6 @@ Vary: Accept-Encoding, User-Agent
         &quot;firstName&quot;: &quot;John&quot;
     }
 ]
-
 </code></pre><h1 id="comming-soon">Comming soon&hellip;</h1>
 <p>Manage Secrets with <code>SealedSecrets</code></p>
 <h2 id="sealed-secrets">Sealed Secrets</h2>

@@ -14,8 +14,8 @@
       
       <guid>/posts/2020-10-05-gitops-argo/</guid>
       <description>Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes. Application definitions, configurations, and environments should be declarative and version controlled. Application deployment and lifecycle management should be automated, auditable, and easy to understand.
- Minikube Setup Install Argo CD Create App on Argo CD  Minikube Setup Local Development Environment with minikube.
-Brew Installation Packages brew install hyperkit brew install minikube brew install httpie brew install stern brew install argocd brew install sops OSX Minikube Test Cluster Hyperkit Setup first minikube hyperkit driver.</description>
+ Minikube Setup  Monitoring - Grafana-Prometheus   Install Argo CD Create App on Argo CD  Minikube Setup Local Development Environment with minikube.
+Brew Installation Packages brew install hyperkit brew install minikube brew install helm brew install httpie brew install stern brew install argocd brew install sops OSX Minikube Test Cluster Hyperkit Setup first minikube hyperkit driver.</description>
     </item>
     
     <item>
