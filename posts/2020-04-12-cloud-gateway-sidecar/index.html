@@ -3,7 +3,7 @@
   <head>
     <title>Spring Cloud Gateway // </title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.75.1" />
+    <meta name="generator" content="Hugo 0.76.5" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
@@ -94,8 +94,8 @@ We start with the MongoDB document class Customer and a ReactiveCrudRepository i
 Or just provide an other <code>Endpoint</code> <code>URL</code> like in this sample.</p>
 <p>Let&rsquo;s create a Service with a Reactive Spring Boot Application and MongoDB and a Rest Endpoint.</p>
 <p>We start with the <code>MongoDB</code> document class <code>Customer</code> and a <code>ReactiveCrudRepository</code> interface <code>CustomerRepository</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Document
-<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Customer</span>(@Id <span style="color:#66d9ef">val</span> id: String = UUID.randomUUID().toString(), <span style="color:#66d9ef">val</span> name: String)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#a6e22e">@Document</span>
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Customer</span>(<span style="color:#a6e22e">@Id</span> <span style="color:#66d9ef">val</span> id: String = UUID.randomUUID().toString(), <span style="color:#66d9ef">val</span> name: String)
 <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">CustomerRepository</span> : ReactiveCrudRepository&lt;Customer, String&gt;
 </code></pre></div><p>Now let&rsquo;s also create a service class <code>CustomerService</code> for it where we provide the following functionality.</p>
 <ul>
@@ -104,7 +104,7 @@ Or just provide an other <code>Endpoint</code> <code>URL</code> like in this sam
 <li>deleteAll</li>
 <li>findById</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Service
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#a6e22e">@Service</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CustomerService</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> customerRepository: CustomerRepository) {
     <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">save</span>(customer: Customer) = customerRepository.save(customer)
     <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">findAll</span>() = customerRepository.findAll()
@@ -129,13 +129,13 @@ Let&rsquo;s create a Bean definition for the <code>ApplicationRunner</code> that
 </span><span style="color:#75715e"></span>                            .thenMany(  
                                 listOf(<span style="color:#e6db74">&#34;John&#34;</span>, <span style="color:#e6db74">&#34;Jane&#34;</span>, <span style="color:#e6db74">&#34;Jack&#34;</span>)
                                     .toFlux()
-                                    .map { Customer(name = it) })
+                                    .map { Customer(name = <span style="color:#66d9ef">it</span>) })
                             <span style="color:#75715e">// Save it to the Database
-</span><span style="color:#75715e"></span>                            .flatMap { customerService.save(it) } 
+</span><span style="color:#75715e"></span>                            .flatMap { customerService.save(<span style="color:#66d9ef">it</span>) } 
                              <span style="color:#75715e">// Search all entries
 </span><span style="color:#75715e"></span>                            .thenMany(customerService.findAll()) 
                             <span style="color:#75715e">// subscribe - let`s do the work...
-</span><span style="color:#75715e"></span>                            .subscribe { log.info(<span style="color:#e6db74">&#34;--&gt; $it&#34;</span>) } 
+</span><span style="color:#75715e"></span>                            .subscribe { log.info(<span style="color:#e6db74">&#34;--&gt; </span><span style="color:#e6db74">$it</span><span style="color:#e6db74">&#34;</span>) } 
                     }
                 }
             }
@@ -156,7 +156,7 @@ For this we create an <code>Router</code> that will provide the following endpoi
             ok().body(customerService.findAll()) 
         }
         GET(<span style="color:#e6db74">&#34;/customers/{id}&#34;</span>) { 
-            ok().body(customerService.findById(it.pathVariable(<span style="color:#e6db74">&#34;id&#34;</span>))) 
+            ok().body(customerService.findById(<span style="color:#66d9ef">it</span>.pathVariable(<span style="color:#e6db74">&#34;id&#34;</span>))) 
         }
     }
 }
@@ -193,7 +193,7 @@ Let&rsquo;s create an additional response header <code>X-AnotherHeader</code> wi
 </span><span style="color:#75715e"></span>            route(<span style="color:#e6db74">&#34;sidecar-api&#34;</span>) {
                 path(<span style="color:#e6db74">&#34;/api/**&#34;</span>)
                 filters {
-                    rewritePath(<span style="color:#e6db74">&#34;api(?&lt;segment&gt;/?.*)&#34;</span>, <span style="color:#e6db74">&#34;/$\\{segment}&#34;</span>)
+                    rewritePath(<span style="color:#e6db74">&#34;api(?&lt;segment&gt;/?.*)&#34;</span>, <span style="color:#e6db74">&#34;/$</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">{segment}&#34;</span>)
                 }
                 uri(<span style="color:#e6db74">&#34;http://localhost:8080&#34;</span>)
             }
@@ -263,7 +263,7 @@ transfer-encoding: chunked
 </span><span style="color:#75715e"></span>                                route(<span style="color:#e6db74">&#34;sidecar-root-to-customers-api&#34;</span>) {
                                     path(<span style="color:#e6db74">&#34;/**&#34;</span>)
                                     filters {
-                                        rewritePath(<span style="color:#e6db74">&#34;/(?&lt;segment&gt;/?.*)&#34;</span>, <span style="color:#e6db74">&#34;/customers/$\\{segment}&#34;</span>)
+                                        rewritePath(<span style="color:#e6db74">&#34;/(?&lt;segment&gt;/?.*)&#34;</span>, <span style="color:#e6db74">&#34;/customers/$</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">{segment}&#34;</span>)
                                     }
                                     uri(<span style="color:#e6db74">&#34;http://localhost:8080/&#34;</span>)
                                 }

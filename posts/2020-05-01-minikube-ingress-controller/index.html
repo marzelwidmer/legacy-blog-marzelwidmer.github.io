@@ -3,7 +3,7 @@
   <head>
     <title>Kubernetes Ingress with Ngnix Ingress Controller // </title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.75.1" />
+    <meta name="generator" content="Hugo 0.76.5" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
@@ -356,7 +356,9 @@ kube-public       Active   19h
 kube-system       Active   19h
 </code></pre></div><h2 id="delete-with-given-label">Delete with given label</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">k delete all -l  app<span style="color:#f92672">=</span>web
-</code></pre></div><hr>
+</code></pre></div><h2 id="troubleshooting">Troubleshooting</h2>
+<pre><code>sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder
+</code></pre><hr>
 <p><em>References:</em></p>
 <blockquote>
 <p><a href="https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/">ingress-minikube</a></p>

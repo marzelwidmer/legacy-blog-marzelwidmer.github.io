@@ -3,7 +3,7 @@
   <head>
     <title>Spring Boot Kubernetes Discovery // </title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.75.1" />
+    <meta name="generator" content="Hugo 0.76.5" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
@@ -103,18 +103,18 @@ living in the current <code>namespace</code></p>
 <p>We also need to enable the ribbon client in the <code>application.yaml</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">ribbon.http.client.enabled=true</span>
 </code></pre></div><p>Now add the <code>@EnableDiscoveryClient</code> annotation in the Spring Boot application.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@EnableDiscoveryClient
-@SpringBootApplication
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#a6e22e">@EnableDiscoveryClient</span>
+<span style="color:#a6e22e">@SpringBootApplication</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CatalogServiceClient</span>
 </code></pre></div><p>As next we also add the <code>@LoadBalanced</code> annotation.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderServiceConfiguration</span> {
  
-     @Bean
-     @LoadBalanced
+     <span style="color:#a6e22e">@Bean</span>
+     <span style="color:#a6e22e">@LoadBalanced</span>
      <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">webClientBuilder</span>() = WebClient.builder()
 }
 </code></pre></div><p>Now we can use now the service name <code>http://catalog-service</code> to call other services.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Service
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#a6e22e">@Service</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CatalogServiceClient</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> webClientBuilder: WebClient.Builder) {
 
     <span style="color:#66d9ef">companion</span> <span style="color:#66d9ef">object</span> {

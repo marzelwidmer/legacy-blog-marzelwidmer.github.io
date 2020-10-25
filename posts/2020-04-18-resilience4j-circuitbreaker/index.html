@@ -3,7 +3,7 @@
   <head>
     <title>Reactive Spring Boot with Resilience4j CircuitBreaker // </title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.75.1" />
+    <meta name="generator" content="Hugo 0.76.5" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
@@ -131,7 +131,7 @@ The amazing functions:</p>
 <li>Get a Movie by his name</li>
 <li>Get a Movie by his ID</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Service
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#a6e22e">@Service</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MovieService</span> {
 
     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> movies = listOf(
@@ -151,11 +151,11 @@ The amazing functions:</p>
 
     <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">randomMovie</span>() = Mono.just(movies[kotlin.random.Random.nextInt(movies.size)])
     <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">movies</span>() = Flux.just(movies)
-    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">movieById</span>(id: String) = Mono.just(movies.first { it.id == id })
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">movieById</span>(id: String) = Mono.just(movies.first { <span style="color:#66d9ef">it</span>.id <span style="color:#f92672">==</span> id })
     <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">movieByName</span>(name: String?): Mono&lt;Movie&gt; {
             name<span style="color:#f92672">?.</span>map {
-                movies.firstOrNull() { it.name.toLowerCase() == name.toLowerCase() }<span style="color:#f92672">?.</span>let {
-                    <span style="color:#66d9ef">return</span> Mono.just(it)
+                movies.firstOrNull() { <span style="color:#66d9ef">it</span>.name.toLowerCase() <span style="color:#f92672">==</span> name.toLowerCase() }<span style="color:#f92672">?.</span>let {
+                    <span style="color:#66d9ef">return</span> Mono.just(<span style="color:#66d9ef">it</span>)
                 }
             }.isNullOrEmpty().apply {
                 <span style="color:#66d9ef">return</span> Mono.error(IllegalArgumentException(<span style="color:#e6db74">&#34;Movie was not found.&#34;</span>))
@@ -186,11 +186,11 @@ Because we have more then one endpoint under <code>/movies</code> we use the <co
                              }
                              <span style="color:#75715e">//http :8080/movies/ name==&#34;Rocky&#34; -vv
 </span><span style="color:#75715e"></span>                             queryParam(<span style="color:#e6db74">&#34;name&#34;</span>, { <span style="color:#66d9ef">true</span> }) {
-                                 ok().body(service.movieByName(name = it.queryParam(<span style="color:#e6db74">&#34;name&#34;</span>).<span style="color:#66d9ef">get</span>()))
+                                 ok().body(service.movieByName(name = <span style="color:#66d9ef">it</span>.queryParam(<span style="color:#e6db74">&#34;name&#34;</span>).<span style="color:#66d9ef">get</span>()))
                              }
                              <span style="color:#75715e">//http :8080/movies/c7f399bc-ff4c-4a2f-bddf-d92d53a96df2
 </span><span style="color:#75715e"></span>                             GET(<span style="color:#e6db74">&#34;/{id}&#34;</span>) {
-                                 ok().body(service.movieById(id = it.pathVariable(<span style="color:#e6db74">&#34;id&#34;</span>)))
+                                 ok().body(service.movieById(id = <span style="color:#66d9ef">it</span>.pathVariable(<span style="color:#e6db74">&#34;id&#34;</span>)))
                              }
                              <span style="color:#75715e">//http :8080/movies/random
 </span><span style="color:#75715e"></span>                             GET(<span style="color:#e6db74">&#34;/&#34;</span>) {

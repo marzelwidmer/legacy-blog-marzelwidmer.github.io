@@ -3,7 +3,7 @@
   <head>
     <title>Apache Camel with Kotlin and Spring Boot // </title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.75.1" />
+    <meta name="generator" content="Hugo 0.76.5" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
@@ -190,19 +190,19 @@ Add the <code>Camel</code> <code>BOM</code> <code>dependencieManagement</code> s
 2020-05-05 Tue 07:50:59.142 KbootCamelKt                             - Started KbootCamelKt in 1.965 seconds <span style="color:#f92672">(</span>JVM running <span style="color:#66d9ef">for</span> 2.195<span style="color:#f92672">)</span>
 </code></pre></div><h2 id="fileRoute">File Route</h2>
 <h3 id="file-builder-route">File Builder Route</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Component
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#a6e22e">@Component</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FileRouteBuilder</span> : RouteBuilder() {
 
     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> workDir =System.getenv(<span style="color:#e6db74">&#34;PWD&#34;</span>)
-    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> input = <span style="color:#e6db74">&#34;$workDir/orders/in?include=order.xml&#34;</span>
-    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;$workDir/orders/out?fileExist=Fail&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> input = <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$workDir</span><span style="color:#e6db74">/orders/in?include=order.xml&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$workDir</span><span style="color:#e6db74">/orders/out?fileExist=Fail&#34;</span>
 
-    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#a6e22e">@Throws</span>(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
     <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">configure</span>() {
-        from(<span style="color:#e6db74">&#34;file:$input&#34;</span>)
+        from(<span style="color:#e6db74">&#34;file:</span><span style="color:#e6db74">$input</span><span style="color:#e6db74">&#34;</span>)
             .process(HeaderProcessor())
-            .to(<span style="color:#e6db74">&#34;file:$output&#34;</span>)
-            .log(<span style="color:#e6db74">&#34;Camel body: \${body.class} \${body}&#34;</span>)
+            .to(<span style="color:#e6db74">&#34;file:</span><span style="color:#e6db74">$output</span><span style="color:#e6db74">&#34;</span>)
+            .log(<span style="color:#e6db74">&#34;Camel body: </span><span style="color:#ae81ff">\$</span><span style="color:#e6db74">{body.class} </span><span style="color:#ae81ff">\$</span><span style="color:#e6db74">{body}&#34;</span>)
 
     }
 }
@@ -230,11 +230,11 @@ there we parse the date with <code>XPath</code>.</p>
     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">val</span> XPATH_DATE = <span style="color:#e6db74">&#34;/order/orderDate/text()&#34;</span>
 
     <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">process</span>(exchange: Exchange?) {
-        <span style="color:#66d9ef">val</span> oderXml = exchange<span style="color:#f92672">?.</span>`in`<span style="color:#f92672">?.</span>body
+        <span style="color:#66d9ef">val</span> oderXml = exchange<span style="color:#f92672">?.</span><span style="color:#a6e22e">`in</span><span style="color:#960050;background-color:#1e0010">`</span><span style="color:#f92672">?.</span>body
         <span style="color:#66d9ef">val</span> orderDateTime = XPathBuilder.xpath(XPATH_DATE).evaluate(exchange<span style="color:#f92672">?.</span>context, oderXml)
         <span style="color:#66d9ef">val</span> formattedOrderDate = getFormattedData(orderDateTime = orderDateTime)
-        exchange<span style="color:#f92672">?.</span>`in`<span style="color:#f92672">?.</span>setHeader(<span style="color:#e6db74">&#34;orderDate&#34;</span>, formattedOrderDate)
-        exchange<span style="color:#f92672">?.</span>`in`<span style="color:#f92672">?.</span>setHeader(<span style="color:#e6db74">&#34;uuid&#34;</span>, UUID.randomUUID().toString().take(<span style="color:#ae81ff">4</span>))
+        exchange<span style="color:#f92672">?.</span><span style="color:#a6e22e">`in</span><span style="color:#960050;background-color:#1e0010">`</span><span style="color:#f92672">?.</span>setHeader(<span style="color:#e6db74">&#34;orderDate&#34;</span>, formattedOrderDate)
+        exchange<span style="color:#f92672">?.</span><span style="color:#a6e22e">`in</span><span style="color:#960050;background-color:#1e0010">`</span><span style="color:#f92672">?.</span>setHeader(<span style="color:#e6db74">&#34;uuid&#34;</span>, UUID.randomUUID().toString().take(<span style="color:#ae81ff">4</span>))
     }
 
     <span style="color:#75715e">// TODO: 05.05.20 DirtyHarry Implementation
@@ -243,23 +243,23 @@ there we parse the date with <code>XPath</code>.</p>
 }
 </code></pre></div><p>Add <code>HeaderProcessor</code> class to our <code>FileRouteBuilder</code> with <code>.process(HeaderProcessor())</code>
 We also change the filename in the <code>to</code> section with <code>.to(&quot;file:$workDir/orders/out?fileName=\${header.orderDate}-\${header.CamelFileName}&quot;)</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Component
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#a6e22e">@Component</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FileRouteBuilder</span> : RouteBuilder() {
 
     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> workDir =System.getenv(<span style="color:#e6db74">&#34;PWD&#34;</span>)
-    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> input = <span style="color:#e6db74">&#34;$workDir/orders/in?include=order.xml&#34;</span>
-    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;$workDir/orders/out?fileExist=Fail&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> input = <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$workDir</span><span style="color:#e6db74">/orders/in?include=order.xml&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$workDir</span><span style="color:#e6db74">/orders/out?fileExist=Fail&#34;</span>
 
-    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#a6e22e">@Throws</span>(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
     <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">configure</span>() {
-        from(<span style="color:#e6db74">&#34;file:$input&#34;</span>)
-            .to(<span style="color:#e6db74">&#34;file:$output&#34;</span>)
-            .log(<span style="color:#e6db74">&#34;Camel body: \${body.class} \${body}&#34;</span>)
+        from(<span style="color:#e6db74">&#34;file:</span><span style="color:#e6db74">$input</span><span style="color:#e6db74">&#34;</span>)
+            .to(<span style="color:#e6db74">&#34;file:</span><span style="color:#e6db74">$output</span><span style="color:#e6db74">&#34;</span>)
+            .log(<span style="color:#e6db74">&#34;Camel body: </span><span style="color:#ae81ff">\$</span><span style="color:#e6db74">{body.class} </span><span style="color:#ae81ff">\$</span><span style="color:#e6db74">{body}&#34;</span>)
 
-        from(<span style="color:#e6db74">&#34;file:$workDir/orders/in?include=order-.*xml&#34;</span>)
+        from(<span style="color:#e6db74">&#34;file:</span><span style="color:#e6db74">$workDir</span><span style="color:#e6db74">/orders/in?include=order-.*xml&#34;</span>)
             .process(HeaderProcessor())
-            .to(<span style="color:#e6db74">&#34;file:$workDir/orders/out?fileName=\${header.orderDate}-\${header.uuid}-\${header.CamelFileName}&#34;</span>)
-            .log(<span style="color:#e6db74">&#34;Camel body: \${body.class} \${body}&#34;</span>)
+            .to(<span style="color:#e6db74">&#34;file:</span><span style="color:#e6db74">$workDir</span><span style="color:#e6db74">/orders/out?fileName=</span><span style="color:#ae81ff">\$</span><span style="color:#e6db74">{header.orderDate}-</span><span style="color:#ae81ff">\$</span><span style="color:#e6db74">{header.uuid}-</span><span style="color:#ae81ff">\$</span><span style="color:#e6db74">{header.CamelFileName}&#34;</span>)
+            .log(<span style="color:#e6db74">&#34;Camel body: </span><span style="color:#ae81ff">\$</span><span style="color:#e6db74">{body.class} </span><span style="color:#ae81ff">\$</span><span style="color:#e6db74">{body}&#34;</span>)
     }
 }
 
@@ -271,7 +271,7 @@ We also change the filename in the <code>to</code> section with <code>.to(&quot;
     <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.camel<span style="color:#f92672">&lt;/groupId&gt;</span>
     <span style="color:#f92672">&lt;artifactId&gt;</span>camel-ftp<span style="color:#f92672">&lt;/artifactId&gt;</span>
 <span style="color:#f92672">&lt;/dependency&gt;</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Component
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#a6e22e">@Component</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FtpRouteBuilder</span> : RouteBuilder() {
 
 
@@ -280,15 +280,15 @@ We also change the filename in the <code>to</code> section with <code>.to(&quot;
     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> password =<span style="color:#e6db74">&#34;Public8852&#34;</span>
 
     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> workDir =System.getenv(<span style="color:#e6db74">&#34;PWD&#34;</span>)
-    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;$workDir/orders/out?fileExist=Fail&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$workDir</span><span style="color:#e6db74">/orders/out?fileExist=Fail&#34;</span>
 
 
-    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#a6e22e">@Throws</span>(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
     <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">configure</span>() {
-         from(<span style="color:#e6db74">&#34;ftp://$ftpEndpoint?username=$username&amp;password=$password&amp;delete=true&amp;include=order.*xml&#34;</span>)
-             .log(<span style="color:#e6db74">&#34;New File \${header.CamleFileName} picked up from \${header.CamleFileHost}&#34;</span>)
+         from(<span style="color:#e6db74">&#34;ftp://</span><span style="color:#e6db74">$ftpEndpoint</span><span style="color:#e6db74">?username=</span><span style="color:#e6db74">$username</span><span style="color:#e6db74">&amp;password=</span><span style="color:#e6db74">$password</span><span style="color:#e6db74">&amp;delete=true&amp;include=order.*xml&#34;</span>)
+             .log(<span style="color:#e6db74">&#34;New File </span><span style="color:#ae81ff">\$</span><span style="color:#e6db74">{header.CamleFileName} picked up from </span><span style="color:#ae81ff">\$</span><span style="color:#e6db74">{header.CamleFileHost}&#34;</span>)
              .process(ExchangePrinter())
-             .to(<span style="color:#e6db74">&#34;file://$output&#34;</span>)
+             .to(<span style="color:#e6db74">&#34;file://</span><span style="color:#e6db74">$output</span><span style="color:#e6db74">&#34;</span>)
     }
 }
 </code></pre></div><h3 id="processor-1">Processor</h3>
@@ -296,10 +296,10 @@ We also change the filename in the <code>to</code> section with <code>.to(&quot;
 
     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> log = LoggerFactory.getLogger(javaClass)
 
-    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#a6e22e">@Throws</span>(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
     <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">process</span>(exchange: Exchange?) {
-        <span style="color:#66d9ef">val</span> body = exchange<span style="color:#f92672">?.</span>`in`<span style="color:#f92672">?.</span>body
-        log.info(<span style="color:#e6db74">&#34;Body: $body&#34;</span>)
+        <span style="color:#66d9ef">val</span> body = exchange<span style="color:#f92672">?.</span><span style="color:#a6e22e">`in</span><span style="color:#960050;background-color:#1e0010">`</span><span style="color:#f92672">?.</span>body
+        log.info(<span style="color:#e6db74">&#34;Body: </span><span style="color:#e6db74">$body</span><span style="color:#e6db74">&#34;</span>)
     }
 }
 </code></pre></div><h2 id="ftp-server">FTP Server</h2>
@@ -336,30 +336,30 @@ with the script <code>ftp-upload.sh</code>.</p>
         ├── orly
         ├── others
         └── packt
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Component
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#a6e22e">@Component</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ChoiceRouteBuilder</span> : RouteBuilder() {
 
     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> workDir = System.getenv(<span style="color:#e6db74">&#34;PWD&#34;</span>)
-    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> input = <span style="color:#e6db74">&#34;$workDir/orders/in/publisher?include=pub-.*xml&#34;</span>
-    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;$workDir/orders/out/publisher&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> input = <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$workDir</span><span style="color:#e6db74">/orders/in/publisher?include=pub-.*xml&#34;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> output = <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$workDir</span><span style="color:#e6db74">/orders/out/publisher&#34;</span>
 
     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">val</span> XPATH_SEARCH_ORLY = <span style="color:#e6db74">&#34;order/orderItems/orderItem/orderItemPublisherName/text() = &#39;ORly&#39;&#34;</span>
     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">val</span> XPATH_SEARCH_PACKT = <span style="color:#e6db74">&#34;order/orderItems/orderItem/orderItemPublisherName/text() = &#39;Packt&#39;&#34;</span>
 
-    @Throws(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
+    <span style="color:#a6e22e">@Throws</span>(Exception<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>)
     <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">configure</span>() {
-        from(<span style="color:#e6db74">&#34;file:$input&#34;</span>)
+        from(<span style="color:#e6db74">&#34;file:</span><span style="color:#e6db74">$input</span><span style="color:#e6db74">&#34;</span>)
             .to(<span style="color:#e6db74">&#34;log:ordersReceived&#34;</span>)
             .choice()
-                .`when`(xpath(XPATH_SEARCH_ORLY))
+                .<span style="color:#a6e22e">`when</span><span style="color:#960050;background-color:#1e0010">`</span>(xpath(XPATH_SEARCH_ORLY))
                 .log(<span style="color:#e6db74">&#34;ORly received&#34;</span>)
-                .to(<span style="color:#e6db74">&#34;file:$output/orly&#34;</span>)
-            .`when`(xpath(XPATH_SEARCH_PACKT))
+                .to(<span style="color:#e6db74">&#34;file:</span><span style="color:#e6db74">$output</span><span style="color:#e6db74">/orly&#34;</span>)
+            .<span style="color:#a6e22e">`when</span><span style="color:#960050;background-color:#1e0010">`</span>(xpath(XPATH_SEARCH_PACKT))
                 .log(<span style="color:#e6db74">&#34;Packt received&#34;</span>)
-                .to(<span style="color:#e6db74">&#34;file:$output/packt&#34;</span>)
+                .to(<span style="color:#e6db74">&#34;file:</span><span style="color:#e6db74">$output</span><span style="color:#e6db74">/packt&#34;</span>)
             .otherwise()
                 .log(<span style="color:#e6db74">&#34;Other received&#34;</span>)
-                .to(<span style="color:#e6db74">&#34;file:$output/others&#34;</span>)
+                .to(<span style="color:#e6db74">&#34;file:</span><span style="color:#e6db74">$output</span><span style="color:#e6db74">/others&#34;</span>)
             .end()
     }
 

@@ -3,7 +3,7 @@
   <head>
     <title>Kboot Flux Meets Soap // </title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.75.1" />
+    <meta name="generator" content="Hugo 0.76.5" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
@@ -171,20 +171,20 @@ Add the following or latest dependency from <code>blockhound</code>.</p>
             GET(<span style="color:#e6db74">&#34;/lockdown/{name}&#34;</span>) {
                 <span style="color:#66d9ef">val</span> countryService = ref&lt;CountryService&gt;()
                 ok().body(BodyInserters.fromValue(
-                    countryService.getCountryByName(it.pathVariable(<span style="color:#e6db74">&#34;name&#34;</span>)))
+                    countryService.getCountryByName(<span style="color:#66d9ef">it</span>.pathVariable(<span style="color:#e6db74">&#34;name&#34;</span>)))
                 )
             }
             GET(<span style="color:#e6db74">&#34;/easing/{name}&#34;</span>) {
                 <span style="color:#66d9ef">val</span> countryReactiveService = ref&lt;CountryReactiveService&gt;()
                 ok().body(
-                    BodyInserters.fromPublisher(countryReactiveService.getCountryByName(it.pathVariable(<span style="color:#e6db74">&#34;name&#34;</span>)), GetCountryResponse<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>.java)
+                    BodyInserters.fromPublisher(countryReactiveService.getCountryByName(<span style="color:#66d9ef">it</span>.pathVariable(<span style="color:#e6db74">&#34;name&#34;</span>)), GetCountryResponse<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>.java)
                 )
             }
         }
     }
 }
 </code></pre></div><h2 id="reactive-service">Reactive Service</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@Service
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#a6e22e">@Service</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CountryReactiveService</span>  (<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> soapClient: SoapClient) {
 
     <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getCountryByName</span>(name: String): Mono&lt;GetCountryResponse&gt; {
@@ -196,7 +196,7 @@ Add the following or latest dependency from <code>blockhound</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getCountryReactive</span>(country: String): Mono&lt;GetCountryResponse&gt; {
     <span style="color:#66d9ef">val</span> request = GetCountryRequest()
     request.name = country
-    log.info(<span style="color:#e6db74">&#34;Requesting location for $country&#34;</span>)
+    log.info(<span style="color:#e6db74">&#34;Requesting location for </span><span style="color:#e6db74">$country</span><span style="color:#e6db74">&#34;</span>)
     <span style="color:#66d9ef">return</span> Mono.fromCallable {
         webServiceTemplate
             .marshalSendAndReceive(<span style="color:#e6db74">&#34;http://localhost:8888/ws/countries&#34;</span>, request,

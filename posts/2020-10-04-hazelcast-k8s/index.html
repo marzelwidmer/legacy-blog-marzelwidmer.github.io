@@ -3,7 +3,7 @@
   <head>
     <title>Kubernetes Hazelcast Distributed Caching // </title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.75.1" />
+    <meta name="generator" content="Hugo 0.76.5" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
@@ -117,27 +117,27 @@ The second call with the same key <code>foo</code> will give the same <code>UUID
 <code>@EnableCaching</code></li>
 <li>Implement the Rest API with the <code>@CacheConfig</code> annotation.</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">@SpringBootApplication
-@EnableCaching
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#a6e22e">@SpringBootApplication</span>
+<span style="color:#a6e22e">@EnableCaching</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DemoHazelcastApplication</span>
 
 <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args: Array&lt;String&gt;) {
 	runApplication&lt;DemoHazelcastApplication&gt;(*args)
 }
 
-@RestController
-@RequestMapping(value = [<span style="color:#e6db74">&#34;/api&#34;</span>], produces = [MediaType.APPLICATION_JSON_VALUE])
+<span style="color:#a6e22e">@RestController</span>
+<span style="color:#a6e22e">@RequestMapping</span>(value = [<span style="color:#e6db74">&#34;/api&#34;</span>], produces = [MediaType.APPLICATION_JSON_VALUE])
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Controller</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> cache: Cache) {
 
-	@GetMapping(path = [<span style="color:#e6db74">&#34;/{key}&#34;</span>])
-	<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getStuff</span>(@PathVariable(<span style="color:#e6db74">&#34;key&#34;</span>) key: String) = cache.getUUID(key)
+	<span style="color:#a6e22e">@GetMapping</span>(path = [<span style="color:#e6db74">&#34;/{key}&#34;</span>])
+	<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getStuff</span>(<span style="color:#a6e22e">@PathVariable</span>(<span style="color:#e6db74">&#34;key&#34;</span>) key: String) = cache.getUUID(key)
 }
 
-@CacheConfig(cacheNames = [<span style="color:#e6db74">&#34;map&#34;</span>])
-@Service
+<span style="color:#a6e22e">@CacheConfig</span>(cacheNames = [<span style="color:#e6db74">&#34;map&#34;</span>])
+<span style="color:#a6e22e">@Service</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Cache</span> {
-	@Cacheable(value = [<span style="color:#e6db74">&#34;map&#34;</span>], key = <span style="color:#e6db74">&#34;#key&#34;</span>)
-	<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getUUID</span>(key: String): UUID? = UUID.randomUUID().also { println(<span style="color:#e6db74">&#34;Generated $it&#34;</span>) }
+	<span style="color:#a6e22e">@Cacheable</span>(value = [<span style="color:#e6db74">&#34;map&#34;</span>], key = <span style="color:#e6db74">&#34;#key&#34;</span>)
+	<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getUUID</span>(key: String): UUID? = UUID.randomUUID().also { println(<span style="color:#e6db74">&#34;Generated </span><span style="color:#e6db74">$it</span><span style="color:#e6db74">&#34;</span>) }
 }
 </code></pre></div><h3 id="kustomize">Kustomize Configuration</h3>
 <p>For the <code>kustomize</code> configuration I will only point to the important hazelcast configurations.
