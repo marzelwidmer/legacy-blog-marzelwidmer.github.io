@@ -93,7 +93,7 @@
 <p>As on-the-ground microservice practitioners are quickly realizing, the majority of operational problems that arise when moving to a
 distributed architecture are ultimately grounded in two areas: networking and observability.
 It is simply an orders of magnitude larger problem to network and debug a set of intertwined distributed services versus a single monolithic application.
-<img src="/jaeger/Distributed-Tracing-In-A-Nutshell.png" alt="Distributed Tracing In A Nutshell"></p>
+<img src="/static/jaeger/Distributed-Tracing-In-A-Nutshell.png" alt="Distributed Tracing In A Nutshell"></p>
 <h2 id="jaeger">Jaeger</h2>
 <p>Jaeger is a open source, end-to-end distributed tracing Monitor and troubleshoot transactions in complex distributed systems.
 <a href="https://www.cncf.io/wp-content/uploads/2018/01/CNCF_Webinar_Intro_Jaeger_v1.0_-_2018-01-16.pdf">CNCF Webinar Intro Jaeger</a>{:target=&quot;_blank&quot;}</p>
@@ -118,7 +118,7 @@ It is simply an orders of magnitude larger problem to network and debug a set of
 </span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;jaeger-collector-jaeger.apps.c3smonkey.ch&#34;</span>
 </span></span></code></pre></div><p>This address we will configure in our <a href="http://blog.marcelwidmer.org/spring-boot-k8s/">Spring Boot k8s</a>{:target=&quot;_blank&quot;} Application.</p>
 <h3 id="jaeger-query-ui">Jaeger Query UI</h3>
-<p><img src="/jaeger/jaeger-query-ui.png" alt="jaeger-query-ui.png"></p>
+<p><img src="/static/jaeger/jaeger-query-ui.png" alt="jaeger-query-ui.png"></p>
 <h2 id="installing-the-operator-on-openshift-step-by-step-with-separate-operator-a-nameinstallstepbystepa">Installing the Operator on OpenShift Step-by-Step with separate operator <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
 <p>Login in with privileged user <code>oc login -u &lt;privileged user&gt;</code> and create a <code>jaeger</code> project to install the operator.
 This creates the namespace used by default in the deployment files. If you want to install the Jaeger operator in a different namespace,
@@ -168,8 +168,8 @@ This will install the default AllInOne strategy, which deploys the “all-in-one
 </span></span></code></pre></div><h3 id="jaeger-query-ui-1">Jaeger Query UI</h3>
 <p>Open the Browser and login with your OpenShift <code>developer</code> credentials to the <a href="https://jaeger-collector-jaeger.apps.c3smonkey.ch/search">Jaeger UI</a>{:target=&quot;_blank&quot;}
 First time you logged in you have to accept the <code>Authorize Access</code></p>
-<p><img src="/jaeger/OAuth.png" alt="OAuth">
-<img src="/jaeger/jaeger-collector-ui.png" alt="jaeger-collector-ui"></p>
+<p><img src="/static/jaeger/OAuth.png" alt="OAuth">
+<img src="/static/jaeger/jaeger-collector-ui.png" alt="jaeger-collector-ui"></p>
 
   </div>
   <div class="post-footer">

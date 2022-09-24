@@ -113,13 +113,13 @@ Let&rsquo;s create our projects first:</p>
 <p>Create a Jenkins in the <code>Jenkins CI/CD</code> project with some storage. Take the Jenkins from the catalog and set some more memory and volume capacity on it.
 Everything else we let the default values.
 Login with your Openshift account to the <code>Jenkins BlueOcean</code>.</p>
-<p><img src="/multiple-project-promoting/Jenkins-from-catalog-1.png" alt="Jenkins-From-Catalog-1">
-<img src="/multiple-project-promoting/Jenkins-from-catalog-2.png" alt="Jenkins-From-Catalog-2">
-<img src="/multiple-project-promoting/Jenkins-from-catalog-3.png" alt="Jenkins-From-Catalog-3"></p>
+<p><img src="/static/multiple-project-promoting/Jenkins-from-catalog-1.png" alt="Jenkins-From-Catalog-1">
+<img src="/static/multiple-project-promoting/Jenkins-from-catalog-2.png" alt="Jenkins-From-Catalog-2">
+<img src="/static/multiple-project-promoting/Jenkins-from-catalog-3.png" alt="Jenkins-From-Catalog-3"></p>
 <h2 id="configure-jenkins-maven-slave---concurrency-limit">Configure Jenkins Maven Slave - Concurrency Limit</h2>
 <p>Let&rsquo;s configure out <code>Maven-Slave</code> concurrency limit to <code>5</code> in order that we later want build more then one project.
 Please go to the Jenkins Configuration Page <code>https://&lt;jenkins&gt;/configure</code> in the section <code>Cloud/Kubernetes Pod Template</code> and search for the <code>Maven</code> Pod.</p>
-<p><img src="/multiple-project-promoting/Maven-Pod-Concurrency-Limit.png" alt="Maven-Pod-Concurrency-Limit"></p>
+<p><img src="/static/multiple-project-promoting/Maven-Pod-Concurrency-Limit.png" alt="Maven-Pod-Concurrency-Limit"></p>
 <h2 id="InstallJenkinsWithCLI">Install Jenkins with CLI</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc new-app jenkins-persistent --name jenkins --param ENABLE_OAUTH<span style="color:#f92672">=</span>true <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        --param MEMORY_LIMIT<span style="color:#f92672">=</span>2Gi --param VOLUME_CAPACITY<span style="color:#f92672">=</span>4Gi -n jenkins
@@ -184,7 +184,7 @@ We also want expose the service <code>oc expose svc/catalog-service</code> to ge
 </span></span><span style="display:flex;"><span>NAME             HOST/PORT                                      PATH  SERVICES         PORT      TERMINATION  WILDCARD
 </span></span><span style="display:flex;"><span>catalog-service  catalog-service-development.apps.c3smonkey.ch        catalog-service  8080-tcp               None
 </span></span></code></pre></div><p>Now take a look in the OpenShift Console project <code>development</code></p>
-<p><img src="/multiple-project-promoting/catalog-service-dev-deployment.png" alt="catalog-service-dev-deployment"></p>
+<p><img src="/static/multiple-project-promoting/catalog-service-dev-deployment.png" alt="catalog-service-dev-deployment"></p>
 <p>Let&rsquo;s take a look what the S2i crated for us.
 This can be done with the following command <code>oc get all -n development --selector app=catalog-service</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc get all -n development --selector app<span style="color:#f92672">=</span>catalog-service                                  
@@ -283,16 +283,16 @@ in the Jenkins namespace (project) let&rsquo;s do it with <code>oc create -n jen
 </span></span><span style="display:flex;"><span>buildconfig.build.openshift.io/catalog-service-pipeline created
 </span></span></code></pre></div><p>When you go now in the OpenShift <a href="https://console.c3smonkey.ch:8443/console/project/jenkins/browse/pipelines">Console</a> in the project <code>Jenkins</code> in the section.
 <code>Builds/Pipelines</code> you will something like this.
-<img src="/multiple-project-promoting/catalog-service-pipeline-created.png" alt="Catalog Service Pipeline"></p>
+<img src="/static/multiple-project-promoting/catalog-service-pipeline-created.png" alt="Catalog Service Pipeline"></p>
 <h3 id="run-jenkins-pipeline">Run Jenkins Pipeline</h3>
 <p>Now is time to run the pipeline with the command <code>oc start-build catalog-service-pipeline -n jenkins</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc start-build catalog-service-pipeline -n jenkins
 </span></span><span style="display:flex;"><span>build.build.openshift.io/catalog-service-pipeline-1 started
 </span></span></code></pre></div><p>After a while you will see something like this. For production deployment we configured our pipeline with a approvable step.</p>
-<p><img src="/multiple-project-promoting/catalog-service-pipeline-approvable.png" alt="Catalog Service Pipeline approvable"></p>
+<p><img src="/static/multiple-project-promoting/catalog-service-pipeline-approvable.png" alt="Catalog Service Pipeline approvable"></p>
 <p>Now is time to approve the application and hit the
 After the approve button in the pipeline to deploy to the production namespace.</p>
-<p><img src="/multiple-project-promoting/catalog-service-pipeline-success.png" alt="Catalog Service Pipeline success"></p>
+<p><img src="/static/multiple-project-promoting/catalog-service-pipeline-success.png" alt="Catalog Service Pipeline success"></p>
 <h2 id="WebHooks">WebHooks </h2>
 <p>Now let&rsquo;s creat a WebHook. So when we push something in our <code>catalog-service</code> the pipeline start run.
 Change first to the <code>jenkins</code> project again with <code>oc project jenkins</code></p>
@@ -367,8 +367,8 @@ Paste the URL output (similar to above) into the Payload URL field.</p>
 SSL verification
 By default, we verify SSL certificates when delivering payloads.</p>
 </blockquote>
-<p><img src="/multiple-project-promoting/Add-GitHub-WebHook.png" alt="Add GitHub WebHook">
-<img src="/multiple-project-promoting/GitHub-WebHooks.png" alt="GitHub WebHooks"></p>
+<p><img src="/static/multiple-project-promoting/Add-GitHub-WebHook.png" alt="Add GitHub WebHook">
+<img src="/static/multiple-project-promoting/GitHub-WebHooks.png" alt="GitHub WebHooks"></p>
 <blockquote>
 <p><strong><em>References:</em></strong><br>
 <a href="https://blog.openshift.com/decrease-maven-build-times-openshift-pipelines-using-persistent-volume-claim/">https://blog.openshift.com/decrease-maven-build-times-openshift-pipelines-using-persistent-volume-claim/</a>

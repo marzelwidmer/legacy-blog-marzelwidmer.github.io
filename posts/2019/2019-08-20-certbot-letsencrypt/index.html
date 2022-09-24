@@ -94,7 +94,7 @@ $ vi /etc/yum.repos.d/epel.repo [epel] name=Extra Packages for Enterprise Linux 
     <p>Inspiration from [Adding an SSL certificate to OKD - Part 2 of Installation of OKD 3.10 from start to finish]https://www.youtube.com/watch?v=S7HoJ09oYn0&amp;feature=youtu.be){:target=&quot;_blank&quot;}</p>
 <h2 id="check-certificate">Check Certificate</h2>
 <p>Let`s check first if there a certificate already for our domain <a href="https://crt.sh/?q=c3smonkey.ch">https://crt.sh/?q=c3smonkey.ch</a></p>
-<p><img src="/certbot/crt.png" alt="crt"></p>
+<p><img src="/static/certbot/crt.png" alt="crt"></p>
 <h2 id="check-epel-reposittory">Check EPEL Reposittory</h2>
 <p>Check if the <code>epel.repo</code> is enabled.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ vi /etc/yum.repos.d/epel.repo
@@ -168,7 +168,7 @@ Ok let`s create some certificate for the following domain names</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -d apps.c3smonkey.ch <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -d hawkular-metrics.apps.c3smonkey.ch
 </span></span></code></pre></div><p>After this command you see something like this</p>
-<p><img src="/certbot/certbot-result.png" alt="certbot-result"></p>
+<p><img src="/static/certbot/certbot-result.png" alt="certbot-result"></p>
 <p>The certificate are located under <code>/etc/letsencrypt/live/console.c3smonkey.ch/</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ root@c3smonkey installcentos<span style="color:#f92672">]</span><span style="color:#75715e"># ls -lisa /etc/letsencrypt/live/console.c3smonkey.ch/</span>
 </span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">12</span>
@@ -216,19 +216,19 @@ and add all named certificates we created with the <code>certbot</code> command 
 </span></span><span style="display:flex;"><span>ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
 </span></span></code></pre></div><p>The first one we will apply is the <code>prerequisites</code> playbook to check if everything is still good.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey installcentos<span style="color:#f92672">]</span><span style="color:#75715e"># ansible-playbook -i inventory.ini openshift-ansible/playbooks/prerequisites.yml</span>
-</span></span></code></pre></div><p><img src="/certbot/prerequisites.png" alt="prerequisites"></p>
+</span></span></code></pre></div><p><img src="/static/certbot/prerequisites.png" alt="prerequisites"></p>
 <p>Lets play the second playbook who will replace the certificate we just created.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey installcentos<span style="color:#f92672">]</span><span style="color:#75715e"># ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml</span>
 </span></span></code></pre></div><p>When it stuck and the API server don&rsquo;t come back up just rerun the script.
 or run <code>playbooks/openshift-master/config.yml</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey installcentos<span style="color:#f92672">]</span><span style="color:#75715e"># ansible-playbook -i inventory.ini openshift-ansible/playbooks/openshift-master/config.yml</span>
-</span></span></code></pre></div><p><img src="/certbot/deploy_cluster-failed.png" alt="deploy_cluster-failed"></p>
+</span></span></code></pre></div><p><img src="/static/certbot/deploy_cluster-failed.png" alt="deploy_cluster-failed"></p>
 <p>This will take a time dependence of your host.
-<img src="/certbot/openshift-certbot/htop.png" alt="htop"></p>
+<img src="/static/certbot/openshift-certbot/htop.png" alt="htop"></p>
 <p>Now reboot the cluster with <code>shutdown -r now</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey installcentos<span style="color:#f92672">]</span><span style="color:#75715e"># shutdown -r now</span>
 </span></span></code></pre></div><p>Let us check the certificate <a href="https://crt.sh/?q=c3smonkey.ch">https://crt.sh/?q=c3smonkey.ch</a>
-<img src="/certbot/crt-lets-encrypt.png" alt="crt"></p>
+<img src="/static/certbot/crt-lets-encrypt.png" alt="crt"></p>
 <p>Open a new tab and open the <a href="https://console.c3smonkey.ch:8443/">https://console.c3smonkey.ch:8443/</a> to check if the certificate are installed successfully.</p>
 <h2 id="backup-certificates">Backup Certificates</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ scp root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/<span style="color:#ae81ff">\*</span>.pem ~/dev/c3smonkey/hetzner-okd-ansible/cert/

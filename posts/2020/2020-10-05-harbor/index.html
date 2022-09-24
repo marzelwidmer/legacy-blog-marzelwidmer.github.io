@@ -112,19 +112,19 @@ username: admin
 password: Harbor12345
 </code></pre><p>First thing we need to create a new project inside Harbor.
 This will be where we will be storing all the project related Docker images.
-<img src="/harbor/img.png" alt="img.png"></p>
+<img src="/static/harbor/img.png" alt="img.png"></p>
 <p>Then we move over to create a new user within Harbor.
-<img src="/harbor/img_1.png" alt="img_1.png"></p>
+<img src="/static/harbor/img_1.png" alt="img_1.png"></p>
 <p>Lastly we need to add the newly created user into our project member.
-<img src="/harbor/img_2.png" alt="img_2.png">
-<img src="/harbor/img_3.png" alt="img_3.png"></p>
+<img src="/static/harbor/img_2.png" alt="img_2.png">
+<img src="/static/harbor/img_3.png" alt="img_3.png"></p>
 <p>On a terminal, we will log in Harbor repository</p>
 <pre tabindex="0"><code>docker login -udevops core.harbor.domain
 Password:
 Error response from daemon: Get https://core.harbor.domain/v2/: x509: certificate signed by unknown authority
 </code></pre><p>This is a known issue with Docker private repository. We can resolve this simply by instruct our mac OS to trust the Harbor repository self signed ca cert.
 First we need to get the Harbor ca cert. This can be downloaded from our Project -&gt; Repositories tag, click on the “Registry Certificate”. This will download the ca.crt file.
-<img src="/harbor/img_4.png" alt="img_4.png"></p>
+<img src="/static/harbor/img_4.png" alt="img_4.png"></p>
 <p>Execute the following command.</p>
 <pre tabindex="0"><code>security add-trusted-cert -d -r trustRoot -k ~/Library/Keychains/login.keychain ./ca.crt
 </code></pre><p>Restart Docker process after the operation.</p>

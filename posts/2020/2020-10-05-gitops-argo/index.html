@@ -147,7 +147,7 @@ argocd-server-5bc896856-xvt92                    1/1     Running   0          71
 </code></pre><p>Use the Argo CLI to login with user <code>admin</code> and change the password.</p>
 <pre tabindex="0"><code>argocd login localhost:8080
 argocd account update-password
-</code></pre><p><img src="/gitops-argo/argo.png" alt="Argo"></p>
+</code></pre><p><img src="/static/gitops-argo/argo.png" alt="Argo"></p>
 <h1 id="argoCreatApp">Create App with directory-recurse</h1>
 <pre tabindex="0"><code>argocd app create kboot --repo https://github.com/marzelwidmer/argo-demo.git \
     --path manifest \

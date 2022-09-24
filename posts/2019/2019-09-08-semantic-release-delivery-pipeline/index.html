@@ -142,7 +142,7 @@ for the <code>customer-service</code>.</p>
 Annotate and label it for the Jenkins sync PlugIn. And finally update the <code>bc/customer-service-pipeline</code> with this secret.
 First you have to create an <code>AccessToken</code> in your <a href="https://github.com/settings/tokens">GitHub Tokens Settings</a> let it named like <code>openshift-source-builder</code>
 add <code>repo</code> and <code>user</code> access because this token will be used for <code>Semantic Release</code></p>
-<p><img src="/semantic-release-delivery-pipeline/openshift-source-builder-github-token.png" alt="openshift-source-builder-github-token"></p>
+<p><img src="/static/semantic-release-delivery-pipeline/openshift-source-builder-github-token.png" alt="openshift-source-builder-github-token"></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc create secret generic ci-user-at-github <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>      --from-literal<span style="color:#f92672">=</span>username<span style="color:#f92672">=</span>machineuser <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>      --from-literal<span style="color:#f92672">=</span>password<span style="color:#f92672">=</span>&lt;accesstoken&gt; <span style="color:#ae81ff">\
@@ -157,9 +157,9 @@ add <code>repo</code> and <code>user</code> access because this token will be us
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -n jenkins
 </span></span><span style="display:flex;"><span>$ oc set build-secret bc/customer-service-pipeline ci-user-at-github --source
 </span></span></code></pre></div><p>When you check now the Jenkins you will see the <code>ci-user-at-github</code> under credentials <code>https://&lt;jenkins-url&gt;/credentials/</code></p>
-<p><img src="/semantic-release-delivery-pipeline/sync.jenkins.openshift.io.png" alt="sync.jenkins"></p>
+<p><img src="/static/semantic-release-delivery-pipeline/sync.jenkins.openshift.io.png" alt="sync.jenkins"></p>
 <p>You will also find the a secret <code>ci-user-at-github</code> in the <code>jenkins</code> project in the OpenShift console.</p>
-<p><img src="/semantic-release-delivery-pipeline/secret-ci-user-at-github.png" alt="secret-ci-user-at-github"></p>
+<p><img src="/static/semantic-release-delivery-pipeline/secret-ci-user-at-github.png" alt="secret-ci-user-at-github"></p>
 <h2 id="SemanticReleaseJenkinsPipeline">Semantic Release Jenkins Pipeline </h2>
 <p>First I want say the inspiration I get from the <a href="https://github.com/semantic-release/semantic-release">semantic-release</a> automates the whole package
 release workflow including: determining the next version number, generating the release notes and publishing the package.</p>
@@ -168,7 +168,7 @@ release workflow including: determining the next version number, generating the 
 </blockquote>
 <p>In the case I don&rsquo;t found any Maven PlugIn who works in my setup <em>out-of-the-box</em> and I am running here in a <code>Maven Slave</code> and don&rsquo;t want create a<code> Maven-Node Slave</code>
 I chose to follow a setup with just Git commands and a combination with the <a href="https://github.com/jgitver/jgitver-maven-plugin">jgitver-maven-plugin</a>.</p>
-<p><img src="/semantic-release-delivery-pipeline/okd-customer-service-pipeline.png" alt="okd-customer-service-pipeline"></p>
+<p><img src="/static/semantic-release-delivery-pipeline/okd-customer-service-pipeline.png" alt="okd-customer-service-pipeline"></p>
 <p>After pushing some code in the <code>customer-service</code> repository the Jenkins pipeline start run.
 It will be tag the source repository if needed based on the commit message inspired on the follow <a href="https://github.com/semantic-release/semantic-release#commit-message-format">commit message format</a>.</p>
 <blockquote>
@@ -178,12 +178,12 @@ It will be tag the source repository if needed based on the commit message inspi
 <p>Patch version (1.0.1) 👉🏼 fix:|patch:|docs:|style:|refactor:|perf:|test:|chore:</p>
 </blockquote>
 <p>It will also create the image tags if needed.</p>
-<p><img src="/semantic-release-delivery-pipeline/okd-customer-service-image-tags.png" alt="okd-customer-service-image-tags"></p>
+<p><img src="/static/semantic-release-delivery-pipeline/okd-customer-service-image-tags.png" alt="okd-customer-service-image-tags"></p>
 <p>Take also a look at the <a href="https://jenkins.io/projects/blueocean/">Jenkins BlueOcean</a> pipeline.</p>
-<p><img src="/semantic-release-delivery-pipeline/blueocean-customer-service-pipeline.png" alt="blueocean-customer-service-pipeline"></p>
+<p><img src="/static/semantic-release-delivery-pipeline/blueocean-customer-service-pipeline.png" alt="blueocean-customer-service-pipeline"></p>
 <p>Or at the deployed <em>customer-service</em>.</p>
 <p><a href="http://customer-service-production.apps.c3smonkey.ch/swagger-ui.html">Customer Service Swagger</a>
-<img src="/semantic-release-delivery-pipeline/customer-service-swagger.png" alt="customer-service-swagger.png"></p>
+<img src="/static/semantic-release-delivery-pipeline/customer-service-swagger.png" alt="customer-service-swagger.png"></p>
 <p>The <em>changelog</em> you can find under <a href="https://jenkins-jenkins.apps.c3smonkey.ch/job/jenkins/job/jenkins-customer-service-pipeline/lastSuccessfulBuild/artifact/target/changelog.html">Changelog</a></p>
 <p>I know the above pipeline is a bit chatty because of this I explain my steps here a bit compromised in some pipeline steps.
 Ok let&rsquo;s create a  <em>Jenkinsfile</em> in your project repository I prefer to put the <em>Jenkinsfile</em> in a folder <em>jenkins</em>.</p>
