@@ -1,91 +1,153 @@
-<!doctype html>
-<html lang="en-us">
-  <head>
-    <title>Harbor // </title>
-    <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.104.0" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="John Doe" />
-    <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.60b6f603c6636b80509d0a8f8c965e01d4c7b9b2facacd04beaf4d6ed7d8c7c2.css" />
-
-    
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Harbor"/>
-<meta name="twitter:description" content="Harbor is an open source trusted cloud native registry project that stores, signs, and scans content. Harbor extends the open source Docker Distribution by adding the functionalities usually required by users such as security, identity and management. Having a registry closer to the build and run environment can improve the image transfer efficiency. Harbor supports replication of images between registries, and also offers advanced security features such as user management, access control and activity auditing."/>
-
-    <meta property="og:title" content="Harbor" />
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Harbor is an open source trusted cloud native registry project that stores, signs, and scans content. Harbor extends the open source Docker Distribution by adding the functionalities usually required by users such as security, identity and management. Having a registry closer to the build and run environment can improve the image transfer efficiency. Harbor supports replication of images between registries, and also offers advanced security features such as user management, access control and activity auditing.">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="Harbor" />
 <meta property="og:description" content="Harbor is an open source trusted cloud native registry project that stores, signs, and scans content. Harbor extends the open source Docker Distribution by adding the functionalities usually required by users such as security, identity and management. Having a registry closer to the build and run environment can improve the image transfer efficiency. Harbor supports replication of images between registries, and also offers advanced security features such as user management, access control and activity auditing." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/2020/2020-10-05-harbor/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-10-25T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-10-25T00:00:00+00:00" />
 
-
-
-  </head>
-  <body>
-    <header class="app-header">
-      <a href="/"><img class="app-header-avatar" src="/avatar.png" alt="John Doe" /></a>
-      <h1></h1>
-      <p> </p>
-      <div class="app-header-social">
+<title>Harbor | </title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.c58292d36b18b675680ab9baea2029204537b839ea72f258746ec0f32ce8d6c8.css" >
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.7307af1daaa1c8df5b2664a10c4194c04c0db59b3e6bfc4bb1103f0dfeb2e46b.js" ></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
         
-          <a target="_blank" href="https://github.com/marzelwidmer" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
-  <title>github</title>
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-</svg></a>
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span></span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
         
-      </div>
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
 
-      <li class="posts-list-item"></li>
-      <li class="posts-list-item"><a href="/">Blogs</a></li>
+  <strong>Harbor</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
 
 
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#install-cert-manager">Install cert-manager</a></li>
+    <li><a href="#install-harbor">Install Harbor</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
 
       
-
-    </header>
-    <main class="app-container">
       
-<article class="post">
-  <header class="post-header">
-    <h1 class="post-title">Harbor <br>
-      <i class="post-subtitle">Set Harbor on Minikube</i>
-    </h1>
-    <div class="post-meta">
-      <div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
-  <title>calendar</title>
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
-</svg>
-        Oct 25, 2020
-      </div>
-      <div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg>
-        3 min read
-      </div><div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
-  <title>tag</title>
-  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
-</svg>
-        <a class="tag" href="/tags/k8s/">K8s</a></div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
-  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-</svg>
-      
-        <a class="tag" href="/categories/kubernetes">Kubernetes</a>
-      
+<article class="markdown">
+  <h1>
+    <a href="/posts/2020/2020-10-05-harbor/">Harbor</a>
+  </h1>
+  
+  <h5>October 25, 2020</h5>
 
 
 
-    </div>
-  </header>
-  <div class="post-content">
-    <p>Harbor is an open source trusted cloud native registry project that stores, signs, and scans content. Harbor extends the open source Docker Distribution by adding the functionalities usually required by users such as security, identity and management. Having a registry closer to the build and run environment can improve the image transfer efficiency. Harbor supports replication of images between registries, and also offers advanced security features such as user management, access control and activity auditing.</p>
+  
+  <div>
+    
+      <a href="/categories/kubernetes/">Kubernetes</a>
+  </div>
+  
+
+  
+  <div>
+    
+      <a href="/tags/k8s/">K8s</a>
+  </div>
+  
+
+
+
+<p>Harbor is an open source trusted cloud native registry project that stores, signs, and scans content. Harbor extends the open source Docker Distribution by adding the functionalities usually required by users such as security, identity and management. Having a registry closer to the build and run environment can improve the image transfer efficiency. Harbor supports replication of images between registries, and also offers advanced security features such as user management, access control and activity auditing.</p>
 <p>Harbor is hosted by the Cloud Native Computing Foundation (CNCF). If you are an organization that wants to help shape the evolution of cloud native technologies, consider joining the CNCF. For details about who&rsquo;s involved and how Harbor plays a role, read the CNCF announcement.</p>
 <p><a href="https://github.com/goharbor/harbor">Harbor GitHub</a>
 <a href="https://medium.com/@Devopscontinens/alongside-harbor-berth-with-minikube-b31e487974f4">Melvin medium.com</a></p>
@@ -113,19 +175,19 @@ username: admin
 password: Harbor12345
 </code></pre><p>First thing we need to create a new project inside Harbor.
 This will be where we will be storing all the project related Docker images.
-<img src="/static/harbor/img.png" alt="img.png"></p>
+<img src="/static/harbor/img.png" alt="img.png" /></p>
 <p>Then we move over to create a new user within Harbor.
-<img src="/static/harbor/img_1.png" alt="img_1.png"></p>
+<img src="/static/harbor/img_1.png" alt="img_1.png" /></p>
 <p>Lastly we need to add the newly created user into our project member.
-<img src="/static/harbor/img_2.png" alt="img_2.png">
-<img src="/static/harbor/img_3.png" alt="img_3.png"></p>
+<img src="/static/harbor/img_2.png" alt="img_2.png" />
+<img src="/static/harbor/img_3.png" alt="img_3.png" /></p>
 <p>On a terminal, we will log in Harbor repository</p>
 <pre tabindex="0"><code>docker login -udevops core.harbor.domain
 Password:
 Error response from daemon: Get https://core.harbor.domain/v2/: x509: certificate signed by unknown authority
 </code></pre><p>This is a known issue with Docker private repository. We can resolve this simply by instruct our mac OS to trust the Harbor repository self signed ca cert.
 First we need to get the Harbor ca cert. This can be downloaded from our Project -&gt; Repositories tag, click on the “Registry Certificate”. This will download the ca.crt file.
-<img src="/static/harbor/img_4.png" alt="img_4.png"></p>
+<img src="/static/harbor/img_4.png" alt="img_4.png" /></p>
 <p>Execute the following command.</p>
 <pre tabindex="0"><code>security add-trusted-cert -d -r trustRoot -k ~/Library/Keychains/login.keychain ./ca.crt
 </code></pre><p>Restart Docker process after the operation.</p>
@@ -137,7 +199,10 @@ core.harbor.domain/<!-- raw HTML omitted -->/<!-- raw HTML omitted -->:<!-- raw 
 <pre tabindex="0"><code>docker tag openpolicyagent/opa:latest  core.harbor.domain/devops/openpolicyagent/opa:latest
 </code></pre><p>We will finally push the image into our Harbor repository</p>
 <pre tabindex="0"><code>docker push core.harbor.domain/devops/openpolicyagent/opa:latest
-</code></pre><h2 id="install-cert-manager">Install cert-manager</h2>
+</code></pre><h2 id="install-cert-manager">
+  Install cert-manager
+  <a class="anchor" href="#install-cert-manager">#</a>
+</h2>
 <p>[https://ruzickap.github.io/k8s-harbor/part-03/#install-cert-manager](install cert-manager)</p>
 <p>Create <code>cert-manager</code> namespace and label.</p>
 <pre tabindex="0"><code>kubectl create namespace cert-manager
@@ -155,18 +220,79 @@ NAME                                      READY   STATUS    RESTARTS   AGE
 cert-manager-556549df9-bjr5v              1/1     Running   0          2m2s
 cert-manager-cainjector-69d7cb5d4-bnngd   1/1     Running   0          2m2s
 cert-manager-webhook-c5bdf945c-zmwz5      1/1     Running   0          2m2s
-</code></pre><h2 id="install-harbor">Install Harbor</h2>
+</code></pre><h2 id="install-harbor">
+  Install Harbor
+  <a class="anchor" href="#install-harbor">#</a>
+</h2>
 <p>[https://ruzickap.github.io/k8s-harbor/part-04/#install-harbor-using-helm](Harbor Helm installation)</p>
 <p>Create <code>harbor-system</code> namespace if not exist already and label namespace.</p>
 <pre tabindex="0"><code>kubectl get namespace harbor-system &amp;&gt; /dev/null || kubectl create namespace harbor-system
 kubectl label namespace --overwrite harbor-system app=kubed
-</code></pre>
-  </div>
-  <div class="post-footer">
-    
-  </div>
-</article>
+</code></pre></article>
+ 
+      
 
-    </main>
-  </body>
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#install-cert-manager">Install cert-manager</a></li>
+    <li><a href="#install-harbor">Install Harbor</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

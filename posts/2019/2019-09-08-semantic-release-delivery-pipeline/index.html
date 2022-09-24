@@ -1,23 +1,14 @@
-<!doctype html>
-<html lang="en-us">
-  <head>
-    <title>Semantic Release Delivery Pipeline // </title>
-    <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.104.0" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="John Doe" />
-    <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.60b6f603c6636b80509d0a8f8c965e01d4c7b9b2facacd04beaf4d6ed7d8c7c2.css" />
-
-    
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Semantic Release Delivery Pipeline"/>
-<meta name="twitter:description" content="Table of contents Setup Deployment Jenkins Pipeline WebHooks Private Repository Semantic Release Jenkins Pipeline Setup Deployment $ oc new-project development --display-nam e=&#34;Development Environment&#34; Deploy application with the maven.fabric8.io plugin in development stage from local machine.
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Table of contents # Setup Deployment Jenkins Pipeline WebHooks Private Repository Semantic Release Jenkins Pipeline Setup Deployment # $ oc new-project development --display-nam e=&#34;Development Environment&#34; Deploy application with the maven.fabric8.io plugin in development stage from local machine.
 $ ./mvnw fabric8:deploy -Dfabric8.namespace=development $ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n development Create testing project and setup the roles.
-$ oc new-project testing --display-name=&#34;Testing Environment&#34; $ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n testing $ oc policy add-role-to-group system:image-puller system:serviceaccounts:testing \ -n development Create DeploymentConfiguration in testing stage."/>
-
-    <meta property="og:title" content="Semantic Release Delivery Pipeline" />
-<meta property="og:description" content="Table of contents Setup Deployment Jenkins Pipeline WebHooks Private Repository Semantic Release Jenkins Pipeline Setup Deployment $ oc new-project development --display-nam e=&#34;Development Environment&#34; Deploy application with the maven.fabric8.io plugin in development stage from local machine.
+$ oc new-project testing --display-name=&#34;Testing Environment&#34; $ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n testing $ oc policy add-role-to-group system:image-puller system:serviceaccounts:testing \ -n development Create DeploymentConfiguration in testing stage.">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="Semantic Release Delivery Pipeline" />
+<meta property="og:description" content="Table of contents # Setup Deployment Jenkins Pipeline WebHooks Private Repository Semantic Release Jenkins Pipeline Setup Deployment # $ oc new-project development --display-nam e=&#34;Development Environment&#34; Deploy application with the maven.fabric8.io plugin in development stage from local machine.
 $ ./mvnw fabric8:deploy -Dfabric8.namespace=development $ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n development Create testing project and setup the roles.
 $ oc new-project testing --display-name=&#34;Testing Environment&#34; $ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n testing $ oc policy add-role-to-group system:image-puller system:serviceaccounts:testing \ -n development Create DeploymentConfiguration in testing stage." />
 <meta property="og:type" content="article" />
@@ -25,71 +16,148 @@ $ oc new-project testing --display-name=&#34;Testing Environment&#34; $ oc polic
 <meta property="article:published_time" content="2019-09-08T00:00:00+00:00" />
 <meta property="article:modified_time" content="2019-09-08T00:00:00+00:00" />
 
-
-
-  </head>
-  <body>
-    <header class="app-header">
-      <a href="/"><img class="app-header-avatar" src="/avatar.png" alt="John Doe" /></a>
-      <h1></h1>
-      <p> </p>
-      <div class="app-header-social">
+<title>Semantic Release Delivery Pipeline | </title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.c58292d36b18b675680ab9baea2029204537b839ea72f258746ec0f32ce8d6c8.css" >
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.7307af1daaa1c8df5b2664a10c4194c04c0db59b3e6bfc4bb1103f0dfeb2e46b.js" ></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
         
-          <a target="_blank" href="https://github.com/marzelwidmer" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
-  <title>github</title>
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-</svg></a>
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span></span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
         
-      </div>
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
 
-      <li class="posts-list-item"></li>
-      <li class="posts-list-item"><a href="/">Blogs</a></li>
+  <strong>Semantic Release Delivery Pipeline</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
 
 
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#SetupDeployment">Setup Deployment </a></li>
+    <li><a href="#JenkinsPipeline">Jenkins Pipeline </a></li>
+    <li><a href="#WebHooks">WebHooks</a></li>
+    <li><a href="#privateRepo">Private Repository access with secrets</a></li>
+    <li><a href="#SemanticReleaseJenkinsPipeline">Semantic Release Jenkins Pipeline </a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
 
       
-
-    </header>
-    <main class="app-container">
       
-<article class="post">
-  <header class="post-header">
-    <h1 class="post-title">Semantic Release Delivery Pipeline <br>
-      <i class="post-subtitle">Semantic Release with Jenkins Maven Fabric8 Delivery Pipeline</i>
-    </h1>
-    <div class="post-meta">
-      <div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
-  <title>calendar</title>
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
-</svg>
-        Sep 8, 2019
-      </div>
-      <div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg>
-        6 min read
-      </div><div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
-  <title>tag</title>
-  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
-</svg>
-        <a class="tag" href="/tags/k8s/">K8s</a></div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
-  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-</svg>
-      
-        <a class="tag" href="/categories/kubernetes">Kubernetes</a>
-      
+<article class="markdown">
+  <h1>
+    <a href="/posts/2019/2019-09-08-semantic-release-delivery-pipeline/">Semantic Release Delivery Pipeline</a>
+  </h1>
+  
+  <h5>September 8, 2019</h5>
 
 
 
-    </div>
-  </header>
-  <div class="post-content">
-    <h1 id="table-of-contents">Table of contents</h1>
+  
+  <div>
+    
+      <a href="/categories/kubernetes/">Kubernetes</a>
+  </div>
+  
+
+  
+  <div>
+    
+      <a href="/tags/k8s/">K8s</a>
+  </div>
+  
+
+
+
+<h1 id="table-of-contents">
+  Table of contents
+  <a class="anchor" href="#table-of-contents">#</a>
+</h1>
 <ul>
 <li><a href="#SetupDeployment">Setup Deployment</a></li>
 <li><a href="#JenkinsPipeline">Jenkins Pipeline</a></li>
@@ -97,7 +165,10 @@ $ oc new-project testing --display-name=&#34;Testing Environment&#34; $ oc polic
 <li><a href="#privateRepo">Private Repository</a></li>
 <li><a href="#SemanticReleaseJenkinsPipeline">Semantic Release Jenkins Pipeline</a></li>
 </ul>
-<h2 id="SetupDeployment">Setup Deployment </h2>
+<h2 id="SetupDeployment">
+  Setup Deployment 
+  <a class="anchor" href="#SetupDeployment">#</a>
+</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc new-project development --display-nam  e<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Development Environment&#34;</span>
 </span></span></code></pre></div><p>Deploy application with the <code>maven.fabric8.io</code> plugin in  <code>development</code> stage from local machine.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ./mvnw fabric8:deploy -Dfabric8.namespace<span style="color:#f92672">=</span>development
@@ -124,11 +195,17 @@ $ oc new-project testing --display-name=&#34;Testing Environment&#34; $ oc polic
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>     <span style="color:#e6db74">&#39;{&#34;spec&#34;:{&#34;template&#34;:{&#34;spec&#34;:{&#34;containers&#34;:[{&#34;name&#34;:&#34;default-container&#34;,&#34;imagePullPolicy&#34;:&#34;Always&#34;}]}}}}&#39;</span> -n production
 </span></span><span style="display:flex;"><span>$ oc expose dc customer-service -n production --port<span style="color:#f92672">=</span><span style="color:#ae81ff">8080</span>
 </span></span><span style="display:flex;"><span>$ oc expose svc/customer-service -n production
-</span></span></code></pre></div><h2 id="JenkinsPipeline">Jenkins Pipeline </h2>
+</span></span></code></pre></div><h2 id="JenkinsPipeline">
+  Jenkins Pipeline 
+  <a class="anchor" href="#JenkinsPipeline">#</a>
+</h2>
 <p>Let&rsquo;s creat a Jenkins Pipeline for the <code>customer-service</code> in the project <code>jenkins</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc create -n jenkins -f <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    https://blog.marcelwidmer.org/semantic-release-delivery-pipeline/deploy/customer-service-pipeline.yaml
-</span></span></code></pre></div><h2 id="WebHooks">WebHooks</h2>
+</span></span></code></pre></div><h2 id="WebHooks">
+  WebHooks
+  <a class="anchor" href="#WebHooks">#</a>
+</h2>
 <p>How we can create a <a href="https://github.com/marzelwidmer/customer-service/settings/hooks">GitHub WebHook</a> for a public Git repository take a look at the following post there we created already a<br>
 <a href="http://blog.marcelwidmer.org/openshift-delivey-pipeline/#WebHooks">WebHook</a> for the <code>catalog-service</code> but here some <code>oc</code> commands
 for the <code>customer-service</code>.</p>
@@ -137,12 +214,15 @@ for the <code>customer-service</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc get bc/customer-service-pipeline -n jenkins -o json | jq <span style="color:#e6db74">&#39;.spec.triggers[].github.secret&#39;</span>
 </span></span></code></pre></div><p>Grab <code>Webhook GitHub URL</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc describe bc/customer-service-pipeline -n jenkins
-</span></span></code></pre></div><h2 id="privateRepo">Private Repository access with secrets</h2>
+</span></span></code></pre></div><h2 id="privateRepo">
+  Private Repository access with secrets
+  <a class="anchor" href="#privateRepo">#</a>
+</h2>
 <p>Create a <code>generic secret</code> link this secret with the <code>builder</code>.
 Annotate and label it for the Jenkins sync PlugIn. And finally update the <code>bc/customer-service-pipeline</code> with this secret.
 First you have to create an <code>AccessToken</code> in your <a href="https://github.com/settings/tokens">GitHub Tokens Settings</a> let it named like <code>openshift-source-builder</code>
 add <code>repo</code> and <code>user</code> access because this token will be used for <code>Semantic Release</code></p>
-<p><img src="/static/semantic-release-delivery-pipeline/openshift-source-builder-github-token.png" alt="openshift-source-builder-github-token"></p>
+<p><img src="/static/semantic-release-delivery-pipeline/openshift-source-builder-github-token.png" alt="openshift-source-builder-github-token" /></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc create secret generic ci-user-at-github <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>      --from-literal<span style="color:#f92672">=</span>username<span style="color:#f92672">=</span>machineuser <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>      --from-literal<span style="color:#f92672">=</span>password<span style="color:#f92672">=</span>&lt;accesstoken&gt; <span style="color:#ae81ff">\
@@ -157,10 +237,13 @@ add <code>repo</code> and <code>user</code> access because this token will be us
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -n jenkins
 </span></span><span style="display:flex;"><span>$ oc set build-secret bc/customer-service-pipeline ci-user-at-github --source
 </span></span></code></pre></div><p>When you check now the Jenkins you will see the <code>ci-user-at-github</code> under credentials <code>https://&lt;jenkins-url&gt;/credentials/</code></p>
-<p><img src="/static/semantic-release-delivery-pipeline/sync.jenkins.openshift.io.png" alt="sync.jenkins"></p>
+<p><img src="/static/semantic-release-delivery-pipeline/sync.jenkins.openshift.io.png" alt="sync.jenkins" /></p>
 <p>You will also find the a secret <code>ci-user-at-github</code> in the <code>jenkins</code> project in the OpenShift console.</p>
-<p><img src="/static/semantic-release-delivery-pipeline/secret-ci-user-at-github.png" alt="secret-ci-user-at-github"></p>
-<h2 id="SemanticReleaseJenkinsPipeline">Semantic Release Jenkins Pipeline </h2>
+<p><img src="/static/semantic-release-delivery-pipeline/secret-ci-user-at-github.png" alt="secret-ci-user-at-github" /></p>
+<h2 id="SemanticReleaseJenkinsPipeline">
+  Semantic Release Jenkins Pipeline 
+  <a class="anchor" href="#SemanticReleaseJenkinsPipeline">#</a>
+</h2>
 <p>First I want say the inspiration I get from the <a href="https://github.com/semantic-release/semantic-release">semantic-release</a> automates the whole package
 release workflow including: determining the next version number, generating the release notes and publishing the package.</p>
 <blockquote>
@@ -168,7 +251,7 @@ release workflow including: determining the next version number, generating the 
 </blockquote>
 <p>In the case I don&rsquo;t found any Maven PlugIn who works in my setup <em>out-of-the-box</em> and I am running here in a <code>Maven Slave</code> and don&rsquo;t want create a<code> Maven-Node Slave</code>
 I chose to follow a setup with just Git commands and a combination with the <a href="https://github.com/jgitver/jgitver-maven-plugin">jgitver-maven-plugin</a>.</p>
-<p><img src="/static/semantic-release-delivery-pipeline/okd-customer-service-pipeline.png" alt="okd-customer-service-pipeline"></p>
+<p><img src="/static/semantic-release-delivery-pipeline/okd-customer-service-pipeline.png" alt="okd-customer-service-pipeline" /></p>
 <p>After pushing some code in the <code>customer-service</code> repository the Jenkins pipeline start run.
 It will be tag the source repository if needed based on the commit message inspired on the follow <a href="https://github.com/semantic-release/semantic-release#commit-message-format">commit message format</a>.</p>
 <blockquote>
@@ -178,12 +261,12 @@ It will be tag the source repository if needed based on the commit message inspi
 <p>Patch version (1.0.1) 👉🏼 fix:|patch:|docs:|style:|refactor:|perf:|test:|chore:</p>
 </blockquote>
 <p>It will also create the image tags if needed.</p>
-<p><img src="/static/semantic-release-delivery-pipeline/okd-customer-service-image-tags.png" alt="okd-customer-service-image-tags"></p>
+<p><img src="/static/semantic-release-delivery-pipeline/okd-customer-service-image-tags.png" alt="okd-customer-service-image-tags" /></p>
 <p>Take also a look at the <a href="https://jenkins.io/projects/blueocean/">Jenkins BlueOcean</a> pipeline.</p>
-<p><img src="/static/semantic-release-delivery-pipeline/blueocean-customer-service-pipeline.png" alt="blueocean-customer-service-pipeline"></p>
+<p><img src="/static/semantic-release-delivery-pipeline/blueocean-customer-service-pipeline.png" alt="blueocean-customer-service-pipeline" /></p>
 <p>Or at the deployed <em>customer-service</em>.</p>
 <p><a href="http://customer-service-production.apps.c3smonkey.ch/swagger-ui.html">Customer Service Swagger</a>
-<img src="/static/semantic-release-delivery-pipeline/customer-service-swagger.png" alt="customer-service-swagger.png"></p>
+<img src="/static/semantic-release-delivery-pipeline/customer-service-swagger.png" alt="customer-service-swagger.png" /></p>
 <p>The <em>changelog</em> you can find under <a href="https://jenkins-jenkins.apps.c3smonkey.ch/job/jenkins/job/jenkins-customer-service-pipeline/lastSuccessfulBuild/artifact/target/changelog.html">Changelog</a></p>
 <p>I know the above pipeline is a bit chatty because of this I explain my steps here a bit compromised in some pipeline steps.
 Ok let&rsquo;s create a  <em>Jenkinsfile</em> in your project repository I prefer to put the <em>Jenkinsfile</em> in a folder <em>jenkins</em>.</p>
@@ -292,17 +375,78 @@ project Git repositories.</p>
 <a href="https://codito.in/semantic-commits-for-git">Semantic commits for git</a>
 <a href="https://github.com/marzelwidmer/git-semantic-commits">git-semantic-commits</a>
 <a href="https://wiki.jenkins.io/display/JENKINS/semantic-versioning-plugin">Jenkins - semantic-versioning-plugin</a>
-<a href="https://wiki.jenkins.io/display/JENKINS/Git+Parameter+Plugin">Jenkins - Git+Parameter+Plugin</a>
+<a href="https://wiki.jenkins.io/display/JENKINS/Git&#43;Parameter&#43;Plugin">Jenkins - Git+Parameter+Plugin</a>
 <a href="https://wilsonmar.github.io/jenkins2-pipeline/">wilsonmar - jenkins2-pipeline</a>
 <a href="https://gist.github.com/arehmandev/736daba40a3e1ef1fbe939c6674d7da8">Get Jenkins GDSL working with IntelliJ IDEA</a></p>
 </blockquote>
-
-  </div>
-  <div class="post-footer">
-    
-  </div>
 </article>
+ 
+      
 
-    </main>
-  </body>
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#SetupDeployment">Setup Deployment </a></li>
+    <li><a href="#JenkinsPipeline">Jenkins Pipeline </a></li>
+    <li><a href="#WebHooks">WebHooks</a></li>
+    <li><a href="#privateRepo">Private Repository access with secrets</a></li>
+    <li><a href="#SemanticReleaseJenkinsPipeline">Semantic Release Jenkins Pipeline </a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

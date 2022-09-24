@@ -27,8 +27,8 @@ Optimized for the specific read use-cases (e.g. screens, API methods) Many separ
       
       <guid>/posts/2020/2020-10-05-gitops-argo/</guid>
       <description>Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes. Application definitions, configurations, and environments should be declarative and version controlled. Application deployment and lifecycle management should be automated, auditable, and easy to understand.
-Minikube Setup Monitoring - Grafana-Prometheus Install Argo CD Create App on Argo CD Minikube Setup Local Development Environment with minikube.
-Brew Installation Packages brew install hyperkit brew install minikube brew install helm brew install httpie brew install stern brew install argocd brew install sops OSX Minikube Test Cluster Hyperkit Setup first minikube hyperkit driver.</description>
+Minikube Setup Monitoring - Grafana-Prometheus Install Argo CD Create App on Argo CD Minikube Setup # Local Development Environment with minikube.
+Brew Installation Packages # brew install hyperkit brew install minikube brew install helm brew install httpie brew install stern brew install argocd brew install sops OSX Minikube Test Cluster # Hyperkit # Setup first minikube hyperkit driver.</description>
     </item>
     
     <item>
@@ -47,7 +47,7 @@ Brew Installation Packages brew install hyperkit brew install minikube brew inst
       
       <guid>/posts/2020/2020-10-04-hazelcast-k8s/</guid>
       <description>The sample code can be found on GitHub. 1
-Precondition Spring Caching with Hazelcast Kustomize Configuration Hazelcast Configuration Precondition Spring Caching with Hazelcast Let&amp;rsquo;s get ready first our Spring Boot application with the following dependencies.
+Precondition Spring Caching with Hazelcast Kustomize Configuration Hazelcast Configuration Precondition Spring Caching with Hazelcast # Let&amp;rsquo;s get ready first our Spring Boot application with the following dependencies.
 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-cache&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; Also let&amp;rsquo;s take the hazelcast-all from com.hazelcast that include the k8s dependencies. The version 4.x.x will also support yaml configuration of hazelcast.
 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.hazelcast&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;hazelcast-all&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;4.0.3&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; Let&amp;rsquo;s implement a real foo service with a super Chuck Norris API for the moment.</description>
     </item>
@@ -70,8 +70,8 @@ soap-server who demonstrate the blocking downstream API. flux-client with REST A
       
       <guid>/posts/2020/2020-05-04-camel-kotlin-spring-boot/</guid>
       <description>Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
-Precondition on OSX Create Project Check Camel Context File Route FTP Route Choice Route Precondition on OSX We will also use command line ftp commands for this you need the ftp command line tool this can be installed with :
-brew install inetutils Create Project Run the following commands :</description>
+Precondition on OSX Create Project Check Camel Context File Route FTP Route Choice Route Precondition on OSX # We will also use command line ftp commands for this you need the ftp command line tool this can be installed with :
+brew install inetutils Create Project # Run the following commands :</description>
     </item>
     
     <item>
@@ -80,8 +80,8 @@ brew install inetutils Create Project Run the following commands :</description>
       <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
       
       <guid>/posts/2020/2020-05-01-minikube-ingress-controller/</guid>
-      <description>OSX Minikube Kubernetes If you use ohmyzsh is there a nice Plugin with some kubectl for more details check ohmyzsh plugins kubectl
-Install Minikube with Ingress Controller brew install minikube Start Minikube minikube start 😄 minikube v1.9.2 on Darwin 10.15.4 ▪ MINIKUBE_ACTIVE_DOCKERD=minikube ✨ Using the hyperkit driver based on existing profile 👍 Starting control plane node m01 in cluster minikube 🔄 Restarting existing hyperkit VM for &amp;#34;minikube&amp;#34; ... 🐳 Preparing Kubernetes v1.</description>
+      <description>OSX Minikube Kubernetes # If you use ohmyzsh is there a nice Plugin with some kubectl for more details check ohmyzsh plugins kubectl
+Install Minikube with Ingress Controller # brew install minikube Start Minikube # minikube start 😄 minikube v1.9.2 on Darwin 10.15.4 ▪ MINIKUBE_ACTIVE_DOCKERD=minikube ✨ Using the hyperkit driver based on existing profile 👍 Starting control plane node m01 in cluster minikube 🔄 Restarting existing hyperkit VM for &amp;#34;minikube&amp;#34; .</description>
     </item>
     
     <item>
@@ -90,7 +90,7 @@ Install Minikube with Ingress Controller brew install minikube Start Minikube mi
       <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>/posts/2020/2020-04-18-resilience4j-circuitbreaker/</guid>
-      <description>Create Project Let&amp;rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the spring inializr Rest Endpoint. We will take the latest and greates Spring Boot version 2.3.0.M4 and language kotlin with the following dependencies:
+      <description>Create Project # Let&amp;rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the spring inializr Rest Endpoint. We will take the latest and greates Spring Boot version 2.3.0.M4 and language kotlin with the following dependencies:
 actuator webflux cloud-resilience4j http https://start.spring.io/starter.tgz \ dependencies==actuator,webflux,cloud-resilience4j \ description==&amp;#34;Demo project Kotlin Spring Boot with Resilience4j&amp;#34; \ applicationName==Resilience4jApplication \ name==kboot-resilience4j \ groupId==ch.keepcalm \ artifactId==kboot-resilience4j \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ baseDir==kboot-resilience4j| tar -xzvf - Add Customer Banner</description>
     </item>
     
@@ -112,9 +112,9 @@ We start with the MongoDB document class Customer and a ReactiveCrudRepository i
       <pubDate>Sun, 12 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>/posts/2020/2020-04-12-spring-initializr/</guid>
-      <description>Create Kotlin Maven Project with HTTPie from start.spring.io Let&amp;rsquo;s create and extract a Maven Kotlin project with some dependencies actuator data-mongodb-reactive webflux and cloud-gateway The https://start.spring.io
-http https://start.spring.io/starter.tgz \ dependencies==actuator,data-mongodb-reactive,webflux,cloud-gateway \ description==&amp;#34;Demo project Kotlin Sidecar Gateway&amp;#34; \ applicationName==SidecarGatewayApplication \ name==kotlin-sidecar-gateway \ groupId==ch.keepcalm \ artifactId==kotlin-sidecar-gateway \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ baseDir==kotlin-sidecar-gateway | tar -xzvf - Banner Download Banner in the src/main/resources folder.
-http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/banner.txt \ &amp;gt; kotlin-sidecar-gateway/src/main/resources/banner.txt Spring Application Name Configure spring.</description>
+      <description>Create Kotlin Maven Project with HTTPie from start.spring.io # Let&amp;rsquo;s create and extract a Maven Kotlin project with some dependencies actuator data-mongodb-reactive webflux and cloud-gateway The https://start.spring.io
+http https://start.spring.io/starter.tgz \ dependencies==actuator,data-mongodb-reactive,webflux,cloud-gateway \ description==&amp;#34;Demo project Kotlin Sidecar Gateway&amp;#34; \ applicationName==SidecarGatewayApplication \ name==kotlin-sidecar-gateway \ groupId==ch.keepcalm \ artifactId==kotlin-sidecar-gateway \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ baseDir==kotlin-sidecar-gateway | tar -xzvf - Banner # Download Banner in the src/main/resources folder.
+http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/banner.txt \ &amp;gt; kotlin-sidecar-gateway/src/main/resources/banner.</description>
     </item>
     
     <item>
@@ -136,8 +136,8 @@ Optimized for the specific read use-cases (e.g. screens, API methods) Many separ
       <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
       
       <guid>/posts/2019/2019-08-28-multiple-project-promoting/</guid>
-      <description>Table of contents Create Project Install Jenkins / Install Jenkins With CLI Add Edit Role To ServiceAccount Jenkins Add Role To Group Deploy Application Development Environment Deployment Test API Testing Environment Deployment Production Environment Deployment Jenkins Pipeline WebHooks Create Project We are going to use the CLI to create some projects. Let&amp;rsquo;s create our projects first:
-$ oc login $ oc new-project development --display-name=&amp;#34;Development Environment&amp;#34; $ oc new-project testing --display-name=&amp;#34;Testing Environment&amp;#34; $ oc new-project production --display-name=&amp;#34;Production Environment&amp;#34; $ oc new-project jenkins --display-name=&amp;#34;Jenkins CI/CD&amp;#34; Install Jenkins Create a Jenkins in the Jenkins CI/CD project with some storage.</description>
+      <description>Table of contents # Create Project Install Jenkins / Install Jenkins With CLI Add Edit Role To ServiceAccount Jenkins Add Role To Group Deploy Application Development Environment Deployment Test API Testing Environment Deployment Production Environment Deployment Jenkins Pipeline WebHooks Create Project # We are going to use the CLI to create some projects. Let&amp;rsquo;s create our projects first:
+$ oc login $ oc new-project development --display-name=&amp;#34;Development Environment&amp;#34; $ oc new-project testing --display-name=&amp;#34;Testing Environment&amp;#34; $ oc new-project production --display-name=&amp;#34;Production Environment&amp;#34; $ oc new-project jenkins --display-name=&amp;#34;Jenkins CI/CD&amp;#34; Install Jenkins # Create a Jenkins in the Jenkins CI/CD project with some storage.</description>
     </item>
     
     <item>
@@ -148,7 +148,7 @@ $ oc login $ oc new-project development --display-name=&amp;#34;Development Envi
       <guid>/posts/2019/2019-09-18-spring-boot-k8s-configmap/</guid>
       <description>Now is time to configure our microservices to send the tracing logs to Jaeger 1. The configuration opentracing.jaeger.http-sender.url in configuration application.yaml file looks like below in the sources.
 opentracing: jaeger: log-spans: true http-sender: url: http://localhost:14268/api/traces The opentracing.jaeger.http-sender.url we are looking for we get form the section Get Route Host in the Jaeger post We will use the ConfigMap approach with the Spring Cloud Kubernetes{:target=&amp;quot;_blank&amp;quot;} starters.
-Maven Update Maven Configuration with Spring Cloud Kubernetes{:target=&amp;quot;_blank&amp;quot;} library.</description>
+Maven # Update Maven Configuration with Spring Cloud Kubernetes{:target=&amp;quot;_blank&amp;quot;} library.</description>
     </item>
     
     <item>
@@ -168,7 +168,7 @@ Let&amp;rsquo;s start by adding the spring-cloud-starter-kubernetes-ribbon depen
       <pubDate>Sun, 08 Sep 2019 00:00:00 +0000</pubDate>
       
       <guid>/posts/2019/2019-09-08-semantic-release-delivery-pipeline/</guid>
-      <description>Table of contents Setup Deployment Jenkins Pipeline WebHooks Private Repository Semantic Release Jenkins Pipeline Setup Deployment $ oc new-project development --display-nam e=&amp;#34;Development Environment&amp;#34; Deploy application with the maven.fabric8.io plugin in development stage from local machine.
+      <description>Table of contents # Setup Deployment Jenkins Pipeline WebHooks Private Repository Semantic Release Jenkins Pipeline Setup Deployment # $ oc new-project development --display-nam e=&amp;#34;Development Environment&amp;#34; Deploy application with the maven.fabric8.io plugin in development stage from local machine.
 $ ./mvnw fabric8:deploy -Dfabric8.namespace=development $ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n development Create testing project and setup the roles.
 $ oc new-project testing --display-name=&amp;#34;Testing Environment&amp;#34; $ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n testing $ oc policy add-role-to-group system:image-puller system:serviceaccounts:testing \ -n development Create DeploymentConfiguration in testing stage.</description>
     </item>
@@ -179,7 +179,7 @@ $ oc new-project testing --display-name=&amp;#34;Testing Environment&amp;#34; $ 
       <pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate>
       
       <guid>/posts/2019/2019-09-01-jaeger/</guid>
-      <description>Table of contents Jeager All-In-One with OpenShift Template Jeager Step-by-Step with separate operator As on-the-ground microservice practitioners are quickly realizing, the majority of operational problems that arise when moving to a distributed architecture are ultimately grounded in two areas: networking and observability. It is simply an orders of magnitude larger problem to network and debug a set of intertwined distributed services versus a single monolithic application. Jaeger Jaeger is a open source, end-to-end distributed tracing Monitor and troubleshoot transactions in complex distributed systems.</description>
+      <description>Table of contents # Jeager All-In-One with OpenShift Template Jeager Step-by-Step with separate operator As on-the-ground microservice practitioners are quickly realizing, the majority of operational problems that arise when moving to a distributed architecture are ultimately grounded in two areas: networking and observability. It is simply an orders of magnitude larger problem to network and debug a set of intertwined distributed services versus a single monolithic application. Jaeger # Jaeger is a open source, end-to-end distributed tracing Monitor and troubleshoot transactions in complex distributed systems.</description>
     </item>
     
     <item>
@@ -189,8 +189,8 @@ $ oc new-project testing --display-name=&amp;#34;Testing Environment&amp;#34; $ 
       
       <guid>/posts/2019/2019-08-20-certbot-letsencrypt/</guid>
       <description>Inspiration from [Adding an SSL certificate to OKD - Part 2 of Installation of OKD 3.10 from start to finish]https://www.youtube.com/watch?v=S7HoJ09oYn0&amp;amp;feature=youtu.be){:target=&amp;quot;_blank&amp;quot;}
-Check Certificate Let`s check first if there a certificate already for our domain https://crt.sh/?q=c3smonkey.ch
-Check EPEL Reposittory Check if the epel.repo is enabled.
+Check Certificate # Let`s check first if there a certificate already for our domain https://crt.sh/?q=c3smonkey.ch
+Check EPEL Reposittory # Check if the epel.repo is enabled.
 $ vi /etc/yum.repos.d/epel.repo [epel] name=Extra Packages for Enterprise Linux 7 - $basearch #baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-7&amp;amp;arch=$basearch failovermethod=priority enabled=0 gpgcheck=1 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7 change enabled=0 to enabled=1 and quite and save the file with :qw</description>
     </item>
     
@@ -202,8 +202,8 @@ $ vi /etc/yum.repos.d/epel.repo [epel] name=Extra Packages for Enterprise Linux 
       <guid>/posts/2019/2019-01-13-hetzner-okd/</guid>
       <description>Inspiration from Installation of OKD 3.10 from start to finish
 Create a Hetzner VM with the CLI https://github.com/hetznercloud/cli
-hcloud (Hetzner CLI) Let&amp;rsquo;s check first some hcloud command that we can use later to create a VM with the right size and in the Datacenter we want.
-hcloud server create --name &amp;lt;YOUR_DOMAIN&amp;gt; --type &amp;lt;SERVER-TYPE&amp;gt; --image &amp;lt;IMAGE&amp;gt; --ssh-key &amp;lt;YOUR_HETZNER_SSH_KEY&amp;gt; --datacenter &amp;lt;DATACENTER&amp;gt; Server Type hcloud server-type list ID NAME CORES MEMORY DISK STORAGE TYPE 1 cx11 1 2.</description>
+hcloud (Hetzner CLI) # Let&amp;rsquo;s check first some hcloud command that we can use later to create a VM with the right size and in the Datacenter we want.
+hcloud server create --name &amp;lt;YOUR_DOMAIN&amp;gt; --type &amp;lt;SERVER-TYPE&amp;gt; --image &amp;lt;IMAGE&amp;gt; --ssh-key &amp;lt;YOUR_HETZNER_SSH_KEY&amp;gt; --datacenter &amp;lt;DATACENTER&amp;gt; Server Type # hcloud server-type list ID NAME CORES MEMORY DISK STORAGE TYPE 1 cx11 1 2.</description>
     </item>
     
   </channel>

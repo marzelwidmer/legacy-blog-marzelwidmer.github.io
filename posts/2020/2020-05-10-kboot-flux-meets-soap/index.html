@@ -1,22 +1,13 @@
-<!doctype html>
-<html lang="en-us">
-  <head>
-    <title>Kboot Flux Meets Soap // </title>
-    <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.104.0" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="John Doe" />
-    <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.60b6f603c6636b80509d0a8f8c965e01d4c7b9b2facacd04beaf4d6ed7d8c7c2.css" />
-
-    
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Kboot Flux Meets Soap"/>
-<meta name="twitter:description" content="This will demonstrate how we can deal with a Blocking API in a Reactive World.
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="This will demonstrate how we can deal with a Blocking API in a Reactive World.
 The GitHb 1 sample provides a
-soap-server who demonstrate the blocking downstream API. flux-client with REST API lockdown that will call the blocking SOAP endpoint and. Blockhound 2 will throw an exception. easing have an implemented from Avoiding Reactor Meltdown 3 show case how to manage Blocking API. With this approach to manage Blocking API in the same service ant not in a separate service we have all the nice features like retry filter map and so on in our Service A from the Reactive Streams API."/>
-
-    <meta property="og:title" content="Kboot Flux Meets Soap" />
+soap-server who demonstrate the blocking downstream API. flux-client with REST API lockdown that will call the blocking SOAP endpoint and. Blockhound 2 will throw an exception. easing have an implemented from Avoiding Reactor Meltdown 3 show case how to manage Blocking API. With this approach to manage Blocking API in the same service ant not in a separate service we have all the nice features like retry filter map and so on in our Service A from the Reactive Streams API.">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="Kboot Flux Meets Soap" />
 <meta property="og:description" content="This will demonstrate how we can deal with a Blocking API in a Reactive World.
 The GitHb 1 sample provides a
 soap-server who demonstrate the blocking downstream API. flux-client with REST API lockdown that will call the blocking SOAP endpoint and. Blockhound 2 will throw an exception. easing have an implemented from Avoiding Reactor Meltdown 3 show case how to manage Blocking API. With this approach to manage Blocking API in the same service ant not in a separate service we have all the nice features like retry filter map and so on in our Service A from the Reactive Streams API." />
@@ -25,71 +16,159 @@ soap-server who demonstrate the blocking downstream API. flux-client with REST A
 <meta property="article:published_time" content="2020-05-10T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-05-10T00:00:00+00:00" />
 
-
-
-  </head>
-  <body>
-    <header class="app-header">
-      <a href="/"><img class="app-header-avatar" src="/avatar.png" alt="John Doe" /></a>
-      <h1></h1>
-      <p> </p>
-      <div class="app-header-social">
+<title>Kboot Flux Meets Soap | </title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.c58292d36b18b675680ab9baea2029204537b839ea72f258746ec0f32ce8d6c8.css" >
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.7307af1daaa1c8df5b2664a10c4194c04c0db59b3e6bfc4bb1103f0dfeb2e46b.js" ></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
         
-          <a target="_blank" href="https://github.com/marzelwidmer" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
-  <title>github</title>
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-</svg></a>
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span></span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
         
-      </div>
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
 
-      <li class="posts-list-item"></li>
-      <li class="posts-list-item"><a href="/">Blogs</a></li>
+  <strong>Kboot Flux Meets Soap</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
 
 
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#api-lockdown-switzerland">API Lockdown Switzerland</a></li>
+    <li><a href="#api-easing-switzerland">API easing Switzerland</a></li>
+    <li><a href="#blockHound">Blockhound </a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#dsl-kotlindslinunderanhour">DSL </a></li>
+    <li><a href="#wsdl">WSDL</a></li>
+    <li><a href="#end-point">End-Point</a></li>
+    <li><a href="#request">Request</a></li>
+    <li><a href="#httpieSoapCall">Call Service with <code>HTTPie</code> </a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#router-table">Router Table</a></li>
+    <li><a href="#reactive-service">Reactive Service</a></li>
+    <li><a href="#reactive-soap-client">Reactive SOAP Client</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
 
       
-
-    </header>
-    <main class="app-container">
       
-<article class="post">
-  <header class="post-header">
-    <h1 class="post-title">Kboot Flux Meets Soap <br>
-      <i class="post-subtitle">Leading edge meets legacy</i>
-    </h1>
-    <div class="post-meta">
-      <div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
-  <title>calendar</title>
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
-</svg>
-        May 10, 2020
-      </div>
-      <div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg>
-        2 min read
-      </div><div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
-  <title>tag</title>
-  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
-</svg>
-        <a class="tag" href="/tags/springboot/">SpringBoot</a><a class="tag" href="/tags/kotlin/">Kotlin</a><a class="tag" href="/tags/webflux/">WebFlux</a></div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
-  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-</svg>
-      
-        <a class="tag" href="/categories/development">Development</a>
-      
+<article class="markdown">
+  <h1>
+    <a href="/posts/2020/2020-05-10-kboot-flux-meets-soap/">Kboot Flux Meets Soap</a>
+  </h1>
+  
+  <h5>May 10, 2020</h5>
 
 
 
-    </div>
-  </header>
-  <div class="post-content">
-    <p>This will demonstrate how we can deal with a <code>Blocking API</code> in a <code>Reactive World</code>.</p>
+  
+  <div>
+    
+      <a href="/categories/development/">Development</a>
+  </div>
+  
+
+  
+  <div>
+    
+      <a href="/tags/springboot/">SpringBoot</a>, 
+      <a href="/tags/kotlin/">Kotlin</a>, 
+      <a href="/tags/webflux/">WebFlux</a>
+  </div>
+  
+
+
+
+<p>This will demonstrate how we can deal with a <code>Blocking API</code> in a <code>Reactive World</code>.</p>
 <p>The GitHb <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> sample provides a</p>
 <ul>
 <li><code>soap-server</code> who demonstrate the blocking downstream <code>API</code>.</li>
@@ -110,13 +189,25 @@ in our <code>Service A</code> from the <code>Reactive Streams API</code>.</p>
 <li><a href="#httpieSoapCall">SOAP with HTTPie Server</a></li>
 <li><a href="#implementation">Implementation</a></li>
 </ul>
-<p><img src="/static/flux-meets-soap/FluxMeetsSoap.png" alt="fluxMeetsSoap"></p>
-<h1 id="restAPI">Flux Client </h1>
-<h2 id="api-lockdown-switzerland">API Lockdown Switzerland</h2>
+<p><img src="/static/flux-meets-soap/FluxMeetsSoap.png" alt="fluxMeetsSoap" /></p>
+<h1 id="restAPI">
+  Flux Client 
+  <a class="anchor" href="#restAPI">#</a>
+</h1>
+<h2 id="api-lockdown-switzerland">
+  API Lockdown Switzerland
+  <a class="anchor" href="#api-lockdown-switzerland">#</a>
+</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http :8080/api/lockdown/Switzerland
-</span></span></code></pre></div><h2 id="api-easing-switzerland">API easing Switzerland</h2>
+</span></span></code></pre></div><h2 id="api-easing-switzerland">
+  API easing Switzerland
+  <a class="anchor" href="#api-easing-switzerland">#</a>
+</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http :8080/api/easing/Switzerland
-</span></span></code></pre></div><h2 id="blockHound">Blockhound </h2>
+</span></span></code></pre></div><h2 id="blockHound">
+  Blockhound 
+  <a class="anchor" href="#blockHound">#</a>
+</h2>
 <p><a href="https://github.com/reactor/BlockHound">BlockHound</a> is a Java agent to detect blocking calls from non-blocking threads.
 Add the following or latest dependency from <code>blockhound</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- Blockhound	--&gt;</span>
@@ -130,20 +221,35 @@ Add the following or latest dependency from <code>blockhound</code>.</p>
 </span></span><span style="display:flex;"><span>	BlockHound.install()
 </span></span><span style="display:flex;"><span>	runApplication&lt;KbootFluxWS&gt;(*args)
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h1 id="soapServer">SOAP Server </h1>
+</span></span></code></pre></div><h1 id="soapServer">
+  SOAP Server 
+  <a class="anchor" href="#soapServer">#</a>
+</h1>
 <p>The Server have an implementation with a demonstration how we can write own <code>Kotlin DSL</code>.</p>
-<h2 id="dsl-kotlindslinunderanhour">DSL <sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></h2>
+<h2 id="dsl-kotlindslinunderanhour">
+  DSL <sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>
+  <a class="anchor" href="#dsl-kotlindslinunderanhour">#</a>
+</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span> country {
 </span></span><span style="display:flex;"><span>    name = <span style="color:#e6db74">&#34;Switzerland&#34;</span>
 </span></span><span style="display:flex;"><span>    capital = <span style="color:#e6db74">&#34;Bern&#34;</span>
 </span></span><span style="display:flex;"><span>    population = <span style="color:#ae81ff">8</span>_603_900
 </span></span><span style="display:flex;"><span>    currency = <span style="color:#e6db74">&#34;CHF&#34;</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="wsdl">WSDL</h2>
+</span></span></code></pre></div><h2 id="wsdl">
+  WSDL
+  <a class="anchor" href="#wsdl">#</a>
+</h2>
 <p><code>http://localhost:8888/ws/countries.wsdl</code></p>
-<h2 id="end-point">End-Point</h2>
+<h2 id="end-point">
+  End-Point
+  <a class="anchor" href="#end-point">#</a>
+</h2>
 <p><code>http://localhost:8888/ws</code></p>
-<h2 id="request">Request</h2>
+<h2 id="request">
+  Request
+  <a class="anchor" href="#request">#</a>
+</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;soapenv:Envelope</span> <span style="color:#a6e22e">xmlns:soapenv=</span><span style="color:#e6db74">&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;</span>
 </span></span><span style="display:flex;"><span>				  <span style="color:#a6e22e">xmlns:gs=</span><span style="color:#e6db74">&#34;http://keepcalm.ch/web-services&#34;</span><span style="color:#f92672">&gt;</span>
 </span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;soapenv:Header/&gt;</span>
@@ -153,7 +259,10 @@ Add the following or latest dependency from <code>blockhound</code>.</p>
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/gs:getCountryRequest&gt;</span>
 </span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;/soapenv:Body&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/soapenv:Envelope&gt;</span>
-</span></span></code></pre></div><h2 id="httpieSoapCall">Call Service with <code>HTTPie</code> </h2>
+</span></span></code></pre></div><h2 id="httpieSoapCall">
+  Call Service with <code>HTTPie</code> 
+  <a class="anchor" href="#httpieSoapCall">#</a>
+</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>printf <span style="color:#e6db74">&#39;&lt;soapenv:Envelope xmlns:soapenv=&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                                  xmlns:gs=&#34;http://keepcalm.ch/web-services&#34;&gt;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   &lt;soapenv:Header/&gt;
@@ -164,8 +273,14 @@ Add the following or latest dependency from <code>blockhound</code>.</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   &lt;/soapenv:Body&gt;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&lt;/soapenv:Envelope&gt;&#39;</span>| http  --follow --timeout <span style="color:#ae81ff">3600</span> POST http://localhost:8888/ws <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span> Content-Type:<span style="color:#e6db74">&#39;text/xml&#39;</span>
-</span></span></code></pre></div><h1 id="implementation">Implementation </h1>
-<h2 id="router-table">Router Table</h2>
+</span></span></code></pre></div><h1 id="implementation">
+  Implementation 
+  <a class="anchor" href="#implementation">#</a>
+</h1>
+<h2 id="router-table">
+  Router Table
+  <a class="anchor" href="#router-table">#</a>
+</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>bean {
 </span></span><span style="display:flex;"><span>    router {
 </span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;api&#34;</span>.nest {
@@ -184,7 +299,10 @@ Add the following or latest dependency from <code>blockhound</code>.</p>
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="reactive-service">Reactive Service</h2>
+</span></span></code></pre></div><h2 id="reactive-service">
+  Reactive Service
+  <a class="anchor" href="#reactive-service">#</a>
+</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#a6e22e">@Service</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CountryReactiveService</span>  (<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> soapClient: SoapClient) {
 </span></span><span style="display:flex;"><span>
@@ -192,7 +310,10 @@ Add the following or latest dependency from <code>blockhound</code>.</p>
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> soapClient.getCountryReactive(name)
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="reactive-soap-client">Reactive SOAP Client</h2>
+</span></span></code></pre></div><h2 id="reactive-soap-client">
+  Reactive SOAP Client
+  <a class="anchor" href="#reactive-soap-client">#</a>
+</h2>
 <p><code>.subscribeOn(Schedulers.boundedElastic())</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getCountryReactive</span>(country: String): Mono&lt;GetCountryResponse&gt; {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> request = GetCountryRequest()
@@ -225,13 +346,86 @@ Add the following or latest dependency from <code>blockhound</code>.</p>
 </li>
 </ol>
 </div>
-
-  </div>
-  <div class="post-footer">
-    
-  </div>
 </article>
+ 
+      
 
-    </main>
-  </body>
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#api-lockdown-switzerland">API Lockdown Switzerland</a></li>
+    <li><a href="#api-easing-switzerland">API easing Switzerland</a></li>
+    <li><a href="#blockHound">Blockhound </a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#dsl-kotlindslinunderanhour">DSL </a></li>
+    <li><a href="#wsdl">WSDL</a></li>
+    <li><a href="#end-point">End-Point</a></li>
+    <li><a href="#request">Request</a></li>
+    <li><a href="#httpieSoapCall">Call Service with <code>HTTPie</code> </a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#router-table">Router Table</a></li>
+    <li><a href="#reactive-service">Reactive Service</a></li>
+    <li><a href="#reactive-soap-client">Reactive SOAP Client</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

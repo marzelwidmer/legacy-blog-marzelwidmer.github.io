@@ -27,7 +27,7 @@ Optimized for the specific read use-cases (e.g. screens, API methods) Many separ
       
       <guid>/posts/2020/2020-10-04-hazelcast-k8s/</guid>
       <description>The sample code can be found on GitHub. 1
-Precondition Spring Caching with Hazelcast Kustomize Configuration Hazelcast Configuration Precondition Spring Caching with Hazelcast Let&amp;rsquo;s get ready first our Spring Boot application with the following dependencies.
+Precondition Spring Caching with Hazelcast Kustomize Configuration Hazelcast Configuration Precondition Spring Caching with Hazelcast # Let&amp;rsquo;s get ready first our Spring Boot application with the following dependencies.
 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-cache&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; Also let&amp;rsquo;s take the hazelcast-all from com.hazelcast that include the k8s dependencies. The version 4.x.x will also support yaml configuration of hazelcast.
 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.hazelcast&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;hazelcast-all&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;4.0.3&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; Let&amp;rsquo;s implement a real foo service with a super Chuck Norris API for the moment.</description>
     </item>
@@ -50,8 +50,8 @@ soap-server who demonstrate the blocking downstream API. flux-client with REST A
       
       <guid>/posts/2020/2020-05-04-camel-kotlin-spring-boot/</guid>
       <description>Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
-Precondition on OSX Create Project Check Camel Context File Route FTP Route Choice Route Precondition on OSX We will also use command line ftp commands for this you need the ftp command line tool this can be installed with :
-brew install inetutils Create Project Run the following commands :</description>
+Precondition on OSX Create Project Check Camel Context File Route FTP Route Choice Route Precondition on OSX # We will also use command line ftp commands for this you need the ftp command line tool this can be installed with :
+brew install inetutils Create Project # Run the following commands :</description>
     </item>
     
     <item>
@@ -72,8 +72,8 @@ We start with the MongoDB document class Customer and a ReactiveCrudRepository i
       <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
       
       <guid>/posts/2019/2019-08-28-multiple-project-promoting/</guid>
-      <description>Table of contents Create Project Install Jenkins / Install Jenkins With CLI Add Edit Role To ServiceAccount Jenkins Add Role To Group Deploy Application Development Environment Deployment Test API Testing Environment Deployment Production Environment Deployment Jenkins Pipeline WebHooks Create Project We are going to use the CLI to create some projects. Let&amp;rsquo;s create our projects first:
-$ oc login $ oc new-project development --display-name=&amp;#34;Development Environment&amp;#34; $ oc new-project testing --display-name=&amp;#34;Testing Environment&amp;#34; $ oc new-project production --display-name=&amp;#34;Production Environment&amp;#34; $ oc new-project jenkins --display-name=&amp;#34;Jenkins CI/CD&amp;#34; Install Jenkins Create a Jenkins in the Jenkins CI/CD project with some storage.</description>
+      <description>Table of contents # Create Project Install Jenkins / Install Jenkins With CLI Add Edit Role To ServiceAccount Jenkins Add Role To Group Deploy Application Development Environment Deployment Test API Testing Environment Deployment Production Environment Deployment Jenkins Pipeline WebHooks Create Project # We are going to use the CLI to create some projects. Let&amp;rsquo;s create our projects first:
+$ oc login $ oc new-project development --display-name=&amp;#34;Development Environment&amp;#34; $ oc new-project testing --display-name=&amp;#34;Testing Environment&amp;#34; $ oc new-project production --display-name=&amp;#34;Production Environment&amp;#34; $ oc new-project jenkins --display-name=&amp;#34;Jenkins CI/CD&amp;#34; Install Jenkins # Create a Jenkins in the Jenkins CI/CD project with some storage.</description>
     </item>
     
     <item>
@@ -84,7 +84,7 @@ $ oc login $ oc new-project development --display-name=&amp;#34;Development Envi
       <guid>/posts/2019/2019-09-18-spring-boot-k8s-configmap/</guid>
       <description>Now is time to configure our microservices to send the tracing logs to Jaeger 1. The configuration opentracing.jaeger.http-sender.url in configuration application.yaml file looks like below in the sources.
 opentracing: jaeger: log-spans: true http-sender: url: http://localhost:14268/api/traces The opentracing.jaeger.http-sender.url we are looking for we get form the section Get Route Host in the Jaeger post We will use the ConfigMap approach with the Spring Cloud Kubernetes{:target=&amp;quot;_blank&amp;quot;} starters.
-Maven Update Maven Configuration with Spring Cloud Kubernetes{:target=&amp;quot;_blank&amp;quot;} library.</description>
+Maven # Update Maven Configuration with Spring Cloud Kubernetes{:target=&amp;quot;_blank&amp;quot;} library.</description>
     </item>
     
     <item>
