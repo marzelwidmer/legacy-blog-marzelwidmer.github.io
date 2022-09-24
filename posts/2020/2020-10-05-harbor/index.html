@@ -12,12 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Harbor"/>
-<meta name="twitter:description" content="https://medium.com/@Devopscontinens/alongside-harbor-berth-with-minikube-b31e487974f4
-helm repo add harbor https://helm.goharbor.io git clone https://github.com/goharbor/harbor-helm.git helm install harbor harbor/harbor -n harbor k get ingress Warning: extensions/v1beta1 Ingress is deprecated in v1.14&#43;, unavailable in v1.22&#43;; use networking.k8s.io/v1 Ingress NAME CLASS HOSTS ADDRESS PORTS AGE harbor-harbor-ingress &lt;none&gt; core.harbor.domain 192.168.64.6 80, 443 5m34s harbor-harbor-ingress-notary &lt;none&gt; notary.harbor.domain 192.168.64.6 80, 443 5m34s nginx-ingress &lt;none&gt; test.minikube.me 192.168.64.6 80 5m34s sudo vi /etc/hosts 192.168.64.6 core.harbor.domain http://core.harbor.domain username: admin password: Harbor12345 First thing we need to create a new project inside Harbor."/>
+<meta name="twitter:description" content="Harbor is an open source trusted cloud native registry project that stores, signs, and scans content. Harbor extends the open source Docker Distribution by adding the functionalities usually required by users such as security, identity and management. Having a registry closer to the build and run environment can improve the image transfer efficiency. Harbor supports replication of images between registries, and also offers advanced security features such as user management, access control and activity auditing."/>
 
     <meta property="og:title" content="Harbor" />
-<meta property="og:description" content="https://medium.com/@Devopscontinens/alongside-harbor-berth-with-minikube-b31e487974f4
-helm repo add harbor https://helm.goharbor.io git clone https://github.com/goharbor/harbor-helm.git helm install harbor harbor/harbor -n harbor k get ingress Warning: extensions/v1beta1 Ingress is deprecated in v1.14&#43;, unavailable in v1.22&#43;; use networking.k8s.io/v1 Ingress NAME CLASS HOSTS ADDRESS PORTS AGE harbor-harbor-ingress &lt;none&gt; core.harbor.domain 192.168.64.6 80, 443 5m34s harbor-harbor-ingress-notary &lt;none&gt; notary.harbor.domain 192.168.64.6 80, 443 5m34s nginx-ingress &lt;none&gt; test.minikube.me 192.168.64.6 80 5m34s sudo vi /etc/hosts 192.168.64.6 core.harbor.domain http://core.harbor.domain username: admin password: Harbor12345 First thing we need to create a new project inside Harbor." />
+<meta property="og:description" content="Harbor is an open source trusted cloud native registry project that stores, signs, and scans content. Harbor extends the open source Docker Distribution by adding the functionalities usually required by users such as security, identity and management. Having a registry closer to the build and run environment can improve the image transfer efficiency. Harbor supports replication of images between registries, and also offers advanced security features such as user management, access control and activity auditing." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/2020/2020-10-05-harbor/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-10-25T00:00:00+00:00" />
@@ -30,7 +28,7 @@ helm repo add harbor https://helm.goharbor.io git clone https://github.com/gohar
     <header class="app-header">
       <a href="/"><img class="app-header-avatar" src="/avatar.png" alt="John Doe" /></a>
       <h1></h1>
-      <p>This is my personal blog where I will mostly post about development.</p>
+      <p> </p>
       <div class="app-header-social">
         
           <a target="_blank" href="https://github.com/marzelwidmer" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
@@ -68,7 +66,7 @@ helm repo add harbor https://helm.goharbor.io git clone https://github.com/gohar
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-        2 min read
+        3 min read
       </div><div>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -87,7 +85,10 @@ helm repo add harbor https://helm.goharbor.io git clone https://github.com/gohar
     </div>
   </header>
   <div class="post-content">
-    <p><a href="https://medium.com/@Devopscontinens/alongside-harbor-berth-with-minikube-b31e487974f4">https://medium.com/@Devopscontinens/alongside-harbor-berth-with-minikube-b31e487974f4</a></p>
+    <p>Harbor is an open source trusted cloud native registry project that stores, signs, and scans content. Harbor extends the open source Docker Distribution by adding the functionalities usually required by users such as security, identity and management. Having a registry closer to the build and run environment can improve the image transfer efficiency. Harbor supports replication of images between registries, and also offers advanced security features such as user management, access control and activity auditing.</p>
+<p>Harbor is hosted by the Cloud Native Computing Foundation (CNCF). If you are an organization that wants to help shape the evolution of cloud native technologies, consider joining the CNCF. For details about who&rsquo;s involved and how Harbor plays a role, read the CNCF announcement.</p>
+<p><a href="https://github.com/goharbor/harbor">Harbor GitHub</a>
+<a href="https://medium.com/@Devopscontinens/alongside-harbor-berth-with-minikube-b31e487974f4">Melvin medium.com</a></p>
 <pre tabindex="0"><code>helm repo add harbor https://helm.goharbor.io
 git clone https://github.com/goharbor/harbor-helm.git
 helm install harbor harbor/harbor -n harbor
