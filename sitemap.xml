@@ -3,10 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/</loc>
-    <lastmod>2020-10-25T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/2022/2022-24-09-axon-mongodb-extention/</loc>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/</loc>
-    <lastmod>2020-10-25T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/development/</loc>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/kotlin/</loc>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/springboot/</loc>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/2020/2020-10-05-gitops-argo/</loc>
     <lastmod>2020-10-25T00:00:00+00:00</lastmod>
@@ -20,28 +38,13 @@
     <loc>/categories/kubernetes/</loc>
     <lastmod>2020-10-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/</loc>
-    <lastmod>2020-10-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
-    <lastmod>2020-10-25T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/tags/caching/</loc>
     <lastmod>2020-10-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/2020/2020-10-04-hazelcast-k8s/</loc>
     <lastmod>2020-10-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/tags/springboot/</loc>
-    <lastmod>2020-10-04T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/development/</loc>
-    <lastmod>2020-05-10T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/posts/2020/2020-05-10-kboot-flux-meets-soap/</loc>
-    <lastmod>2020-05-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/kotlin/</loc>
     <lastmod>2020-05-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/webflux/</loc>
