@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Kubernetes Ingress with Ngnix Ingress Controller // </title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.104.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.60b6f603c6636b80509d0a8f8c965e01d4c7b9b2facacd04beaf4d6ed7d8c7c2.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kubernetes Ingress with Ngnix Ingress Controller"/>
+<meta name="twitter:description" content="OSX Minikube Kubernetes If you use ohmyzsh is there a nice Plugin with some kubectl for more details check ohmyzsh plugins kubectl
+Install Minikube with Ingress Controller brew install minikube Start Minikube minikube start 😄 minikube v1.9.2 on Darwin 10.15.4 ▪ MINIKUBE_ACTIVE_DOCKERD=minikube ✨ Using the hyperkit driver based on existing profile 👍 Starting control plane node m01 in cluster minikube 🔄 Restarting existing hyperkit VM for &#34;minikube&#34; ... 🐳 Preparing Kubernetes v1."/>
+
+    <meta property="og:title" content="Kubernetes Ingress with Ngnix Ingress Controller" />
+<meta property="og:description" content="OSX Minikube Kubernetes If you use ohmyzsh is there a nice Plugin with some kubectl for more details check ohmyzsh plugins kubectl
+Install Minikube with Ingress Controller brew install minikube Start Minikube minikube start 😄 minikube v1.9.2 on Darwin 10.15.4 ▪ MINIKUBE_ACTIVE_DOCKERD=minikube ✨ Using the hyperkit driver based on existing profile 👍 Starting control plane node m01 in cluster minikube 🔄 Restarting existing hyperkit VM for &#34;minikube&#34; ... 🐳 Preparing Kubernetes v1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/2020/2020-05-01-minikube-ingress-controller/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-05-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-01T00:00:00+00:00" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/avatar.png" alt="John Doe" /></a>
+      <h1></h1>
+      <p>This is my personal blog where I will mostly post about development.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/marzelwidmer" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+      </div>
+
+      <li class="posts-list-item"></li>
+      <li class="posts-list-item"><a href="/">Blogs</a></li>
+
+
+
+      
+
+    </header>
+    <main class="app-container">
+      
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Kubernetes Ingress with Ngnix Ingress Controller <br>
+      <i class="post-subtitle">Set up Ingress on Minikube with the Ngnix Ingress Controller</i>
+    </h1>
+    <div class="post-meta">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+        May 1, 2020
+      </div>
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+        7 min read
+      </div><div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+        <a class="tag" href="/tags/k8s/">K8s</a></div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg>
+      
+        <a class="tag" href="/categories/kubernetes">Kubernetes</a>
+      
+
+
+
+    </div>
+  </header>
+  <div class="post-content">
+    <h1 id="osx-minikube-kubernetes">OSX Minikube Kubernetes</h1>
+<p>If you use <code>ohmyzsh</code>  is there a nice Plugin with some <code>kubectl</code> for more details check <a href="https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/kubectl">ohmyzsh plugins kubectl</a></p>
+<h2 id="install-minikube-with-ingress-controller">Install Minikube with Ingress Controller</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install minikube
+</span></span></code></pre></div><h2 id="start-minikube">Start Minikube</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>minikube start
+</span></span><span style="display:flex;"><span>😄  minikube v1.9.2 on Darwin 10.15.4
+</span></span><span style="display:flex;"><span>    ▪ MINIKUBE_ACTIVE_DOCKERD<span style="color:#f92672">=</span>minikube
+</span></span><span style="display:flex;"><span>✨  Using the hyperkit driver based on existing profile
+</span></span><span style="display:flex;"><span>👍  Starting control plane node m01 in cluster minikube
+</span></span><span style="display:flex;"><span>🔄  Restarting existing hyperkit VM <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#34;minikube&#34;</span> ...
+</span></span><span style="display:flex;"><span>🐳  Preparing Kubernetes v1.18.0 on Docker 19.03.8 ...
+</span></span><span style="display:flex;"><span>🌟  Enabling addons: dashboard, default-storageclass, ingress, storage-provisioner
+</span></span><span style="display:flex;"><span>🏄  Done! kubectl is now configured to use <span style="color:#e6db74">&#34;minikube&#34;</span>
+</span></span></code></pre></div><h2 id="minkikube-status">Minkikube Status</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>minikube status
+</span></span><span style="display:flex;"><span>m01
+</span></span><span style="display:flex;"><span>host: Running
+</span></span><span style="display:flex;"><span>kubelet: Running
+</span></span><span style="display:flex;"><span>apiserver: Running
+</span></span><span style="display:flex;"><span>kubeconfig: Configured
+</span></span></code></pre></div><h2 id="enable-ingress-addons">Enable Ingress Addons</h2>
+<p>We need the addon <code>ingress</code> this can be done with the followng command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>minikube addons enable ingress
+</span></span></code></pre></div><p>Check minikube addons with <code>minikube addons list</code> if <code>ingress</code> is enabled.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>minikube addons list
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|-----------------------------|----------|--------------|
+</span></span><span style="display:flex;"><span>|         ADDON NAME          | PROFILE  |    STATUS    |
+</span></span><span style="display:flex;"><span>|-----------------------------|----------|--------------|
+</span></span><span style="display:flex;"><span>| dashboard                   | minikube | enabled ✅   |
+</span></span><span style="display:flex;"><span>| default-storageclass        | minikube | enabled ✅   |
+</span></span><span style="display:flex;"><span>| efk                         | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| freshpod                    | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| gvisor                      | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| helm-tiller                 | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| ingress                     | minikube | enabled ✅   |
+</span></span><span style="display:flex;"><span>| ingress-dns                 | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| istio                       | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| istio-provisioner           | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| logviewer                   | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| metrics-server              | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| nvidia-driver-installer     | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| nvidia-gpu-device-plugin    | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| registry                    | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| registry-aliases            | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| registry-creds              | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| storage-provisioner         | minikube | enabled ✅   |
+</span></span><span style="display:flex;"><span>| storage-provisioner-gluster | minikube | disabled     |
+</span></span><span style="display:flex;"><span>|-----------------------------|----------|--------------|
+</span></span></code></pre></div><h2 id="ingress-controller">Ingress Controller</h2>
+<p>Let&rsquo;s check if the <code>Nginx Ingress Controller</code> is up and running.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>k get pods -n kube-system | grep nginx-ingress
+</span></span><span style="display:flex;"><span>nginx-ingress-controller-6d57c87cb9-rtgpk   1/1     Running   <span style="color:#ae81ff">1</span>          12m
+</span></span></code></pre></div><h1 id="create-namespace">Create Namespace</h1>
+<p>Let&rsquo;s create first a <code>dev</code> name space where we deploy our sample application.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>k create ns dev
+</span></span><span style="display:flex;"><span>namespace/dev created
+</span></span></code></pre></div><h1 id="switch-namespace-permanently">Switch Namespace Permanently</h1>
+<p>With the following command we can switch the namespace permanently like <code>oc project</code> in a <code>OpenShift</code> environment.
+This command will save the namespace for all other <code>kubectl</code> commands in that context.
+This required the <a href="https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/kubectl">ohmyzsh plugins kubectl</a> Plugin.
+Without this plugin will be the command <code>kubectl config set-context --current --namespace=dev</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kcn dev
+</span></span></code></pre></div><h1 id="create-deployment">Create Deployment</h1>
+<p>Let&rsquo;s create a deployment now for a sample application with the name <code>myapp</code> with the image <code>google-samples/hello-app:1.0</code> in the current namespace <code>dev</code></p>
+<p>Run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>k create deployment myapp --image<span style="color:#f92672">=</span>gcr.io/google-samples/hello-app:1.0
+</span></span><span style="display:flex;"><span>deployment.apps/myapp created
+</span></span></code></pre></div><p>If you want see what deployments we have you can use <code>kubectl get deployments</code> command.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>k get deployments
+</span></span><span style="display:flex;"><span>NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+</span></span><span style="display:flex;"><span>myapp   1/1     <span style="color:#ae81ff">1</span>            <span style="color:#ae81ff">1</span>           44m
+</span></span></code></pre></div><p>Let&rsquo;s also check if the pod is running.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>k get pods -n dev -o wide --show-labels --field-selector<span style="color:#f92672">=</span>status.phase<span style="color:#f92672">=</span>Running
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME                    READY   STATUS    RESTARTS   AGE   IP           NODE       NOMINATED NODE   READINESS GATES   LABELS
+</span></span><span style="display:flex;"><span>myapp-75d86849b-2gbps   1/1     Running   <span style="color:#ae81ff">0</span>          67m   172.17.0.3   minikube   &lt;none&gt;           &lt;none&gt;            app<span style="color:#f92672">=</span>myapp,pod-template-hash<span style="color:#f92672">=</span>75d86849b
+</span></span></code></pre></div><h1 id="create-service">Create Service</h1>
+<p>To reach our application we have to create a <code>service</code> this can be easily done with the <code>expose</code> command and the <code>NodePort</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>k expose deployment myapp --port<span style="color:#f92672">=</span><span style="color:#ae81ff">8080</span> --type<span style="color:#f92672">=</span>NodePort
+</span></span></code></pre></div><p>Let&rsquo;s check the service.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>k get svc
+</span></span><span style="display:flex;"><span>NAME    TYPE       CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>          AGE
+</span></span><span style="display:flex;"><span>myapp   NodePort   10.110.101.126   &lt;none&gt;        8080:30506/TCP   21m
+</span></span></code></pre></div><h2 id="test-service-internal-in-a-cluster">Test Service internal in a Cluster</h2>
+<p>Let&rsquo;s check the service with a small container based on the <code>tutum/curl:alpine</code> Docker image, which contains the curl command.
+Run the <code>curl -s 'http://myapp:8080'</code> command inside the container and redirect the output to the Terminal using the <code>-i</code> option.
+Delete the pod using the <code>--rm</code> option.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>k run -i --rm --restart<span style="color:#f92672">=</span>Never curl-client --image<span style="color:#f92672">=</span>tutum/curl:alpine --command -- curl -s <span style="color:#e6db74">&#39;http://myapp:8080&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Hello, world!
+</span></span><span style="display:flex;"><span>Version: 1.0.0
+</span></span><span style="display:flex;"><span>Hostname: myapp-75d86849b-2gbps
+</span></span><span style="display:flex;"><span>pod <span style="color:#e6db74">&#34;curl-client&#34;</span> deleted
+</span></span></code></pre></div><p>This mean we can call a pod internal a cluster with the internal <code>DNS</code>.</p>
+<h2 id="test-service-outside-a-cluster">Test Service outside a Cluster</h2>
+<p>Let&rsquo;s call again the command <code>k get svc</code> to get the exposed port from out service.
+Run the following command again :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>k get svc
+</span></span><span style="display:flex;"><span>NAME    TYPE       CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>          AGE
+</span></span><span style="display:flex;"><span>myapp   NodePort   10.110.101.126   &lt;none&gt;        8080:30506/TCP   21m
+</span></span></code></pre></div><p>You see the exposed port is here <code>30506</code> now let&rsquo;s get the <code>IP</code> address from out minikube with <code>minikube ip</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>minikube ip
+</span></span><span style="display:flex;"><span>192.168.64.18
+</span></span></code></pre></div><p>Now let&rsquo;s also call out service <code>myapp</code> with <code>HTTPie</code> or in a browser <code>http://192.168.64.18:30506</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http http://192.168.64.18:30506
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">61</span>
+</span></span><span style="display:flex;"><span>Content-Type: text/plain; charset<span style="color:#f92672">=</span>utf-8
+</span></span><span style="display:flex;"><span>Date: Sun, <span style="color:#ae81ff">03</span> May <span style="color:#ae81ff">2020</span> 08:07:35 GMT
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Hello, world!
+</span></span><span style="display:flex;"><span>Version: 1.0.0
+</span></span><span style="display:flex;"><span>Hostname: myapp-75d86849b-2gbps
+</span></span></code></pre></div><h1 id="etchosts">/etc/hosts</h1>
+<p>To get on the service with the URL <code>minikube.me</code> we update now out local <code>/etc/hosts</code> file with <code>IP</code> address from your minikube <code>minikube ip</code>
+Run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#66d9ef">$(</span>minikube ip<span style="color:#66d9ef">)</span> minikube.me | sudo tee -a /etc/hosts
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Password:
+</span></span><span style="display:flex;"><span>192.168.64.11 minikube.me
+</span></span></code></pre></div><p>Verify it the <code>IP</code> is in the <code>/etc/hosts</code> with the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /etc/hosts | tail -n <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>192.168.64.11 minikube.me
+</span></span></code></pre></div><p>Now you can also call the service wit the <code>DNS</code>  <code>http://minikube.me:30506</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http http://minikube.me:30506
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">61</span>
+</span></span><span style="display:flex;"><span>Content-Type: text/plain; charset<span style="color:#f92672">=</span>utf-8
+</span></span><span style="display:flex;"><span>Date: Sun, <span style="color:#ae81ff">03</span> May <span style="color:#ae81ff">2020</span> 08:12:51 GMT
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Hello, world!
+</span></span><span style="display:flex;"><span>Version: 1.0.0
+</span></span><span style="display:flex;"><span>Hostname: myapp-75d86849b-2gbps
+</span></span></code></pre></div><h1 id="nginx-ingress">Nginx Ingress</h1>
+<p>Now is time to create our <code>nginx ingress</code> for this we creat a file named <code>nginx-ingess.yaml</code>
+where we point <code>/</code> to the <code>myapp</code> service on internal port <code>8080</code>.</p>
+<p>Run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo  <span style="color:#e6db74">&#34;apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">kind: Ingress
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">metadata:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> name: nginx-ingress
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> namespace: dev
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> annotations:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   nginx.ingress.kubernetes.io/rewrite-target: /</span>$1<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">spec:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> rules:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> - host: minikube.me
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   http:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">     paths:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">     - path: /
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">       backend:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         serviceName: myapp
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         servicePort: 8080&#34;</span>  | &gt; nginx-ingess.yaml
+</span></span></code></pre></div><p>Now let&rsquo;s also take a new <code>alias</code> in the game <code>kaf</code> is the alias for <code>kubectl -f</code> and let&rsquo;s apply the <code>nginx-ingess.yaml</code> file.
+For this run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kaf nginx-ingess.yaml
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ingress.networking.k8s.io/nginx-ingress created
+</span></span></code></pre></div><p>With <code>kubectl get ingress</code> you can list all ingress in the namespace.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>k get ingress
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME            CLASS    HOSTS         ADDRESS   PORTS   AGE
+</span></span><span style="display:flex;"><span>nginx-ingress   &lt;none&gt;   minikube.me             <span style="color:#ae81ff">80</span>      22s
+</span></span></code></pre></div><h2 id="test-ingress">Test Ingress</h2>
+<p>Open a browser now <code>http://minikube.me</code> or with <code>HTTPie</code> in a terminal.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http http://minikube.me
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Connection: keep-alive
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">61</span>
+</span></span><span style="display:flex;"><span>Content-Type: text/plain; charset<span style="color:#f92672">=</span>utf-8
+</span></span><span style="display:flex;"><span>Date: Sun, <span style="color:#ae81ff">03</span> May <span style="color:#ae81ff">2020</span> 09:18:45 GMT
+</span></span><span style="display:flex;"><span>Server: openresty/1.15.8.2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Hello, world!
+</span></span><span style="display:flex;"><span>Version: 1.0.0
+</span></span><span style="display:flex;"><span>Hostname: myapp-75d86849b-v72vs
+</span></span></code></pre></div><p>Now let&rsquo;s also deploy a second application and expose it as service.
+Configure the <code>nginx ingress</code> also to the second service.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>k create deployment myapp2 --image<span style="color:#f92672">=</span>gcr.io/google-samples/hello-app:2.0
+</span></span><span style="display:flex;"><span>k expose deployment myapp2 --port<span style="color:#f92672">=</span><span style="color:#ae81ff">8080</span> --type<span style="color:#f92672">=</span>NodePort
+</span></span></code></pre></div><p>Update the <code>nginx-ingess.yaml</code> file with <code>vi</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>  - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/v2/*</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">backend</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">serviceName</span>: <span style="color:#ae81ff">myapp2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">servicePort</span>: <span style="color:#ae81ff">8080</span>
+</span></span></code></pre></div><p>Check the <code>nginx-ingess.yaml</code> file with <code>cat nginx-ingess.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apiVersion: networking.k8s.io/v1beta1 <span style="color:#75715e"># for versions before 1.14 use extensions/v1beta1</span>
+</span></span><span style="display:flex;"><span>kind: Ingress
+</span></span><span style="display:flex;"><span>metadata:
+</span></span><span style="display:flex;"><span> name: nginx-ingress
+</span></span><span style="display:flex;"><span> namespace: dev
+</span></span><span style="display:flex;"><span> annotations:
+</span></span><span style="display:flex;"><span>   nginx.ingress.kubernetes.io/rewrite-target: /
+</span></span><span style="display:flex;"><span>spec:
+</span></span><span style="display:flex;"><span> rules:
+</span></span><span style="display:flex;"><span> - host: minikube.me
+</span></span><span style="display:flex;"><span>   http:
+</span></span><span style="display:flex;"><span>     paths:
+</span></span><span style="display:flex;"><span>     - path: /
+</span></span><span style="display:flex;"><span>       backend:
+</span></span><span style="display:flex;"><span>         serviceName: myapp
+</span></span><span style="display:flex;"><span>         servicePort: <span style="color:#ae81ff">8080</span>     
+</span></span><span style="display:flex;"><span>     - path: /v2
+</span></span><span style="display:flex;"><span>       backend:
+</span></span><span style="display:flex;"><span>         serviceName: myapp2
+</span></span><span style="display:flex;"><span>         servicePort: <span style="color:#ae81ff">8080</span>
+</span></span></code></pre></div><p>Apply the changes with the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kaf nginx-ingess.yaml
+</span></span><span style="display:flex;"><span>ingress.networking.k8s.io/nginx-ingress configured
+</span></span></code></pre></div><p>Now we have one Ingress who point to 2 individual services.
+Verify it with <code>HTTPie</code> or with the browser <code>http://minikube.me/</code> will give back <code>Version: 1.0.0</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http http://minikube.me/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Connection: keep-alive
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">61</span>
+</span></span><span style="display:flex;"><span>Content-Type: text/plain; charset<span style="color:#f92672">=</span>utf-8
+</span></span><span style="display:flex;"><span>Date: Sun, <span style="color:#ae81ff">03</span> May <span style="color:#ae81ff">2020</span> 09:31:12 GMT
+</span></span><span style="display:flex;"><span>Server: openresty/1.15.8.2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Hello, world!
+</span></span><span style="display:flex;"><span>Version: 1.0.0
+</span></span><span style="display:flex;"><span>Hostname: myapp-75d86849b-v72vs
+</span></span></code></pre></div><p>On the second route <code>http://minikube.me/v2</code> we get back <code>Version: 2.0.0</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http http://minikube.me/v2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Connection: keep-alive
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>Content-Type: text/plain; charset<span style="color:#f92672">=</span>utf-8
+</span></span><span style="display:flex;"><span>Date: Sun, <span style="color:#ae81ff">03</span> May <span style="color:#ae81ff">2020</span> 09:32:23 GMT
+</span></span><span style="display:flex;"><span>Server: openresty/1.15.8.2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Hello, world!
+</span></span><span style="display:flex;"><span>Version: 2.0.0
+</span></span><span style="display:flex;"><span>Hostname: myapp2-548b98644f-rqqmp
+</span></span></code></pre></div><h1 id="kubectl-cheat-sheet">kubectl Cheat Sheet</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>k get pods -o wide --show-labels  --field-selector<span style="color:#f92672">=</span>status.phase<span style="color:#f92672">=</span>Running  -w   | grep -vi <span style="color:#e6db74">&#34;Terminating&#34;</span>
+</span></span><span style="display:flex;"><span>NAME                   READY   STATUS    RESTARTS   AGE   IP           NODE       NOMINATED NODE   READINESS GATES   LABELS
+</span></span><span style="display:flex;"><span>web-6785d44d5-vb2wb    1/1     Running   <span style="color:#ae81ff">1</span>          19h   172.17.0.4   minikube   &lt;none&gt;           &lt;none&gt;            app<span style="color:#f92672">=</span>web,pod-template-hash<span style="color:#f92672">=</span>6785d44d5
+</span></span><span style="display:flex;"><span>web2                   1/1     Running   <span style="color:#ae81ff">1</span>          19h   172.17.0.3   minikube   &lt;none&gt;           &lt;none&gt;            run<span style="color:#f92672">=</span>web2
+</span></span><span style="display:flex;"><span>web2-8474c56fd-wk4kh   1/1     Running   <span style="color:#ae81ff">1</span>          18h   172.17.0.5   minikube   &lt;none&gt;           &lt;none&gt;            app<span style="color:#f92672">=</span>web2,pod-template-hash<span style="color:#f92672">=</span>8474c56fd
+</span></span></code></pre></div><h2 id="namespaces">Namespaces</h2>
+<ul>
+<li><code>kubectl get ns</code></li>
+<li><code>k get ns</code></li>
+<li><code>kgns</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>k get ns
+</span></span><span style="display:flex;"><span>NAME              STATUS   AGE
+</span></span><span style="display:flex;"><span>default           Active   19h
+</span></span><span style="display:flex;"><span>kube-node-lease   Active   19h
+</span></span><span style="display:flex;"><span>kube-public       Active   19h
+</span></span><span style="display:flex;"><span>kube-system       Active   19h
+</span></span></code></pre></div><h2 id="delete-with-given-label">Delete with given label</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>k delete all -l  app<span style="color:#f92672">=</span>web
+</span></span></code></pre></div><h2 id="troubleshooting">Troubleshooting</h2>
+<pre tabindex="0"><code>sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder
+</code></pre><hr>
+<p><em>References:</em></p>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/">ingress-minikube</a></p>
+</blockquote>
+
+  </div>
+  <div class="post-footer">
+    
+  </div>
+</article>
+
+    </main>
+  </body>
+</html>
