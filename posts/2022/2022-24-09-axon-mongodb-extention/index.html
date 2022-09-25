@@ -3,30 +3,21 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Commands:
-A command tells our application to do something Events:
-An event is a notification of something that has happened. Query:
-Queries could be simplified by storing a copy of the data in a form easily In many cases, updating the query models can happen asynchronously from processing the transaction: eventual consistency Projection :
-Optimized for the specific read use-cases (e.g. screens, API methods) Many separated ones instead of one big one Use carious technologies as appropriate (RDMS, Elastic, Mongo etc.">
+<meta name="description" content=" Commands # A command tells our application to do something Events # An event is a notification of something that has happened. Query # Queries could be simplified by storing a copy of the data in a form easily In many cases, updating the query models can happen asynchronously from processing the transaction: eventual consistency ">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="Axon Framework - MongoDB extension" />
-<meta property="og:description" content="Commands:
-A command tells our application to do something Events:
-An event is a notification of something that has happened. Query:
-Queries could be simplified by storing a copy of the data in a form easily In many cases, updating the query models can happen asynchronously from processing the transaction: eventual consistency Projection :
-Optimized for the specific read use-cases (e.g. screens, API methods) Many separated ones instead of one big one Use carious technologies as appropriate (RDMS, Elastic, Mongo etc." />
+<meta property="og:description" content=" Commands # A command tells our application to do something Events # An event is a notification of something that has happened. Query # Queries could be simplified by storing a copy of the data in a form easily In many cases, updating the query models can happen asynchronously from processing the transaction: eventual consistency " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/2022/2022-24-09-axon-mongodb-extention/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-09-24T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-09-25T16:26:41+02:00" />
+<meta property="article:modified_time" content="2022-09-25T16:45:06+02:00" />
 
 <title>Axon Framework - MongoDB extension | Blog Marcel Widmer </title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-  <link rel="alternate" hreflang="de" href="/de/posts/2022/2022-24-09-axon-mongodb-extention/" title="Axon Framework - MongoDB extension">
 <link rel="stylesheet" href="/book.min.c58292d36b18b675680ab9baea2029204537b839ea72f258746ec0f32ce8d6c8.css" >
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.6d9040acb89aff39f832a0b8623fad42fa664a32ef333ca95112d6156a809515.js" ></script>
+  <script defer src="/en.search.min.6a3ff3839a675548dae2d8d30556b1f2f57e92a24d21f3f788f99c7f31c4fcbe.js" ></script>
 
   <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" ></script>
 <!--
@@ -55,41 +46,6 @@ https://github.com/alex-shpak/hugo-book
   <ul id="book-search-results"></ul>
 </div>
 
-
-
-  
-
-
-
-  
-    
-  
-
-
-  
-
-
-<ul class="book-languages">
-  <li>
-    <input type="checkbox" id="languages" class="toggle" />
-    <label for="languages" class="flex justify-between">
-      <a role="button" class="flex align-center">
-        <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
-        English
-      </a>
-    </label>
-
-    <ul>
-      
-      <li>
-        <a href="/de/posts/2022/2022-24-09-axon-mongodb-extention/">
-          Deutsch
-        </a>
-      </li>
-      
-    </ul>
-  </li>
-</ul>
 
 
 
@@ -164,7 +120,13 @@ https://github.com/alex-shpak/hugo-book
   <aside class="hidden clearfix">
     
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#commands">Commands</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#query">Query</a></li>
+  </ul>
+</nav>
 
 
 
@@ -197,27 +159,28 @@ https://github.com/alex-shpak/hugo-book
 
 
 <p>
-  <img src="/static/axon/axon-cqrs.jpg" alt="axon-cqrs" />
-
-  <img src="/static/axon/bbc.jpg" alt="bbc" /></p>
-<p>Commands:</p>
+  <img src="/static/axon/axon-cqrs.jpg" alt="axon-cqrs" /></p>
+<h1 id="commands">
+  Commands
+  <a class="anchor" href="#commands">#</a>
+</h1>
 <ul>
 <li>A command tells our application to do something</li>
 </ul>
-<p>Events:</p>
+<h1 id="events">
+  Events
+  <a class="anchor" href="#events">#</a>
+</h1>
 <ul>
 <li>An event is a notification of something that <em>has</em> happened.</li>
 </ul>
-<p>Query:</p>
+<h1 id="query">
+  Query
+  <a class="anchor" href="#query">#</a>
+</h1>
 <ul>
 <li>Queries could be <em>simplified</em> by storing a copy of the data in a form easily</li>
 <li>In many cases, updating the query models can happen asynchronously from processing the transaction: <em>eventual consistency</em></li>
-</ul>
-<p>Projection :</p>
-<ul>
-<li>Optimized for the specific read use-cases (e.g. screens, API methods)</li>
-<li>Many separated ones instead of one big one</li>
-<li>Use carious technologies as appropriate (RDMS, Elastic, Mongo etc.)</li>
 </ul>
 </article>
  
@@ -228,7 +191,7 @@ https://github.com/alex-shpak/hugo-book
   <div class="flex flex-wrap justify-between">
 
 
-  <div><a class="flex align-center" href="https://github.com/marzelwidmer/personal-hugo-site/commit/a4b0a938c2eb3daee3d881291b70203bb4c13719" title='Last modified by Marcel Widmer | September 25, 2022' target="_blank" rel="noopener">
+  <div><a class="flex align-center" href="https://github.com/marzelwidmer/personal-hugo-site/commit/db9a5157d256c7f57f8f395147800bf89f16a27d" title='Last modified by Marcel Widmer | September 25, 2022' target="_blank" rel="noopener">
       <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
       <span>September 25, 2022</span>
     </a>
@@ -264,7 +227,13 @@ https://github.com/alex-shpak/hugo-book
       <div class="book-toc-content">
         
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#commands">Commands</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#query">Query</a></li>
+  </ul>
+</nav>
 
 
  
