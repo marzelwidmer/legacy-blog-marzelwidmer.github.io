@@ -5,31 +5,13 @@
     <link>/categories/</link>
     <description>Recent content in Categories on Blog Marcel Widmer </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Development</title>
-      <link>/categories/Development/</link>
-      <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/Development/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Fri, 01 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kubernetes</title>
       <link>/categories/Kubernetes/</link>
-      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
       
       <guid>/categories/Kubernetes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Kubernetes. Development</title>
-      <link>/categories/Kubernetes.-Development/</link>
-      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/Kubernetes.-Development/</guid>
       <description></description>
     </item>
     
