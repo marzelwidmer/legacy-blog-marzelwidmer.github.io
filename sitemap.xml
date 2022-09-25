@@ -80,6 +80,9 @@
     <loc>/tags/Ribbon/</loc>
     <lastmod>2022-09-25T16:45:06+02:00</lastmod>
   </url><url>
+    <loc>/tags/Spring-Boot/</loc>
+    <lastmod>2022-09-25T16:45:06+02:00</lastmod>
+  </url><url>
     <loc>/posts/2019/2019-09-18-spring-boot-k8s-configmap/</loc>
     <lastmod>2022-09-25T16:45:06+02:00</lastmod>
   </url><url>
@@ -95,9 +98,6 @@
     <loc>/tags/logging/</loc>
     <lastmod>2022-09-25T16:45:06+02:00</lastmod>
   </url><url>
-    <loc>/tags/Certbot/</loc>
-    <lastmod>2022-09-25T16:45:06+02:00</lastmod>
-  </url><url>
     <loc>/posts/2019/2019-08-20-certbot-letsencrypt/</loc>
     <lastmod>2022-09-25T16:45:06+02:00</lastmod>
   </url><url>
@@ -108,9 +108,6 @@
     <lastmod>2022-09-25T16:45:06+02:00</lastmod>
   </url><url>
     <loc>/tags/Lets-Encrypt/</loc>
-    <lastmod>2022-09-25T16:45:06+02:00</lastmod>
-  </url><url>
-    <loc>/tags/OKD/</loc>
     <lastmod>2022-09-25T16:45:06+02:00</lastmod>
   </url><url>
     <loc>/posts/</loc>

@@ -11,7 +11,8 @@
       <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>/posts/2022/2022-24-09-axon-mongodb-extention/</guid>
-      <description> Commands # A command tells our application to do something Events # An event is a notification of something that has happened. Query # Queries could be simplified by storing a copy of the data in a form easily In many cases, updating the query models can happen asynchronously from processing the transaction: eventual consistency </description>
+      <description>Create Project Commands # A command tells our application to do something Events # An event is a notification of something that has happened. Query # Queries could be simplified by storing a copy of the data in a form easily In many cases, updating the query models can happen asynchronously from processing the transaction: eventual consistency Create Project # Run the following commands :
+export KBOOT_NAME=kboot-camel export KBOOT_APPL_NAME=KbootCamel http https://start.</description>
     </item>
     
     <item>

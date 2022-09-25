@@ -115,20 +115,20 @@
     </item>
     
     <item>
+      <title>Spring Boot</title>
+      <link>/tags/Spring-Boot/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/Spring-Boot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>logging</title>
       <link>/tags/logging/</link>
       <pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/logging/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Certbot</title>
-      <link>/tags/Certbot/</link>
-      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/Certbot/</guid>
       <description></description>
     </item>
     
@@ -147,15 +147,6 @@
       <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/Lets-Encrypt/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OKD</title>
-      <link>/tags/OKD/</link>
-      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/OKD/</guid>
       <description></description>
     </item>
     

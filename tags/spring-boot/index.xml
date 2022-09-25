@@ -5,26 +5,15 @@
     <link>/tags/Spring-Boot/</link>
     <description>Recent content in Spring Boot on Blog Marcel Widmer </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 18 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/Spring-Boot/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Sep 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/Spring-Boot/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Reactive Spring Boot with Resilience4j CircuitBreaker</title>
-      <link>/posts/2020/2020-04-18-resilience4j-circuitbreaker/</link>
-      <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
+      <title>Promoting Applications Across Environments</title>
+      <link>/posts/2019/2019-08-28-multiple-project-promoting/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2020/2020-04-18-resilience4j-circuitbreaker/</guid>
-      <description>Create Project # Let&amp;rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the spring inializr Rest Endpoint. We will take the latest and greates Spring Boot version 2.3.0.M4 and language kotlin with the following dependencies:
-actuator webflux cloud-resilience4j http https://start.spring.io/starter.tgz \ dependencies==actuator,webflux,cloud-resilience4j \ description==&amp;#34;Demo project Kotlin Spring Boot with Resilience4j&amp;#34; \ applicationName==Resilience4jApplication \ name==kboot-resilience4j \ groupId==ch.keepcalm \ artifactId==kboot-resilience4j \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ baseDir==kboot-resilience4j| tar -xzvf - Add Customer Banner</description>
-    </item>
-    
-    <item>
-      <title>Create Kotlin Project with Spring Initializr and HTTPie</title>
-      <link>/posts/2020/2020-04-12-spring-initializr/</link>
-      <pubDate>Sun, 12 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/2020/2020-04-12-spring-initializr/</guid>
-      <description>Create Kotlin Maven Project with HTTPie from start.spring.io # Let&amp;rsquo;s create and extract a Maven Kotlin project with some dependencies actuator data-mongodb-reactive webflux and cloud-gateway The https://start.spring.io
-http https://start.spring.io/starter.tgz \ dependencies==actuator,data-mongodb-reactive,webflux,cloud-gateway \ description==&amp;#34;Demo project Kotlin Sidecar Gateway&amp;#34; \ applicationName==SidecarGatewayApplication \ name==kotlin-sidecar-gateway \ groupId==ch.keepcalm \ artifactId==kotlin-sidecar-gateway \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ baseDir==kotlin-sidecar-gateway | tar -xzvf - Banner # Download Banner in the src/main/resources folder.
-http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/banner.txt \ &amp;gt; kotlin-sidecar-gateway/src/main/resources/banner.</description>
+      <guid>/posts/2019/2019-08-28-multiple-project-promoting/</guid>
+      <description>Table of contents # Create Project Install Jenkins / Install Jenkins With CLI Add Edit Role To ServiceAccount Jenkins Add Role To Group Deploy Application Development Environment Deployment Test API Testing Environment Deployment Production Environment Deployment Jenkins Pipeline WebHooks Create Project # We are going to use the CLI to create some projects. Let&amp;rsquo;s create our projects first:
+$ oc login $ oc new-project development --display-name=&amp;#34;Development Environment&amp;#34; $ oc new-project testing --display-name=&amp;#34;Testing Environment&amp;#34; $ oc new-project production --display-name=&amp;#34;Production Environment&amp;#34; $ oc new-project jenkins --display-name=&amp;#34;Jenkins CI/CD&amp;#34; Install Jenkins # Create a Jenkins in the Jenkins CI/CD project with some storage.</description>
     </item>
     
   </channel>
