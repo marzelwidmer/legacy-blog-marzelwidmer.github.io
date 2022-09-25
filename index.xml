@@ -12,8 +12,9 @@
       <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>/posts/2022/2022-24-09-axon-mongodb-extention/</guid>
-      <description>Commands # A command tells our application to do something Events # An event is a notification of something that has happened. Query # Queries could be simplified by storing a copy of the data in a form easily In many cases, updating the query models can happen asynchronously from processing the transaction: eventual consistency Create Project # Run the following commands :
-export KBOOT_NAME=kboot-camel export KBOOT_APPL_NAME=KbootCamel http https://start.spring.io/starter.tgz \ dependencies==camel,actuator,webflux \ description==&amp;#34;Demo project Spring Boot&amp;#34; \ applicationName==$KBOOT_APPL_NAME \ name==$KBOOT_NAME \ groupId==ch.</description>
+      <description>In this blog post we look into Axon Framework is a framework for building evolutionary, event-driven microservice systems, based on the principles of Domain Driven Design, Command-Query Responsibility Segregation (CQRS) and Event Sourcing.
+We will disable the Axon Server and replaced it with the MongoDB extension this extension provides functionality to leverage Mongo as an EventStorageEngine (to be used by an EventStore) and TokenStore.
+For more information on anything Axon, please visit our website, Axon Framework.</description>
     </item>
     
   </channel>
