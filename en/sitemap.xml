@@ -106,22 +106,6 @@
     <loc>/posts/2020/2020-05-04-camel-kotlin-spring-boot/</loc>
     <lastmod>2022-09-24T17:34:12+02:00</lastmod>
   </url><url>
-    <loc>/categories/</loc>
-    <lastmod>2022-09-25T16:26:41+02:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="/de/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/categories/"
-                />
-  </url><url>
-    <loc>/categories/Kubernetes/</loc>
-    <lastmod>2022-09-25T16:26:41+02:00</lastmod>
-  </url><url>
     <loc>/posts/2020/2020-05-01-minikube-ingress-controller/</loc>
     <lastmod>2022-09-25T16:26:41+02:00</lastmod>
   </url><url>
@@ -190,6 +174,18 @@
                 rel="alternate"
                 hreflang="en"
                 href="/posts/"
+                />
+  </url><url>
+    <loc>/categories/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="/de/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/categories/"
                 />
   </url><url>
     <loc>/tags/CI/CD/</loc>
