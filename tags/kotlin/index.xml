@@ -5,18 +5,17 @@
     <link>/tags/Kotlin/</link>
     <description>Recent content in Kotlin on Blog Marcel Widmer </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/Kotlin/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/Kotlin/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Axon Framework - MongoDB extension</title>
-      <link>/posts/2022/2022-24-09-axon-mongodb-extention/</link>
-      <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
+      <title>Kubernetes Hazelcast Distributed Caching</title>
+      <link>/posts/2020/2020-10-04-hazelcast-k8s/</link>
+      <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2022/2022-24-09-axon-mongodb-extention/</guid>
-      <description>Commands:
-A command tells our application to do something Events:
-An event is a notification of something that has happened. Query:
-Queries could be simplified by storing a copy of the data in a form easily In many cases, updating the query models can happen asynchronously from processing the transaction: eventual consistency Projection :
-Optimized for the specific read use-cases (e.g. screens, API methods) Many separated ones instead of one big one Use carious technologies as appropriate (RDMS, Elastic, Mongo etc.</description>
+      <guid>/posts/2020/2020-10-04-hazelcast-k8s/</guid>
+      <description>The sample code can be found on GitHub. 1
+Precondition Spring Caching with Hazelcast Kustomize Configuration Hazelcast Configuration Precondition Spring Caching with Hazelcast # Let&amp;rsquo;s get ready first our Spring Boot application with the following dependencies.
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-cache&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; Also let&amp;rsquo;s take the hazelcast-all from com.hazelcast that include the k8s dependencies. The version 4.x.x will also support yaml configuration of hazelcast.
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.hazelcast&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;hazelcast-all&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;4.0.3&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; Let&amp;rsquo;s implement a real foo service with a super Chuck Norris API for the moment.</description>
     </item>
     
     <item>
@@ -72,6 +71,17 @@ We start with the MongoDB document class Customer and a ReactiveCrudRepository i
       <description>Create Kotlin Maven Project with HTTPie from start.spring.io # Let&amp;rsquo;s create and extract a Maven Kotlin project with some dependencies actuator data-mongodb-reactive webflux and cloud-gateway The https://start.spring.io
 http https://start.spring.io/starter.tgz \ dependencies==actuator,data-mongodb-reactive,webflux,cloud-gateway \ description==&amp;#34;Demo project Kotlin Sidecar Gateway&amp;#34; \ applicationName==SidecarGatewayApplication \ name==kotlin-sidecar-gateway \ groupId==ch.keepcalm \ artifactId==kotlin-sidecar-gateway \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ baseDir==kotlin-sidecar-gateway | tar -xzvf - Banner # Download Banner in the src/main/resources folder.
 http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/banner.txt \ &amp;gt; kotlin-sidecar-gateway/src/main/resources/banner.</description>
+    </item>
+    
+    <item>
+      <title>Spring Boot Kubernetes Discovery</title>
+      <link>/posts/2019/2019-09-21-spring-boot-k8s-ribbon-discovery/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2019/2019-09-21-spring-boot-k8s-ribbon-discovery/</guid>
+      <description>Spring Cloud Kubernetes Ribbon provide a mechanism to perform a client side load-balancing who is needed in a microservice architecture to allocate a list of all pods where our service is running (replicated)
+This mechanism can automatically discover and reach all the endpoints of a specific service, and subsequently, it populates a Ribbon ServerList with information about the endpoints.
+Let&amp;rsquo;s start by adding the spring-cloud-starter-kubernetes-ribbon dependency to our pom.xml file:</description>
     </item>
     
   </channel>

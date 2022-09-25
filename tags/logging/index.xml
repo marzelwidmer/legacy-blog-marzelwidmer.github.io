@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>logging on Blog Marcel Widmer </title>
+    <link>/tags/logging/</link>
+    <description>Recent content in logging on Blog Marcel Widmer </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 01 Sep 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/logging/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Jaeger - Distributed Tracing System</title>
+      <link>/posts/2019/2019-09-01-jaeger/</link>
+      <pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2019/2019-09-01-jaeger/</guid>
+      <description>Table of contents # Jeager All-In-One with OpenShift Template Jeager Step-by-Step with separate operator As on-the-ground microservice practitioners are quickly realizing, the majority of operational problems that arise when moving to a distributed architecture are ultimately grounded in two areas: networking and observability. It is simply an orders of magnitude larger problem to network and debug a set of intertwined distributed services versus a single monolithic application. Jaeger # Jaeger is a open source, end-to-end distributed tracing Monitor and troubleshoot transactions in complex distributed systems.</description>
+    </item>
+    
+  </channel>
+</rss>

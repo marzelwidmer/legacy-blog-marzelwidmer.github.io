@@ -74,5 +74,16 @@ http https://start.spring.io/starter.tgz \ dependencies==actuator,data-mongodb-r
 http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/banner.txt \ &amp;gt; kotlin-sidecar-gateway/src/main/resources/banner.</description>
     </item>
     
+    <item>
+      <title>Spring Boot Kubernetes Discovery</title>
+      <link>/posts/2019/2019-09-21-spring-boot-k8s-ribbon-discovery/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2019/2019-09-21-spring-boot-k8s-ribbon-discovery/</guid>
+      <description>Spring Cloud Kubernetes Ribbon provide a mechanism to perform a client side load-balancing who is needed in a microservice architecture to allocate a list of all pods where our service is running (replicated)
+This mechanism can automatically discover and reach all the endpoints of a specific service, and subsequently, it populates a Ribbon ServerList with information about the endpoints.
+Let&amp;rsquo;s start by adding the spring-cloud-starter-kubernetes-ribbon dependency to our pom.xml file:</description>
+    </item>
+    
   </channel>
 </rss>

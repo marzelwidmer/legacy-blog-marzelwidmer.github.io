@@ -161,12 +161,17 @@ https://github.com/alex-shpak/hugo-book
       
         <li class="flex justify-between">
           <a href="/categories/Development/">Development</a>
-          <span>6</span>
+          <span>7</span>
         </li>
       
         <li class="flex justify-between">
           <a href="/categories/Kubernetes/">Kubernetes</a>
-          <span>12</span>
+          <span>11</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/categories/Kubernetes.-Development/">Kubernetes. Development</a>
+          <span>1</span>
         </li>
       
       </ul>
@@ -179,17 +184,32 @@ https://github.com/alex-shpak/hugo-book
       <ul>
       
         <li class="flex justify-between">
-          <a href="/tags/Kotlin/">Kotlin</a>
-          <span>6</span>
+          <a href="/tags/axon/">axon</a>
+          <span>2</span>
         </li>
       
         <li class="flex justify-between">
-          <a href="/tags/SpringBoot/">SpringBoot</a>
-          <span>8</span>
+          <a href="/tags/cqrs/">cqrs</a>
+          <span>2</span>
         </li>
       
         <li class="flex justify-between">
-          <a href="/tags/K8s/">K8s</a>
+          <a href="/tags/argocd/">argocd</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/gitops/">gitops</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/harbor/">harbor</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/k8s/">k8s</a>
           <span>12</span>
         </li>
       
@@ -199,12 +219,57 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
         <li class="flex justify-between">
+          <a href="/tags/Kotlin/">Kotlin</a>
+          <span>7</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/SpringBoot/">SpringBoot</a>
+          <span>9</span>
+        </li>
+      
+        <li class="flex justify-between">
           <a href="/tags/WebFlux/">WebFlux</a>
           <span>2</span>
         </li>
       
         <li class="flex justify-between">
-          <a href="/tags/Spring-Boot/">Spring Boot</a>
+          <a href="/tags/ConfigMap/">ConfigMap</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/Ribbon/">Ribbon</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/logging/">logging</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/Certbot/">Certbot</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/Hetzner-Cloud/">Hetzner Cloud</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/Lets-Encrypt/">Let&#39;s Encrypt</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/OKD/">OKD</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/CI/CD/">CI/CD</a>
           <span>2</span>
         </li>
       
@@ -226,41 +291,6 @@ https://github.com/alex-shpak/hugo-book
   
   <article class="markdown book-post">
     <h2>
-      <a href="/posts/2019/2019-08-20-certbot-letsencrypt/">Certbot Let`s Encrypt</a>
-    </h2>
-    
-  <h5>January 13, 2019</h5>
-
-
-
-  
-  <div>
-    
-      <a href="/categories/Kubernetes/">Kubernetes</a>
-  </div>
-  
-
-  
-  <div>
-    
-      <a href="/tags/K8s/">K8s</a>
-  </div>
-  
-
-
-
-
-    <p>Inspiration from [Adding an SSL certificate to OKD - Part 2 of Installation of OKD 3.10 from start to finish]https://www.youtube.com/watch?v=S7HoJ09oYn0&amp;feature=youtu.be){:target=&quot;_blank&quot;}
-Check Certificate # Let`s check first if there a certificate already for our domain https://crt.sh/?q=c3smonkey.ch
-Check EPEL Reposittory # Check if the epel.repo is enabled.
-$ vi /etc/yum.repos.d/epel.repo [epel] name=Extra Packages for Enterprise Linux 7 - $basearch #baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-7&amp;arch=$basearch failovermethod=priority enabled=0 gpgcheck=1 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7 change enabled=0 to enabled=1 and quite and save the file with :qw
-        <a href="/posts/2019/2019-08-20-certbot-letsencrypt/">...</a>
-      
-    </p>
-  </article>
-  
-  <article class="markdown book-post">
-    <h2>
       <a href="/posts/2019/2019-01-13-hetzner-okd/">Install OKD on Hetzner Cloud</a>
     </h2>
     
@@ -278,7 +308,9 @@ $ vi /etc/yum.repos.d/epel.repo [epel] name=Extra Packages for Enterprise Linux 
   
   <div>
     
-      <a href="/tags/K8s/">K8s</a>
+      <a href="/tags/k8s/">k8s</a>, 
+      <a href="/tags/OKD/">OKD</a>, 
+      <a href="/tags/Hetzner-Cloud/">Hetzner Cloud</a>
   </div>
   
 
@@ -359,12 +391,17 @@ hcloud server create --name &lt;YOUR_DOMAIN&gt; --type &lt;SERVER-TYPE&gt; --ima
       
         <li class="flex justify-between">
           <a href="/categories/Development/">Development</a>
-          <span>6</span>
+          <span>7</span>
         </li>
       
         <li class="flex justify-between">
           <a href="/categories/Kubernetes/">Kubernetes</a>
-          <span>12</span>
+          <span>11</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/categories/Kubernetes.-Development/">Kubernetes. Development</a>
+          <span>1</span>
         </li>
       
       </ul>
@@ -377,17 +414,32 @@ hcloud server create --name &lt;YOUR_DOMAIN&gt; --type &lt;SERVER-TYPE&gt; --ima
       <ul>
       
         <li class="flex justify-between">
-          <a href="/tags/Kotlin/">Kotlin</a>
-          <span>6</span>
+          <a href="/tags/axon/">axon</a>
+          <span>2</span>
         </li>
       
         <li class="flex justify-between">
-          <a href="/tags/SpringBoot/">SpringBoot</a>
-          <span>8</span>
+          <a href="/tags/cqrs/">cqrs</a>
+          <span>2</span>
         </li>
       
         <li class="flex justify-between">
-          <a href="/tags/K8s/">K8s</a>
+          <a href="/tags/argocd/">argocd</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/gitops/">gitops</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/harbor/">harbor</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/k8s/">k8s</a>
           <span>12</span>
         </li>
       
@@ -397,12 +449,57 @@ hcloud server create --name &lt;YOUR_DOMAIN&gt; --type &lt;SERVER-TYPE&gt; --ima
         </li>
       
         <li class="flex justify-between">
+          <a href="/tags/Kotlin/">Kotlin</a>
+          <span>7</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/SpringBoot/">SpringBoot</a>
+          <span>9</span>
+        </li>
+      
+        <li class="flex justify-between">
           <a href="/tags/WebFlux/">WebFlux</a>
           <span>2</span>
         </li>
       
         <li class="flex justify-between">
-          <a href="/tags/Spring-Boot/">Spring Boot</a>
+          <a href="/tags/ConfigMap/">ConfigMap</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/Ribbon/">Ribbon</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/logging/">logging</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/Certbot/">Certbot</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/Hetzner-Cloud/">Hetzner Cloud</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/Lets-Encrypt/">Let&#39;s Encrypt</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/OKD/">OKD</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/CI/CD/">CI/CD</a>
           <span>2</span>
         </li>
       

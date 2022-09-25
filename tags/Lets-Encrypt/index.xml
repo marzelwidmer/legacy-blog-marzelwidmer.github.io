@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Let&#39;s Encrypt on Blog Marcel Widmer </title>
+    <link>/tags/Lets-Encrypt/</link>
+    <description>Recent content in Let&#39;s Encrypt on Blog Marcel Widmer </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 13 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/Lets-Encrypt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Certbot Let`s Encrypt</title>
+      <link>/posts/2019/2019-08-20-certbot-letsencrypt/</link>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2019/2019-08-20-certbot-letsencrypt/</guid>
+      <description>Inspiration from [Adding an SSL certificate to OKD - Part 2 of Installation of OKD 3.10 from start to finish]https://www.youtube.com/watch?v=S7HoJ09oYn0&amp;amp;feature=youtu.be){:target=&amp;quot;_blank&amp;quot;}
+Check Certificate # Let`s check first if there a certificate already for our domain https://crt.sh/?q=c3smonkey.ch
+Check EPEL Reposittory # Check if the epel.repo is enabled.
+$ vi /etc/yum.repos.d/epel.repo [epel] name=Extra Packages for Enterprise Linux 7 - $basearch #baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-7&amp;amp;arch=$basearch failovermethod=priority enabled=0 gpgcheck=1 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7 change enabled=0 to enabled=1 and quite and save the file with :qw</description>
+    </item>
+    
+  </channel>
+</rss>

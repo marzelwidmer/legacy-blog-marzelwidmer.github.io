@@ -5,20 +5,7 @@
     <link>/tags/SpringBoot/</link>
     <description>Recent content in SpringBoot on Blog Marcel Widmer </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/SpringBoot/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Axon Framework - MongoDB extension</title>
-      <link>/posts/2022/2022-24-09-axon-mongodb-extention/</link>
-      <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/2022/2022-24-09-axon-mongodb-extention/</guid>
-      <description>Commands:
-A command tells our application to do something Events:
-An event is a notification of something that has happened. Query:
-Queries could be simplified by storing a copy of the data in a form easily In many cases, updating the query models can happen asynchronously from processing the transaction: eventual consistency Projection :
-Optimized for the specific read use-cases (e.g. screens, API methods) Many separated ones instead of one big one Use carious technologies as appropriate (RDMS, Elastic, Mongo etc.</description>
-    </item>
-    
+    <lastBuildDate>Sun, 04 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/SpringBoot/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kubernetes Hazelcast Distributed Caching</title>
       <link>/posts/2020/2020-10-04-hazelcast-k8s/</link>
@@ -54,6 +41,16 @@ brew install inetutils Create Project # Run the following commands :</descriptio
     </item>
     
     <item>
+      <title>Reactive Spring Boot with Resilience4j CircuitBreaker</title>
+      <link>/posts/2020/2020-04-18-resilience4j-circuitbreaker/</link>
+      <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2020/2020-04-18-resilience4j-circuitbreaker/</guid>
+      <description>Create Project # Let&amp;rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the spring inializr Rest Endpoint. We will take the latest and greates Spring Boot version 2.3.0.M4 and language kotlin with the following dependencies:
+actuator webflux cloud-resilience4j http https://start.spring.io/starter.tgz \ dependencies==actuator,webflux,cloud-resilience4j \ description==&amp;#34;Demo project Kotlin Spring Boot with Resilience4j&amp;#34; \ applicationName==Resilience4jApplication \ name==kboot-resilience4j \ groupId==ch.keepcalm \ artifactId==kboot-resilience4j \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ baseDir==kboot-resilience4j| tar -xzvf - Add Customer Banner</description>
+    </item>
+    
+    <item>
       <title>Spring Cloud Gateway</title>
       <link>/posts/2020/2020-04-12-cloud-gateway-sidecar/</link>
       <pubDate>Thu, 16 Apr 2020 00:00:00 +0000</pubDate>
@@ -63,6 +60,17 @@ brew install inetutils Create Project # Run the following commands :</descriptio
 Let&amp;rsquo;s create a Service with a Reactive Spring Boot Application and MongoDB and a Rest Endpoint.
 We start with the MongoDB document class Customer and a ReactiveCrudRepository interface CustomerRepository
 @Document data class Customer(@Id val id: String = UUID.</description>
+    </item>
+    
+    <item>
+      <title>Create Kotlin Project with Spring Initializr and HTTPie</title>
+      <link>/posts/2020/2020-04-12-spring-initializr/</link>
+      <pubDate>Sun, 12 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2020/2020-04-12-spring-initializr/</guid>
+      <description>Create Kotlin Maven Project with HTTPie from start.spring.io # Let&amp;rsquo;s create and extract a Maven Kotlin project with some dependencies actuator data-mongodb-reactive webflux and cloud-gateway The https://start.spring.io
+http https://start.spring.io/starter.tgz \ dependencies==actuator,data-mongodb-reactive,webflux,cloud-gateway \ description==&amp;#34;Demo project Kotlin Sidecar Gateway&amp;#34; \ applicationName==SidecarGatewayApplication \ name==kotlin-sidecar-gateway \ groupId==ch.keepcalm \ artifactId==kotlin-sidecar-gateway \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ baseDir==kotlin-sidecar-gateway | tar -xzvf - Banner # Download Banner in the src/main/resources folder.
+http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/banner.txt \ &amp;gt; kotlin-sidecar-gateway/src/main/resources/banner.</description>
     </item>
     
     <item>
