@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Spring Boot on </title>
-    <link>/tags/spring-boot/</link>
-    <description>Recent content in Spring Boot on </description>
+    <title>Spring Boot on Blog Marcel Widmer </title>
+    <link>/tags/Spring-Boot/</link>
+    <description>Recent content in Spring Boot on Blog Marcel Widmer </description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 18 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/spring-boot/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/Spring-Boot/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Reactive Spring Boot with Resilience4j CircuitBreaker</title>
       <link>/posts/2020/2020-04-18-resilience4j-circuitbreaker/</link>

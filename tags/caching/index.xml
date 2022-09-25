@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Caching on </title>
-    <link>/tags/caching/</link>
-    <description>Recent content in Caching on </description>
+    <title>Caching on Blog Marcel Widmer </title>
+    <link>/tags/Caching/</link>
+    <description>Recent content in Caching on Blog Marcel Widmer </description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 04 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/caching/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/Caching/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kubernetes Hazelcast Distributed Caching</title>
       <link>/posts/2020/2020-10-04-hazelcast-k8s/</link>

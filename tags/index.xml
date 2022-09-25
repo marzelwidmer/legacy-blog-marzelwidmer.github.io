@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on </title>
+    <title>Tags on Blog Marcel Widmer </title>
     <link>/tags/</link>
-    <description>Recent content in Tags on </description>
+    <description>Recent content in Tags on Blog Marcel Widmer </description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
     <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kotlin</title>
-      <link>/tags/kotlin/</link>
+      <link>/tags/Kotlin/</link>
       <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>/tags/kotlin/</guid>
+      <guid>/tags/Kotlin/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SpringBoot</title>
-      <link>/tags/springboot/</link>
+      <link>/tags/SpringBoot/</link>
       <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>/tags/springboot/</guid>
+      <guid>/tags/SpringBoot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>K8s</title>
-      <link>/tags/k8s/</link>
+      <link>/tags/K8s/</link>
       <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/k8s/</guid>
+      <guid>/tags/K8s/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Caching</title>
-      <link>/tags/caching/</link>
+      <link>/tags/Caching/</link>
       <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/caching/</guid>
+      <guid>/tags/Caching/</guid>
       <description></description>
     </item>
     
     <item>
       <title>WebFlux</title>
-      <link>/tags/webflux/</link>
+      <link>/tags/WebFlux/</link>
       <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/webflux/</guid>
+      <guid>/tags/WebFlux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Spring Boot</title>
-      <link>/tags/spring-boot/</link>
+      <link>/tags/Spring-Boot/</link>
       <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/spring-boot/</guid>
+      <guid>/tags/Spring-Boot/</guid>
       <description></description>
     </item>
     

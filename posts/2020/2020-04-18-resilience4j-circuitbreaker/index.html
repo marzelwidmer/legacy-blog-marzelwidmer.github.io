@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,14 +12,16 @@ actuator webflux cloud-resilience4j http https://start.spring.io/starter.tgz \ d
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/2020/2020-04-18-resilience4j-circuitbreaker/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-04-18T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-04-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-09-24T17:34:12+02:00" />
 
-<title>Reactive Spring Boot with Resilience4j CircuitBreaker | </title>
+<title>Reactive Spring Boot with Resilience4j CircuitBreaker | Blog Marcel Widmer </title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.c58292d36b18b675680ab9baea2029204537b839ea72f258746ec0f32ce8d6c8.css" >
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.7307af1daaa1c8df5b2664a10c4194c04c0db59b3e6bfc4bb1103f0dfeb2e46b.js" ></script>
+  <script defer src="/en.search.min.2434dd3b59affe1ef20bab2157d5a4a5ef6587095c77a727a64fe96c19f04005.js" ></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" ></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -35,7 +37,7 @@ https://github.com/alex-shpak/hugo-book
         
   <nav>
 <h2 class="book-brand">
-  <a class="flex align-center" href="/"><span></span>
+  <a class="flex align-center" href="/"><img src="/avatar.png" alt="Logo" /><span>Blog Marcel Widmer </span>
   </a>
 </h2>
 
@@ -46,6 +48,39 @@ https://github.com/alex-shpak/hugo-book
   <ul id="book-search-results"></ul>
 </div>
 
+
+
+  
+
+
+
+  
+    
+  
+
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex justify-between">
+      <a role="button" class="flex align-center">
+        <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
+        English
+      </a>
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/de/">
+          Deutsch
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
 
 
 
@@ -68,6 +103,30 @@ https://github.com/alex-shpak/hugo-book
 
 
 
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://github.com/marzelwidmer/" target="_blank" rel="noopener">
+        GitHub - marzelwidmer
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://github.com/c3smonkey" target="_blank" rel="noopener">
+        GitHub - c3smonkey
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://cv.marcelwidmer.org" target="_blank" rel="noopener">
+        CV - Marcel Widmer
+      </a>
+  </li>
+  
+</ul>
 
 
 
@@ -110,22 +169,26 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#create-project">Create Project</a></li>
-    <li><a href="#domain-model">Domain Model</a></li>
-    <li><a href="#service">Service</a></li>
-    <li><a href="#rest-api">Rest API</a></li>
-    <li><a href="#test-rest-api">Test Rest API</a>
+    <li>
       <ul>
-        <li><a href="#get-all-movies">Get all Movies</a></li>
-        <li><a href="#get-a-random-list-of-movies">Get a random list of Movies</a></li>
-        <li><a href="#get-a-movie-by-his-name">Get a Movie by his name</a></li>
-        <li><a href="#get-a-movie-by-his-id">Get a Movie by his ID</a></li>
-        <li><a href="#search-for-a-not-existing-movie">Search for a not existing Movie</a></li>
-      </ul>
-    </li>
-    <li><a href="#configure-circuitbreaker">Configure CircuitBreaker</a>
-      <ul>
-        <li><a href="#to-be-continued-">to be continued ..</a></li>
+        <li><a href="#create-project">Create Project</a></li>
+        <li><a href="#domain-model">Domain Model</a></li>
+        <li><a href="#service">Service</a></li>
+        <li><a href="#rest-api">Rest API</a></li>
+        <li><a href="#test-rest-api">Test Rest API</a>
+          <ul>
+            <li><a href="#get-all-movies">Get all Movies</a></li>
+            <li><a href="#get-a-random-list-of-movies">Get a random list of Movies</a></li>
+            <li><a href="#get-a-movie-by-his-name">Get a Movie by his name</a></li>
+            <li><a href="#get-a-movie-by-his-id">Get a Movie by his ID</a></li>
+            <li><a href="#search-for-a-not-existing-movie">Search for a not existing Movie</a></li>
+          </ul>
+        </li>
+        <li><a href="#configure-circuitbreaker">Configure CircuitBreaker</a>
+          <ul>
+            <li><a href="#to-be-continued-">to be continued ..</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -152,15 +215,15 @@ https://github.com/alex-shpak/hugo-book
   
   <div>
     
-      <a href="/categories/development/">Development</a>
+      <a href="/categories/Development/">Development</a>
   </div>
   
 
   
   <div>
     
-      <a href="/tags/spring-boot/">Spring Boot</a>, 
-      <a href="/tags/kotlin/">Kotlin</a>
+      <a href="/tags/Spring-Boot/">Spring Boot</a>, 
+      <a href="/tags/Kotlin/">Kotlin</a>
   </div>
   
 
@@ -170,7 +233,8 @@ https://github.com/alex-shpak/hugo-book
   Create Project
   <a class="anchor" href="#create-project">#</a>
 </h2>
-<p>Let&rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the <a href="https://start.spring.io/">spring inializr</a> Rest Endpoint. We will take the latest and greates Spring Boot version <code>2.3.0.M4</code> and language <code>kotlin</code> with the following dependencies:</p>
+<p>Let&rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the 
+  <a href="https://start.spring.io/">spring inializr</a> Rest Endpoint. We will take the latest and greates Spring Boot version <code>2.3.0.M4</code> and language <code>kotlin</code> with the following dependencies:</p>
 <ul>
 <li>actuator</li>
 <li>webflux</li>
@@ -196,7 +260,8 @@ https://github.com/alex-shpak/hugo-book
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    name: kboot-resilience4j&#34;</span> | &gt; kboot-resilience4j/src/main/resources/application.yaml
 </span></span></code></pre></div><p>Remove <code>application.properties</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rm kboot-resilience4j/src/main/resources/application.properties
-</span></span></code></pre></div><p>See also my other post <a href="https://blog.marcelwidmer.org/spring-initializr/">Spring Initializr and HTTPie</a></p>
+</span></span></code></pre></div><p>See also my other post 
+  <a href="https://blog.marcelwidmer.org/spring-initializr/">Spring Initializr and HTTPie</a></p>
 <h2 id="domain-model">
   Domain Model
   <a class="anchor" href="#domain-model">#</a>
@@ -256,10 +321,13 @@ The amazing functions:</p>
   Rest API
   <a class="anchor" href="#rest-api">#</a>
 </h2>
-<p>I think now is time to create a REST API <code>/movies/random</code> with the <a href="https://docs.spring.io/spring-framework/docs/current/kdoc-api/spring-framework/org.springframework.web.reactive.function.server/-router-function-dsl/index.html">Reactive router Kotlin DSL</a>.
-A easy way to create a <code>WebFlux.fn</code> <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/reactive/function/server/RouterFunctions.html">RouterFunction</a>
+<p>I think now is time to create a REST API <code>/movies/random</code> with the 
+  <a href="https://docs.spring.io/spring-framework/docs/current/kdoc-api/spring-framework/org.springframework.web.reactive.function.server/-router-function-dsl/index.html">Reactive router Kotlin DSL</a>.
+A easy way to create a <code>WebFlux.fn</code> 
+  <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/reactive/function/server/RouterFunctions.html">RouterFunction</a>
 Because we have more then one endpoint under <code>/movies</code> we use the <code>&quot;/movies&quot;.nest</code> router function.</p>
-<p>We use also our service <code>MovieService</code> so we need a <a href="https://docs.spring.io/spring/docs/current/kdoc-api/spring-framework/org.springframework.context.support/-bean-definition-dsl/-bean-supplier-context/ref.html">Bean Reference</a> to it.</p>
+<p>We use also our service <code>MovieService</code> so we need a 
+  <a href="https://docs.spring.io/spring/docs/current/kdoc-api/spring-framework/org.springframework.context.support/-bean-definition-dsl/-bean-supplier-context/ref.html">Bean Reference</a> to it.</p>
 <p><code>val service = ref&lt;MovieService&gt;()</code></p>
 <blockquote>
 <p>💡: Take care of the order in the Route definiton &ldquo;/&rdquo; have to be at latest position.</p>
@@ -306,7 +374,8 @@ First start the application e.g. with <code>mvn spring-boot:run</code>.</p>
   Get all Movies
   <a class="anchor" href="#get-all-movies">#</a>
 </h3>
-<p><a href="http://localhost:8080/movies">http://localhost:8080/movies</a></p>
+<p>
+  <a href="http://localhost:8080/movies">http://localhost:8080/movies</a></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http :8080/movies/
 </span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
 </span></span><span style="display:flex;"><span>Content-Type: application/json
@@ -343,7 +412,8 @@ First start the application e.g. with <code>mvn spring-boot:run</code>.</p>
   Get a random list of Movies
   <a class="anchor" href="#get-a-random-list-of-movies">#</a>
 </h3>
-<p><a href="http://localhost:8080/movies/random">http://localhost:8080/movies/random</a></p>
+<p>
+  <a href="http://localhost:8080/movies/random">http://localhost:8080/movies/random</a></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> http :8080/movies/random
 </span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
 </span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">240</span>
@@ -359,7 +429,8 @@ First start the application e.g. with <code>mvn spring-boot:run</code>.</p>
   Get a Movie by his name
   <a class="anchor" href="#get-a-movie-by-his-name">#</a>
 </h3>
-<p><a href="http://localhost:8080/movies/?name=Rocky">http://localhost:8080/movies/?name=Rocky</a></p>
+<p>
+  <a href="http://localhost:8080/movies/?name=Rocky">http://localhost:8080/movies/?name=Rocky</a></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http :8080/movies name<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;Rocky&#34;</span> -v
 </span></span><span style="display:flex;"><span>GET /movies?name<span style="color:#f92672">=</span>Rocky HTTP/1.1
 </span></span><span style="display:flex;"><span>Accept: */*
@@ -382,7 +453,8 @@ First start the application e.g. with <code>mvn spring-boot:run</code>.</p>
   Get a Movie by his ID
   <a class="anchor" href="#get-a-movie-by-his-id">#</a>
 </h3>
-<p><a href="http://localhost:8080/movies/5dd310b8-8d51-4a1e-a20c-790fec00029f">http://localhost:8080/movies/5dd310b8-8d51-4a1e-a20c-790fec00029f</a></p>
+<p>
+  <a href="http://localhost:8080/movies/5dd310b8-8d51-4a1e-a20c-790fec00029f">http://localhost:8080/movies/5dd310b8-8d51-4a1e-a20c-790fec00029f</a></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http :8080/movies/5dd310b8-8d51-4a1e-a20c-790fec00029f
 </span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
 </span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">240</span>
@@ -434,7 +506,8 @@ Let&rsquo;s configure the <code>ReactiveCircuitBreaker</code> Bean from <code>Re
   to be continued ..
   <a class="anchor" href="#to-be-continued-">#</a>
 </h3>
-<p>The example source code can be found here <a href="https://github.com/marzelwidmer/kboot-resilience4j">GitHub</a></p>
+<p>The example source code can be found here 
+  <a href="https://github.com/marzelwidmer/kboot-resilience4j">GitHub</a></p>
 <blockquote>
 <p>💡 <strong>Logger Configuration</strong>:
 logging.pattern.console: &ldquo;%clr(%d{yyyy-MM-dd E HH:mm:ss.SSS}){blue} %clr(%-40.40logger{0}){magenta} - %clr(%m){green}%n&rdquo;</p>
@@ -442,7 +515,8 @@ logging.pattern.console: &ldquo;%clr(%d{yyyy-MM-dd E HH:mm:ss.SSS}){blue} %clr(%
 <hr>
 <p><em>References:</em></p>
 <blockquote>
-<p><a href="https://resilience4j.readme.io/docs">Resilience4j docs</a></p>
+<p>
+  <a href="https://resilience4j.readme.io/docs">Resilience4j docs</a></p>
 </blockquote>
 </article>
  
@@ -452,6 +526,12 @@ logging.pattern.console: &ldquo;%clr(%d{yyyy-MM-dd E HH:mm:ss.SSS}){blue} %clr(%
         
   <div class="flex flex-wrap justify-between">
 
+
+  <div><a class="flex align-center" href="https://github.com/alex-shpak/hugo-book/commit/9d1b03010fbfd224f40589882876b41f43461748" title='Last modified by Marcel Widmer | September 24, 2022' target="_blank" rel="noopener">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>September 24, 2022</span>
+    </a>
+  </div>
 
 
 
@@ -485,22 +565,26 @@ logging.pattern.console: &ldquo;%clr(%d{yyyy-MM-dd E HH:mm:ss.SSS}){blue} %clr(%
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#create-project">Create Project</a></li>
-    <li><a href="#domain-model">Domain Model</a></li>
-    <li><a href="#service">Service</a></li>
-    <li><a href="#rest-api">Rest API</a></li>
-    <li><a href="#test-rest-api">Test Rest API</a>
+    <li>
       <ul>
-        <li><a href="#get-all-movies">Get all Movies</a></li>
-        <li><a href="#get-a-random-list-of-movies">Get a random list of Movies</a></li>
-        <li><a href="#get-a-movie-by-his-name">Get a Movie by his name</a></li>
-        <li><a href="#get-a-movie-by-his-id">Get a Movie by his ID</a></li>
-        <li><a href="#search-for-a-not-existing-movie">Search for a not existing Movie</a></li>
-      </ul>
-    </li>
-    <li><a href="#configure-circuitbreaker">Configure CircuitBreaker</a>
-      <ul>
-        <li><a href="#to-be-continued-">to be continued ..</a></li>
+        <li><a href="#create-project">Create Project</a></li>
+        <li><a href="#domain-model">Domain Model</a></li>
+        <li><a href="#service">Service</a></li>
+        <li><a href="#rest-api">Rest API</a></li>
+        <li><a href="#test-rest-api">Test Rest API</a>
+          <ul>
+            <li><a href="#get-all-movies">Get all Movies</a></li>
+            <li><a href="#get-a-random-list-of-movies">Get a random list of Movies</a></li>
+            <li><a href="#get-a-movie-by-his-name">Get a Movie by his name</a></li>
+            <li><a href="#get-a-movie-by-his-id">Get a Movie by his ID</a></li>
+            <li><a href="#search-for-a-not-existing-movie">Search for a not existing Movie</a></li>
+          </ul>
+        </li>
+        <li><a href="#configure-circuitbreaker">Configure CircuitBreaker</a>
+          <ul>
+            <li><a href="#to-be-continued-">to be continued ..</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>

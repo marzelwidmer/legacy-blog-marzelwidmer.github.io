@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +14,16 @@ $ oc new-project testing --display-name=&#34;Testing Environment&#34; $ oc polic
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/2019/2019-09-08-semantic-release-delivery-pipeline/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-09-08T00:00:00+00:00" />
-<meta property="article:modified_time" content="2019-09-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-09-24T18:38:37+02:00" />
 
-<title>Semantic Release Delivery Pipeline | </title>
+<title>Semantic Release Delivery Pipeline | Blog Marcel Widmer </title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.c58292d36b18b675680ab9baea2029204537b839ea72f258746ec0f32ce8d6c8.css" >
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.7307af1daaa1c8df5b2664a10c4194c04c0db59b3e6bfc4bb1103f0dfeb2e46b.js" ></script>
+  <script defer src="/en.search.min.2434dd3b59affe1ef20bab2157d5a4a5ef6587095c77a727a64fe96c19f04005.js" ></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" ></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -37,7 +39,7 @@ https://github.com/alex-shpak/hugo-book
         
   <nav>
 <h2 class="book-brand">
-  <a class="flex align-center" href="/"><span></span>
+  <a class="flex align-center" href="/"><img src="/avatar.png" alt="Logo" /><span>Blog Marcel Widmer </span>
   </a>
 </h2>
 
@@ -48,6 +50,39 @@ https://github.com/alex-shpak/hugo-book
   <ul id="book-search-results"></ul>
 </div>
 
+
+
+  
+
+
+
+  
+    
+  
+
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex justify-between">
+      <a role="button" class="flex align-center">
+        <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
+        English
+      </a>
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/de/">
+          Deutsch
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
 
 
 
@@ -70,6 +105,30 @@ https://github.com/alex-shpak/hugo-book
 
 
 
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://github.com/marzelwidmer/" target="_blank" rel="noopener">
+        GitHub - marzelwidmer
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://github.com/c3smonkey" target="_blank" rel="noopener">
+        GitHub - c3smonkey
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://cv.marcelwidmer.org" target="_blank" rel="noopener">
+        CV - Marcel Widmer
+      </a>
+  </li>
+  
+</ul>
 
 
 
@@ -112,11 +171,15 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#SetupDeployment">Setup Deployment </a></li>
-    <li><a href="#JenkinsPipeline">Jenkins Pipeline </a></li>
-    <li><a href="#WebHooks">WebHooks</a></li>
-    <li><a href="#privateRepo">Private Repository access with secrets</a></li>
-    <li><a href="#SemanticReleaseJenkinsPipeline">Semantic Release Jenkins Pipeline </a></li>
+    <li><a href="#table-of-contents">Table of contents</a>
+      <ul>
+        <li><a href="#SetupDeployment">Setup Deployment </a></li>
+        <li><a href="#JenkinsPipeline">Jenkins Pipeline </a></li>
+        <li><a href="#WebHooks">WebHooks</a></li>
+        <li><a href="#privateRepo">Private Repository access with secrets</a></li>
+        <li><a href="#SemanticReleaseJenkinsPipeline">Semantic Release Jenkins Pipeline </a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -141,14 +204,14 @@ https://github.com/alex-shpak/hugo-book
   
   <div>
     
-      <a href="/categories/kubernetes/">Kubernetes</a>
+      <a href="/categories/Kubernetes/">Kubernetes</a>
   </div>
   
 
   
   <div>
     
-      <a href="/tags/k8s/">K8s</a>
+      <a href="/tags/K8s/">K8s</a>
   </div>
   
 
@@ -159,11 +222,16 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#table-of-contents">#</a>
 </h1>
 <ul>
-<li><a href="#SetupDeployment">Setup Deployment</a></li>
-<li><a href="#JenkinsPipeline">Jenkins Pipeline</a></li>
-<li><a href="#WebHooks">WebHooks</a></li>
-<li><a href="#privateRepo">Private Repository</a></li>
-<li><a href="#SemanticReleaseJenkinsPipeline">Semantic Release Jenkins Pipeline</a></li>
+<li>
+  <a href="#SetupDeployment">Setup Deployment</a></li>
+<li>
+  <a href="#JenkinsPipeline">Jenkins Pipeline</a></li>
+<li>
+  <a href="#WebHooks">WebHooks</a></li>
+<li>
+  <a href="#privateRepo">Private Repository</a></li>
+<li>
+  <a href="#SemanticReleaseJenkinsPipeline">Semantic Release Jenkins Pipeline</a></li>
 </ul>
 <h2 id="SetupDeployment">
   Setup Deployment 
@@ -206,8 +274,10 @@ https://github.com/alex-shpak/hugo-book
   WebHooks
   <a class="anchor" href="#WebHooks">#</a>
 </h2>
-<p>How we can create a <a href="https://github.com/marzelwidmer/customer-service/settings/hooks">GitHub WebHook</a> for a public Git repository take a look at the following post there we created already a<br>
-<a href="http://blog.marcelwidmer.org/openshift-delivey-pipeline/#WebHooks">WebHook</a> for the <code>catalog-service</code> but here some <code>oc</code> commands
+<p>How we can create a 
+  <a href="https://github.com/marzelwidmer/customer-service/settings/hooks">GitHub WebHook</a> for a public Git repository take a look at the following post there we created already a<br>
+
+  <a href="http://blog.marcelwidmer.org/openshift-delivey-pipeline/#WebHooks">WebHook</a> for the <code>catalog-service</code> but here some <code>oc</code> commands
 for the <code>customer-service</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc set triggers bc/customer-service-pipeline --from-github  -n jenkins 
 </span></span></code></pre></div><p>Grab the <code>Secret</code>.</p>
@@ -220,9 +290,11 @@ for the <code>customer-service</code>.</p>
 </h2>
 <p>Create a <code>generic secret</code> link this secret with the <code>builder</code>.
 Annotate and label it for the Jenkins sync PlugIn. And finally update the <code>bc/customer-service-pipeline</code> with this secret.
-First you have to create an <code>AccessToken</code> in your <a href="https://github.com/settings/tokens">GitHub Tokens Settings</a> let it named like <code>openshift-source-builder</code>
+First you have to create an <code>AccessToken</code> in your 
+  <a href="https://github.com/settings/tokens">GitHub Tokens Settings</a> let it named like <code>openshift-source-builder</code>
 add <code>repo</code> and <code>user</code> access because this token will be used for <code>Semantic Release</code></p>
-<p><img src="/static/semantic-release-delivery-pipeline/openshift-source-builder-github-token.png" alt="openshift-source-builder-github-token" /></p>
+<p>
+  <img src="/static/semantic-release-delivery-pipeline/openshift-source-builder-github-token.png" alt="openshift-source-builder-github-token" /></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc create secret generic ci-user-at-github <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>      --from-literal<span style="color:#f92672">=</span>username<span style="color:#f92672">=</span>machineuser <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>      --from-literal<span style="color:#f92672">=</span>password<span style="color:#f92672">=</span>&lt;accesstoken&gt; <span style="color:#ae81ff">\
@@ -237,23 +309,29 @@ add <code>repo</code> and <code>user</code> access because this token will be us
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -n jenkins
 </span></span><span style="display:flex;"><span>$ oc set build-secret bc/customer-service-pipeline ci-user-at-github --source
 </span></span></code></pre></div><p>When you check now the Jenkins you will see the <code>ci-user-at-github</code> under credentials <code>https://&lt;jenkins-url&gt;/credentials/</code></p>
-<p><img src="/static/semantic-release-delivery-pipeline/sync.jenkins.openshift.io.png" alt="sync.jenkins" /></p>
+<p>
+  <img src="/static/semantic-release-delivery-pipeline/sync.jenkins.openshift.io.png" alt="sync.jenkins" /></p>
 <p>You will also find the a secret <code>ci-user-at-github</code> in the <code>jenkins</code> project in the OpenShift console.</p>
-<p><img src="/static/semantic-release-delivery-pipeline/secret-ci-user-at-github.png" alt="secret-ci-user-at-github" /></p>
+<p>
+  <img src="/static/semantic-release-delivery-pipeline/secret-ci-user-at-github.png" alt="secret-ci-user-at-github" /></p>
 <h2 id="SemanticReleaseJenkinsPipeline">
   Semantic Release Jenkins Pipeline 
   <a class="anchor" href="#SemanticReleaseJenkinsPipeline">#</a>
 </h2>
-<p>First I want say the inspiration I get from the <a href="https://github.com/semantic-release/semantic-release">semantic-release</a> automates the whole package
+<p>First I want say the inspiration I get from the 
+  <a href="https://github.com/semantic-release/semantic-release">semantic-release</a> automates the whole package
 release workflow including: determining the next version number, generating the release notes and publishing the package.</p>
 <blockquote>
 <p>😎 This removes the immediate connection between human emotions and version numbers, strictly following the Semantic Versioning specification.</p>
 </blockquote>
 <p>In the case I don&rsquo;t found any Maven PlugIn who works in my setup <em>out-of-the-box</em> and I am running here in a <code>Maven Slave</code> and don&rsquo;t want create a<code> Maven-Node Slave</code>
-I chose to follow a setup with just Git commands and a combination with the <a href="https://github.com/jgitver/jgitver-maven-plugin">jgitver-maven-plugin</a>.</p>
-<p><img src="/static/semantic-release-delivery-pipeline/okd-customer-service-pipeline.png" alt="okd-customer-service-pipeline" /></p>
+I chose to follow a setup with just Git commands and a combination with the 
+  <a href="https://github.com/jgitver/jgitver-maven-plugin">jgitver-maven-plugin</a>.</p>
+<p>
+  <img src="/static/semantic-release-delivery-pipeline/okd-customer-service-pipeline.png" alt="okd-customer-service-pipeline" /></p>
 <p>After pushing some code in the <code>customer-service</code> repository the Jenkins pipeline start run.
-It will be tag the source repository if needed based on the commit message inspired on the follow <a href="https://github.com/semantic-release/semantic-release#commit-message-format">commit message format</a>.</p>
+It will be tag the source repository if needed based on the commit message inspired on the follow 
+  <a href="https://github.com/semantic-release/semantic-release#commit-message-format">commit message format</a>.</p>
 <blockquote>
 <p>⚠️ <strong>Commit Message Format</strong>: Current version 1.0.0 will change the version like:</p>
 <p>Major version (2.0.0) 👉🏼 breaking:|major:|BREAKING CHANGE:</p>
@@ -261,13 +339,19 @@ It will be tag the source repository if needed based on the commit message inspi
 <p>Patch version (1.0.1) 👉🏼 fix:|patch:|docs:|style:|refactor:|perf:|test:|chore:</p>
 </blockquote>
 <p>It will also create the image tags if needed.</p>
-<p><img src="/static/semantic-release-delivery-pipeline/okd-customer-service-image-tags.png" alt="okd-customer-service-image-tags" /></p>
-<p>Take also a look at the <a href="https://jenkins.io/projects/blueocean/">Jenkins BlueOcean</a> pipeline.</p>
-<p><img src="/static/semantic-release-delivery-pipeline/blueocean-customer-service-pipeline.png" alt="blueocean-customer-service-pipeline" /></p>
+<p>
+  <img src="/static/semantic-release-delivery-pipeline/okd-customer-service-image-tags.png" alt="okd-customer-service-image-tags" /></p>
+<p>Take also a look at the 
+  <a href="https://jenkins.io/projects/blueocean/">Jenkins BlueOcean</a> pipeline.</p>
+<p>
+  <img src="/static/semantic-release-delivery-pipeline/blueocean-customer-service-pipeline.png" alt="blueocean-customer-service-pipeline" /></p>
 <p>Or at the deployed <em>customer-service</em>.</p>
-<p><a href="http://customer-service-production.apps.c3smonkey.ch/swagger-ui.html">Customer Service Swagger</a>
-<img src="/static/semantic-release-delivery-pipeline/customer-service-swagger.png" alt="customer-service-swagger.png" /></p>
-<p>The <em>changelog</em> you can find under <a href="https://jenkins-jenkins.apps.c3smonkey.ch/job/jenkins/job/jenkins-customer-service-pipeline/lastSuccessfulBuild/artifact/target/changelog.html">Changelog</a></p>
+<p>
+  <a href="http://customer-service-production.apps.c3smonkey.ch/swagger-ui.html">Customer Service Swagger</a>
+
+  <img src="/static/semantic-release-delivery-pipeline/customer-service-swagger.png" alt="customer-service-swagger.png" /></p>
+<p>The <em>changelog</em> you can find under 
+  <a href="https://jenkins-jenkins.apps.c3smonkey.ch/job/jenkins/job/jenkins-customer-service-pipeline/lastSuccessfulBuild/artifact/target/changelog.html">Changelog</a></p>
 <p>I know the above pipeline is a bit chatty because of this I explain my steps here a bit compromised in some pipeline steps.
 Ok let&rsquo;s create a  <em>Jenkinsfile</em> in your project repository I prefer to put the <em>Jenkinsfile</em> in a folder <em>jenkins</em>.</p>
 <p>First we configure a <em>Maven Slave</em> for this we configure the <em>agent node</em> with the laben <code>maven</code> because our porject is a Maven project.</p>
@@ -295,10 +379,12 @@ Ok let&rsquo;s create a  <em>Jenkinsfile</em> in your project repository I prefe
 </span></span></code></pre></div><p>(1) The following step will first check the last <em>GIT_COMMIT ID</em> and download a <em>ci-semver.sh</em> script who is hosted in a other central repository who can used for central <code>CI/CD</code> scripts across different
 project Git repositories.</p>
 <p>(2) This shell script will then check the Git history if there a commit message who match our Semantic Version naming convention to compute the next version.</p>
-<p>(3) The next command will then call the <em>Maven</em> build and test lifecycle and use the <a href="https://github.com/jgitver/jgitver">jgitver</a> plugin to pass the version we get before from the
+<p>(3) The next command will then call the <em>Maven</em> build and test lifecycle and use the 
+  <a href="https://github.com/jgitver/jgitver">jgitver</a> plugin to pass the version we get before from the
 <em>ci-semver.sh</em> script.</p>
 <blockquote>
-<p>💡 <strong>jgitver</strong>: <a href="https://www.youtube.com/watch?v=mQmH_Ws9GFI">https://www.youtube.com/watch?v=mQmH_Ws9GFI</a></p>
+<p>💡 <strong>jgitver</strong>: 
+  <a href="https://www.youtube.com/watch?v=mQmH_Ws9GFI">https://www.youtube.com/watch?v=mQmH_Ws9GFI</a></p>
 </blockquote>
 <p>(4) This section will store our <em>JUnit</em> test results in the Jenkins.</p>
 <p>(5) Tag Git repository if needed.</p>
@@ -364,20 +450,34 @@ project Git repositories.</p>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
 </span></span></code></pre></div><blockquote>
 <p><strong><em>References and inspiration:</em></strong><br>
-<a href="https://github.com/openshift/jenkins-client-plugin">Jenkins Client Plugin</a>
-<a href="https://www.youtube.com/watch?v=MqsG9-HEcTw">Best Practices for Managing Docker Versions</a>
-<a href="https://dzone.com/articles/continuous-delivery-with-openshift-and-jenkins-ab">CI/CD - A/B - OpenShift - Jenkins</a>
-<a href="https://cookbook.openshift.org/building-and-deploying-from-source/how-can-i-build-from-a-private-repository-on-gitlab.html">GitLab Private Repository</a>
-<a href="https://blog.openshift.com/private-git-repositories-part-3-personal-access-tokens/">Personal Access Tokens - Private Repository</a>
-<a href="https://jenkins.io/blog/2018/05/16/pipelines-with-git-tags/">Pipelines with git tags</a>
-<a href="https://jgitver.github.io/#_goal">jgitver - goal</a>
-<a href="https://github.com/jgitver/jgitver-maven-plugin">jgitver-maven-plugin</a><br>
-<a href="https://codito.in/semantic-commits-for-git">Semantic commits for git</a>
-<a href="https://github.com/marzelwidmer/git-semantic-commits">git-semantic-commits</a>
-<a href="https://wiki.jenkins.io/display/JENKINS/semantic-versioning-plugin">Jenkins - semantic-versioning-plugin</a>
-<a href="https://wiki.jenkins.io/display/JENKINS/Git&#43;Parameter&#43;Plugin">Jenkins - Git+Parameter+Plugin</a>
-<a href="https://wilsonmar.github.io/jenkins2-pipeline/">wilsonmar - jenkins2-pipeline</a>
-<a href="https://gist.github.com/arehmandev/736daba40a3e1ef1fbe939c6674d7da8">Get Jenkins GDSL working with IntelliJ IDEA</a></p>
+
+  <a href="https://github.com/openshift/jenkins-client-plugin">Jenkins Client Plugin</a>
+
+  <a href="https://www.youtube.com/watch?v=MqsG9-HEcTw">Best Practices for Managing Docker Versions</a>
+
+  <a href="https://dzone.com/articles/continuous-delivery-with-openshift-and-jenkins-ab">CI/CD - A/B - OpenShift - Jenkins</a>
+
+  <a href="https://cookbook.openshift.org/building-and-deploying-from-source/how-can-i-build-from-a-private-repository-on-gitlab.html">GitLab Private Repository</a>
+
+  <a href="https://blog.openshift.com/private-git-repositories-part-3-personal-access-tokens/">Personal Access Tokens - Private Repository</a>
+
+  <a href="https://jenkins.io/blog/2018/05/16/pipelines-with-git-tags/">Pipelines with git tags</a>
+
+  <a href="https://jgitver.github.io/#_goal">jgitver - goal</a>
+
+  <a href="https://github.com/jgitver/jgitver-maven-plugin">jgitver-maven-plugin</a><br>
+
+  <a href="https://codito.in/semantic-commits-for-git">Semantic commits for git</a>
+
+  <a href="https://github.com/marzelwidmer/git-semantic-commits">git-semantic-commits</a>
+
+  <a href="https://wiki.jenkins.io/display/JENKINS/semantic-versioning-plugin">Jenkins - semantic-versioning-plugin</a>
+
+  <a href="https://wiki.jenkins.io/display/JENKINS/Git&#43;Parameter&#43;Plugin">Jenkins - Git+Parameter+Plugin</a>
+
+  <a href="https://wilsonmar.github.io/jenkins2-pipeline/">wilsonmar - jenkins2-pipeline</a>
+
+  <a href="https://gist.github.com/arehmandev/736daba40a3e1ef1fbe939c6674d7da8">Get Jenkins GDSL working with IntelliJ IDEA</a></p>
 </blockquote>
 </article>
  
@@ -387,6 +487,12 @@ project Git repositories.</p>
         
   <div class="flex flex-wrap justify-between">
 
+
+  <div><a class="flex align-center" href="https://github.com/alex-shpak/hugo-book/commit/363e3378e469dc2b9bc40321e93a7af0092d3da0" title='Last modified by Marcel Widmer | September 24, 2022' target="_blank" rel="noopener">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>September 24, 2022</span>
+    </a>
+  </div>
 
 
 
@@ -420,11 +526,15 @@ project Git repositories.</p>
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#SetupDeployment">Setup Deployment </a></li>
-    <li><a href="#JenkinsPipeline">Jenkins Pipeline </a></li>
-    <li><a href="#WebHooks">WebHooks</a></li>
-    <li><a href="#privateRepo">Private Repository access with secrets</a></li>
-    <li><a href="#SemanticReleaseJenkinsPipeline">Semantic Release Jenkins Pipeline </a></li>
+    <li><a href="#table-of-contents">Table of contents</a>
+      <ul>
+        <li><a href="#SetupDeployment">Setup Deployment </a></li>
+        <li><a href="#JenkinsPipeline">Jenkins Pipeline </a></li>
+        <li><a href="#WebHooks">WebHooks</a></li>
+        <li><a href="#privateRepo">Private Repository access with secrets</a></li>
+        <li><a href="#SemanticReleaseJenkinsPipeline">Semantic Release Jenkins Pipeline </a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 

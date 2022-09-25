@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +14,16 @@ soap-server who demonstrate the blocking downstream API. flux-client with REST A
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/2020/2020-05-10-kboot-flux-meets-soap/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-05-10T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-05-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-09-24T18:38:37+02:00" />
 
-<title>Kboot Flux Meets Soap | </title>
+<title>Kboot Flux Meets Soap | Blog Marcel Widmer </title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.c58292d36b18b675680ab9baea2029204537b839ea72f258746ec0f32ce8d6c8.css" >
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.7307af1daaa1c8df5b2664a10c4194c04c0db59b3e6bfc4bb1103f0dfeb2e46b.js" ></script>
+  <script defer src="/en.search.min.2434dd3b59affe1ef20bab2157d5a4a5ef6587095c77a727a64fe96c19f04005.js" ></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" ></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -37,7 +39,7 @@ https://github.com/alex-shpak/hugo-book
         
   <nav>
 <h2 class="book-brand">
-  <a class="flex align-center" href="/"><span></span>
+  <a class="flex align-center" href="/"><img src="/avatar.png" alt="Logo" /><span>Blog Marcel Widmer </span>
   </a>
 </h2>
 
@@ -48,6 +50,39 @@ https://github.com/alex-shpak/hugo-book
   <ul id="book-search-results"></ul>
 </div>
 
+
+
+  
+
+
+
+  
+    
+  
+
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex justify-between">
+      <a role="button" class="flex align-center">
+        <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
+        English
+      </a>
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/de/">
+          Deutsch
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
 
 
 
@@ -70,6 +105,30 @@ https://github.com/alex-shpak/hugo-book
 
 
 
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://github.com/marzelwidmer/" target="_blank" rel="noopener">
+        GitHub - marzelwidmer
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://github.com/c3smonkey" target="_blank" rel="noopener">
+        GitHub - c3smonkey
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://cv.marcelwidmer.org" target="_blank" rel="noopener">
+        CV - Marcel Widmer
+      </a>
+  </li>
+  
+</ul>
 
 
 
@@ -112,23 +171,29 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#api-lockdown-switzerland">API Lockdown Switzerland</a></li>
-    <li><a href="#api-easing-switzerland">API easing Switzerland</a></li>
-    <li><a href="#blockHound">Blockhound </a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#dsl-kotlindslinunderanhour">DSL </a></li>
-    <li><a href="#wsdl">WSDL</a></li>
-    <li><a href="#end-point">End-Point</a></li>
-    <li><a href="#request">Request</a></li>
-    <li><a href="#httpieSoapCall">Call Service with <code>HTTPie</code> </a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#router-table">Router Table</a></li>
-    <li><a href="#reactive-service">Reactive Service</a></li>
-    <li><a href="#reactive-soap-client">Reactive SOAP Client</a></li>
+    <li><a href="#restAPI">Flux Client </a>
+      <ul>
+        <li><a href="#api-lockdown-switzerland">API Lockdown Switzerland</a></li>
+        <li><a href="#api-easing-switzerland">API easing Switzerland</a></li>
+        <li><a href="#blockHound">Blockhound </a></li>
+      </ul>
+    </li>
+    <li><a href="#soapServer">SOAP Server </a>
+      <ul>
+        <li><a href="#dsl-kotlindslinunderanhour">DSL </a></li>
+        <li><a href="#wsdl">WSDL</a></li>
+        <li><a href="#end-point">End-Point</a></li>
+        <li><a href="#request">Request</a></li>
+        <li><a href="#httpieSoapCall">Call Service with <code>HTTPie</code> </a></li>
+      </ul>
+    </li>
+    <li><a href="#implementation">Implementation </a>
+      <ul>
+        <li><a href="#router-table">Router Table</a></li>
+        <li><a href="#reactive-service">Reactive Service</a></li>
+        <li><a href="#reactive-soap-client">Reactive SOAP Client</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -153,16 +218,16 @@ https://github.com/alex-shpak/hugo-book
   
   <div>
     
-      <a href="/categories/development/">Development</a>
+      <a href="/categories/Development/">Development</a>
   </div>
   
 
   
   <div>
     
-      <a href="/tags/springboot/">SpringBoot</a>, 
-      <a href="/tags/kotlin/">Kotlin</a>, 
-      <a href="/tags/webflux/">WebFlux</a>
+      <a href="/tags/SpringBoot/">SpringBoot</a>, 
+      <a href="/tags/Kotlin/">Kotlin</a>, 
+      <a href="/tags/WebFlux/">WebFlux</a>
   </div>
   
 
@@ -183,13 +248,19 @@ https://github.com/alex-shpak/hugo-book
 in our <code>Service A</code> from the <code>Reactive Streams API</code>.</p>
 <p>We also not have to manage a other service who will handle it for us. With this we have less network hops, Organisations-Issues, Deployment etc. who are sometimes increase complexity and so on.</p>
 <ul>
-<li><a href="#restAPI">Rest API</a></li>
-<li><a href="#blockHound">BlockHound Plugin</a></li>
-<li><a href="#soapServer">SOAP Server</a></li>
-<li><a href="#httpieSoapCall">SOAP with HTTPie Server</a></li>
-<li><a href="#implementation">Implementation</a></li>
+<li>
+  <a href="#restAPI">Rest API</a></li>
+<li>
+  <a href="#blockHound">BlockHound Plugin</a></li>
+<li>
+  <a href="#soapServer">SOAP Server</a></li>
+<li>
+  <a href="#httpieSoapCall">SOAP with HTTPie Server</a></li>
+<li>
+  <a href="#implementation">Implementation</a></li>
 </ul>
-<p><img src="/static/flux-meets-soap/FluxMeetsSoap.png" alt="fluxMeetsSoap" /></p>
+<p>
+  <img src="/static/flux-meets-soap/FluxMeetsSoap.png" alt="fluxMeetsSoap" /></p>
 <h1 id="restAPI">
   Flux Client 
   <a class="anchor" href="#restAPI">#</a>
@@ -208,7 +279,8 @@ in our <code>Service A</code> from the <code>Reactive Streams API</code>.</p>
   Blockhound 
   <a class="anchor" href="#blockHound">#</a>
 </h2>
-<p><a href="https://github.com/reactor/BlockHound">BlockHound</a> is a Java agent to detect blocking calls from non-blocking threads.
+<p>
+  <a href="https://github.com/reactor/BlockHound">BlockHound</a> is a Java agent to detect blocking calls from non-blocking threads.
 Add the following or latest dependency from <code>blockhound</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- Blockhound	--&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
@@ -333,16 +405,21 @@ Add the following or latest dependency from <code>blockhound</code>.</p>
 <hr>
 <ol>
 <li id="fn:1">
-<p><a href="https://github.com/marzelwidmer/kboot-flux-meets-soap">kboot-flux-meets-soap</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>
+  <a href="https://github.com/marzelwidmer/kboot-flux-meets-soap">kboot-flux-meets-soap</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2">
-<p><a href="https://github.com/reactor/BlockHound">Blockhound</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>
+  <a href="https://github.com/reactor/BlockHound">Blockhound</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3">
-<p><a href="https://youtu.be/xCu73WVg8Ps?t=1">Avoiding Reactor Meltdown</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>
+  <a href="https://youtu.be/xCu73WVg8Ps?t=1">Avoiding Reactor Meltdown</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:4">
-<p><a href="https://www.youtube.com/watch?v=zYNbsVv9oN0">Kotlin DSL in under an hour</a> | <a href="https://www.youtube.com/watch?v=hYXAFO3q3qU">Do Super Language with Kotlin</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>
+  <a href="https://www.youtube.com/watch?v=zYNbsVv9oN0">Kotlin DSL in under an hour</a> | 
+  <a href="https://www.youtube.com/watch?v=hYXAFO3q3qU">Do Super Language with Kotlin</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
@@ -354,6 +431,12 @@ Add the following or latest dependency from <code>blockhound</code>.</p>
         
   <div class="flex flex-wrap justify-between">
 
+
+  <div><a class="flex align-center" href="https://github.com/alex-shpak/hugo-book/commit/363e3378e469dc2b9bc40321e93a7af0092d3da0" title='Last modified by Marcel Widmer | September 24, 2022' target="_blank" rel="noopener">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>September 24, 2022</span>
+    </a>
+  </div>
 
 
 
@@ -387,23 +470,29 @@ Add the following or latest dependency from <code>blockhound</code>.</p>
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#api-lockdown-switzerland">API Lockdown Switzerland</a></li>
-    <li><a href="#api-easing-switzerland">API easing Switzerland</a></li>
-    <li><a href="#blockHound">Blockhound </a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#dsl-kotlindslinunderanhour">DSL </a></li>
-    <li><a href="#wsdl">WSDL</a></li>
-    <li><a href="#end-point">End-Point</a></li>
-    <li><a href="#request">Request</a></li>
-    <li><a href="#httpieSoapCall">Call Service with <code>HTTPie</code> </a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#router-table">Router Table</a></li>
-    <li><a href="#reactive-service">Reactive Service</a></li>
-    <li><a href="#reactive-soap-client">Reactive SOAP Client</a></li>
+    <li><a href="#restAPI">Flux Client </a>
+      <ul>
+        <li><a href="#api-lockdown-switzerland">API Lockdown Switzerland</a></li>
+        <li><a href="#api-easing-switzerland">API easing Switzerland</a></li>
+        <li><a href="#blockHound">Blockhound </a></li>
+      </ul>
+    </li>
+    <li><a href="#soapServer">SOAP Server </a>
+      <ul>
+        <li><a href="#dsl-kotlindslinunderanhour">DSL </a></li>
+        <li><a href="#wsdl">WSDL</a></li>
+        <li><a href="#end-point">End-Point</a></li>
+        <li><a href="#request">Request</a></li>
+        <li><a href="#httpieSoapCall">Call Service with <code>HTTPie</code> </a></li>
+      </ul>
+    </li>
+    <li><a href="#implementation">Implementation </a>
+      <ul>
+        <li><a href="#router-table">Router Table</a></li>
+        <li><a href="#reactive-service">Reactive Service</a></li>
+        <li><a href="#reactive-soap-client">Reactive SOAP Client</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 

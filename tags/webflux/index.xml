@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>WebFlux on </title>
-    <link>/tags/webflux/</link>
-    <description>Recent content in WebFlux on </description>
+    <title>WebFlux on Blog Marcel Widmer </title>
+    <link>/tags/WebFlux/</link>
+    <description>Recent content in WebFlux on Blog Marcel Widmer </description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 10 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/webflux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/WebFlux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kboot Flux Meets Soap</title>
       <link>/posts/2020/2020-05-10-kboot-flux-meets-soap/</link>

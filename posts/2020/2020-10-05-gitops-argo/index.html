@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +14,16 @@ Brew Installation Packages # brew install hyperkit brew install minikube brew in
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/2020/2020-10-05-gitops-argo/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-10-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-10-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-09-24T18:38:37+02:00" />
 
-<title>GitOps with Argo CD | </title>
+<title>GitOps with Argo CD | Blog Marcel Widmer </title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.c58292d36b18b675680ab9baea2029204537b839ea72f258746ec0f32ce8d6c8.css" >
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.7307af1daaa1c8df5b2664a10c4194c04c0db59b3e6bfc4bb1103f0dfeb2e46b.js" ></script>
+  <script defer src="/en.search.min.2434dd3b59affe1ef20bab2157d5a4a5ef6587095c77a727a64fe96c19f04005.js" ></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" ></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -37,7 +39,7 @@ https://github.com/alex-shpak/hugo-book
         
   <nav>
 <h2 class="book-brand">
-  <a class="flex align-center" href="/"><span></span>
+  <a class="flex align-center" href="/"><img src="/avatar.png" alt="Logo" /><span>Blog Marcel Widmer </span>
   </a>
 </h2>
 
@@ -48,6 +50,39 @@ https://github.com/alex-shpak/hugo-book
   <ul id="book-search-results"></ul>
 </div>
 
+
+
+  
+
+
+
+  
+    
+  
+
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex justify-between">
+      <a role="button" class="flex align-center">
+        <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
+        English
+      </a>
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/de/">
+          Deutsch
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
 
 
 
@@ -70,6 +105,30 @@ https://github.com/alex-shpak/hugo-book
 
 
 
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://github.com/marzelwidmer/" target="_blank" rel="noopener">
+        GitHub - marzelwidmer
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://github.com/c3smonkey" target="_blank" rel="noopener">
+        GitHub - c3smonkey
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://cv.marcelwidmer.org" target="_blank" rel="noopener">
+        CV - Marcel Widmer
+      </a>
+  </li>
+  
+</ul>
 
 
 
@@ -112,39 +171,46 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#brew-installation-packages">Brew Installation Packages</a></li>
-    <li><a href="#osx-minikube-test-cluster">OSX Minikube Test Cluster</a>
+    <li><a href="#minikube">Minikube Setup</a>
       <ul>
-        <li><a href="#hyperkit">Hyperkit</a></li>
-        <li><a href="#minikube-addons">Minikube Addons</a></li>
-        <li><a href="#start-minikube">Start Minikube</a></li>
+        <li><a href="#brew-installation-packages">Brew Installation Packages</a></li>
+        <li><a href="#osx-minikube-test-cluster">OSX Minikube Test Cluster</a>
+          <ul>
+            <li><a href="#hyperkit">Hyperkit</a></li>
+            <li><a href="#minikube-addons">Minikube Addons</a></li>
+            <li><a href="#start-minikube">Start Minikube</a></li>
+          </ul>
+        </li>
+        <li><a href="#monitoring">Install Monitoring </a>
+          <ul>
+            <li><a href="#forward-grafana">Forward Grafana</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-    <li><a href="#monitoring">Install Monitoring </a>
+    <li><a href="#argoCD">Install ARGO CD</a>
       <ul>
-        <li><a href="#forward-grafana">Forward Grafana</a></li>
+        <li><a href="#port-forwarding-to-argo-server">Port Forwarding to ARGO Server</a></li>
+        <li><a href="#change-argo-admin-password">Change Argo Admin Password</a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#port-forwarding-to-argo-server">Port Forwarding to ARGO Server</a></li>
-    <li><a href="#change-argo-admin-password">Change Argo Admin Password</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#synch-app">Synch App</a></li>
-    <li><a href="#test-contracts-inside-k8s">Test Contracts inside K8s</a></li>
-    <li><a href="#test-contracts-over-ingress">Test Contracts over Ingress</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#sealed-secrets">Sealed Secrets</a>
+    <li><a href="#argoCreatApp">Create App with directory-recurse</a>
       <ul>
-        <li><a href="#install-client-side-tool-into-usrlocalbin">Install client-side tool into /usr/local/bin/</a></li>
-        <li><a href="#create-a-sealed-secret-file-for-redis">Create a sealed secret file for Redis</a></li>
-        <li><a href="#apply-the-sealed-secret">Apply the sealed secret</a></li>
-        <li><a href="#get-secret">Get Secret</a></li>
+        <li><a href="#synch-app">Synch App</a></li>
+        <li><a href="#test-contracts-inside-k8s">Test Contracts inside K8s</a></li>
+        <li><a href="#test-contracts-over-ingress">Test Contracts over Ingress</a></li>
+      </ul>
+    </li>
+    <li><a href="#comming-soon">Comming soon&hellip;</a>
+      <ul>
+        <li><a href="#sealed-secrets">Sealed Secrets</a>
+          <ul>
+            <li><a href="#install-client-side-tool-into-usrlocalbin">Install client-side tool into /usr/local/bin/</a></li>
+            <li><a href="#create-a-sealed-secret-file-for-redis">Create a sealed secret file for Redis</a></li>
+            <li><a href="#apply-the-sealed-secret">Apply the sealed secret</a></li>
+            <li><a href="#get-secret">Get Secret</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -171,30 +237,35 @@ https://github.com/alex-shpak/hugo-book
   
   <div>
     
-      <a href="/categories/kubernetes/">Kubernetes</a>
+      <a href="/categories/Kubernetes/">Kubernetes</a>
   </div>
   
 
   
   <div>
     
-      <a href="/tags/k8s/">K8s</a>
+      <a href="/tags/K8s/">K8s</a>
   </div>
   
 
 
 
-<p><a href="https://argoproj.github.io/argo-cd/">Argo CD</a> is a declarative, GitOps continuous delivery tool for Kubernetes.
+<p>
+  <a href="https://argoproj.github.io/argo-cd/">Argo CD</a> is a declarative, GitOps continuous delivery tool for Kubernetes.
 Application definitions, configurations, and environments should be declarative and version controlled.
 Application deployment and lifecycle management should be automated, auditable, and easy to understand.</p>
 <ul>
-<li><a href="#minikube">Minikube Setup</a>
+<li>
+  <a href="#minikube">Minikube Setup</a>
 <ul>
-<li><a href="#monitoring">Monitoring - Grafana-Prometheus</a></li>
+<li>
+  <a href="#monitoring">Monitoring - Grafana-Prometheus</a></li>
 </ul>
 </li>
-<li><a href="#argoCD">Install Argo CD</a></li>
-<li><a href="#argoCreatApp">Create App on Argo CD</a></li>
+<li>
+  <a href="#argoCD">Install Argo CD</a></li>
+<li>
+  <a href="#argoCreatApp">Create App on Argo CD</a></li>
 </ul>
 <h1 id="minikube">
   Minikube Setup
@@ -275,7 +346,8 @@ argocd-server-5bc896856-xvt92                    1/1     Running   0          71
 </code></pre><p>Use the Argo CLI to login with user <code>admin</code> and change the password.</p>
 <pre tabindex="0"><code>argocd login localhost:8080
 argocd account update-password
-</code></pre><p><img src="/static/gitops-argo/argo.png" alt="Argo" /></p>
+</code></pre><p>
+  <img src="/static/gitops-argo/argo.png" alt="Argo" /></p>
 <h1 id="argoCreatApp">
   Create App with directory-recurse
   <a class="anchor" href="#argoCreatApp">#</a>
@@ -305,7 +377,8 @@ pod &#34;curl-client&#34; deleted
   Test Contracts over Ingress
   <a class="anchor" href="#test-contracts-over-ingress">#</a>
 </h2>
-<p>You can edit the <code>/etc/hosts</code> file for details please check my other Blog <a href="https://blog.marcelwidmer.org/posts/2020-05-01-minikube-ingress-controller">Minikube Ingress Controller</a></p>
+<p>You can edit the <code>/etc/hosts</code> file for details please check my other Blog 
+  <a href="https://blog.marcelwidmer.org/posts/2020-05-01-minikube-ingress-controller">Minikube Ingress Controller</a></p>
 <pre tabindex="0"><code>http -j http://test.minikube.me/api/persons
 
 HTTP/1.1 200 OK
@@ -329,13 +402,15 @@ Vary: Accept-Encoding, User-Agent
 </h1>
 <p>Manage Secrets with <code>SealedSecrets</code></p>
 <p>See:
-<a href="https://github.com/bitnami-labs/sealed-secrets">https://github.com/bitnami-labs/sealed-secrets</a></p>
+
+  <a href="https://github.com/bitnami-labs/sealed-secrets">https://github.com/bitnami-labs/sealed-secrets</a></p>
 <h2 id="sealed-secrets">
   Sealed Secrets
   <a class="anchor" href="#sealed-secrets">#</a>
 </h2>
 <p>Install Sealed Secrets with Helm to manage Secrets.
-see: <a href="https://hub.kubeapps.com/charts/stable/sealed-secrets">https://hub.kubeapps.com/charts/stable/sealed-secrets</a></p>
+see: 
+  <a href="https://hub.kubeapps.com/charts/stable/sealed-secrets">https://hub.kubeapps.com/charts/stable/sealed-secrets</a></p>
 <pre tabindex="0"><code>helm install sealed --namespace kube-system stable/sealed-secrets
 </code></pre><h3 id="install-client-side-tool-into-usrlocalbin">
   Install client-side tool into /usr/local/bin/
@@ -368,8 +443,10 @@ Both the SealedSecret and generated Secret must have the same name and namespace
 <pre tabindex="0"><code>kubectl get secret redis -o yaml
 </code></pre><p><em>References:</em></p>
 <blockquote>
-<p><a href="https://blog.marcelwidmer.org/posts/2020-05-01-minikube-ingress-controller/">Blog Minikube Ingress Controller</a>
-<a href="https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/">ingress-minikube</a></p>
+<p>
+  <a href="https://blog.marcelwidmer.org/posts/2020-05-01-minikube-ingress-controller/">Blog Minikube Ingress Controller</a>
+
+  <a href="https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/">ingress-minikube</a></p>
 </blockquote>
 </article>
  
@@ -379,6 +456,12 @@ Both the SealedSecret and generated Secret must have the same name and namespace
         
   <div class="flex flex-wrap justify-between">
 
+
+  <div><a class="flex align-center" href="https://github.com/alex-shpak/hugo-book/commit/363e3378e469dc2b9bc40321e93a7af0092d3da0" title='Last modified by Marcel Widmer | September 24, 2022' target="_blank" rel="noopener">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>September 24, 2022</span>
+    </a>
+  </div>
 
 
 
@@ -412,39 +495,46 @@ Both the SealedSecret and generated Secret must have the same name and namespace
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#brew-installation-packages">Brew Installation Packages</a></li>
-    <li><a href="#osx-minikube-test-cluster">OSX Minikube Test Cluster</a>
+    <li><a href="#minikube">Minikube Setup</a>
       <ul>
-        <li><a href="#hyperkit">Hyperkit</a></li>
-        <li><a href="#minikube-addons">Minikube Addons</a></li>
-        <li><a href="#start-minikube">Start Minikube</a></li>
+        <li><a href="#brew-installation-packages">Brew Installation Packages</a></li>
+        <li><a href="#osx-minikube-test-cluster">OSX Minikube Test Cluster</a>
+          <ul>
+            <li><a href="#hyperkit">Hyperkit</a></li>
+            <li><a href="#minikube-addons">Minikube Addons</a></li>
+            <li><a href="#start-minikube">Start Minikube</a></li>
+          </ul>
+        </li>
+        <li><a href="#monitoring">Install Monitoring </a>
+          <ul>
+            <li><a href="#forward-grafana">Forward Grafana</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-    <li><a href="#monitoring">Install Monitoring </a>
+    <li><a href="#argoCD">Install ARGO CD</a>
       <ul>
-        <li><a href="#forward-grafana">Forward Grafana</a></li>
+        <li><a href="#port-forwarding-to-argo-server">Port Forwarding to ARGO Server</a></li>
+        <li><a href="#change-argo-admin-password">Change Argo Admin Password</a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#port-forwarding-to-argo-server">Port Forwarding to ARGO Server</a></li>
-    <li><a href="#change-argo-admin-password">Change Argo Admin Password</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#synch-app">Synch App</a></li>
-    <li><a href="#test-contracts-inside-k8s">Test Contracts inside K8s</a></li>
-    <li><a href="#test-contracts-over-ingress">Test Contracts over Ingress</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#sealed-secrets">Sealed Secrets</a>
+    <li><a href="#argoCreatApp">Create App with directory-recurse</a>
       <ul>
-        <li><a href="#install-client-side-tool-into-usrlocalbin">Install client-side tool into /usr/local/bin/</a></li>
-        <li><a href="#create-a-sealed-secret-file-for-redis">Create a sealed secret file for Redis</a></li>
-        <li><a href="#apply-the-sealed-secret">Apply the sealed secret</a></li>
-        <li><a href="#get-secret">Get Secret</a></li>
+        <li><a href="#synch-app">Synch App</a></li>
+        <li><a href="#test-contracts-inside-k8s">Test Contracts inside K8s</a></li>
+        <li><a href="#test-contracts-over-ingress">Test Contracts over Ingress</a></li>
+      </ul>
+    </li>
+    <li><a href="#comming-soon">Comming soon&hellip;</a>
+      <ul>
+        <li><a href="#sealed-secrets">Sealed Secrets</a>
+          <ul>
+            <li><a href="#install-client-side-tool-into-usrlocalbin">Install client-side tool into /usr/local/bin/</a></li>
+            <li><a href="#create-a-sealed-secret-file-for-redis">Create a sealed secret file for Redis</a></li>
+            <li><a href="#apply-the-sealed-secret">Apply the sealed secret</a></li>
+            <li><a href="#get-secret">Get Secret</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
