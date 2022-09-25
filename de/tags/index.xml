@@ -7,29 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/de/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Axon</title>
-      <link>/de/tags/Axon/</link>
+      <title>axon</title>
+      <link>/de/tags/axon/</link>
       <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>/de/tags/Axon/</guid>
+      <guid>/de/tags/axon/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Kotlin</title>
-      <link>/de/tags/Kotlin/</link>
+      <title>cqrs</title>
+      <link>/de/tags/cqrs/</link>
       <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>/de/tags/Kotlin/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SpringBoot</title>
-      <link>/de/tags/SpringBoot/</link>
-      <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/de/tags/SpringBoot/</guid>
+      <guid>/de/tags/cqrs/</guid>
       <description></description>
     </item>
     

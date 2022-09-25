@@ -4,6 +4,16 @@
   <url>
     <loc>/tags/axon/</loc>
     <lastmod>2022-09-25T16:26:41+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="/de/tags/axon/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/tags/axon/"
+                />
   </url><url>
     <loc>/posts/2022/2022-24-09-axon-mongodb-extention/</loc>
     <lastmod>2022-09-25T16:26:41+02:00</lastmod>
@@ -33,6 +43,16 @@
   </url><url>
     <loc>/tags/cqrs/</loc>
     <lastmod>2022-09-25T16:26:41+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="/de/tags/cqrs/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/tags/cqrs/"
+                />
   </url><url>
     <loc>/tags/</loc>
     <lastmod>2022-09-25T16:26:41+02:00</lastmod>
@@ -70,32 +90,12 @@
   </url><url>
     <loc>/tags/Kotlin/</loc>
     <lastmod>2022-09-25T16:26:41+02:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="/de/tags/Kotlin/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/tags/Kotlin/"
-                />
   </url><url>
     <loc>/posts/2020/2020-10-04-hazelcast-k8s/</loc>
     <lastmod>2022-09-25T16:26:41+02:00</lastmod>
   </url><url>
     <loc>/tags/SpringBoot/</loc>
     <lastmod>2022-09-25T16:26:41+02:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="/de/tags/SpringBoot/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/tags/SpringBoot/"
-                />
   </url><url>
     <loc>/posts/2020/2020-05-10-kboot-flux-meets-soap/</loc>
     <lastmod>2022-09-24T18:38:37+02:00</lastmod>

@@ -2,8 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/de/tags/Axon/</loc>
+    <loc>/de/tags/axon/</loc>
     <lastmod>2022-09-25T11:48:23+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/tags/axon/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="/de/tags/axon/"
+                />
   </url><url>
     <loc>/de/posts/2022/2022-24-09-axon-mongodb-extention/</loc>
     <lastmod>2022-09-25T11:48:23+02:00</lastmod>
@@ -18,33 +28,17 @@
                 href="/de/posts/2022/2022-24-09-axon-mongodb-extention/"
                 />
   </url><url>
-    <loc>/de/categories/</loc>
+    <loc>/de/tags/cqrs/</loc>
     <lastmod>2022-09-25T11:48:23+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="/categories/"
+                href="/tags/cqrs/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="de"
-                href="/de/categories/"
-                />
-  </url><url>
-    <loc>/de/categories/Development/</loc>
-    <lastmod>2022-09-25T11:48:23+02:00</lastmod>
-  </url><url>
-    <loc>/de/tags/Kotlin/</loc>
-    <lastmod>2022-09-25T11:48:23+02:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/tags/Kotlin/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="/de/tags/Kotlin/"
+                href="/de/tags/cqrs/"
                 />
   </url><url>
     <loc>/de/posts/</loc>
@@ -58,19 +52,6 @@
                 rel="alternate"
                 hreflang="de"
                 href="/de/posts/"
-                />
-  </url><url>
-    <loc>/de/tags/SpringBoot/</loc>
-    <lastmod>2022-09-25T11:48:23+02:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/tags/SpringBoot/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="/de/tags/SpringBoot/"
                 />
   </url><url>
     <loc>/de/tags/</loc>
@@ -97,6 +78,18 @@
                 rel="alternate"
                 hreflang="de"
                 href="/de/"
+                />
+  </url><url>
+    <loc>/de/categories/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="/de/categories/"
                 />
   </url>
 </urlset>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog on Blog Marcel Widmer </title>
-    <link>/de/</link>
-    <description>Recent content in Blog on Blog Marcel Widmer </description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="/de/index.xml" rel="self" type="application/rss+xml" />
+    <title>cqrs on Blog Marcel Widmer </title>
+    <link>/de/tags/cqrs/</link>
+    <description>Recent content in cqrs on Blog Marcel Widmer </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/de/tags/cqrs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Axon Framework - MongoDB extension</title>
       <link>/de/posts/2022/2022-24-09-axon-mongodb-extention/</link>

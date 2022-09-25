@@ -4,16 +4,6 @@
     <title>Categories on Blog Marcel Widmer </title>
     <link>/de/categories/</link>
     <description>Recent content in Categories on Blog Marcel Widmer </description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/de/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Development</title>
-      <link>/de/categories/Development/</link>
-      <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/de/categories/Development/</guid>
-      <description></description>
-    </item>
-    
+    <generator>Hugo -- gohugo.io</generator><atom:link href="/de/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
