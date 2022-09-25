@@ -2,8 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>/de/tags/Axon/</loc>
+    <lastmod>2022-09-25T11:48:23+02:00</lastmod>
+  </url><url>
     <loc>/de/posts/2022/2022-24-09-axon-mongodb-extention/</loc>
-    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-25T11:48:23+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -16,7 +19,7 @@
                 />
   </url><url>
     <loc>/de/</loc>
-    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-25T11:48:23+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -29,7 +32,7 @@
                 />
   </url><url>
     <loc>/de/categories/</loc>
-    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-25T11:48:23+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -42,7 +45,7 @@
                 />
   </url><url>
     <loc>/de/categories/Development/</loc>
-    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-25T11:48:23+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -55,7 +58,7 @@
                 />
   </url><url>
     <loc>/de/tags/Kotlin/</loc>
-    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-25T11:48:23+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -68,7 +71,7 @@
                 />
   </url><url>
     <loc>/de/posts/</loc>
-    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-25T11:48:23+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -81,7 +84,7 @@
                 />
   </url><url>
     <loc>/de/tags/SpringBoot/</loc>
-    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-25T11:48:23+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -94,7 +97,7 @@
                 />
   </url><url>
     <loc>/de/tags/</loc>
-    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-25T11:48:23+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
