@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/tags/axon/</loc>
+    <loc>/tags/Axon/</loc>
     <lastmod>2022-09-25T16:45:06+02:00</lastmod>
   </url><url>
     <loc>/posts/2022/2022-24-09-axon-mongodb-extention/</loc>
@@ -11,7 +11,7 @@
     <loc>/</loc>
     <lastmod>2022-09-25T16:45:06+02:00</lastmod>
   </url><url>
-    <loc>/tags/cqrs/</loc>
+    <loc>/tags/CQRS/</loc>
     <lastmod>2022-09-25T16:45:06+02:00</lastmod>
   </url><url>
     <loc>/tags/</loc>
@@ -56,6 +56,9 @@
     <loc>/posts/2020/2020-05-04-camel-kotlin-spring-boot/</loc>
     <lastmod>2022-09-25T16:45:06+02:00</lastmod>
   </url><url>
+    <loc>/tags/Spring-Boot/</loc>
+    <lastmod>2022-09-25T16:45:06+02:00</lastmod>
+  </url><url>
     <loc>/posts/2020/2020-05-01-minikube-ingress-controller/</loc>
     <lastmod>2022-09-25T16:45:06+02:00</lastmod>
   </url><url>
@@ -75,12 +78,6 @@
     <lastmod>2022-09-25T16:45:06+02:00</lastmod>
   </url><url>
     <loc>/posts/2019/2019-08-28-multiple-project-promoting/</loc>
-    <lastmod>2022-09-25T16:45:06+02:00</lastmod>
-  </url><url>
-    <loc>/tags/Ribbon/</loc>
-    <lastmod>2022-09-25T16:45:06+02:00</lastmod>
-  </url><url>
-    <loc>/tags/Spring-Boot/</loc>
     <lastmod>2022-09-25T16:45:06+02:00</lastmod>
   </url><url>
     <loc>/posts/2019/2019-09-18-spring-boot-k8s-configmap/</loc>

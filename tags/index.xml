@@ -7,20 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>axon</title>
-      <link>/tags/axon/</link>
+      <title>Axon</title>
+      <link>/tags/Axon/</link>
       <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>/tags/axon/</guid>
+      <guid>/tags/Axon/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>cqrs</title>
-      <link>/tags/cqrs/</link>
+      <title>CQRS</title>
+      <link>/tags/CQRS/</link>
       <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>/tags/cqrs/</guid>
+      <guid>/tags/CQRS/</guid>
       <description></description>
     </item>
     
@@ -97,29 +97,20 @@
     </item>
     
     <item>
+      <title>Spring Boot</title>
+      <link>/tags/Spring-Boot/</link>
+      <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/Spring-Boot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>ConfigMap</title>
       <link>/tags/ConfigMap/</link>
       <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/ConfigMap/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ribbon</title>
-      <link>/tags/Ribbon/</link>
-      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/Ribbon/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Spring Boot</title>
-      <link>/tags/Spring-Boot/</link>
-      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/Spring-Boot/</guid>
       <description></description>
     </item>
     
