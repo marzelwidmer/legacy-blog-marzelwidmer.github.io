@@ -25,128 +25,20 @@
     </item>
     
     <item>
-      <title>argocd</title>
-      <link>/tags/argocd/</link>
-      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      <title>development</title>
+      <link>/tags/development/</link>
+      <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>/tags/argocd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>gitops</title>
-      <link>/tags/gitops/</link>
-      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/gitops/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>harbor</title>
-      <link>/tags/harbor/</link>
-      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/harbor/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>k8s</title>
-      <link>/tags/k8s/</link>
-      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/k8s/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Caching</title>
-      <link>/tags/Caching/</link>
-      <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/Caching/</guid>
+      <guid>/tags/development/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kotlin</title>
       <link>/tags/Kotlin/</link>
-      <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>/tags/Kotlin/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SpringBoot</title>
-      <link>/tags/SpringBoot/</link>
-      <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/SpringBoot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>WebFlux</title>
-      <link>/tags/WebFlux/</link>
-      <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/WebFlux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Spring Boot</title>
-      <link>/tags/Spring-Boot/</link>
-      <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/Spring-Boot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ConfigMap</title>
-      <link>/tags/ConfigMap/</link>
-      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/ConfigMap/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>logging</title>
-      <link>/tags/logging/</link>
-      <pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/logging/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Hetzner Cloud</title>
-      <link>/tags/Hetzner-Cloud/</link>
-      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/Hetzner-Cloud/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s Encrypt</title>
-      <link>/tags/Lets-Encrypt/</link>
-      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/Lets-Encrypt/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>CI/CD</title>
-      <link>/tags/CI/CD/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/CI/CD/</guid>
       <description></description>
     </item>
     
