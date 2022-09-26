@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kotlin on c3smonkey&#39;s blog</title>
-    <link>/tags/kotlin/</link>
+    <link>https://blog.marcelwidmer.org/tags/kotlin/</link>
     <description>Recent content in Kotlin on c3smonkey&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/kotlin/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.marcelwidmer.org/tags/kotlin/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kubernetes Hazelcast Distributed Caching</title>
-      <link>/posts/2020/2020-10-04-hazelcast-k8s/</link>
+      <link>https://blog.marcelwidmer.org/posts/2020/2020-10-04-hazelcast-k8s/</link>
       <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2020/2020-10-04-hazelcast-k8s/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2020/2020-10-04-hazelcast-k8s/</guid>
       <description>The sample code can be found on GitHub. 1
 Precondition Spring Caching with Hazelcast Kustomize Configuration Hazelcast Configuration Precondition Spring Caching with Hazelcast Let&amp;rsquo;s get ready first our Spring Boot application with the following dependencies.
 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-cache&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; Also let&amp;rsquo;s take the hazelcast-all from com.hazelcast that include the k8s dependencies. The version 4.x.x will also support yaml configuration of hazelcast.

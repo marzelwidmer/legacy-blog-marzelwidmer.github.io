@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog on c3smonkey&#39;s blog</title>
-    <link>/posts/</link>
+    <link>https://blog.marcelwidmer.org/posts/</link>
     <description>Recent content in Blog on c3smonkey&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.marcelwidmer.org/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Axon Framework - MongoDB extension</title>
-      <link>/posts/2022/2022-24-09-axon-mongodb-extention/</link>
+      <link>https://blog.marcelwidmer.org/posts/2022/2022-24-09-axon-mongodb-extention/</link>
       <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2022/2022-24-09-axon-mongodb-extention/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2022/2022-24-09-axon-mongodb-extention/</guid>
       <description>In this blog post we look into Axon Framework is a framework for building evolutionary, event-driven microservice systems, based on the principles of Domain Driven Design, Command-Query Responsibility Segregation (CQRS) and Event Sourcing.
 We will disable the Axon Server and replaced it with the MongoDB extension this extension provides functionality to leverage Mongo as an EventStorageEngine (to be used by an EventStore) and TokenStore.
 For more information on anything Axon, please visit our website, Axon Framework.</description>
@@ -20,10 +20,10 @@ For more information on anything Axon, please visit our website, Axon Framework.
     
     <item>
       <title>GitOps with Argo CD</title>
-      <link>/posts/2020/2020-10-05-gitops-argo/</link>
+      <link>https://blog.marcelwidmer.org/posts/2020/2020-10-05-gitops-argo/</link>
       <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2020/2020-10-05-gitops-argo/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2020/2020-10-05-gitops-argo/</guid>
       <description>Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes. Application definitions, configurations, and environments should be declarative and version controlled. Application deployment and lifecycle management should be automated, auditable, and easy to understand.
 Minikube Setup Monitoring - Grafana-Prometheus Install Argo CD Create App on Argo CD Minikube Setup Local Development Environment with minikube.
 Brew Installation Packages brew install hyperkit brew install minikube brew install helm brew install httpie brew install stern brew install argocd brew install sops OSX Minikube Test Cluster Hyperkit Setup first minikube hyperkit driver.</description>
@@ -31,19 +31,19 @@ Brew Installation Packages brew install hyperkit brew install minikube brew inst
     
     <item>
       <title>Harbor</title>
-      <link>/posts/2020/2020-10-05-harbor/</link>
+      <link>https://blog.marcelwidmer.org/posts/2020/2020-10-05-harbor/</link>
       <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2020/2020-10-05-harbor/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2020/2020-10-05-harbor/</guid>
       <description>Harbor is an open source trusted cloud native registry project that stores, signs, and scans content. Harbor extends the open source Docker Distribution by adding the functionalities usually required by users such as security, identity and management. Having a registry closer to the build and run environment can improve the image transfer efficiency. Harbor supports replication of images between registries, and also offers advanced security features such as user management, access control and activity auditing.</description>
     </item>
     
     <item>
       <title>Kubernetes Hazelcast Distributed Caching</title>
-      <link>/posts/2020/2020-10-04-hazelcast-k8s/</link>
+      <link>https://blog.marcelwidmer.org/posts/2020/2020-10-04-hazelcast-k8s/</link>
       <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2020/2020-10-04-hazelcast-k8s/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2020/2020-10-04-hazelcast-k8s/</guid>
       <description>The sample code can be found on GitHub. 1
 Precondition Spring Caching with Hazelcast Kustomize Configuration Hazelcast Configuration Precondition Spring Caching with Hazelcast Let&amp;rsquo;s get ready first our Spring Boot application with the following dependencies.
 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-cache&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; Also let&amp;rsquo;s take the hazelcast-all from com.hazelcast that include the k8s dependencies. The version 4.x.x will also support yaml configuration of hazelcast.
@@ -52,10 +52,10 @@ Precondition Spring Caching with Hazelcast Kustomize Configuration Hazelcast Con
     
     <item>
       <title>Kboot Flux Meets Soap</title>
-      <link>/posts/2020/2020-05-10-kboot-flux-meets-soap/</link>
+      <link>https://blog.marcelwidmer.org/posts/2020/2020-05-10-kboot-flux-meets-soap/</link>
       <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2020/2020-05-10-kboot-flux-meets-soap/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2020/2020-05-10-kboot-flux-meets-soap/</guid>
       <description>This will demonstrate how we can deal with a Blocking API in a Reactive World.
 The GitHb 1 sample provides a
 soap-server who demonstrate the blocking downstream API. flux-client with REST API lockdown that will call the blocking SOAP endpoint and. Blockhound 2 will throw an exception. easing have an implemented from Avoiding Reactor Meltdown 3 show case how to manage Blocking API. With this approach to manage Blocking API in the same service ant not in a separate service we have all the nice features like retry filter map and so on in our Service A from the Reactive Streams API.</description>
@@ -63,10 +63,10 @@ soap-server who demonstrate the blocking downstream API. flux-client with REST A
     
     <item>
       <title>Apache Camel with Kotlin and Spring Boot</title>
-      <link>/posts/2020/2020-05-04-camel-kotlin-spring-boot/</link>
+      <link>https://blog.marcelwidmer.org/posts/2020/2020-05-04-camel-kotlin-spring-boot/</link>
       <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2020/2020-05-04-camel-kotlin-spring-boot/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2020/2020-05-04-camel-kotlin-spring-boot/</guid>
       <description>Apache Camel is an open source integration framework that empowers you to quickly and easily integrate various systems consuming or producing data.
 Precondition on OSX Create Project Check Camel Context File Route FTP Route Choice Route Precondition on OSX We will also use command line ftp commands for this you need the ftp command line tool this can be installed with :
 brew install inetutils Create Project Run the following commands :</description>
@@ -74,30 +74,30 @@ brew install inetutils Create Project Run the following commands :</description>
     
     <item>
       <title>Kubernetes Ingress with Ngnix Ingress Controller</title>
-      <link>/posts/2020/2020-05-01-minikube-ingress-controller/</link>
+      <link>https://blog.marcelwidmer.org/posts/2020/2020-05-01-minikube-ingress-controller/</link>
       <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2020/2020-05-01-minikube-ingress-controller/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2020/2020-05-01-minikube-ingress-controller/</guid>
       <description>OSX Minikube Kubernetes If you use ohmyzsh is there a nice Plugin with some kubectl for more details check ohmyzsh plugins kubectl
 Install Minikube with Ingress Controller brew install minikube Start Minikube minikube start 😄 minikube v1.9.2 on Darwin 10.15.4 ▪ MINIKUBE_ACTIVE_DOCKERD=minikube ✨ Using the hyperkit driver based on existing profile 👍 Starting control plane node m01 in cluster minikube 🔄 Restarting existing hyperkit VM for &amp;#34;minikube&amp;#34; ... 🐳 Preparing Kubernetes v1.</description>
     </item>
     
     <item>
       <title>Reactive Spring Boot with Resilience4j CircuitBreaker</title>
-      <link>/posts/2020/2020-04-18-resilience4j-circuitbreaker/</link>
+      <link>https://blog.marcelwidmer.org/posts/2020/2020-04-18-resilience4j-circuitbreaker/</link>
       <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2020/2020-04-18-resilience4j-circuitbreaker/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2020/2020-04-18-resilience4j-circuitbreaker/</guid>
       <description>Create Project Let&amp;rsquo;s create a Sample Application with Kotlin and Reactive Spring Boot with the spring inializr Rest Endpoint. We will take the latest and greates Spring Boot version 2.3.0.M4 and language kotlin with the following dependencies:
 actuator webflux cloud-resilience4j http https://start.spring.io/starter.tgz \ dependencies==actuator,webflux,cloud-resilience4j \ description==&amp;#34;Demo project Kotlin Spring Boot with Resilience4j&amp;#34; \ applicationName==Resilience4jApplication \ name==kboot-resilience4j \ groupId==ch.keepcalm \ artifactId==kboot-resilience4j \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ baseDir==kboot-resilience4j| tar -xzvf - Add Customer Banner</description>
     </item>
     
     <item>
       <title>Spring Cloud Gateway</title>
-      <link>/posts/2020/2020-04-12-cloud-gateway-sidecar/</link>
+      <link>https://blog.marcelwidmer.org/posts/2020/2020-04-12-cloud-gateway-sidecar/</link>
       <pubDate>Thu, 16 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2020/2020-04-12-cloud-gateway-sidecar/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2020/2020-04-12-cloud-gateway-sidecar/</guid>
       <description>This sample show how easy you can put on an existing API the Spring Cloud Gateway as kind of SideCar where you can manage your Security, Logging etc. Or just provide an other Endpoint URL like in this sample.
 Let&amp;rsquo;s create a Service with a Reactive Spring Boot Application and MongoDB and a Rest Endpoint.
 We start with the MongoDB document class Customer and a ReactiveCrudRepository interface CustomerRepository
@@ -106,10 +106,10 @@ We start with the MongoDB document class Customer and a ReactiveCrudRepository i
     
     <item>
       <title>Create Kotlin Project with Spring Initializr and HTTPie</title>
-      <link>/posts/2020/2020-04-12-spring-initializr/</link>
+      <link>https://blog.marcelwidmer.org/posts/2020/2020-04-12-spring-initializr/</link>
       <pubDate>Sun, 12 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2020/2020-04-12-spring-initializr/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2020/2020-04-12-spring-initializr/</guid>
       <description>Create Kotlin Maven Project with HTTPie from start.spring.io Let&amp;rsquo;s create and extract a Maven Kotlin project with some dependencies actuator data-mongodb-reactive webflux and cloud-gateway The https://start.spring.io
 http https://start.spring.io/starter.tgz \ dependencies==actuator,data-mongodb-reactive,webflux,cloud-gateway \ description==&amp;#34;Demo project Kotlin Sidecar Gateway&amp;#34; \ applicationName==SidecarGatewayApplication \ name==kotlin-sidecar-gateway \ groupId==ch.keepcalm \ artifactId==kotlin-sidecar-gateway \ packageName==ch.keepcalm.demo \ javaVersion==11 \ language==kotlin \ baseDir==kotlin-sidecar-gateway | tar -xzvf - Banner Download Banner in the src/main/resources folder.
 http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/banner.txt \ &amp;gt; kotlin-sidecar-gateway/src/main/resources/banner.txt Spring Application Name Configure spring.</description>
@@ -117,10 +117,10 @@ http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/maste
     
     <item>
       <title>AxonIQ</title>
-      <link>/posts/2019/2019-10-22-axon/</link>
+      <link>https://blog.marcelwidmer.org/posts/2019/2019-10-22-axon/</link>
       <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2019/2019-10-22-axon/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2019/2019-10-22-axon/</guid>
       <description>Commands:
 A command tells our application to do something Events:
 An event is a notification of something that has happened. Query:
@@ -130,20 +130,20 @@ Optimized for the specific read use-cases (e.g. screens, API methods) Many separ
     
     <item>
       <title>Promoting Applications Across Environments</title>
-      <link>/posts/2019/2019-08-28-multiple-project-promoting/</link>
+      <link>https://blog.marcelwidmer.org/posts/2019/2019-08-28-multiple-project-promoting/</link>
       <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2019/2019-08-28-multiple-project-promoting/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2019/2019-08-28-multiple-project-promoting/</guid>
       <description>Table of contents Create Project Install Jenkins / Install Jenkins With CLI Add Edit Role To ServiceAccount Jenkins Add Role To Group Deploy Application Development Environment Deployment Test API Testing Environment Deployment Production Environment Deployment Jenkins Pipeline WebHooks Create Project We are going to use the CLI to create some projects. Let&amp;rsquo;s create our projects first:
 $ oc login $ oc new-project development --display-name=&amp;#34;Development Environment&amp;#34; $ oc new-project testing --display-name=&amp;#34;Testing Environment&amp;#34; $ oc new-project production --display-name=&amp;#34;Production Environment&amp;#34; $ oc new-project jenkins --display-name=&amp;#34;Jenkins CI/CD&amp;#34; Install Jenkins Create a Jenkins in the Jenkins CI/CD project with some storage.</description>
     </item>
     
     <item>
       <title>Spring Boot Kubernetes ConfigMap</title>
-      <link>/posts/2019/2019-09-18-spring-boot-k8s-configmap/</link>
+      <link>https://blog.marcelwidmer.org/posts/2019/2019-09-18-spring-boot-k8s-configmap/</link>
       <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2019/2019-09-18-spring-boot-k8s-configmap/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2019/2019-09-18-spring-boot-k8s-configmap/</guid>
       <description>Now is time to configure our microservices to send the tracing logs to Jaeger 1. The configuration opentracing.jaeger.http-sender.url in configuration application.yaml file looks like below in the sources.
 opentracing: jaeger: log-spans: true http-sender: url: http://localhost:14268/api/traces The opentracing.jaeger.http-sender.url we are looking for we get form the section Get Route Host in the Jaeger post We will use the ConfigMap approach with the Spring Cloud Kubernetes{:target=&amp;quot;_blank&amp;quot;} starters.
 Maven Update Maven Configuration with Spring Cloud Kubernetes{:target=&amp;quot;_blank&amp;quot;} library.</description>
@@ -151,10 +151,10 @@ Maven Update Maven Configuration with Spring Cloud Kubernetes{:target=&amp;quot;
     
     <item>
       <title>Spring Boot Kubernetes Discovery</title>
-      <link>/posts/2019/2019-09-21-spring-boot-k8s-ribbon-discovery/</link>
+      <link>https://blog.marcelwidmer.org/posts/2019/2019-09-21-spring-boot-k8s-ribbon-discovery/</link>
       <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2019/2019-09-21-spring-boot-k8s-ribbon-discovery/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2019/2019-09-21-spring-boot-k8s-ribbon-discovery/</guid>
       <description>Spring Cloud Kubernetes Ribbon provide a mechanism to perform a client side load-balancing who is needed in a microservice architecture to allocate a list of all pods where our service is running (replicated)
 This mechanism can automatically discover and reach all the endpoints of a specific service, and subsequently, it populates a Ribbon ServerList with information about the endpoints.
 Let&amp;rsquo;s start by adding the spring-cloud-starter-kubernetes-ribbon dependency to our pom.xml file:</description>
@@ -162,10 +162,10 @@ Let&amp;rsquo;s start by adding the spring-cloud-starter-kubernetes-ribbon depen
     
     <item>
       <title>Semantic Release Delivery Pipeline</title>
-      <link>/posts/2019/2019-09-08-semantic-release-delivery-pipeline/</link>
+      <link>https://blog.marcelwidmer.org/posts/2019/2019-09-08-semantic-release-delivery-pipeline/</link>
       <pubDate>Sun, 08 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2019/2019-09-08-semantic-release-delivery-pipeline/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2019/2019-09-08-semantic-release-delivery-pipeline/</guid>
       <description>Table of contents Setup Deployment Jenkins Pipeline WebHooks Private Repository Semantic Release Jenkins Pipeline Setup Deployment $ oc new-project development --display-nam e=&amp;#34;Development Environment&amp;#34; Deploy application with the maven.fabric8.io plugin in development stage from local machine.
 $ ./mvnw fabric8:deploy -Dfabric8.namespace=development $ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n development Create testing project and setup the roles.
 $ oc new-project testing --display-name=&amp;#34;Testing Environment&amp;#34; $ oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n testing $ oc policy add-role-to-group system:image-puller system:serviceaccounts:testing \ -n development Create DeploymentConfiguration in testing stage.</description>
@@ -173,19 +173,19 @@ $ oc new-project testing --display-name=&amp;#34;Testing Environment&amp;#34; $ 
     
     <item>
       <title>Jaeger - Distributed Tracing System</title>
-      <link>/posts/2019/2019-09-01-jaeger/</link>
+      <link>https://blog.marcelwidmer.org/posts/2019/2019-09-01-jaeger/</link>
       <pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2019/2019-09-01-jaeger/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2019/2019-09-01-jaeger/</guid>
       <description>Table of contents Jeager All-In-One with OpenShift Template Jeager Step-by-Step with separate operator As on-the-ground microservice practitioners are quickly realizing, the majority of operational problems that arise when moving to a distributed architecture are ultimately grounded in two areas: networking and observability. It is simply an orders of magnitude larger problem to network and debug a set of intertwined distributed services versus a single monolithic application. Jaeger Jaeger is a open source, end-to-end distributed tracing Monitor and troubleshoot transactions in complex distributed systems.</description>
     </item>
     
     <item>
       <title>Certbot Let`s Encrypt</title>
-      <link>/posts/2019/2019-08-20-certbot-letsencrypt/</link>
+      <link>https://blog.marcelwidmer.org/posts/2019/2019-08-20-certbot-letsencrypt/</link>
       <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2019/2019-08-20-certbot-letsencrypt/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2019/2019-08-20-certbot-letsencrypt/</guid>
       <description>Inspiration from [Adding an SSL certificate to OKD - Part 2 of Installation of OKD 3.10 from start to finish]https://www.youtube.com/watch?v=S7HoJ09oYn0&amp;amp;feature=youtu.be){:target=&amp;quot;_blank&amp;quot;}
 Check Certificate Let`s check first if there a certificate already for our domain https://crt.sh/?q=c3smonkey.ch
 Check EPEL Reposittory Check if the epel.repo is enabled.
@@ -194,10 +194,10 @@ $ vi /etc/yum.repos.d/epel.repo [epel] name=Extra Packages for Enterprise Linux 
     
     <item>
       <title>Install OKD on Hetzner Cloud</title>
-      <link>/posts/2019/2019-01-13-hetzner-okd/</link>
+      <link>https://blog.marcelwidmer.org/posts/2019/2019-01-13-hetzner-okd/</link>
       <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/posts/2019/2019-01-13-hetzner-okd/</guid>
+      <guid>https://blog.marcelwidmer.org/posts/2019/2019-01-13-hetzner-okd/</guid>
       <description>Inspiration from Installation of OKD 3.10 from start to finish
 Create a Hetzner VM with the CLI https://github.com/hetznercloud/cli
 hcloud (Hetzner CLI) Let&amp;rsquo;s check first some hcloud command that we can use later to create a VM with the right size and in the Datacenter we want.

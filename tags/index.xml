@@ -2,134 +2,134 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on c3smonkey&#39;s blog</title>
-    <link>/tags/</link>
+    <link>https://blog.marcelwidmer.org/tags/</link>
     <description>Recent content in Tags on c3smonkey&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.marcelwidmer.org/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Axon</title>
-      <link>/tags/axon/</link>
+      <link>https://blog.marcelwidmer.org/tags/axon/</link>
       <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>/tags/axon/</guid>
+      <guid>https://blog.marcelwidmer.org/tags/axon/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CQRS</title>
-      <link>/tags/cqrs/</link>
+      <link>https://blog.marcelwidmer.org/tags/cqrs/</link>
       <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>/tags/cqrs/</guid>
+      <guid>https://blog.marcelwidmer.org/tags/cqrs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Spring Boot</title>
-      <link>/tags/spring-boot/</link>
+      <link>https://blog.marcelwidmer.org/tags/spring-boot/</link>
       <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>/tags/spring-boot/</guid>
+      <guid>https://blog.marcelwidmer.org/tags/spring-boot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>argocd</title>
-      <link>/tags/argocd/</link>
+      <link>https://blog.marcelwidmer.org/tags/argocd/</link>
       <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/argocd/</guid>
+      <guid>https://blog.marcelwidmer.org/tags/argocd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gitops</title>
-      <link>/tags/gitops/</link>
+      <link>https://blog.marcelwidmer.org/tags/gitops/</link>
       <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/gitops/</guid>
+      <guid>https://blog.marcelwidmer.org/tags/gitops/</guid>
       <description></description>
     </item>
     
     <item>
       <title>harbor</title>
-      <link>/tags/harbor/</link>
+      <link>https://blog.marcelwidmer.org/tags/harbor/</link>
       <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/harbor/</guid>
+      <guid>https://blog.marcelwidmer.org/tags/harbor/</guid>
       <description></description>
     </item>
     
     <item>
       <title>k8s</title>
-      <link>/tags/k8s/</link>
+      <link>https://blog.marcelwidmer.org/tags/k8s/</link>
       <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/k8s/</guid>
+      <guid>https://blog.marcelwidmer.org/tags/k8s/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Caching</title>
-      <link>/tags/caching/</link>
+      <link>https://blog.marcelwidmer.org/tags/caching/</link>
       <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/caching/</guid>
+      <guid>https://blog.marcelwidmer.org/tags/caching/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kotlin</title>
-      <link>/tags/kotlin/</link>
+      <link>https://blog.marcelwidmer.org/tags/kotlin/</link>
       <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/kotlin/</guid>
+      <guid>https://blog.marcelwidmer.org/tags/kotlin/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ConfigMap</title>
-      <link>/tags/configmap/</link>
+      <link>https://blog.marcelwidmer.org/tags/configmap/</link>
       <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/configmap/</guid>
+      <guid>https://blog.marcelwidmer.org/tags/configmap/</guid>
       <description></description>
     </item>
     
     <item>
       <title>logging</title>
-      <link>/tags/logging/</link>
+      <link>https://blog.marcelwidmer.org/tags/logging/</link>
       <pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/logging/</guid>
+      <guid>https://blog.marcelwidmer.org/tags/logging/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hetzner Cloud</title>
-      <link>/tags/hetzner-cloud/</link>
+      <link>https://blog.marcelwidmer.org/tags/hetzner-cloud/</link>
       <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/hetzner-cloud/</guid>
+      <guid>https://blog.marcelwidmer.org/tags/hetzner-cloud/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Let&#39;s Encrypt</title>
-      <link>/tags/lets-encrypt/</link>
+      <link>https://blog.marcelwidmer.org/tags/lets-encrypt/</link>
       <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/lets-encrypt/</guid>
+      <guid>https://blog.marcelwidmer.org/tags/lets-encrypt/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CI/CD</title>
-      <link>/tags/ci/cd/</link>
+      <link>https://blog.marcelwidmer.org/tags/ci/cd/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/tags/ci/cd/</guid>
+      <guid>https://blog.marcelwidmer.org/tags/ci/cd/</guid>
       <description></description>
     </item>
     

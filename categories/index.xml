@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on c3smonkey&#39;s blog</title>
-    <link>/categories/</link>
+    <link>https://blog.marcelwidmer.org/categories/</link>
     <description>Recent content in Categories on c3smonkey&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.marcelwidmer.org/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Development</title>
-      <link>/categories/development/</link>
+      <link>https://blog.marcelwidmer.org/categories/development/</link>
       <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>/categories/development/</guid>
+      <guid>https://blog.marcelwidmer.org/categories/development/</guid>
       <description></description>
     </item>
     
     <item>
       <title>k8s</title>
-      <link>/categories/k8s/</link>
+      <link>https://blog.marcelwidmer.org/categories/k8s/</link>
       <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/categories/k8s/</guid>
+      <guid>https://blog.marcelwidmer.org/categories/k8s/</guid>
       <description></description>
     </item>
     
