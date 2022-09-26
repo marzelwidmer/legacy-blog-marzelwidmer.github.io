@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Blog Marcel Widmer </title>
+    <title>Categories on My New Hugo Site</title>
     <link>/categories/</link>
-    <description>Recent content in Categories on Blog Marcel Widmer </description>
+    <description>Recent content in Categories on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
     <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>k8s</title>
@@ -17,10 +18,10 @@
     
     <item>
       <title>Spring Boot</title>
-      <link>/categories/Spring-Boot/</link>
+      <link>/categories/spring-boot/</link>
       <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>/categories/Spring-Boot/</guid>
+      <guid>/categories/spring-boot/</guid>
       <description></description>
     </item>
     
