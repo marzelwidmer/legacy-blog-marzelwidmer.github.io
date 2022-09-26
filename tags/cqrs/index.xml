@@ -6,7 +6,18 @@
     <description>Recent content in CQRS on Marcel&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Sep 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/cqrs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/cqrs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Axon Framework - MongoDB extension</title>
+      <link>/posts/2022/2022-24-09-axon-mongodb-extention/</link>
+      <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2022/2022-24-09-axon-mongodb-extention/</guid>
+      <description>In this blog post we look into Axon Framework is a framework for building evolutionary, event-driven microservice systems, based on the principles of Domain Driven Design, Command-Query Responsibility Segregation (CQRS) and Event Sourcing.
+We will disable the Axon Server and replaced it with the MongoDB extension this extension provides functionality to leverage Mongo as an EventStorageEngine (to be used by an EventStore) and TokenStore.
+For more information on anything Axon, please visit our website, Axon Framework.</description>
+    </item>
+    
     <item>
       <title>AxonIQ</title>
       <link>/posts/2019/2019-10-22-axon/</link>
