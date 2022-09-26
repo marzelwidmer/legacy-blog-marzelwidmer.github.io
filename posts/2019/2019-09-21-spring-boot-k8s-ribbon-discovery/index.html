@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Spring Boot Kubernetes Discovery - Marcel&#39;s blog</title>
+<meta name="description" content="This is my personal blog where I will mostly post about development.">
+
+<meta name="author" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="alternate" href="/index.xml?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589" type="application/rss+xml" title="RSS" />
+<meta property="og:title" content="Spring Boot Kubernetes Discovery - Marcel&#39;s blog">
+</meta>
+<meta property="og:url" content="/posts/2019/2019-09-21-spring-boot-k8s-ribbon-discovery/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Marcel&#39;s blog">
+<meta property="og:description" content="This is my personal blog where I will mostly post about development.">
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+<meta name="twitter:card" content="summary_large_image" /></meta>
+<meta name="twitter:site" content="@"></meta>
+<meta name="twitter:creator" content="@"></meta>
+<meta name="twitter:title" content="Spring Boot Kubernetes Discovery - Marcel&#39;s blog"></meta>
+<meta name="twitter:url" content="/posts/2019/2019-09-21-spring-boot-k8s-ribbon-discovery/"></meta>
+<meta name="twitter:description" content="This is my personal blog where I will mostly post about development."></meta>
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+
+<link rel="stylesheet" href="/css/main.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="stylesheet" href="/css/color.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+
+
+
+
+</head>
+
+<body >
+
+
+<div id="content-header" class="title">
+  
+  <a class="site-title" href="/">Marcel&#39;s blog</a>
+  
+  <span class="site-sub-title"></span>
+
+  
+
+  <div id="main-menu-nav">
+    <div id="main-menu-nav-items">
+      
+        <div class="nav-item"><a href="/posts/2022/2022-24-09-axon-mongodb-extention/">Axon Framework - MongoDB extension</a></div>
+      
+    </div>
+  </div>
+</div>
+<div id="content" class="main">
+
+
+
+
+<h2>Spring Boot Kubernetes Discovery</h2>
+
+<span class="sub">2019-09-18</span>
+
+
+
+
+
+
+
+
+<p><a href="https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.1.0.M2/reference/html/#_ribbon_discovery_in_kubernetes">Spring Cloud Kubernetes Ribbon</a>
+provide a mechanism to perform a client side load-balancing who is needed in a microservice architecture
+to allocate a list of all pods where our service is running (replicated)</p>
+<p>This mechanism can automatically discover and reach all the endpoints of a specific service, and subsequently,
+it populates a Ribbon ServerList with information about the endpoints.</p>
+<p>Let&rsquo;s start by adding the <code>spring-cloud-starter-kubernetes-ribbon</code> dependency to our <code>pom.xml</code> file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.cloud<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>spring-cloud-starter-kubernetes-ribbon<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><p>When the list of the endpoints is populated, the K8s client will search the registered endpoints
+living in the current <code>namespace</code></p>
+<p>We also need to enable the ribbon client in the <code>application.yaml</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">ribbon.http.client.enabled=true</span>
+</span></span></code></pre></div><p>Now add the <code>@EnableDiscoveryClient</code> annotation in the Spring Boot application.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#a6e22e">@EnableDiscoveryClient</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@SpringBootApplication</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CatalogServiceClient</span>
+</span></span></code></pre></div><p>As next we also add the <code>@LoadBalanced</code> annotation.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderServiceConfiguration</span> {
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">@Bean</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">@LoadBalanced</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">webClientBuilder</span>() = WebClient.builder()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now we can use now the service name <code>http://catalog-service</code> to call other services.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#a6e22e">@Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CatalogServiceClient</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> webClientBuilder: WebClient.Builder) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">companion</span> <span style="color:#66d9ef">object</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> CATALOG_SERVICE_URL = <span style="color:#e6db74">&#34;http://catalog-service/api/v1/animals/random&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getRandomAnimalNames</span>(): Flux&lt;String&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.webClientBuilder
+</span></span><span style="display:flex;"><span>                .baseUrl(CATALOG_SERVICE_URL).build()
+</span></span><span style="display:flex;"><span>                .<span style="color:#66d9ef">get</span>()
+</span></span><span style="display:flex;"><span>                .accept(MediaType.APPLICATION_JSON)
+</span></span><span style="display:flex;"><span>                .retrieve().bodyToFlux(String<span style="color:#f92672">::</span><span style="color:#66d9ef">class</span>.java)
+</span></span><span style="display:flex;"><span>                .log()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+
+
+
+
+<hr class="block-separater">
+
+
+
+
+<div class="content-footer-item">
+	Tags for this post:
+	
+	<a class="post-tag" href="/tags/k8s/">k8s</a>
+	
+	<a class="post-tag" href="/tags/spring-boot/">Spring Boot</a>
+	
+</div>
+
+
+
+
+
+
+
+<div class="content-footer-item neighbor">
+	
+	<div class="prev-post">Prev: <a href="/posts/2019/2019-09-08-semantic-release-delivery-pipeline/">Semantic Release Delivery Pipeline</a></div>
+	
+	
+	<div class="next-post">Next: <a href="/posts/2019/2019-09-18-spring-boot-k8s-configmap/">Spring Boot Kubernetes ConfigMap</a></div>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "k8s"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-gitops-argo/">GitOps with Argo CD</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-harbor/">Harbor</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-04</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-04-hazelcast-k8s/">Kubernetes Hazelcast Distributed Caching</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href='/tags/k8s/'>more ...</a>
+          
+      </div>
+        </div>
+    
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "Spring Boot"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-05-04</div>
+  <div class="post-title"><a href="/posts/2020/2020-05-04-camel-kotlin-spring-boot/">Apache Camel with Kotlin and Spring Boot</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-04-18</div>
+  <div class="post-title"><a href="/posts/2020/2020-04-18-resilience4j-circuitbreaker/">Reactive Spring Boot with Resilience4j CircuitBreaker</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-04-16</div>
+  <div class="post-title"><a href="/posts/2020/2020-04-12-cloud-gateway-sidecar/">Spring Cloud Gateway</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href='/tags/spring-boot/'>more ...</a>
+          
+      </div>
+        </div>
+    
+
+
+
+
+<script src="/js/single.js"></script>
+
+
+	</div><div id="content-footer" class="sub">
+  
+  <div class="credit">
+    Power by <a href="https://gohugo.io">Hugo</a> /
+    Theme <a href="https://github.com/michimani/simplog/">simplog</a> by <a href="https://github.com/michimani/">michimani</a>
+  </div>
+</div></body>
+
+</html>

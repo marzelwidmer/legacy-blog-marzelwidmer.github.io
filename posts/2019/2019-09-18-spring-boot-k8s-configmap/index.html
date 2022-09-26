@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Spring Boot Kubernetes ConfigMap - Marcel&#39;s blog</title>
+<meta name="description" content="This is my personal blog where I will mostly post about development.">
+
+<meta name="author" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="alternate" href="/index.xml?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589" type="application/rss+xml" title="RSS" />
+<meta property="og:title" content="Spring Boot Kubernetes ConfigMap - Marcel&#39;s blog">
+</meta>
+<meta property="og:url" content="/posts/2019/2019-09-18-spring-boot-k8s-configmap/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Marcel&#39;s blog">
+<meta property="og:description" content="This is my personal blog where I will mostly post about development.">
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+<meta name="twitter:card" content="summary_large_image" /></meta>
+<meta name="twitter:site" content="@"></meta>
+<meta name="twitter:creator" content="@"></meta>
+<meta name="twitter:title" content="Spring Boot Kubernetes ConfigMap - Marcel&#39;s blog"></meta>
+<meta name="twitter:url" content="/posts/2019/2019-09-18-spring-boot-k8s-configmap/"></meta>
+<meta name="twitter:description" content="This is my personal blog where I will mostly post about development."></meta>
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+
+<link rel="stylesheet" href="/css/main.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="stylesheet" href="/css/color.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+
+
+
+
+</head>
+
+<body >
+
+
+<div id="content-header" class="title">
+  
+  <a class="site-title" href="/">Marcel&#39;s blog</a>
+  
+  <span class="site-sub-title"></span>
+
+  
+
+  <div id="main-menu-nav">
+    <div id="main-menu-nav-items">
+      
+        <div class="nav-item"><a href="/posts/2022/2022-24-09-axon-mongodb-extention/">Axon Framework - MongoDB extension</a></div>
+      
+    </div>
+  </div>
+</div>
+<div id="content" class="main">
+
+
+
+
+<h2>Spring Boot Kubernetes ConfigMap</h2>
+
+<span class="sub">2019-09-18</span>
+
+
+
+
+
+
+
+
+<p>Now is time to configure our <a href="https://github.com/marzelwidmer/microservices-demo">microservices</a> to send the tracing
+logs to Jaeger <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.
+The configuration <code>opentracing.jaeger.http-sender.url</code> in configuration <code>application.yaml</code> file looks like below in the sources.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">opentracing</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">jaeger</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">log-spans</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">http-sender</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">url</span>: <span style="color:#ae81ff">http://localhost:14268/api/traces</span>
+</span></span></code></pre></div><p>The <code>opentracing.jaeger.http-sender.url</code> we are looking for we get form the section <a href="http://blog.marcelwidmer.org/jaeger/#GetRouteHost">Get Route Host in the Jaeger post</a>
+We will use the <code>ConfigMap</code> approach with the <a href="https://spring.io/projects/spring-cloud-kubernetes">Spring Cloud Kubernetes</a>{:target=&quot;_blank&quot;} starters.</p>
+<h2 id="maven-a-namemavenconfigurationa">Maven <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+<p>Update Maven Configuration with <a href="https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.0.3.RELEASE/single/spring-cloud-kubernetes.html">Spring Cloud Kubernetes</a>{:target=&quot;_blank&quot;} library.</p>
+<h3 id="dependency-management-spring-cloud-dependencies">Dependency Management <code>spring-cloud-dependencies</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependencyManagement&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;dependencies&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.cloud<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;artifactId&gt;</span>spring-cloud-dependencies<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;version&gt;</span>${spring-cloud.version}<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;type&gt;</span>pom<span style="color:#f92672">&lt;/type&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;scope&gt;</span>import<span style="color:#f92672">&lt;/scope&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/dependencies&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependencyManagement&gt;</span>
+</span></span></code></pre></div><h3 id="spring-cloud-version-spring-cloudversion">Spring Cloud Version <code>spring-cloud.version</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;properties&gt;</span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;spring-cloud.version&gt;</span>Greenwich.SR3<span style="color:#f92672">&lt;/spring-cloud.version&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/properties&gt;</span>
+</span></span></code></pre></div><h3 id="dependency-spring-cloud-starter-kubernetes-config">Dependency <code>spring-cloud-starter-kubernetes-config</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- Kubernetes --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.cloud<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>spring-cloud-starter-kubernetes-config<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h2 id="application-configuration">Application Configuration</h2>
+<p>The application may need to detect changes on external property sources and update their internal status to reflect the new configuration.
+The reload feature of <code>Spring Cloud Kubernetes</code> is able to trigger an application reload when a related <code>ConfigMap</code> changes.</p>
+<p>This feature is disabled by default and can be enabled using the configuration property <code>spring.cloud.kubernetes.reload.enabled=true</code>
+in the <code>application.yaml</code> file.</p>
+<p>The configuration <code>spring.cloud.kubernetes.reload.strategy=restart_context</code> will restart the whole Spring ApplicationContext gracefully.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cloud</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">kubernetes</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">reload</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">restart_context</span>
+</span></span></code></pre></div><p>Configure the <code>management.endpoint.restart.enabled=true</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>management:
+</span></span><span style="display:flex;"><span>  endpoint:
+</span></span><span style="display:flex;"><span>    restart:
+</span></span><span style="display:flex;"><span>      enabled: true
+</span></span></code></pre></div><h2 id="configured-service-account---rbac-policy">Configured Service Account - RBAC policy</h2>
+<p>To read the <code>ConfigMap</code> we have to give to the <a href="https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.1.0.M2/reference/html/#_service_account">Service Account</a>{:target=&quot;_blank&quot;}  in the default namespace access right. This can be done to give just
+<code>view</code> access <code>oc policy add-role-to-user view system:serviceaccount:development:default</code></p>
+<p>The better solution is <a href="#ConfigureClusterRole">configure ClusterRole</a></p>
+<blockquote>
+<p>⚠️ <strong>Avoid no RBAC policy match exception</strong>:<br>
+.fabric8.kubernetes.client.KubernetesClientException:
+Failure executing: GET at: https://172.30.0.1/api/v1/namespaces/development/pods/order-service-35-wj25f.
+Message: Forbidden!Configured service account doesnt have access.
+Service account may have been revoked. pods &ldquo;order-service-35-wj25f&rdquo; is
+forbidden: User &ldquo;system:serviceaccount:development:default&rdquo; cannot get pods in the namespace &ldquo;development&rdquo;: no RBAC policy matched.</p>
+</blockquote>
+<h1 id="create-clusterrole">Create ClusterRole</h1>
+<p>Additional you can also create a <code>ClusterRole</code> for Spring components let it named <code>spring-roles</code>.
+Create a file <code>service-account-for-spring-cloud-k8s-access.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ClusterRole</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">default</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">spring-roles</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">apiGroups</span>: [<span style="color:#e6db74">&#34;&#34;</span>] <span style="color:#75715e"># &#34;&#34; indicates the core API group</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">resources</span>: [<span style="color:#e6db74">&#34;pods&#34;</span>,<span style="color:#e6db74">&#34;configmaps&#34;</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">verbs</span>: [<span style="color:#e6db74">&#34;get&#34;</span>, <span style="color:#e6db74">&#34;list&#34;</span>, <span style="color:#e6db74">&#34;watch&#34;</span>]
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1beta1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ClusterRoleBinding</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">allow-spring-to-access-cluster</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">subjects</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceAccount</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">default</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">default</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">roleRef</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ClusterRole</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">spring-roles</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">apiGroup</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io</span>
+</span></span></code></pre></div><p>Login in with privileged user <code>oc login -u &lt;privileged user&gt;</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc apply -f service-account-for-spring-cloud-k8s-access.yaml
+</span></span></code></pre></div><p>Now when you check che Cluster Console under <em>Administration/Roles</em> and you search for <code>spring</code> you will find the role.</p>
+<p><img src="/static/springboot-configmap/cluster-console-search-spring-roles.png" alt="cluster-console-search-spring-roles.png">
+<img src="/static/springboot-configmap/cluster-console-spring-roles.png" alt="cluster-console-spring-roles.png"></p>
+<h2 id="deploy-configmap">Deploy ConfigMap</h2>
+<p>Now is time to create our <code>ConfigMap</code> and <code>apply</code> it in the <code>development</code> namespace for the <code>oder-service</code>
+You can do it directly in a shell.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ echo <span style="color:#e6db74">&#34;apiVersion: v1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">kind: ConfigMap
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">metadata:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    #  matches the spring app name as defined in application.yml
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    name: order-service
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">data:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    #  must be named &#39;application.yaml&#39; or be the only key in this config
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    #  refer to Spring Cloud Kubernetes Config documentation or source code
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    application.yaml: |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        opentracing:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            jaeger:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                http-sender:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                    url: http://jaeger-collector-jaeger.apps.c3smonkey.ch/api/traces&#34;</span> | oc apply -f -
+</span></span></code></pre></div><p>Better is you create a <code>ConfigMap</code> file and then you use the <code>apply</code> command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc apply -f deployments/configmap.yaml
+</span></span></code></pre></div><p>When you hit the service again you will see some traces in the Jaeger now.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#66d9ef">for</span> x in <span style="color:#f92672">(</span>seq 50<span style="color:#f92672">)</span>; http <span style="color:#e6db74">&#34;http://order-service-development.apps.c3smonkey.ch/api/v1/orders/random&#34;</span>; end
+</span></span></code></pre></div><div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://www.jaegertracing.io/">jaegertracing.io</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+<hr class="block-separater">
+
+
+
+
+<div class="content-footer-item">
+	Tags for this post:
+	
+	<a class="post-tag" href="/tags/k8s/">k8s</a>
+	
+	<a class="post-tag" href="/tags/configmap/">ConfigMap</a>
+	
+	<a class="post-tag" href="/tags/spring-boot/">Spring Boot</a>
+	
+</div>
+
+
+
+
+
+
+
+<div class="content-footer-item neighbor">
+	
+	<div class="prev-post">Prev: <a href="/posts/2019/2019-09-21-spring-boot-k8s-ribbon-discovery/">Spring Boot Kubernetes Discovery</a></div>
+	
+	
+	<div class="next-post">Next: <a href="/posts/2019/2019-08-28-multiple-project-promoting/">Promoting Applications Across Environments</a></div>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "k8s"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-gitops-argo/">GitOps with Argo CD</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-harbor/">Harbor</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-04</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-04-hazelcast-k8s/">Kubernetes Hazelcast Distributed Caching</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href='/tags/k8s/'>more ...</a>
+          
+      </div>
+        </div>
+    
+
+    
+    
+    
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "Spring Boot"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-05-04</div>
+  <div class="post-title"><a href="/posts/2020/2020-05-04-camel-kotlin-spring-boot/">Apache Camel with Kotlin and Spring Boot</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-04-18</div>
+  <div class="post-title"><a href="/posts/2020/2020-04-18-resilience4j-circuitbreaker/">Reactive Spring Boot with Resilience4j CircuitBreaker</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-04-16</div>
+  <div class="post-title"><a href="/posts/2020/2020-04-12-cloud-gateway-sidecar/">Spring Cloud Gateway</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href='/tags/spring-boot/'>more ...</a>
+          
+      </div>
+        </div>
+    
+
+
+
+
+<script src="/js/single.js"></script>
+
+
+	</div><div id="content-footer" class="sub">
+  
+  <div class="credit">
+    Power by <a href="https://gohugo.io">Hugo</a> /
+    Theme <a href="https://github.com/michimani/simplog/">simplog</a> by <a href="https://github.com/michimani/">michimani</a>
+  </div>
+</div></body>
+
+</html>

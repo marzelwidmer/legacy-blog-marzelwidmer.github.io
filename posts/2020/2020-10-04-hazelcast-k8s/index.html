@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Kubernetes Hazelcast Distributed Caching - Marcel&#39;s blog</title>
+<meta name="description" content="This is my personal blog where I will mostly post about development.">
+
+<meta name="author" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="alternate" href="/index.xml?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589" type="application/rss+xml" title="RSS" />
+<meta property="og:title" content="Kubernetes Hazelcast Distributed Caching - Marcel&#39;s blog">
+</meta>
+<meta property="og:url" content="/posts/2020/2020-10-04-hazelcast-k8s/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Marcel&#39;s blog">
+<meta property="og:description" content="This is my personal blog where I will mostly post about development.">
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+<meta name="twitter:card" content="summary_large_image" /></meta>
+<meta name="twitter:site" content="@"></meta>
+<meta name="twitter:creator" content="@"></meta>
+<meta name="twitter:title" content="Kubernetes Hazelcast Distributed Caching - Marcel&#39;s blog"></meta>
+<meta name="twitter:url" content="/posts/2020/2020-10-04-hazelcast-k8s/"></meta>
+<meta name="twitter:description" content="This is my personal blog where I will mostly post about development."></meta>
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+
+<link rel="stylesheet" href="/css/main.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="stylesheet" href="/css/color.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+
+
+
+
+</head>
+
+<body >
+
+
+<div id="content-header" class="title">
+  
+  <a class="site-title" href="/">Marcel&#39;s blog</a>
+  
+  <span class="site-sub-title"></span>
+
+  
+
+  <div id="main-menu-nav">
+    <div id="main-menu-nav-items">
+      
+        <div class="nav-item"><a href="/posts/2022/2022-24-09-axon-mongodb-extention/">Axon Framework - MongoDB extension</a></div>
+      
+    </div>
+  </div>
+</div>
+<div id="content" class="main">
+
+
+
+
+<h2>Kubernetes Hazelcast Distributed Caching</h2>
+
+<span class="sub">2020-10-04</span>
+
+
+
+
+
+
+
+
+<p>The sample code can be found on GitHub. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<ul>
+<li><a href="#precondition">Precondition Spring Caching with Hazelcast</a></li>
+<li><a href="#kustomize">Kustomize Configuration</a></li>
+<li><a href="#hazelcastConfiguration">Hazelcast Configuration</a></li>
+</ul>
+<h3 id="precondition">Precondition Spring Caching with Hazelcast</h3>
+<p>Let&rsquo;s get ready first our Spring Boot application with the following dependencies.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.boot<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>spring-boot-starter-cache<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><p>Also let&rsquo;s take the <code>hazelcast-all</code> from <code>com.hazelcast</code> that include the <code>k8s</code> dependencies.
+The version <code>4.x.x</code>  will also support <code>yaml</code> configuration of hazelcast.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>com.hazelcast<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>hazelcast-all<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;version&gt;</span>4.0.3<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><p>Let&rsquo;s implement a real <code>foo</code> service with a super <code>Chuck Norris</code> API for the moment.
+The API will take a string on <code>/api/[key]</code> eg. <code>/api/foo</code> this will create a <code>UUID</code> and will put it in the cache and give it back as response.
+The second call with the same key <code>foo</code> will give the same <code>UUID</code> on cache hit.</p>
+<ol>
+<li>Let&rsquo;s enable the caching
+<code>@EnableCaching</code></li>
+<li>Implement the Rest API with the <code>@CacheConfig</code> annotation.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#a6e22e">@SpringBootApplication</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@EnableCaching</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DemoHazelcastApplication</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args: Array&lt;String&gt;) {
+</span></span><span style="display:flex;"><span>	runApplication&lt;DemoHazelcastApplication&gt;(*args)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequestMapping</span>(<span style="color:#66d9ef">value</span> = [<span style="color:#e6db74">&#34;/api&#34;</span>], produces = [MediaType.APPLICATION_JSON_VALUE])
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Controller</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> cache: Cache) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">@GetMapping</span>(path = [<span style="color:#e6db74">&#34;/{key}&#34;</span>])
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getStuff</span>(<span style="color:#a6e22e">@PathVariable</span>(<span style="color:#e6db74">&#34;key&#34;</span>) key: String) = cache.getUUID(key)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@CacheConfig</span>(cacheNames = [<span style="color:#e6db74">&#34;map&#34;</span>])
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Cache</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">@Cacheable</span>(<span style="color:#66d9ef">value</span> = [<span style="color:#e6db74">&#34;map&#34;</span>], key = <span style="color:#e6db74">&#34;#key&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getUUID</span>(key: String): UUID? = UUID.randomUUID().also { println(<span style="color:#e6db74">&#34;Generated </span><span style="color:#e6db74">$it</span><span style="color:#e6db74">&#34;</span>) }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="kustomize">Kustomize Configuration</h3>
+<p>For the <code>kustomize</code> configuration I will only point to the important hazelcast configurations.
+You can find the configurations on GitHub. <sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<h4 id="deployment">Deployment</h4>
+<p>The important point in the <code>Deployment</code> ist to expose the <code>containerPort: 5701</code> for the Hazelcast communications (synchronization) between the Pods.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">image</span>: <span style="color:#ae81ff">c3smonkey/template</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hazelcast-demo</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">name</span>: <span style="color:#ae81ff">8080</span>-<span style="color:#ae81ff">tcp</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">5701</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">name</span>: <span style="color:#ae81ff">5701</span>-<span style="color:#ae81ff">tcp</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+</span></span></code></pre></div><h4 id="service">Service</h4>
+<p>Here also the important point here is the <code>spec.ports.hazelcast</code> part.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">app</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">LoadBalancer</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">app</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">8080-8080</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hazelcast</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">5701</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">5701</span>
+</span></span></code></pre></div><h3 id="hazelcastConfiguration">Hazelcast Configuration</h3>
+<p>The important part here is the <code>hazelcast.network.join.kubernetes.service-dns</code> who point to the internal service address.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">hazelcast</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">network</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">join</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">multicast</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">kubernetes</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">dev</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">service-dns</span>: <span style="color:#ae81ff">hazelcast-demoservice.dev.svc.cluster.local</span>
+</span></span></code></pre></div><div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://github.com/marzelwidmer/hazelcast-demo">hazelcast-demo</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+<hr class="block-separater">
+
+
+
+
+<div class="content-footer-item">
+	Tags for this post:
+	
+	<a class="post-tag" href="/tags/k8s/">k8s</a>
+	
+	<a class="post-tag" href="/tags/springboot/">SpringBoot</a>
+	
+	<a class="post-tag" href="/tags/kotlin/">Kotlin</a>
+	
+	<a class="post-tag" href="/tags/caching/">Caching</a>
+	
+</div>
+
+
+
+
+
+
+
+<div class="content-footer-item neighbor">
+	
+	<div class="prev-post">Prev: <a href="/posts/2020/2020-05-10-kboot-flux-meets-soap/">Kboot Flux Meets Soap</a></div>
+	
+	
+	<div class="next-post">Next: <a href="/posts/2020/2020-10-05-harbor/">Harbor</a></div>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "k8s"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-gitops-argo/">GitOps with Argo CD</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-harbor/">Harbor</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-04</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-04-hazelcast-k8s/">Kubernetes Hazelcast Distributed Caching</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href='/tags/k8s/'>more ...</a>
+          
+      </div>
+        </div>
+    
+
+    
+    
+    
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "Kotlin"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2022-09-24</div>
+  <div class="post-title"><a href="/posts/2022/2022-24-09-axon-mongodb-extention/">Axon Framework - MongoDB extension</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-04</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-04-hazelcast-k8s/">Kubernetes Hazelcast Distributed Caching</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href="/tags/">other tags</a>
+          
+      </div>
+        </div>
+    
+
+    
+    
+    
+
+
+
+
+<script src="/js/single.js"></script>
+
+
+	</div><div id="content-footer" class="sub">
+  
+  <div class="credit">
+    Power by <a href="https://gohugo.io">Hugo</a> /
+    Theme <a href="https://github.com/michimani/simplog/">simplog</a> by <a href="https://github.com/michimani/">michimani</a>
+  </div>
+</div></body>
+
+</html>

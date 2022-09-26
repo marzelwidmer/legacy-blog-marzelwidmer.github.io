@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Harbor - Marcel&#39;s blog</title>
+<meta name="description" content="This is my personal blog where I will mostly post about development.">
+
+<meta name="author" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="alternate" href="/index.xml?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589" type="application/rss+xml" title="RSS" />
+<meta property="og:title" content="Harbor - Marcel&#39;s blog">
+</meta>
+<meta property="og:url" content="/posts/2020/2020-10-05-harbor/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Marcel&#39;s blog">
+<meta property="og:description" content="This is my personal blog where I will mostly post about development.">
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+<meta name="twitter:card" content="summary_large_image" /></meta>
+<meta name="twitter:site" content="@"></meta>
+<meta name="twitter:creator" content="@"></meta>
+<meta name="twitter:title" content="Harbor - Marcel&#39;s blog"></meta>
+<meta name="twitter:url" content="/posts/2020/2020-10-05-harbor/"></meta>
+<meta name="twitter:description" content="This is my personal blog where I will mostly post about development."></meta>
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+
+<link rel="stylesheet" href="/css/main.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="stylesheet" href="/css/color.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+
+
+
+
+</head>
+
+<body >
+
+
+<div id="content-header" class="title">
+  
+  <a class="site-title" href="/">Marcel&#39;s blog</a>
+  
+  <span class="site-sub-title"></span>
+
+  
+
+  <div id="main-menu-nav">
+    <div id="main-menu-nav-items">
+      
+        <div class="nav-item"><a href="/posts/2022/2022-24-09-axon-mongodb-extention/">Axon Framework - MongoDB extension</a></div>
+      
+    </div>
+  </div>
+</div>
+<div id="content" class="main">
+
+
+
+
+<h2>Harbor</h2>
+
+<span class="sub">2020-10-25</span>
+
+
+
+
+
+
+
+
+<p>Harbor is an open source trusted cloud native registry project that stores, signs, and scans content. Harbor extends the open source Docker Distribution by adding the functionalities usually required by users such as security, identity and management. Having a registry closer to the build and run environment can improve the image transfer efficiency. Harbor supports replication of images between registries, and also offers advanced security features such as user management, access control and activity auditing.</p>
+<p>Harbor is hosted by the Cloud Native Computing Foundation (CNCF). If you are an organization that wants to help shape the evolution of cloud native technologies, consider joining the CNCF. For details about who&rsquo;s involved and how Harbor plays a role, read the CNCF announcement.</p>
+<p><a href="https://github.com/goharbor/harbor">Harbor GitHub</a>
+<a href="https://medium.com/@Devopscontinens/alongside-harbor-berth-with-minikube-b31e487974f4">Melvin medium.com</a></p>
+<pre tabindex="0"><code>helm repo add harbor https://helm.goharbor.io
+git clone https://github.com/goharbor/harbor-helm.git
+helm install harbor harbor/harbor -n harbor
+
+
+
+k get ingress
+Warning: extensions/v1beta1 Ingress is deprecated in v1.14+, unavailable in v1.22+; use networking.k8s.io/v1 Ingress
+NAME                           CLASS    HOSTS                  ADDRESS        PORTS     AGE
+harbor-harbor-ingress          &lt;none&gt;   core.harbor.domain     192.168.64.6   80, 443   5m34s
+harbor-harbor-ingress-notary   &lt;none&gt;   notary.harbor.domain   192.168.64.6   80, 443   5m34s
+nginx-ingress                  &lt;none&gt;   test.minikube.me       192.168.64.6   80        5m34s
+
+
+sudo vi /etc/hosts
+
+192.168.64.6 core.harbor.domain
+
+http://core.harbor.domain
+
+username: admin 
+password: Harbor12345
+</code></pre><p>First thing we need to create a new project inside Harbor.
+This will be where we will be storing all the project related Docker images.
+<img src="/static/harbor/img.png" alt="img.png"></p>
+<p>Then we move over to create a new user within Harbor.
+<img src="/static/harbor/img_1.png" alt="img_1.png"></p>
+<p>Lastly we need to add the newly created user into our project member.
+<img src="/static/harbor/img_2.png" alt="img_2.png">
+<img src="/static/harbor/img_3.png" alt="img_3.png"></p>
+<p>On a terminal, we will log in Harbor repository</p>
+<pre tabindex="0"><code>docker login -udevops core.harbor.domain
+Password:
+Error response from daemon: Get https://core.harbor.domain/v2/: x509: certificate signed by unknown authority
+</code></pre><p>This is a known issue with Docker private repository. We can resolve this simply by instruct our mac OS to trust the Harbor repository self signed ca cert.
+First we need to get the Harbor ca cert. This can be downloaded from our Project -&gt; Repositories tag, click on the “Registry Certificate”. This will download the ca.crt file.
+<img src="/static/harbor/img_4.png" alt="img_4.png"></p>
+<p>Execute the following command.</p>
+<pre tabindex="0"><code>security add-trusted-cert -d -r trustRoot -k ~/Library/Keychains/login.keychain ./ca.crt
+</code></pre><p>Restart Docker process after the operation.</p>
+<pre tabindex="0"><code>docker login -udevops core.harbor.domain
+Password:
+Login Succeeded
+</code></pre><p>We will proceed to tag the Docker image (e.g. openpolicyagent/opa) according to Harbor convention format
+core.harbor.domain/<!-- raw HTML omitted -->/<!-- raw HTML omitted -->:<!-- raw HTML omitted --></p>
+<pre tabindex="0"><code>docker tag openpolicyagent/opa:latest  core.harbor.domain/devops/openpolicyagent/opa:latest
+</code></pre><p>We will finally push the image into our Harbor repository</p>
+<pre tabindex="0"><code>docker push core.harbor.domain/devops/openpolicyagent/opa:latest
+</code></pre><h2 id="install-cert-manager">Install cert-manager</h2>
+<p>[https://ruzickap.github.io/k8s-harbor/part-03/#install-cert-manager](install cert-manager)</p>
+<p>Create <code>cert-manager</code> namespace and label.</p>
+<pre tabindex="0"><code>kubectl create namespace cert-manager
+kubectl label namespace cert-manager certmanager.k8s.io/disable-validation=true
+</code></pre><p>Add Helm Repository and install it.</p>
+<pre tabindex="0"><code>helm repo add jetstack https://charts.jetstack.io
+helm repo update
+helm install cert-manager \
+    --namespace cert-manager \
+    --wait jetstack/cert-manager \
+    --version v0.10.0
+</code></pre><p>Verifying the installation</p>
+<pre tabindex="0"><code>kubectl get pods --namespace cert-manager
+NAME                                      READY   STATUS    RESTARTS   AGE
+cert-manager-556549df9-bjr5v              1/1     Running   0          2m2s
+cert-manager-cainjector-69d7cb5d4-bnngd   1/1     Running   0          2m2s
+cert-manager-webhook-c5bdf945c-zmwz5      1/1     Running   0          2m2s
+</code></pre><h2 id="install-harbor">Install Harbor</h2>
+<p>[https://ruzickap.github.io/k8s-harbor/part-04/#install-harbor-using-helm](Harbor Helm installation)</p>
+<p>Create <code>harbor-system</code> namespace if not exist already and label namespace.</p>
+<pre tabindex="0"><code>kubectl get namespace harbor-system &amp;&gt; /dev/null || kubectl create namespace harbor-system
+kubectl label namespace --overwrite harbor-system app=kubed
+</code></pre>
+
+
+
+
+
+<hr class="block-separater">
+
+
+
+
+<div class="content-footer-item">
+	Tags for this post:
+	
+	<a class="post-tag" href="/tags/k8s/">k8s</a>
+	
+	<a class="post-tag" href="/tags/harbor/">harbor</a>
+	
+</div>
+
+
+
+
+
+
+
+<div class="content-footer-item neighbor">
+	
+	<div class="prev-post">Prev: <a href="/posts/2020/2020-10-04-hazelcast-k8s/">Kubernetes Hazelcast Distributed Caching</a></div>
+	
+	
+	<div class="next-post">Next: <a href="/posts/2020/2020-10-05-gitops-argo/">GitOps with Argo CD</a></div>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "k8s"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-gitops-argo/">GitOps with Argo CD</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-harbor/">Harbor</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-04</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-04-hazelcast-k8s/">Kubernetes Hazelcast Distributed Caching</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href='/tags/k8s/'>more ...</a>
+          
+      </div>
+        </div>
+    
+
+    
+    
+    
+
+
+
+
+<script src="/js/single.js"></script>
+
+
+	</div><div id="content-footer" class="sub">
+  
+  <div class="credit">
+    Power by <a href="https://gohugo.io">Hugo</a> /
+    Theme <a href="https://github.com/michimani/simplog/">simplog</a> by <a href="https://github.com/michimani/">michimani</a>
+  </div>
+</div></body>
+
+</html>

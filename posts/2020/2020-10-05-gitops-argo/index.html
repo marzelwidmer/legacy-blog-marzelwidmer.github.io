@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>GitOps with Argo CD - Marcel&#39;s blog</title>
+<meta name="description" content="This is my personal blog where I will mostly post about development.">
+
+<meta name="author" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="alternate" href="/index.xml?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589" type="application/rss+xml" title="RSS" />
+<meta property="og:title" content="GitOps with Argo CD - Marcel&#39;s blog">
+</meta>
+<meta property="og:url" content="/posts/2020/2020-10-05-gitops-argo/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Marcel&#39;s blog">
+<meta property="og:description" content="This is my personal blog where I will mostly post about development.">
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+<meta name="twitter:card" content="summary_large_image" /></meta>
+<meta name="twitter:site" content="@"></meta>
+<meta name="twitter:creator" content="@"></meta>
+<meta name="twitter:title" content="GitOps with Argo CD - Marcel&#39;s blog"></meta>
+<meta name="twitter:url" content="/posts/2020/2020-10-05-gitops-argo/"></meta>
+<meta name="twitter:description" content="This is my personal blog where I will mostly post about development."></meta>
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+
+<link rel="stylesheet" href="/css/main.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="stylesheet" href="/css/color.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+
+
+
+
+</head>
+
+<body >
+
+
+<div id="content-header" class="title">
+  
+  <a class="site-title" href="/">Marcel&#39;s blog</a>
+  
+  <span class="site-sub-title"></span>
+
+  
+
+  <div id="main-menu-nav">
+    <div id="main-menu-nav-items">
+      
+        <div class="nav-item"><a href="/posts/2022/2022-24-09-axon-mongodb-extention/">Axon Framework - MongoDB extension</a></div>
+      
+    </div>
+  </div>
+</div>
+<div id="content" class="main">
+
+
+
+
+<h2>GitOps with Argo CD</h2>
+
+<span class="sub">2020-10-25</span>
+
+
+
+
+
+
+
+
+<p><a href="https://argoproj.github.io/argo-cd/">Argo CD</a> is a declarative, GitOps continuous delivery tool for Kubernetes.
+Application definitions, configurations, and environments should be declarative and version controlled.
+Application deployment and lifecycle management should be automated, auditable, and easy to understand.</p>
+<ul>
+<li><a href="#minikube">Minikube Setup</a>
+<ul>
+<li><a href="#monitoring">Monitoring - Grafana-Prometheus</a></li>
+</ul>
+</li>
+<li><a href="#argoCD">Install Argo CD</a></li>
+<li><a href="#argoCreatApp">Create App on Argo CD</a></li>
+</ul>
+<h1 id="minikube">Minikube Setup</h1>
+<p>Local Development Environment with minikube.</p>
+<h2 id="brew-installation-packages">Brew Installation Packages</h2>
+<pre tabindex="0"><code>brew install hyperkit
+brew install minikube
+brew install helm
+brew install httpie
+brew install stern
+brew install argocd
+brew install sops
+</code></pre><h2 id="osx-minikube-test-cluster">OSX Minikube Test Cluster</h2>
+<h3 id="hyperkit">Hyperkit</h3>
+<p>Setup first minikube hyperkit driver.</p>
+<pre tabindex="0"><code>minikube config set driver hyperkit
+</code></pre><h3 id="minikube-addons">Minikube Addons</h3>
+<p>Configure some addons for the test cluster.</p>
+<pre tabindex="0"><code>minikube addons enable dashboard -p test
+minikube addons enable metrics-server -p test
+minikube addons enable ingress -p test
+minikube addons enable registry -p test
+</code></pre><h3 id="start-minikube">Start Minikube</h3>
+<p>Now start the minikube test cluster with some memory and cpu settings.</p>
+<pre tabindex="0"><code>minikube start --memory 6144 --cpus 4 -p test
+</code></pre><h2 id="monitoring">Install Monitoring </h2>
+<p>Let&rsquo;s install Prometheus and Grafana with Helm. Add Repository and install it on the <code>monitoring</code> namespace.</p>
+<pre tabindex="0"><code>helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm install --namespace monitoring --create-namespace prometheus prometheus-community/kube-prometheus-stack
+</code></pre><h3 id="forward-grafana">Forward Grafana</h3>
+<p>Search for the Pod.</p>
+<pre tabindex="0"><code>kubectl get pod -n monitoring  | grep prometheus-grafana
+prometheus-grafana-bd89cc787-snlk6                       2/2     Running   0          9m34s
+</code></pre><p>Forward it port <code>http://localhost:3000</code> log in with the <code>admin</code> username and <code>prom-operator</code> password and you’ll see a lot of ready for user graphs</p>
+<pre tabindex="0"><code>kubectl -n monitoring port-forward prometheus-grafana-bd89cc787-snlk6 3000:3000
+</code></pre><h1 id="argoCD">Install ARGO CD</h1>
+<p>Create a separate namespace <code>argocd</code> to install argo.</p>
+<pre tabindex="0"><code>kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+</code></pre><h2 id="port-forwarding-to-argo-server">Port Forwarding to ARGO Server</h2>
+<pre tabindex="0"><code>kubectl port-forward svc/argocd-server -n argocd 8080:443
+</code></pre><h2 id="change-argo-admin-password">Change Argo Admin Password</h2>
+<p>The default Password is the Argo Server name.</p>
+<pre tabindex="0"><code>kubectl get pod -n argocd | grep argocd-server
+argocd-server-5bc896856-xvt92                    1/1     Running   0          71m
+</code></pre><p>Use the Argo CLI to login with user <code>admin</code> and change the password.</p>
+<pre tabindex="0"><code>argocd login localhost:8080
+argocd account update-password
+</code></pre><p><img src="/static/gitops-argo/argo.png" alt="Argo"></p>
+<h1 id="argoCreatApp">Create App with directory-recurse</h1>
+<pre tabindex="0"><code>argocd app create kboot --repo https://github.com/marzelwidmer/argo-demo.git \
+    --path manifest \
+    --directory-recurse \
+    --dest-server https://kubernetes.default.svc \
+    --dest-namespace default
+</code></pre><h2 id="synch-app">Synch App</h2>
+<p>Argo will be sync every 5 min. You can force it via AdminUI <code>https://localhost:8080</code> or  with the following command :</p>
+<pre tabindex="0"><code>argocd app sync kboot
+</code></pre><h2 id="test-contracts-inside-k8s">Test Contracts inside K8s</h2>
+<pre tabindex="0"><code>kubectl run -i --rm --restart=Never curl-client \
+    --image=tutum/curl:alpine \
+    --command -- curl -s &#39;http://contracts/api/persons&#39; -H &#39;Content-Type: application/json&#39; -w &#34;\n&#34;
+
+[{&#34;firstName&#34;:&#34;John&#34;}]
+pod &#34;curl-client&#34; deleted
+</code></pre><h2 id="test-contracts-over-ingress">Test Contracts over Ingress</h2>
+<p>You can edit the <code>/etc/hosts</code> file for details please check my other Blog <a href="https://blog.marcelwidmer.org/posts/2020-05-01-minikube-ingress-controller">Minikube Ingress Controller</a></p>
+<pre tabindex="0"><code>http -j http://test.minikube.me/api/persons
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Encoding: gzip
+Content-Type: application/json
+Date: Sun, 25 Oct 2020 08:34:33 GMT
+Matched-Stub-Id: e6546194-eda5-4d86-b644-9694fd421ed6
+Server: nginx/1.19.1
+Transfer-Encoding: chunked
+Vary: Accept-Encoding, User-Agent
+
+[
+    {
+        &#34;firstName&#34;: &#34;John&#34;
+    }
+]
+</code></pre><h1 id="comming-soon">Comming soon&hellip;</h1>
+<p>Manage Secrets with <code>SealedSecrets</code></p>
+<p>See:
+<a href="https://github.com/bitnami-labs/sealed-secrets">https://github.com/bitnami-labs/sealed-secrets</a></p>
+<h2 id="sealed-secrets">Sealed Secrets</h2>
+<p>Install Sealed Secrets with Helm to manage Secrets.
+see: <a href="https://hub.kubeapps.com/charts/stable/sealed-secrets">https://hub.kubeapps.com/charts/stable/sealed-secrets</a></p>
+<pre tabindex="0"><code>helm install sealed --namespace kube-system stable/sealed-secrets
+</code></pre><h3 id="install-client-side-tool-into-usrlocalbin">Install client-side tool into /usr/local/bin/</h3>
+<pre tabindex="0"><code>GOOS=$(go env GOOS)
+GOARCH=$(go env GOARCH)
+wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.12.4/kubeseal-$GOOS-$GOARCH
+sudo install -m 755 kubeseal-$GOOS-$GOARCH /usr/local/bin/kubeseal
+</code></pre><h3 id="create-a-sealed-secret-file-for-redis">Create a sealed secret file for Redis</h3>
+<pre tabindex="0"><code>kubectl create secret generic redis --dry-run=client --from-literal=database-password=verySecurePassword -o yaml | \
+ kubeseal \
+ --controller-name=sealed-sealed-secrets \
+ --controller-namespace=kube-system \
+ --format yaml &gt; sealed-redis-secret.yaml
+</code></pre><h3 id="apply-the-sealed-secret">Apply the sealed secret</h3>
+<pre tabindex="0"><code>kubectl create -f sealed-redis-secret.yaml
+</code></pre><h3 id="get-secret">Get Secret</h3>
+<p>Running <code>kubectl get secret redis -o yaml</code> will show the decrypted secret that was generated from the sealed secret.
+Both the SealedSecret and generated Secret must have the same name and namespace.</p>
+<pre tabindex="0"><code>kubectl get secret redis -o yaml
+</code></pre><p><em>References:</em></p>
+<blockquote>
+<p><a href="https://blog.marcelwidmer.org/posts/2020-05-01-minikube-ingress-controller/">Blog Minikube Ingress Controller</a>
+<a href="https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/">ingress-minikube</a></p>
+</blockquote>
+
+
+
+
+
+
+<hr class="block-separater">
+
+
+
+
+<div class="content-footer-item">
+	Tags for this post:
+	
+	<a class="post-tag" href="/tags/k8s/">k8s</a>
+	
+	<a class="post-tag" href="/tags/argocd/">argocd</a>
+	
+	<a class="post-tag" href="/tags/gitops/">gitops</a>
+	
+</div>
+
+
+
+
+
+
+
+<div class="content-footer-item neighbor">
+	
+	<div class="prev-post">Prev: <a href="/posts/2020/2020-10-05-harbor/">Harbor</a></div>
+	
+	
+	<div class="next-post">Next: <a href="/posts/2022/2022-24-09-axon-mongodb-extention/">Axon Framework - MongoDB extension</a></div>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "k8s"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-gitops-argo/">GitOps with Argo CD</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-harbor/">Harbor</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-04</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-04-hazelcast-k8s/">Kubernetes Hazelcast Distributed Caching</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href='/tags/k8s/'>more ...</a>
+          
+      </div>
+        </div>
+    
+
+    
+    
+    
+
+    
+    
+    
+
+
+
+
+<script src="/js/single.js"></script>
+
+
+	</div><div id="content-footer" class="sub">
+  
+  <div class="credit">
+    Power by <a href="https://gohugo.io">Hugo</a> /
+    Theme <a href="https://github.com/michimani/simplog/">simplog</a> by <a href="https://github.com/michimani/">michimani</a>
+  </div>
+</div></body>
+
+</html>

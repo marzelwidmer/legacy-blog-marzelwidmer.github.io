@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>AxonIQ - Marcel&#39;s blog</title>
+<meta name="description" content="This is my personal blog where I will mostly post about development.">
+
+<meta name="author" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="alternate" href="/index.xml?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589" type="application/rss+xml" title="RSS" />
+<meta property="og:title" content="AxonIQ - Marcel&#39;s blog">
+</meta>
+<meta property="og:url" content="/posts/2019/2019-10-22-axon/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Marcel&#39;s blog">
+<meta property="og:description" content="This is my personal blog where I will mostly post about development.">
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+<meta name="twitter:card" content="summary_large_image" /></meta>
+<meta name="twitter:site" content="@"></meta>
+<meta name="twitter:creator" content="@"></meta>
+<meta name="twitter:title" content="AxonIQ - Marcel&#39;s blog"></meta>
+<meta name="twitter:url" content="/posts/2019/2019-10-22-axon/"></meta>
+<meta name="twitter:description" content="This is my personal blog where I will mostly post about development."></meta>
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+
+<link rel="stylesheet" href="/css/main.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="stylesheet" href="/css/color.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+
+
+
+
+</head>
+
+<body >
+
+
+<div id="content-header" class="title">
+  
+  <a class="site-title" href="/">Marcel&#39;s blog</a>
+  
+  <span class="site-sub-title"></span>
+
+  
+
+  <div id="main-menu-nav">
+    <div id="main-menu-nav-items">
+      
+        <div class="nav-item"><a href="/posts/2022/2022-24-09-axon-mongodb-extention/">Axon Framework - MongoDB extension</a></div>
+      
+    </div>
+  </div>
+</div>
+<div id="content" class="main">
+
+
+
+
+<h2>AxonIQ</h2>
+
+<span class="sub">2019-09-18</span>
+
+
+
+
+
+
+
+
+<p><img src="/static/axon/axon-cqrs.jpg" alt="axon-cqrs"></p>
+<p>Commands:</p>
+<ul>
+<li>A command tells our application to do something</li>
+</ul>
+<p>Events:</p>
+<ul>
+<li>An event is a notification of something that <em>has</em> happened.</li>
+</ul>
+<p>Query:</p>
+<ul>
+<li>Queries could be <em>simplified</em> by storing a copy of the data in a form easily</li>
+<li>In many cases, updating the query models can happen asynchronously from processing the transaction: <em>eventual consistency</em></li>
+</ul>
+<p>Projection :</p>
+<ul>
+<li>Optimized for the specific read use-cases (e.g. screens, API methods)</li>
+<li>Many separated ones instead of one big one</li>
+<li>Use carious technologies as appropriate (RDMS, Elastic, Mongo etc.)</li>
+</ul>
+<h1 id="setup-infrastructure">Setup Infrastructure</h1>
+<h2 id="axon-server">Axon Server</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run -it --rm --name axonserver -p 8024:8024 -p 8124:8124 axoniq/axonserver
+</span></span></code></pre></div><h2 id="postgresql">Postgresql</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run -it --rm --name postgres -p 5432:5432 -e POSTGRES_USER<span style="color:#f92672">=</span>account -e POSTGRES_PASSWORD<span style="color:#f92672">=</span>secret postgres:12
+</span></span></code></pre></div><h3 id="connect-to-postgresql">Connect to Postgresql</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker exec -it postgres psql -Uaccount -a account
+</span></span></code></pre></div><h3 id="select--from-table">Select * from table</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> account;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>                  id                  | initial_value | remaining_value
+</span></span><span style="display:flex;"><span>--------------------------------------+---------------+-----------------
+</span></span><span style="display:flex;"><span> 8b76ad5b-e2f8-4411-bc89-2fda39ed3abd |           <span style="color:#ae81ff">100</span> |             <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span> b8c5e738-f997-42bf-928b-e32e8c8b182d |           <span style="color:#ae81ff">100</span> |             <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span> 85ba51f2-a7cf-4b8c-9a7c-2c20543305df |           <span style="color:#ae81ff">100</span> |             <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span> 376fd5dd-cafe-45fd-9af9-b52f1315d7f6 |           <span style="color:#ae81ff">100</span> |             <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span> a7fc627f-9d35-4752-82b8-1f7ff1135e40 |           <span style="color:#ae81ff">100</span> |             <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span> 1914e15c-ebf1-4977-b2f5-7e9bf26a96f6 |        
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">100</span> |              <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span> 9377f5c4-be39-493f-9b2e-aebb712015b1 |           <span style="color:#ae81ff">100</span> |              <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span> 2e655109-3049-4d3c-bd27-0b1c00310513 |           <span style="color:#ae81ff">100</span> |              <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span> 555fb817-3229-4a86-8b3c-7fe092390a64 |           <span style="color:#ae81ff">100</span> |               <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> adf5be06-fe4b-4bbb-bc70-c1ef1b59d146 |           <span style="color:#ae81ff">100</span> |              <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span> e2a91918-6c20-4772-a6ae-ca5a1cbe809c |           <span style="color:#ae81ff">100</span> |               <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> 1e7d13b1-6c25-4877-9f2a-3bf10e227abe |           <span style="color:#ae81ff">100</span> |               <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><h1 id="openshift">OpenShift</h1>
+<h2 id="create-project">Create Project</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc new-project axon --display-name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;AxonIQ Application&#34;</span>
+</span></span></code></pre></div><h2 id="create-openshift-docker-image">Create OpenShift Docker Image</h2>
+<p>On OpenShift are some restriction for this we have to patch the <code>axoniq/axonserver</code> Docker image.</p>
+<h3 id="build-axon-docker-image">Build Axon Docker Image</h3>
+<p>Patch Docker Image from Axon to run on Openshift.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker build --no-cache -t c3smonkey/axonserver-openshift:latest openshift/dockerfiles/
+</span></span></code></pre></div><h3 id="docker-login">Docker Login</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker login
+</span></span></code></pre></div><h3 id="docker-push">Docker Push</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker push c3smonkey/axonserver-openshift:latest
+</span></span></code></pre></div><h2 id="deploy-axon-server">Deploy Axon Server</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc apply -f openshift/axonserver.yaml
+</span></span></code></pre></div><h2 id="configure-axon-server-endpoint">Configure Axon Server EndPoint</h2>
+<p>If you deploy AxonServer on the same Project <code>namespace</code> you can configure the Spring Boot application  in the <code>application.yml</code> file like below</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">axon</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">axonserver</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">servers</span>: <span style="color:#ae81ff">axonserver:8124</span>
+</span></span></code></pre></div><h1 id="deploy-application">Deploy Application</h1>
+<p>Deploy <code>bank-account-command</code> and <code>bank-account-query</code> Spring Boot Application.
+with the <code>Fabric8</code> Maven Plug-In in the <code>axon</code> project (namespace)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ ./mvnw clean fabric8:deploy -pl bank-account-command,bank-account-query -Dfabric8.namespace<span style="color:#f92672">=</span>axon
+</span></span></code></pre></div><h2 id="scale-replicaset-of-axon">Scale ReplicaSet of Axon</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc scale statefulsets axonserver --replicas<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><h3 id="check-the-physical-files">Check the physical files</h3>
+<p>Search for <code>axon-data</code> PersistentVolumeClaim <code>PVC</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc get pvc
+</span></span><span style="display:flex;"><span>  NAME                     STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+</span></span><span style="display:flex;"><span>  axon-data-axonserver-0   Bound    vol83    500Gi      RWO,RWX                       1h
+</span></span></code></pre></div><p>Describe the PersistentVolume <code>PV</code> for the <em>Axon</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc describe pv/vol83
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Name:            vol83
+</span></span><span style="display:flex;"><span>Labels:          &lt;none&gt;
+</span></span><span style="display:flex;"><span>Annotations:     pv.kubernetes.io/bound-by-controller: yes
+</span></span><span style="display:flex;"><span>Finalizers:      <span style="color:#f92672">[</span>kubernetes.io/pv-protection<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>StorageClass:
+</span></span><span style="display:flex;"><span>Status:          Bound
+</span></span><span style="display:flex;"><span>Claim:           axon/axon-data-axonserver-0
+</span></span><span style="display:flex;"><span>Reclaim Policy:  Retain
+</span></span><span style="display:flex;"><span>Access Modes:    RWO,RWX
+</span></span><span style="display:flex;"><span>Capacity:        500Gi
+</span></span><span style="display:flex;"><span>Node Affinity:   &lt;none&gt;
+</span></span><span style="display:flex;"><span>Message:
+</span></span><span style="display:flex;"><span>Source:
+</span></span><span style="display:flex;"><span>    Type:          HostPath <span style="color:#f92672">(</span>bare host directory volume<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    Path:          /mnt/data/vol83
+</span></span><span style="display:flex;"><span>    HostPathType:
+</span></span><span style="display:flex;"><span>Events:            &lt;none&gt;
+</span></span></code></pre></div><p>Then login to your Cluster there you will find the data.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$  ls -la /mnt/data/vol83
+</span></span><span style="display:flex;"><span>   total <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>   drwxrwxrwx.   <span style="color:#ae81ff">3</span> root       root  <span style="color:#ae81ff">4096</span> Oct <span style="color:#ae81ff">22</span> 11:04 .
+</span></span><span style="display:flex;"><span>   drwxr-xr-x. <span style="color:#ae81ff">202</span> root       root  <span style="color:#ae81ff">4096</span> Sep  <span style="color:#ae81ff">9</span> 17:39 ..
+</span></span><span style="display:flex;"><span>   -rw-r--r--.   <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1000080000</span> root <span style="color:#ae81ff">69632</span> Oct <span style="color:#ae81ff">22</span> 11:04 axonserver-controldb.mv.db
+</span></span><span style="display:flex;"><span>   drwxr-xr-x.   <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">1000080000</span> root  <span style="color:#ae81ff">4096</span> Oct <span style="color:#ae81ff">22</span> 11:04 default
+</span></span></code></pre></div>
+
+
+
+
+
+<hr class="block-separater">
+
+
+
+
+<div class="content-footer-item">
+	Tags for this post:
+	
+	<a class="post-tag" href="/tags/k8s/">k8s</a>
+	
+	<a class="post-tag" href="/tags/axon/">Axon</a>
+	
+	<a class="post-tag" href="/tags/cqrs/">CQRS</a>
+	
+	<a class="post-tag" href="/tags/spring-boot/">Spring Boot</a>
+	
+</div>
+
+
+
+
+
+
+
+<div class="content-footer-item neighbor">
+	
+	<div class="prev-post">Prev: <a href="/posts/2019/2019-08-28-multiple-project-promoting/">Promoting Applications Across Environments</a></div>
+	
+	
+	<div class="next-post">Next: <a href="/posts/2020/2020-04-12-spring-initializr/">Create Kotlin Project with Spring Initializr and HTTPie</a></div>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "k8s"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-gitops-argo/">GitOps with Argo CD</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-harbor/">Harbor</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-04</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-04-hazelcast-k8s/">Kubernetes Hazelcast Distributed Caching</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href='/tags/k8s/'>more ...</a>
+          
+      </div>
+        </div>
+    
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "Axon"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2022-09-24</div>
+  <div class="post-title"><a href="/posts/2022/2022-24-09-axon-mongodb-extention/">Axon Framework - MongoDB extension</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2019-09-18</div>
+  <div class="post-title"><a href="/posts/2019/2019-10-22-axon/">AxonIQ</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href="/tags/">other tags</a>
+          
+      </div>
+        </div>
+    
+
+    
+    
+    
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "Spring Boot"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-05-04</div>
+  <div class="post-title"><a href="/posts/2020/2020-05-04-camel-kotlin-spring-boot/">Apache Camel with Kotlin and Spring Boot</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-04-18</div>
+  <div class="post-title"><a href="/posts/2020/2020-04-18-resilience4j-circuitbreaker/">Reactive Spring Boot with Resilience4j CircuitBreaker</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-04-16</div>
+  <div class="post-title"><a href="/posts/2020/2020-04-12-cloud-gateway-sidecar/">Spring Cloud Gateway</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href='/tags/spring-boot/'>more ...</a>
+          
+      </div>
+        </div>
+    
+
+
+
+
+<script src="/js/single.js"></script>
+
+
+	</div><div id="content-footer" class="sub">
+  
+  <div class="credit">
+    Power by <a href="https://gohugo.io">Hugo</a> /
+    Theme <a href="https://github.com/michimani/simplog/">simplog</a> by <a href="https://github.com/michimani/">michimani</a>
+  </div>
+</div></body>
+
+</html>

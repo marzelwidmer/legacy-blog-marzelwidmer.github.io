@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Certbot Let`s Encrypt - Marcel&#39;s blog</title>
+<meta name="description" content="This is my personal blog where I will mostly post about development.">
+
+<meta name="author" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="alternate" href="/index.xml?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589" type="application/rss+xml" title="RSS" />
+<meta property="og:title" content="Certbot Let`s Encrypt - Marcel&#39;s blog">
+</meta>
+<meta property="og:url" content="/posts/2019/2019-08-20-certbot-letsencrypt/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Marcel&#39;s blog">
+<meta property="og:description" content="This is my personal blog where I will mostly post about development.">
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+<meta name="twitter:card" content="summary_large_image" /></meta>
+<meta name="twitter:site" content="@"></meta>
+<meta name="twitter:creator" content="@"></meta>
+<meta name="twitter:title" content="Certbot Let`s Encrypt - Marcel&#39;s blog"></meta>
+<meta name="twitter:url" content="/posts/2019/2019-08-20-certbot-letsencrypt/"></meta>
+<meta name="twitter:description" content="This is my personal blog where I will mostly post about development."></meta>
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+
+<link rel="stylesheet" href="/css/main.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="stylesheet" href="/css/color.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+
+
+
+
+</head>
+
+<body >
+
+
+<div id="content-header" class="title">
+  
+  <a class="site-title" href="/">Marcel&#39;s blog</a>
+  
+  <span class="site-sub-title"></span>
+
+  
+
+  <div id="main-menu-nav">
+    <div id="main-menu-nav-items">
+      
+        <div class="nav-item"><a href="/posts/2022/2022-24-09-axon-mongodb-extention/">Axon Framework - MongoDB extension</a></div>
+      
+    </div>
+  </div>
+</div>
+<div id="content" class="main">
+
+
+
+
+<h2>Certbot Let`s Encrypt</h2>
+
+<span class="sub">2019-01-13</span>
+
+
+
+
+
+
+
+
+<p>Inspiration from [Adding an SSL certificate to OKD - Part 2 of Installation of OKD 3.10 from start to finish]https://www.youtube.com/watch?v=S7HoJ09oYn0&amp;feature=youtu.be){:target=&quot;_blank&quot;}</p>
+<h2 id="check-certificate">Check Certificate</h2>
+<p>Let`s check first if there a certificate already for our domain <a href="https://crt.sh/?q=c3smonkey.ch">https://crt.sh/?q=c3smonkey.ch</a></p>
+<p><img src="/static/certbot/crt.png" alt="crt"></p>
+<h2 id="check-epel-reposittory">Check EPEL Reposittory</h2>
+<p>Check if the <code>epel.repo</code> is enabled.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ vi /etc/yum.repos.d/epel.repo
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>[<span style="color:#ae81ff">epel]</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">name=Extra Packages for Enterprise Linux 7 - $basearch</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-7&amp;arch=$basearch</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">failovermethod=priority</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">enabled=0</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">gpgcheck=1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7</span>
+</span></span></code></pre></div><p>change <code>enabled=0</code> to <code>enabled=1</code> and quite and save the file with <code>:qw</code></p>
+<h2 id="login-to-the-cluster">Login to the Cluster</h2>
+<p>Login to the Cluster with the <code>oc login</code> command. Check if you are in the project <code>default</code> other wise change to the <code>default</code> project with <code>oc project default</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey ~<span style="color:#f92672">]</span><span style="color:#75715e"># oc login</span>
+</span></span><span style="display:flex;"><span>Authentication required <span style="color:#66d9ef">for</span> https://console.c3smonkey.ch:8443 <span style="color:#f92672">(</span>openshift<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Username: monkey
+</span></span><span style="display:flex;"><span>Password: 
+</span></span><span style="display:flex;"><span>Login successful.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>You have access to the following projects and can switch between them with <span style="color:#e6db74">&#39;oc project &lt;projectname&gt;&#39;</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  * default
+</span></span><span style="display:flex;"><span>    development
+</span></span><span style="display:flex;"><span>    jenkins
+</span></span></code></pre></div><p>Verify if you are in the <code>default</code> project namespace.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey ~<span style="color:#f92672">]</span><span style="color:#75715e"># oc project</span>
+</span></span><span style="display:flex;"><span>Using project <span style="color:#e6db74">&#34;default&#34;</span> on server <span style="color:#e6db74">&#34;https://console.c3smonkey.ch:8443&#34;</span>.
+</span></span></code></pre></div><p>To create our certificate with <code>certbot</code> we take the temporary webserver approach. For this we have to scale done one <code>pod</code> on the cluster
+who are running already on the port <code>80</code>.</p>
+<h3 id="search-router-and-scale-it-down">Search Router and scale it down.</h3>
+<p>With the <code>oc get dc</code> we can check if the router is running.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey ~<span style="color:#f92672">]</span><span style="color:#75715e"># oc get dc</span>
+</span></span><span style="display:flex;"><span>NAME               REVISION   DESIRED   CURRENT   TRIGGERED BY
+</span></span><span style="display:flex;"><span>docker-registry    <span style="color:#ae81ff">1</span>          <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>         config
+</span></span><span style="display:flex;"><span>registry-console   <span style="color:#ae81ff">1</span>          <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>         config
+</span></span><span style="display:flex;"><span>router             <span style="color:#ae81ff">1</span>          <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>         config
+</span></span></code></pre></div><p>Now we can scale it down with <code>oc scale --replicas=0 dc router</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc scale --replicas<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> dc router
+</span></span><span style="display:flex;"><span>deploymentconfig.apps.openshift.io/router scaled
+</span></span></code></pre></div><p>Lets verify if the router not running before we install and run the <code>certbot</code> with the <code>oc get dc</code> command like before.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey ~<span style="color:#f92672">]</span><span style="color:#75715e"># oc get dc</span>
+</span></span><span style="display:flex;"><span>NAME               REVISION   DESIRED   CURRENT   TRIGGERED BY
+</span></span><span style="display:flex;"><span>docker-registry    <span style="color:#ae81ff">1</span>          <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>         config
+</span></span><span style="display:flex;"><span>registry-console   <span style="color:#ae81ff">1</span>          <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>         config
+</span></span><span style="display:flex;"><span>router             <span style="color:#ae81ff">1</span>          <span style="color:#ae81ff">0</span>         <span style="color:#ae81ff">0</span>         config
+</span></span></code></pre></div><p>Lets install the <code>certbot</code> now with the <code>yum install certbot</code> command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey ~<span style="color:#f92672">]</span><span style="color:#75715e"># yum install certbot</span>
+</span></span></code></pre></div><p>Check if the DNS server is setup is correct. Important <code>*</code> <code>CNAME</code> is pointing to <code>apps.console</code>
+We need this because whne we deploy new application this will create a URL under apps and the namespace.</p>
+<pre tabindex="0"><code class="language-haml" data-lang="haml">*                420    IN      CNAME   apps.console
+@               1800    IN      A       95.216.193.150
+apps.console     300    IN      A       95.216.193.150
+console          300    IN      A       95.216.193.150
+</code></pre><p>Here you can verify the domain names <a href="https://dnschecker.org/#A/c3smonkey.ch">dnschecker.org</a>
+Ok let`s create some certificate for the following domain names</p>
+<ul>
+<li>c3smonkey.ch</li>
+<li>console.c3smonkey.ch</li>
+<li>jenkins-jenkins.apps.c3smonkey.ch</li>
+<li>grafana-openshift-monitoring.apps.c3smonkey.ch</li>
+<li>apps.c3smonkey.ch</li>
+<li>hawkular-metrics.apps.c3smonkey.ch</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey ~<span style="color:#f92672">]</span><span style="color:#75715e"># certbot certonly --server https://acme-v02.api.letsencrypt.org/directory \</span>
+</span></span><span style="display:flex;"><span>    --standalone <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -d console.c3smonkey.ch <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -d jenkins-jenkins.apps.c3smonkey.ch <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -d c3smonkey.ch <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -d grafana-openshift-monitoring.apps.c3smonkey.ch <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -d apps.c3smonkey.ch <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -d hawkular-metrics.apps.c3smonkey.ch
+</span></span></code></pre></div><p>After this command you see something like this</p>
+<p><img src="/static/certbot/certbot-result.png" alt="certbot-result"></p>
+<p>The certificate are located under <code>/etc/letsencrypt/live/console.c3smonkey.ch/</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ root@c3smonkey installcentos<span style="color:#f92672">]</span><span style="color:#75715e"># ls -lisa /etc/letsencrypt/live/console.c3smonkey.ch/</span>
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1258906</span> <span style="color:#ae81ff">4</span> drwxr-xr-x. <span style="color:#ae81ff">2</span> root root <span style="color:#ae81ff">4096</span> Aug <span style="color:#ae81ff">26</span> 21:06 .
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1258902</span> <span style="color:#ae81ff">4</span> drwx------. <span style="color:#ae81ff">3</span> root root <span style="color:#ae81ff">4096</span> Aug <span style="color:#ae81ff">26</span> 21:06 ..
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1258915</span> <span style="color:#ae81ff">4</span> -rw-r--r--. <span style="color:#ae81ff">1</span> root root  <span style="color:#ae81ff">692</span> Aug <span style="color:#ae81ff">26</span> 21:06 README
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1258907</span> <span style="color:#ae81ff">0</span> lrwxrwxrwx. <span style="color:#ae81ff">1</span> root root   <span style="color:#ae81ff">44</span> Aug <span style="color:#ae81ff">26</span> 21:06 cert.pem -&gt; ../../archive/console.c3smonkey.ch/cert1.pem
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1258909</span> <span style="color:#ae81ff">0</span> lrwxrwxrwx. <span style="color:#ae81ff">1</span> root root   <span style="color:#ae81ff">45</span> Aug <span style="color:#ae81ff">26</span> 21:06 chain.pem -&gt; ../../archive/console.c3smonkey.ch/chain1.pem
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1258910</span> <span style="color:#ae81ff">0</span> lrwxrwxrwx. <span style="color:#ae81ff">1</span> root root   <span style="color:#ae81ff">49</span> Aug <span style="color:#ae81ff">26</span> 21:06 fullchain.pem -&gt; ../../archive/console.c3smonkey.ch/fullchain1.pem
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1258908</span> <span style="color:#ae81ff">0</span> lrwxrwxrwx. <span style="color:#ae81ff">1</span> root root   <span style="color:#ae81ff">47</span> Aug <span style="color:#ae81ff">26</span> 21:06 privkey.pem -&gt; ../../archive/console.c3smonkey.ch/privkey1.pem
+</span></span></code></pre></div><p>Now we can scale up our route with <code>oc scale --replicas=1 dc router</code> and verify it with <code>oc get dc</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey<span style="color:#f92672">]</span><span style="color:#75715e"># oc scale --replicas=1 dc router</span>
+</span></span><span style="display:flex;"><span>deploymentconfig.apps.openshift.io/router scaled
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@c3smonkey<span style="color:#f92672">]</span><span style="color:#75715e"># oc get dc</span>
+</span></span><span style="display:flex;"><span>NAME               REVISION   DESIRED   CURRENT   TRIGGERED BY
+</span></span><span style="display:flex;"><span>docker-registry    <span style="color:#ae81ff">1</span>          <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>         config
+</span></span><span style="display:flex;"><span>registry-console   <span style="color:#ae81ff">1</span>          <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>         config
+</span></span><span style="display:flex;"><span>router             <span style="color:#ae81ff">1</span>          <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>         config
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@c3smonkey installcentos<span style="color:#f92672">]</span><span style="color:#75715e">#</span>
+</span></span></code></pre></div><p>Now we have to patch the installation <code>inventory.ini</code> file for this we will take the <code>vi</code>
+We will add the following section on the bottom of the file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">openshift_master_overwrite_named_certificates=true</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">openshift_master_named_certificates=[{&#34;certfile&#34;: &#34;/etc/letsencrypt/live/console.c3smonkey.ch/cert.pem&#34;, &#34;keyfile&#34;: &#34;/etc/letsencrypt/live/console.c3smonkey.ch/privkey.pem&#34;,&#34;names&#34;: [&#34;c3smonkey.ch&#34;, &#34;console.c3smonkey.ch&#34;, &#34;jenkins-jenkins.apps.c3smonkey.ch&#34;, &#34;grafana-openshift-monitoring.apps.c3smonkey.ch&#34;, &#34;apps.c3smonkey.ch&#34;, &#34;hawkular-metrics.apps.c3smonkey.ch&#34;] }]</span>
+</span></span></code></pre></div><p>The meaning of this configuration is basically that we override the master cluster certificate with the flag <code>true</code> in <code>openshift_master_overwrite_named_certificates=true</code>
+and add all named certificates we created with the <code>certbot</code> command from before.</p>
+<ul>
+<li>c3smonkey.ch</li>
+<li>console.c3smonkey.ch</li>
+<li>jenkins-jenkins.apps.c3smonkey.ch</li>
+<li>grafana-openshift-monitoring.apps.c3smonkey.ch</li>
+<li>apps.c3smonkey.ch</li>
+<li>hawkular-metrics.apps.c3smonkey.ch</li>
+</ul>
+<p>let us change the directory first and jump in the installation directory <code>cd installcentos</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey ~<span style="color:#f92672">]</span><span style="color:#75715e"># cd installcentos/</span>
+</span></span></code></pre></div><p>Now let&rsquo;s apply two ansible script but for this lets search the ansible scripts we need with <code>cat install-openshift.sh | grep ansible</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey installcentos<span style="color:#f92672">]</span><span style="color:#75715e"># cat install-openshift.sh | grep ansible</span>
+</span></span><span style="display:flex;"><span>curl -o ansible.rpm https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.6.5-1.el7.ans.noarch.rpm
+</span></span><span style="display:flex;"><span>yum -y --enablerepo<span style="color:#f92672">=</span>epel install ansible.rpm
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span> ! -d openshift-ansible <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> git clone https://github.com/openshift/openshift-ansible.git
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># cd openshift-ansible &amp;&amp; git fetch &amp;&amp; git checkout release-${VERSION} &amp;&amp; git checkout e7f05191a1 &amp;&amp; cd ..</span>
+</span></span><span style="display:flex;"><span>cd openshift-ansible <span style="color:#f92672">&amp;&amp;</span> git fetch <span style="color:#f92672">&amp;&amp;</span> git checkout release-<span style="color:#e6db74">${</span>VERSION<span style="color:#e6db74">}</span> <span style="color:#f92672">&amp;&amp;</span> cd ..
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://github.com/openshift/openshift-ansible/issues/11069</span>
+</span></span><span style="display:flex;"><span>ansible-playbook -i inventory.ini openshift-ansible/playbooks/prerequisites.yml
+</span></span><span style="display:flex;"><span>ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
+</span></span></code></pre></div><p>The first one we will apply is the <code>prerequisites</code> playbook to check if everything is still good.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey installcentos<span style="color:#f92672">]</span><span style="color:#75715e"># ansible-playbook -i inventory.ini openshift-ansible/playbooks/prerequisites.yml</span>
+</span></span></code></pre></div><p><img src="/static/certbot/prerequisites.png" alt="prerequisites"></p>
+<p>Lets play the second playbook who will replace the certificate we just created.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey installcentos<span style="color:#f92672">]</span><span style="color:#75715e"># ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml</span>
+</span></span></code></pre></div><p>When it stuck and the API server don&rsquo;t come back up just rerun the script.
+or run <code>playbooks/openshift-master/config.yml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey installcentos<span style="color:#f92672">]</span><span style="color:#75715e"># ansible-playbook -i inventory.ini openshift-ansible/playbooks/openshift-master/config.yml</span>
+</span></span></code></pre></div><p><img src="/static/certbot/deploy_cluster-failed.png" alt="deploy_cluster-failed"></p>
+<p>This will take a time dependence of your host.
+<img src="/static/certbot/openshift-certbot/htop.png" alt="htop"></p>
+<p>Now reboot the cluster with <code>shutdown -r now</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey installcentos<span style="color:#f92672">]</span><span style="color:#75715e"># shutdown -r now</span>
+</span></span></code></pre></div><p>Let us check the certificate <a href="https://crt.sh/?q=c3smonkey.ch">https://crt.sh/?q=c3smonkey.ch</a>
+<img src="/static/certbot/crt-lets-encrypt.png" alt="crt"></p>
+<p>Open a new tab and open the <a href="https://console.c3smonkey.ch:8443/">https://console.c3smonkey.ch:8443/</a> to check if the certificate are installed successfully.</p>
+<h2 id="backup-certificates">Backup Certificates</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ scp root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/<span style="color:#ae81ff">\*</span>.pem ~/dev/c3smonkey/hetzner-okd-ansible/cert/
+</span></span></code></pre></div><h2 id="restore-certificates">Restore Certificates</h2>
+<p>First create the following folder structure <code>/etc/letsencrypt/live/console.c3smonkey.ch/</code> on the remote host.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#f92672">[</span>root@c3smonkey ~<span style="color:#f92672">]</span><span style="color:#75715e"># mkdir -p /etc/letsencrypt/live/console.c3smonkey.ch/</span>
+</span></span></code></pre></div><p>Lets copy the files <code>cert.pem</code> <code>chain.pem</code> <code>fullchain.pem</code> <code>privkey.pem</code>to the folder from your local backup.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/cert.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
+</span></span><span style="display:flex;"><span>$ scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/chain.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
+</span></span><span style="display:flex;"><span>$ scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/fullchain.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
+</span></span><span style="display:flex;"><span>$ scp ~/dev/c3smonkey/hetzner-okd-ansible/cert/privkey.pem  root@c3smonkey.ch:/etc/letsencrypt/live/console.c3smonkey.ch/
+</span></span></code></pre></div>
+
+
+
+
+
+<hr class="block-separater">
+
+
+
+
+<div class="content-footer-item">
+	Tags for this post:
+	
+	<a class="post-tag" href="/tags/k8s/">k8s</a>
+	
+	<a class="post-tag" href="/tags/lets-encrypt/">Let&#39;s Encrypt</a>
+	
+</div>
+
+
+
+
+
+
+
+<div class="content-footer-item neighbor">
+	
+	<div class="prev-post">Prev: <a href="/posts/2019/2019-01-13-hetzner-okd/">Install OKD on Hetzner Cloud</a></div>
+	
+	
+	<div class="next-post">Next: <a href="/posts/2019/2019-09-01-jaeger/">Jaeger - Distributed Tracing System</a></div>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "k8s"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-gitops-argo/">GitOps with Argo CD</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-harbor/">Harbor</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-04</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-04-hazelcast-k8s/">Kubernetes Hazelcast Distributed Caching</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href='/tags/k8s/'>more ...</a>
+          
+      </div>
+        </div>
+    
+
+    
+    
+    
+
+
+
+
+<script src="/js/single.js"></script>
+
+
+	</div><div id="content-footer" class="sub">
+  
+  <div class="credit">
+    Power by <a href="https://gohugo.io">Hugo</a> /
+    Theme <a href="https://github.com/michimani/simplog/">simplog</a> by <a href="https://github.com/michimani/">michimani</a>
+  </div>
+</div></body>
+
+</html>

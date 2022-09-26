@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Jaeger - Distributed Tracing System - Marcel&#39;s blog</title>
+<meta name="description" content="This is my personal blog where I will mostly post about development.">
+
+<meta name="author" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="alternate" href="/index.xml?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589" type="application/rss+xml" title="RSS" />
+<meta property="og:title" content="Jaeger - Distributed Tracing System - Marcel&#39;s blog">
+</meta>
+<meta property="og:url" content="/posts/2019/2019-09-01-jaeger/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Marcel&#39;s blog">
+<meta property="og:description" content="This is my personal blog where I will mostly post about development.">
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+<meta name="twitter:card" content="summary_large_image" /></meta>
+<meta name="twitter:site" content="@"></meta>
+<meta name="twitter:creator" content="@"></meta>
+<meta name="twitter:title" content="Jaeger - Distributed Tracing System - Marcel&#39;s blog"></meta>
+<meta name="twitter:url" content="/posts/2019/2019-09-01-jaeger/"></meta>
+<meta name="twitter:description" content="This is my personal blog where I will mostly post about development."></meta>
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+
+<link rel="stylesheet" href="/css/main.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="stylesheet" href="/css/color.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+
+
+
+
+</head>
+
+<body >
+
+
+<div id="content-header" class="title">
+  
+  <a class="site-title" href="/">Marcel&#39;s blog</a>
+  
+  <span class="site-sub-title"></span>
+
+  
+
+  <div id="main-menu-nav">
+    <div id="main-menu-nav-items">
+      
+        <div class="nav-item"><a href="/posts/2022/2022-24-09-axon-mongodb-extention/">Axon Framework - MongoDB extension</a></div>
+      
+    </div>
+  </div>
+</div>
+<div id="content" class="main">
+
+
+
+
+<h2>Jaeger - Distributed Tracing System</h2>
+
+<span class="sub">2019-09-01</span>
+
+
+
+
+
+
+
+
+<h1 id="table-of-contents">Table of contents</h1>
+<ul>
+<li><a href="#All-In-One-Template">Jeager All-In-One with OpenShift Template</a></li>
+<li><a href="#installStepByStep">Jeager Step-by-Step with separate operator</a></li>
+</ul>
+<p>As on-the-ground microservice practitioners are quickly realizing, the majority of operational problems that arise when moving to a
+distributed architecture are ultimately grounded in two areas: networking and observability.
+It is simply an orders of magnitude larger problem to network and debug a set of intertwined distributed services versus a single monolithic application.
+<img src="/static/jaeger/Distributed-Tracing-In-A-Nutshell.png" alt="Distributed Tracing In A Nutshell"></p>
+<h2 id="jaeger">Jaeger</h2>
+<p>Jaeger is a open source, end-to-end distributed tracing Monitor and troubleshoot transactions in complex distributed systems.
+<a href="https://www.cncf.io/wp-content/uploads/2018/01/CNCF_Webinar_Intro_Jaeger_v1.0_-_2018-01-16.pdf">CNCF Webinar Intro Jaeger</a>{:target=&quot;_blank&quot;}</p>
+<blockquote>
+<p><strong><em>NOTE:</em></strong>  Installing the operator on OKD Openshift <a href="https://www.jaegertracing.io/docs/1.13/operator/#installing-the-operator-on-okd-openshift">jaegertracing.io</a>{:target=&quot;_blank&quot;}</p>
+</blockquote>
+<h2 id="jeager-all-in-one-with-openshift-template-a-nameall-in-one-templatea">Jeager All-In-One with OpenShift Template <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+<p>Login in with your <code>developer</code> user and create a <code>jaeger</code> project.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc new-project jaeger --display-name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Distributed Tracing System&#34;</span>
+</span></span></code></pre></div><p>Install Jaeger on OpenShift to collect the traces</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc process -f https://blog.marcelwidmer.org/img/2019/jaeger/deploy/jaeger-all-in-one-template.yml <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    | oc create -f -
+</span></span></code></pre></div><blockquote>
+<p>💡 <strong>Template based on</strong>: <a href="https://raw.githubusercontent.com/jaegertracing/jaeger-openshift/master/all-in-one/jaeger-all-in-one-template.yml">jaegertracing/jaeger-openshift</a>{:target=&quot;_blank&quot;}</p>
+</blockquote>
+<h3 id="create-route">Create Route</h3>
+<p>Create a route to access the Jaeger collector</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc expose service jaeger-collector --port<span style="color:#f92672">=</span><span style="color:#ae81ff">14268</span> -n jaeger
+</span></span></code></pre></div><h3 id="get-route-host-a-namegetroutehosta">Get Route Host <!-- raw HTML omitted --><!-- raw HTML omitted --></h3>
+<p>Get the route address</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc get route/jaeger-collector -n jaeger -o json | jq <span style="color:#e6db74">&#39;.spec.host&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;jaeger-collector-jaeger.apps.c3smonkey.ch&#34;</span>
+</span></span></code></pre></div><p>This address we will configure in our <a href="http://blog.marcelwidmer.org/spring-boot-k8s/">Spring Boot k8s</a>{:target=&quot;_blank&quot;} Application.</p>
+<h3 id="jaeger-query-ui">Jaeger Query UI</h3>
+<p><img src="/static/jaeger/jaeger-query-ui.png" alt="jaeger-query-ui.png"></p>
+<h2 id="installing-the-operator-on-openshift-step-by-step-with-separate-operator-a-nameinstallstepbystepa">Installing the Operator on OpenShift Step-by-Step with separate operator <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+<p>Login in with privileged user <code>oc login -u &lt;privileged user&gt;</code> and create a <code>jaeger</code> project to install the operator.
+This creates the namespace used by default in the deployment files. If you want to install the Jaeger operator in a different namespace,
+you must edit the deployment files to change <code>jaeger</code> to the desired namespace value.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc new-project jaeger --display-name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Distributed Tracing System&#34;</span>
+</span></span></code></pre></div><p>Deploy <a href="/jaeger/deploy/jaegertracing_v1_jaeger_crd.yaml">CustomResourceDefinition</a>{:target=&quot;_blank&quot;} for the <code>apiVersion: jaegertracing.io/v1</code>
+<a href="/jaeger/deploy/service_account.yaml">ServiceAccount</a>{:target=&quot;_blank&quot;} <a href="/jaeger/deploy/role.yaml">ClusterRole</a>{:target=&quot;_blank&quot;}
+<a href="/jaeger/deploy/role_binding.yaml">ClusterRoleBinding</a>{:target=&quot;_blank&quot;} <a href="/jaeger/deploy/operator.yaml">Operator</a>{:target=&quot;_blank&quot;}</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc create -f <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    https://blog.marcelwidmer.org/img/2019/jaeger/deploy/jaegertracing_v1_jaeger_crd.yaml
+</span></span><span style="display:flex;"><span>$ oc create -f <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    https://blog.marcelwidmer.org/img/2019/jaeger/deploy/service_account.yaml    
+</span></span><span style="display:flex;"><span>$ oc create -f <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    https://blog.marcelwidmer.org/img/2019/jaeger/deploy/role.yaml    
+</span></span><span style="display:flex;"><span>$ oc create -f <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    https://blog.marcelwidmer.org/img/2019/jaeger/deploy/role_binding.yaml    
+</span></span><span style="display:flex;"><span>$ oc create -f <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    https://blog.marcelwidmer.org/img/2019/jaeger/deploy/operator.yaml    
+</span></span></code></pre></div><p>Grant the role <code>jaeger-operator</code> to users who should be able to install individual Jaeger instances.
+The following example creates a role binding allowing the user <code>developer</code> to create Jaeger instances:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc create <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    rolebinding developer-jaeger-operator <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --role<span style="color:#f92672">=</span>jaeger-operator <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --user<span style="color:#f92672">=</span>developer
+</span></span></code></pre></div><p>After the role is granted, switch back to a non-privileged user.</p>
+<h3 id="quick-start---deploying-the-allinone-image">Quick Start - Deploying the AllInOne image</h3>
+<p>The simplest possible way to create a Jaeger instance is by creating a YAML file like the following example.
+This will install the default AllInOne strategy, which deploys the “all-in-one” image
+(agent, collector, query, ingestor, Jaeger UI) in a single pod, using in-memory storage by default.</p>
+<blockquote>
+<p>⚠️ <strong>Production installation</strong>: For Production installation take a look at the official <a href="https://www.jaegertracing.io/docs/1.13/operator/#production-strategy">production-strategy</a> documentation.</p>
+</blockquote>
+<p>Login in with privileged user <code>oc login -u &lt;privileged user&gt;</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ echo <span style="color:#e6db74">&#34;apiVersion: jaegertracing.io/v1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">kind: Jaeger
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">metadata:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> name: jaeger-collector&#34;</span> | oc create -f -
+</span></span></code></pre></div><p>To get the pod name, query for the pods belonging to the <code>jaeger-collector</code> Jaeger instance:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc get jaegers                                                                                                                                                            
+</span></span><span style="display:flex;"><span>NAME       AGE
+</span></span><span style="display:flex;"><span>jaeger-collector   10s
+</span></span></code></pre></div><p>To get the routes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc get route
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME               HOST/PORT                                   PATH   SERVICES                 PORT    TERMINATION   WILDCARD
+</span></span><span style="display:flex;"><span>jaeger-collector   jaeger-collector-jaeger.apps.c3smonkey.ch          jaeger-collector-query   &lt;all&gt;   reencrypt     None
+</span></span></code></pre></div><h3 id="jaeger-query-ui-1">Jaeger Query UI</h3>
+<p>Open the Browser and login with your OpenShift <code>developer</code> credentials to the <a href="https://jaeger-collector-jaeger.apps.c3smonkey.ch/search">Jaeger UI</a>{:target=&quot;_blank&quot;}
+First time you logged in you have to accept the <code>Authorize Access</code></p>
+<p><img src="/static/jaeger/OAuth.png" alt="OAuth">
+<img src="/static/jaeger/jaeger-collector-ui.png" alt="jaeger-collector-ui"></p>
+
+
+
+
+
+
+<hr class="block-separater">
+
+
+
+
+<div class="content-footer-item">
+	Tags for this post:
+	
+	<a class="post-tag" href="/tags/k8s/">k8s</a>
+	
+	<a class="post-tag" href="/tags/logging/">logging</a>
+	
+</div>
+
+
+
+
+
+
+
+<div class="content-footer-item neighbor">
+	
+	<div class="prev-post">Prev: <a href="/posts/2019/2019-08-20-certbot-letsencrypt/">Certbot Let`s Encrypt</a></div>
+	
+	
+	<div class="next-post">Next: <a href="/posts/2019/2019-09-08-semantic-release-delivery-pipeline/">Semantic Release Delivery Pipeline</a></div>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "k8s"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-gitops-argo/">GitOps with Argo CD</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-25</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-05-harbor/">Harbor</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-10-04</div>
+  <div class="post-title"><a href="/posts/2020/2020-10-04-hazelcast-k8s/">Kubernetes Hazelcast Distributed Caching</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href='/tags/k8s/'>more ...</a>
+          
+      </div>
+        </div>
+    
+
+    
+    
+    
+
+
+
+
+<script src="/js/single.js"></script>
+
+
+	</div><div id="content-footer" class="sub">
+  
+  <div class="credit">
+    Power by <a href="https://gohugo.io">Hugo</a> /
+    Theme <a href="https://github.com/michimani/simplog/">simplog</a> by <a href="https://github.com/michimani/">michimani</a>
+  </div>
+</div></body>
+
+</html>

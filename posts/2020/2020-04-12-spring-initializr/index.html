@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Create Kotlin Project with Spring Initializr and HTTPie - Marcel&#39;s blog</title>
+<meta name="description" content="This is my personal blog where I will mostly post about development.">
+
+<meta name="author" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="alternate" href="/index.xml?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589" type="application/rss+xml" title="RSS" />
+<meta property="og:title" content="Create Kotlin Project with Spring Initializr and HTTPie - Marcel&#39;s blog">
+</meta>
+<meta property="og:url" content="/posts/2020/2020-04-12-spring-initializr/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Marcel&#39;s blog">
+<meta property="og:description" content="This is my personal blog where I will mostly post about development.">
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+<meta name="twitter:card" content="summary_large_image" /></meta>
+<meta name="twitter:site" content="@"></meta>
+<meta name="twitter:creator" content="@"></meta>
+<meta name="twitter:title" content="Create Kotlin Project with Spring Initializr and HTTPie - Marcel&#39;s blog"></meta>
+<meta name="twitter:url" content="/posts/2020/2020-04-12-spring-initializr/"></meta>
+<meta name="twitter:description" content="This is my personal blog where I will mostly post about development."></meta>
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+
+<link rel="stylesheet" href="/css/main.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="stylesheet" href="/css/color.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+
+
+
+
+</head>
+
+<body >
+
+
+<div id="content-header" class="title">
+  
+  <a class="site-title" href="/">Marcel&#39;s blog</a>
+  
+  <span class="site-sub-title"></span>
+
+  
+
+  <div id="main-menu-nav">
+    <div id="main-menu-nav-items">
+      
+        <div class="nav-item"><a href="/posts/2022/2022-24-09-axon-mongodb-extention/">Axon Framework - MongoDB extension</a></div>
+      
+    </div>
+  </div>
+</div>
+<div id="content" class="main">
+
+
+
+
+<h2>Create Kotlin Project with Spring Initializr and HTTPie</h2>
+
+<span class="sub">2020-04-12</span>
+
+
+
+
+
+
+
+
+<h1 id="create-kotlin-maven-project-with-httpie-from-startspringio">Create Kotlin Maven Project with HTTPie from start.spring.io</h1>
+<p>Let&rsquo;s create and extract a <code>Maven</code> <code>Kotlin</code> project with some dependencies <code>actuator</code> <code>data-mongodb-reactive</code> <code>webflux</code> and <code>cloud-gateway</code>
+The <code>https://start.spring.io</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http https://start.spring.io/starter.tgz <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    dependencies<span style="color:#f92672">==</span>actuator,data-mongodb-reactive,webflux,cloud-gateway <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    description<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;Demo project Kotlin Sidecar Gateway&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    applicationName<span style="color:#f92672">==</span>SidecarGatewayApplication <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    name<span style="color:#f92672">==</span>kotlin-sidecar-gateway <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    groupId<span style="color:#f92672">==</span>ch.keepcalm <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    artifactId<span style="color:#f92672">==</span>kotlin-sidecar-gateway <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    packageName<span style="color:#f92672">==</span>ch.keepcalm.demo <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    javaVersion<span style="color:#f92672">==</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    language<span style="color:#f92672">==</span>kotlin <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    baseDir<span style="color:#f92672">==</span>kotlin-sidecar-gateway | tar -xzvf -
+</span></span></code></pre></div><h1 id="banner">Banner</h1>
+<p>Download Banner in the <code>src/main/resources</code> folder.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/master/img/banner.txt <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    &gt; kotlin-sidecar-gateway/src/main/resources/banner.txt
+</span></span></code></pre></div><h1 id="spring-application-name">Spring Application Name</h1>
+<p>Configure <code>spring.applicatin.name</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;spring:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  application:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    name: kotlin-sidecar-gateway&#34;</span> | &gt; kotlin-sidecar-gateway/src/main/resources/application.yaml
+</span></span></code></pre></div><p>Remove <code>application.properties</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rm kotlin-sidecar-gateway/src/main/resources/application.properties
+</span></span></code></pre></div>
+
+
+
+
+
+<hr class="block-separater">
+
+
+
+
+<div class="content-footer-item">
+	Tags for this post:
+	
+	<a class="post-tag" href="/tags/spring-boot/">Spring Boot</a>
+	
+</div>
+
+
+
+
+
+
+
+<div class="content-footer-item neighbor">
+	
+	<div class="prev-post">Prev: <a href="/posts/2019/2019-10-22-axon/">AxonIQ</a></div>
+	
+	
+	<div class="next-post">Next: <a href="/posts/2020/2020-04-12-cloud-gateway-sidecar/">Spring Cloud Gateway</a></div>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "Spring Boot"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-05-04</div>
+  <div class="post-title"><a href="/posts/2020/2020-05-04-camel-kotlin-spring-boot/">Apache Camel with Kotlin and Spring Boot</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-04-18</div>
+  <div class="post-title"><a href="/posts/2020/2020-04-18-resilience4j-circuitbreaker/">Reactive Spring Boot with Resilience4j CircuitBreaker</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-04-16</div>
+  <div class="post-title"><a href="/posts/2020/2020-04-12-cloud-gateway-sidecar/">Spring Cloud Gateway</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href='/tags/spring-boot/'>more ...</a>
+          
+      </div>
+        </div>
+    
+
+
+
+
+<script src="/js/single.js"></script>
+
+
+	</div><div id="content-footer" class="sub">
+  
+  <div class="credit">
+    Power by <a href="https://gohugo.io">Hugo</a> /
+    Theme <a href="https://github.com/michimani/simplog/">simplog</a> by <a href="https://github.com/michimani/">michimani</a>
+  </div>
+</div></body>
+
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Spring Cloud Gateway - Marcel&#39;s blog</title>
+<meta name="description" content="This is my personal blog where I will mostly post about development.">
+
+<meta name="author" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="alternate" href="/index.xml?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589" type="application/rss+xml" title="RSS" />
+<meta property="og:title" content="Spring Cloud Gateway - Marcel&#39;s blog">
+</meta>
+<meta property="og:url" content="/posts/2020/2020-04-12-cloud-gateway-sidecar/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Marcel&#39;s blog">
+<meta property="og:description" content="This is my personal blog where I will mostly post about development.">
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+<meta name="twitter:card" content="summary_large_image" /></meta>
+<meta name="twitter:site" content="@"></meta>
+<meta name="twitter:creator" content="@"></meta>
+<meta name="twitter:title" content="Spring Cloud Gateway - Marcel&#39;s blog"></meta>
+<meta name="twitter:url" content="/posts/2020/2020-04-12-cloud-gateway-sidecar/"></meta>
+<meta name="twitter:description" content="This is my personal blog where I will mostly post about development."></meta>
+
+<meta property="og:image" content="//images/featured_image.jpg">
+
+
+<link rel="stylesheet" href="/css/main.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+<link rel="stylesheet" href="/css/color.css?c=b81ce7f68b9d6ebca50fa3a9f4a5102581ce5589">
+
+
+
+
+</head>
+
+<body >
+
+
+<div id="content-header" class="title">
+  
+  <a class="site-title" href="/">Marcel&#39;s blog</a>
+  
+  <span class="site-sub-title"></span>
+
+  
+
+  <div id="main-menu-nav">
+    <div id="main-menu-nav-items">
+      
+        <div class="nav-item"><a href="/posts/2022/2022-24-09-axon-mongodb-extention/">Axon Framework - MongoDB extension</a></div>
+      
+    </div>
+  </div>
+</div>
+<div id="content" class="main">
+
+
+
+
+<h2>Spring Cloud Gateway</h2>
+
+<span class="sub">2020-04-16</span>
+
+
+
+
+
+
+
+
+<p>This sample show how easy you can put on an existing <code>API</code> the <code>Spring Cloud Gateway</code> as kind of <code>SideCar</code> where you can manage your Security, Logging etc.
+Or just provide an other <code>Endpoint</code> <code>URL</code> like in this sample.</p>
+<p>Let&rsquo;s create a Service with a Reactive Spring Boot Application and MongoDB and a Rest Endpoint.</p>
+<p>We start with the <code>MongoDB</code> document class <code>Customer</code> and a <code>ReactiveCrudRepository</code> interface <code>CustomerRepository</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#a6e22e">@Document</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Customer</span>(<span style="color:#a6e22e">@Id</span> <span style="color:#66d9ef">val</span> id: String = UUID.randomUUID().toString(), <span style="color:#66d9ef">val</span> name: String)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">CustomerRepository</span> : ReactiveCrudRepository&lt;Customer, String&gt;
+</span></span></code></pre></div><p>Now let&rsquo;s also create a service class <code>CustomerService</code> for it where we provide the following functionality.</p>
+<ul>
+<li>save</li>
+<li>findAll</li>
+<li>deleteAll</li>
+<li>findById</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#a6e22e">@Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CustomerService</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> customerRepository: CustomerRepository) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">save</span>(customer: Customer) = customerRepository.save(customer)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">findAll</span>() = customerRepository.findAll()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">deleteAll</span>() = customerRepository.deleteAll()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">findById</span>(id: String) = customerRepository.findById(id)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>That we have some data we create a little functionality on application start with the <code>ApplicationRunner</code> from Spring Boot.<br>
+Let&rsquo;s create a Bean definition for the <code>ApplicationRunner</code> that delete first all entries and then save some sample values to it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args: Array&lt;String&gt;) {
+</span></span><span style="display:flex;"><span>    runApplication&lt;SidecarGatewayApplication&gt;(*args) {
+</span></span><span style="display:flex;"><span>        addInitializers(
+</span></span><span style="display:flex;"><span>            beans {
+</span></span><span style="display:flex;"><span>                bean {
+</span></span><span style="display:flex;"><span>                    ApplicationRunner {
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">val</span> customerService = ref&lt;CustomerService&gt;()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>                        customerService
+</span></span><span style="display:flex;"><span>                            <span style="color:#75715e">// first cleanUp Database
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                            .deleteAll()
+</span></span><span style="display:flex;"><span>                            <span style="color:#75715e">// create a list of Customers 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                            .thenMany(  
+</span></span><span style="display:flex;"><span>                                listOf(<span style="color:#e6db74">&#34;John&#34;</span>, <span style="color:#e6db74">&#34;Jane&#34;</span>, <span style="color:#e6db74">&#34;Jack&#34;</span>)
+</span></span><span style="display:flex;"><span>                                    .toFlux()
+</span></span><span style="display:flex;"><span>                                    .map { Customer(name = <span style="color:#66d9ef">it</span>) })
+</span></span><span style="display:flex;"><span>                            <span style="color:#75715e">// Save it to the Database
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                            .flatMap { customerService.save(<span style="color:#66d9ef">it</span>) } 
+</span></span><span style="display:flex;"><span>                             <span style="color:#75715e">// Search all entries
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                            .thenMany(customerService.findAll()) 
+</span></span><span style="display:flex;"><span>                            <span style="color:#75715e">// subscribe - let`s do the work...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                            .subscribe { log.info(<span style="color:#e6db74">&#34;--&gt; </span><span style="color:#e6db74">$it</span><span style="color:#e6db74">&#34;</span>) } 
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now we have some data in our MongoDB I think now is time to create a other Bean with the Kotlin DSL that provide a Rest endpoint.
+For this we create an <code>Router</code> that will provide the following endpoints.</p>
+<ul>
+<li><code>/customers</code></li>
+<li><code>/customers/{id}</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Rest API
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>bean {
+</span></span><span style="display:flex;"><span>    router {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> customerService = ref&lt;CustomerService&gt;()
+</span></span><span style="display:flex;"><span>        GET(<span style="color:#e6db74">&#34;/customers&#34;</span>) { 
+</span></span><span style="display:flex;"><span>            ok().body(customerService.findAll()) 
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        GET(<span style="color:#e6db74">&#34;/customers/{id}&#34;</span>) { 
+</span></span><span style="display:flex;"><span>            ok().body(customerService.findById(<span style="color:#66d9ef">it</span>.pathVariable(<span style="color:#e6db74">&#34;id&#34;</span>))) 
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>When we start now our application we can call the endpoint and hopefully we get a result like below.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn spring-boot:run
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http :8080/customers
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Content-Type: application/json
+</span></span><span style="display:flex;"><span>transfer-encoding: chunked
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;a16c9582-0f40-4a7b-a566-372a56c3d5c8&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;944c3752-55c5-4ede-bc09-e02a5e47b390&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jane&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;478ce3f9-0eff-4018-a056-0656cd2c5ad4&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jack&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Now let&rsquo;s create a sidecar with <code>Spring cloud Gateway</code> that provide another Rest API <code>/api/customers</code> and <code>/api/customers/{id}</code>
+Let&rsquo;s create an additional response header <code>X-AnotherHeader</code> with the value <code>SideCar</code> as well.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Gateway Sidecar API
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// http -v :8080/api/customers
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Gateway - Sidecar
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>bean {
+</span></span><span style="display:flex;"><span>    ref&lt;RouteLocatorBuilder&gt;()
+</span></span><span style="display:flex;"><span>        .routes {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// http -v :8080/api/customers
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            route(<span style="color:#e6db74">&#34;sidecar-api&#34;</span>) {
+</span></span><span style="display:flex;"><span>                path(<span style="color:#e6db74">&#34;/api/**&#34;</span>)
+</span></span><span style="display:flex;"><span>                filters {
+</span></span><span style="display:flex;"><span>                    rewritePath(<span style="color:#e6db74">&#34;api(?&lt;segment&gt;/?.*)&#34;</span>, <span style="color:#e6db74">&#34;/$</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">{segment}&#34;</span>)
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                uri(<span style="color:#e6db74">&#34;http://localhost:8080&#34;</span>)
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>When we call now the EndPoint <code>/api/customers</code> we expect that we get the result from before and the additional <code>ResponsHeader</code>
+with <code>X-AnotherHeader: SideCar</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http -v :8080/api/customers
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>GET /api/customers HTTP/1.1
+</span></span><span style="display:flex;"><span>Accept: */*
+</span></span><span style="display:flex;"><span>Accept-Encoding: gzip, deflate
+</span></span><span style="display:flex;"><span>Connection: keep-alive
+</span></span><span style="display:flex;"><span>Host: localhost:8080
+</span></span><span style="display:flex;"><span>User-Agent: HTTPie/2.0.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Content-Type: application/json
+</span></span><span style="display:flex;"><span>X-AnotherHeader: SideCar
+</span></span><span style="display:flex;"><span>transfer-encoding: chunked
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;a36f75ae-a97f-41ba-9b38-59a5a6d38055&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;c0b25559-13ad-4b6b-ae25-adbcd898db82&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jane&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;2a3a1350-4bea-4504-b732-5b7c97602ebb&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jack&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>With the Kotlin DSL Route definition is it also easy to create routes only for specifics Spring profiles.</p>
+<p>The following command will start the application with the <code>default</code> profile.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn spring-boot:run
+</span></span></code></pre></div><p><code>Spring Cloud Gateway</code> provide with the <code>Actuator</code> library an endpoint to check the configured routes.
+Also let&rsquo;s check first our Routing Table whe we start the application with the default Spring Profile.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http :8080/actuator/gateway/routes
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Content-Type: application/json
+</span></span><span style="display:flex;"><span>transfer-encoding: chunked
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;filters&#34;</span>: <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;[[RewritePath api(?&lt;segment&gt;/?.*) = &#39;/</span><span style="color:#e6db74">${</span>segment<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;], order = 0]&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;order&#34;</span>: 0,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;predicate&#34;</span>: <span style="color:#e6db74">&#34;Paths: [/api/**], match trailing slash: true&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;route_id&#34;</span>: <span style="color:#e6db74">&#34;sidecar-api&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;uri&#34;</span>: <span style="color:#e6db74">&#34;http://localhost:8080&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Now create a Route just for a specific Spring Profile <code>foo</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>    runApplication&lt;SidecarGatewayApplication&gt;(*args) {
+</span></span><span style="display:flex;"><span>        addInitializers(
+</span></span><span style="display:flex;"><span>            beans {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Profile
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                profile(<span style="color:#e6db74">&#34;foo&#34;</span>) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// Gateway - Sidecar
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    bean {
+</span></span><span style="display:flex;"><span>                        ref&lt;RouteLocatorBuilder&gt;()
+</span></span><span style="display:flex;"><span>                            .routes {
+</span></span><span style="display:flex;"><span>                                <span style="color:#75715e">// http -v :8080/
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                                route(<span style="color:#e6db74">&#34;sidecar-root-to-customers-api&#34;</span>) {
+</span></span><span style="display:flex;"><span>                                    path(<span style="color:#e6db74">&#34;/**&#34;</span>)
+</span></span><span style="display:flex;"><span>                                    filters {
+</span></span><span style="display:flex;"><span>                                        rewritePath(<span style="color:#e6db74">&#34;/(?&lt;segment&gt;/?.*)&#34;</span>, <span style="color:#e6db74">&#34;/customers/$</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">{segment}&#34;</span>)
+</span></span><span style="display:flex;"><span>                                    }
+</span></span><span style="display:flex;"><span>                                    uri(<span style="color:#e6db74">&#34;http://localhost:8080/&#34;</span>)
+</span></span><span style="display:flex;"><span>                                }
+</span></span><span style="display:flex;"><span>                            }
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Start the application with the <code>foo</code> profile with <code>-Dspring-boot.run.profiles=foo</code> and check again the Routing Table.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn spring-boot:run -Dspring-boot.run.profiles<span style="color:#f92672">=</span>foo
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http :8080/actuator/gateway/routes
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Content-Type: application/json
+</span></span><span style="display:flex;"><span>transfer-encoding: chunked
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;filters&#34;</span>: <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;[[RewritePath api(?&lt;segment&gt;/?.*) = &#39;/</span><span style="color:#e6db74">${</span>segment<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;], order = 0]&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;order&#34;</span>: 0,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;predicate&#34;</span>: <span style="color:#e6db74">&#34;Paths: [/api/**], match trailing slash: true&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;route_id&#34;</span>: <span style="color:#e6db74">&#34;sidecar-api&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;uri&#34;</span>: <span style="color:#e6db74">&#34;http://localhost:8080&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;filters&#34;</span>: <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;[[RewritePath /(?&lt;segment&gt;/?.*) = &#39;/customers/</span><span style="color:#e6db74">${</span>segment<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;], order = 0]&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;order&#34;</span>: 0,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;predicate&#34;</span>: <span style="color:#e6db74">&#34;Paths: [/**], match trailing slash: true&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;route_id&#34;</span>: <span style="color:#e6db74">&#34;sidecar-root-to-customers-api&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;uri&#34;</span>: <span style="color:#e6db74">&#34;http://localhost:8080/&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>The example source code can be found here <a href="https://github.com/marzelwidmer/kotlin-sidecar-gateway">GitHub kotlin-sidecar-gateway</a></p>
+
+
+
+
+
+
+<hr class="block-separater">
+
+
+
+
+<div class="content-footer-item">
+	Tags for this post:
+	
+	<a class="post-tag" href="/tags/spring-boot/">Spring Boot</a>
+	
+</div>
+
+
+
+
+
+
+
+<div class="content-footer-item neighbor">
+	
+	<div class="prev-post">Prev: <a href="/posts/2020/2020-04-12-spring-initializr/">Create Kotlin Project with Spring Initializr and HTTPie</a></div>
+	
+	
+	<div class="next-post">Next: <a href="/posts/2020/2020-04-18-resilience4j-circuitbreaker/">Reactive Spring Boot with Resilience4j CircuitBreaker</a></div>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    <div class="related-tag-category-list">
+        <h4>Other posts tagged by "Spring Boot"</h3>
+        <ul class="post-list">
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-05-04</div>
+  <div class="post-title"><a href="/posts/2020/2020-05-04-camel-kotlin-spring-boot/">Apache Camel with Kotlin and Spring Boot</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-04-18</div>
+  <div class="post-title"><a href="/posts/2020/2020-04-18-resilience4j-circuitbreaker/">Reactive Spring Boot with Resilience4j CircuitBreaker</a></div>
+  
+</li>
+          
+          <li class="post-item">
+  <div class="post-date sub">2020-04-16</div>
+  <div class="post-title"><a href="/posts/2020/2020-04-12-cloud-gateway-sidecar/">Spring Cloud Gateway</a></div>
+  
+</li>
+          
+        </ul>
+        <div class="more-area">
+          
+          <a class="more" href='/tags/spring-boot/'>more ...</a>
+          
+      </div>
+        </div>
+    
+
+
+
+
+<script src="/js/single.js"></script>
+
+
+	</div><div id="content-footer" class="sub">
+  
+  <div class="credit">
+    Power by <a href="https://gohugo.io">Hugo</a> /
+    Theme <a href="https://github.com/michimani/simplog/">simplog</a> by <a href="https://github.com/michimani/">michimani</a>
+  </div>
+</div></body>
+
+</html>
