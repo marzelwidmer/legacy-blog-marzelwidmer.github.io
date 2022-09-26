@@ -14,7 +14,7 @@
     <loc>/categories/</loc>
     <lastmod>2022-09-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/categories/k8s/</loc>
+    <loc>/categories/development/</loc>
     <lastmod>2022-09-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/kotlin/</loc>
@@ -45,6 +45,9 @@
     <lastmod>2020-10-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/k8s/</loc>
+    <lastmod>2020-10-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/k8s/</loc>
     <lastmod>2020-10-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/caching/</loc>
